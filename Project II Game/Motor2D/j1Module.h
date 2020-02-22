@@ -10,7 +10,7 @@
 #include "PugiXml\src\pugixml.hpp"
 
 class j1App;
-
+struct Collider;
 class j1Module
 {
 public:
@@ -70,6 +70,11 @@ public:
 	virtual bool Save(pugi::xml_node&) const
 	{
 		return true;
+	}
+
+	virtual void OnCollision(Collider* A, Collider* B)
+	{
+
 	}
 
 public:
