@@ -1,5 +1,5 @@
-#ifndef __ModulePlayer_H__
-#define __ModulePlayer_H__
+#ifndef __J1PLAYER_H__
+#define __J1PLAYER_H__
 
 #include "j1Module.h"
 #include "p2Point.h"
@@ -29,8 +29,13 @@ public:
 	//LOADING AND SAVING OPTIONS
 	bool Save(pugi::xml_node& data);
 	bool Load(pugi::xml_node& data);	
-	
+
 public:
+
+
+	//SDL_Rect prueba{ 10,10,100,100 };
+
+
 
 	iPoint mouse_position; 
 	SDL_Texture* Tex_Player;
@@ -41,4 +46,4 @@ public:
 	p2SString file;
 };
 
-#endif
+#endif // __j1PLAYER_H__

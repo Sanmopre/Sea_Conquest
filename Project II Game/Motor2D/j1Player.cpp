@@ -8,6 +8,7 @@
 #include "j1Render.h"
 #include "j1Player.h"
 #include "j1Scene.h"
+#include "j1Window.h"
 
 
 
@@ -52,7 +53,7 @@ bool j1Player::PreUpdate()
 bool j1Player::Update(float dt)
 {
 
-	App->render->DrawQuad({10,10,1000,1000}, 200, 200, 50, 80);
+	//App->render->DrawQuad(prueba, 0, 255, 0, 80);
 	return true;
 }
 
@@ -81,3 +82,5 @@ bool j1Player::CleanUp() {
 	return true;
 
 }
+
+
