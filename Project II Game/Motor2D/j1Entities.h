@@ -3,6 +3,7 @@
 
 #include "p2Point.h"
 #include "p2Log.h"
+#include "j1App.h"
 
 struct SDL_Texture;
 
@@ -20,9 +21,7 @@ enum class Orientation
 
 enum class Entity_Type
 {
-	UNIT,
-	STRUCTURE,
-	RESOURCES,
+	BOAT,
 	NONE
 };
 ///////////////////////////////////////////////CLASSES//////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,8 +29,8 @@ class Entity
 {
 public:
 
-	virtual void Update(float dt) = 0;
-	virtual void CleanUp() = 0;
+	virtual void Update(float dt) {};
+	virtual void CleanUp() {};
 
 	fPoint position;
 	Entity_Type type;
@@ -77,6 +76,7 @@ class Boat : public Unit
 {
 public:
 	Boat();
+	Boat(float x, float y, int level);
 	~Boat();
 
 	void Update(float);

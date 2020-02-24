@@ -9,6 +9,8 @@
 #include "j1Scene.h"
 #include "j1Window.h"
 
+#include "j1EntityManager.h"
+
 
 
 j1Player::j1Player() : j1Module()
@@ -39,7 +41,6 @@ bool j1Player::Start()
 	bool ret = true;
 	LOG("Player Started");
 	Tex_Player = App->tex->Load("");
-
 	return ret;
 }
 
@@ -53,8 +54,6 @@ bool j1Player::PreUpdate()
 
 bool j1Player::Update()
 {
-
-
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 		App->input->GetMousePosition(mouse_position.x, mouse_position.y);
 		prueba = { mouse_position2.x,mouse_position2.y,mouse_position.x - mouse_position2.x,mouse_position.y - mouse_position2.y };

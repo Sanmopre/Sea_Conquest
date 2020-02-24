@@ -23,10 +23,9 @@ bool j1EntityManager::Start()
 
 bool j1EntityManager::Update()
 {
-	LOG("EM Updating");
-	for (vector<Entity*>::iterator i = entities.begin(); i != entities.end(); i++)
+	for (vector<Entity*>::iterator entity = entities.begin(); entity != entities.end(); entity++)
 	{
-		
+		(*entity)->Update(6.9f);
 	}
 	return true;
 }
@@ -36,11 +35,15 @@ bool j1EntityManager::CleanUp()
 	return true;
 }
 
-Entity* j1EntityManager::AddEntity(float x, float y, Entity_Type type)
+Entity* j1EntityManager::AddEntity(float x, float y, Entity_Type type, int level)
 {
-	Entity* entity = nullptr;
+	switch (type)
+	{
+	case Entity_Type::BOAT:
+		entities.push_back(new Boat(x, y, level));
+	}	
 
-	return entity;
+	return (*entities.end());
 }
 
 void j1EntityManager::DeleteEntity(Entity* entity)

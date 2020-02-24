@@ -2,6 +2,7 @@
 #define __J1PLAYER_H__
 
 #include "j1Module.h"
+#include "j1Entities.h"
 #include "p2Point.h"
 #include "p2Log.h"
 #include "SDL/include/SDL_rect.h"
@@ -30,12 +31,10 @@ public:
 	bool Save(pugi::xml_node& data);
 	bool Load(pugi::xml_node& data);	
 
-public:
+private:
 
 
 	SDL_Rect prueba{ 0,0,0,0 };
-
-
 
 	iPoint mouse_position; 
 	iPoint mouse_position2;
