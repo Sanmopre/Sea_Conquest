@@ -3,9 +3,6 @@
 
 #include "p2List.h"
 #include "j1Module.h"
-#include "j1PerfTimer.h"
-#include "j1Timer.h"
-#include "j1Player.h"
 #include "PugiXml\src\pugixml.hpp"
 
 // Modules
@@ -18,6 +15,7 @@ class j1Scene;
 class j1Map;
 class j1PathFinding;
 class j1Player;
+class j1EntityManager;
 
 class j1App
 {
@@ -91,6 +89,7 @@ public:
 	j1Map*				map = NULL;
 	j1PathFinding*		pathfinding = NULL;
 	j1Player*			player = NULL;
+	j1EntityManager*	entitymanager = NULL;
 
 private:
 
@@ -108,6 +107,6 @@ private:
 
 };
 
-extern j1App* App; // No student is asking me about that ... odd :-S
+extern j1App* App;
 
 #endif

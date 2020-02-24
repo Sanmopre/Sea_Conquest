@@ -14,6 +14,7 @@
 #include "j1Pathfinding.h"
 #include "j1App.h"
 #include "j1Player.h"
+#include "j1EntityManager.h"
 
 // TODO 3: Measure the amount of ms that takes to execute:
 // App constructor, Awake, Start and CleanUp
@@ -31,6 +32,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	pathfinding = new j1PathFinding();
 	player = new j1Player();
+	entitymanager = new j1EntityManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -42,6 +44,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(pathfinding);
 	AddModule(player);
+	AddModule(entitymanager);
 
 	// render last to swap buffer
 	AddModule(render);

@@ -1,5 +1,4 @@
 #include "p2Defs.h"
-#include "j1Scene.h"
 #include "j1App.h"
 #include "p2Log.h"
 #include "j1Textures.h"
@@ -38,7 +37,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 bool j1Player::Start()
 {
 	bool ret = true;
-
+	LOG("Player Started");
 	Tex_Player = App->tex->Load("");
 
 	return ret;
