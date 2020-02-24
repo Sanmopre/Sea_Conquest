@@ -49,9 +49,9 @@ bool j1Player::PreUpdate()
 	return true;
 }
 
-bool j1Player::Update(float dt)
+bool j1Player::Update()
 {
-
+	LOG("Player Updating");
 	//App->render->DrawQuad(prueba, 0, 255, 0, 80);
 	return true;
 }

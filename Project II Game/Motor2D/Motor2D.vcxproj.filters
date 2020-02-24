@@ -50,7 +50,10 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
     <ClCompile Include="j1EntityManager.cpp">
-      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Boat.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -120,8 +123,11 @@
     <ClInclude Include="j1Collision.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="j1Entities.h">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClInclude>
     <ClInclude Include="j1EntityManager.h">
-      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -143,7 +149,7 @@
     <Filter Include="Desenvolupament  ========\Tools\PuguiXML">
       <UniqueIdentifier>{7cb78d67-17cc-45eb-af97-e2106becce7b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Desenvolupament  ========\Modules\Entities">
+    <Filter Include="Desenvolupament  ========\Entities">
       <UniqueIdentifier>{cc3459b2-da39-48dd-9d70-2899448ad36b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

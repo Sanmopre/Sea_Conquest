@@ -23,7 +23,7 @@ public:
 	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool PreUpdate();
-	bool Update(float dt);
+	bool Update();
 	bool CleanUp();
 
 	//LOADING AND SAVING OPTIONS
