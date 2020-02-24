@@ -3,6 +3,8 @@
 #include "p2Defs.h"
 #include "j1App.h"
 
+using namespace std;
+
 j1EntityManager::j1EntityManager()
 {
 
@@ -22,6 +24,10 @@ bool j1EntityManager::Start()
 bool j1EntityManager::Update()
 {
 	LOG("EM Updating");
+	for (vector<Entity*>::iterator i = entities.begin(); i != entities.end(); i++)
+	{
+		
+	}
 	return true;
 }
 
