@@ -23,7 +23,7 @@ public:
 	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool PreUpdate();
-	bool Update(float dt);
+	bool Update();
 	bool CleanUp();
 
 	//LOADING AND SAVING OPTIONS
@@ -33,7 +33,7 @@ public:
 public:
 
 
-	//SDL_Rect prueba{ 10,10,100,100 };
+	SDL_Rect prueba{ 10,10,100,100 };
 
 
 
