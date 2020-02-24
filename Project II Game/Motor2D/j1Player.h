@@ -38,6 +38,7 @@ public:
 
 
 	iPoint mouse_position; 
+	iPoint mouse_position2;
 	SDL_Texture* Tex_Player;
 	states state;	
 
