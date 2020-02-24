@@ -54,7 +54,7 @@ bool j1Player::Update()
 	
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 		App->input->GetMousePosition(mouse_position.x, mouse_position.y);
-		prueba = { mouse_position.x,mouse_position.y,100,100 };
+		prueba = {0,0,mouse_position.x,mouse_position.y };
 		App->render->DrawQuad(prueba, 0, 255, 0, 80);
 	}
 
