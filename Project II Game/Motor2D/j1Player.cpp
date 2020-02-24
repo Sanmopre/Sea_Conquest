@@ -51,7 +51,6 @@ bool j1Player::PreUpdate()
 
 bool j1Player::Update()
 {
-	
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 		App->input->GetMousePosition(mouse_position.x, mouse_position.y);
 		prueba = {0,0,mouse_position.x,mouse_position.y };
