@@ -33,7 +33,7 @@ public:
 public:
 
 
-	SDL_Rect prueba{ 10,10,100,100 };
+	SDL_Rect prueba{ 0,0,0,0 };
 
 
 
