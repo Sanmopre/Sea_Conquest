@@ -19,8 +19,9 @@ bool j1EntityManager::Start()
 	return true;
 }
 
-bool j1EntityManager::Update(float dt)
+bool j1EntityManager::Update()
 {
+	LOG("EM Updating");
 	return true;
 }
 
@@ -29,7 +30,7 @@ bool j1EntityManager::CleanUp()
 	return true;
 }
 
-Entity* j1EntityManager::AddEntity(float x, float y, entity_type type)
+Entity* j1EntityManager::AddEntity(float x, float y, Entity_Type type)
 {
 	Entity* entity = nullptr;
 

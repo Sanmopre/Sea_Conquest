@@ -51,9 +51,11 @@ bool j1Player::PreUpdate()
 
 bool j1Player::Update()
 {
+
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 		App->render->DrawQuad(prueba, 0, 255, 0, 80);
 	}
+
 	return true;
 }
 
