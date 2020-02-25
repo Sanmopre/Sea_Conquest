@@ -47,6 +47,9 @@ private:
 	p2SString	folder;
 	pugi::xml_node	node;
 	p2SString file;
+
+
+	int camera_speed = 1;
 };
 
 #endif // __j1PLAYER_H__

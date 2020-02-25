@@ -109,16 +109,16 @@ void j1Player::Camera_Control() {
 
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
 	if (mouse_position.x == 0) {
-		App->render->camera.x = App->render->camera.x + 1;
+		App->render->camera.x = App->render->camera.x + camera_speed;
 	}
 	if (mouse_position.y == 0) {
-		App->render->camera.y = App->render->camera.y + 1;
+		App->render->camera.y = App->render->camera.y + camera_speed;
 	}
 	if (mouse_position.x > 1530) {
-		App->render->camera.x = App->render->camera.x - 1;
+		App->render->camera.x = App->render->camera.x - camera_speed;
 	}
 	if (mouse_position.y > 845) {
-		App->render->camera.y = App->render->camera.y - 1;
+		App->render->camera.y = App->render->camera.y - camera_speed;
 	}
 
 }
