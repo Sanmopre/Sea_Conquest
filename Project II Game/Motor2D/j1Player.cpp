@@ -114,10 +114,10 @@ void j1Player::Camera_Control() {
 	if (mouse_position.y == 0) {
 		App->render->camera.y = App->render->camera.y + camera_speed;
 	}
-	if (mouse_position.x > 1530) {
+	if (mouse_position.x > 1915) {
 		App->render->camera.x = App->render->camera.x - camera_speed;
 	}
-	if (mouse_position.y > 845) {
+	if (mouse_position.y > 1075) {
 		App->render->camera.y = App->render->camera.y - camera_speed;
 	}
 
