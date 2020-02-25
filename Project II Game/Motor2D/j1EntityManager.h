@@ -16,8 +16,9 @@ public:
 	bool Update();
 	bool CleanUp();
 
-	Entity* AddEntity(float x, float y, Entity_Type type, int level);
-	void DeleteEntity(Entity* _entity);
+	Entity* AddEntity(float x, float y, Entity_Type, int level);
+	void DeleteEntity(Entity*);
+	void DeleteAll();
 
 	std::vector<Entity*> entities;
 	Entity* enttest;

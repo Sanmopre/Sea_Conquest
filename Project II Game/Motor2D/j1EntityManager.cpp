@@ -30,7 +30,7 @@ bool j1EntityManager::Update()
 	{
 		(*entity)->Update(6.9f);
 	}
-
+	////////////////////////////////////ENTITIES_DEBUG///////////////////////////////////////////////////
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 	{
 		iPoint test;
@@ -38,20 +38,24 @@ bool j1EntityManager::Update()
 		test.x -= App->render->camera.x;
 		test.y -= App->render->camera.y;
 		enttest = AddEntity(test.x, test.y, Entity_Type::BOAT, 1);
+
 		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
 	{
 		DeleteEntity(enttest);
-		enttest->position.x += 10;
+		if(entities.size() != 0)
+			enttest = *(entities.end() - 1);
 		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
-	return true;
-}
 
-bool j1EntityManager::CleanUp()
-{
+	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	{
+		DeleteAll();
+		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
+	}
+	//*///////////////////////////////////////////////////////////////////////////////////////////////////
 	return true;
 }
 
@@ -66,16 +70,33 @@ Entity* j1EntityManager::AddEntity(float x, float y, Entity_Type type, int level
 	return *(entities.end() - 1);
 }
 
-void j1EntityManager::DeleteEntity(Entity* _entity)
+void j1EntityManager::DeleteEntity(Entity* entity_)
 {
-	for (auto entity = entities.begin(); entity != entities.end(); entity++)
-	{
-		if (*entity == _entity)
+	if(entities.size() != 0)
+		for (auto entity = entities.begin(); entity != entities.end(); entity++)
 		{
-			LOG("Deleting entity Kapp");
-			//delete *entity;
-			//entities.erase(entity);
-			//entities.shrink_to_fit();
+			if ((*entity) == entity_)
+			{
+				LOG("Deleting entity Kapp");
+				delete (*entity);
+				entities.erase(entity, entity + 1);
+				entities.shrink_to_fit();
+				break;
+			}
 		}
+}
+
+void j1EntityManager::DeleteAll()
+{
+	while (entities.size() != 0)
+	{
+		delete (*entities.begin());
+		entities.erase(entities.begin(), entities.begin() + 1);
+		entities.shrink_to_fit();
 	}
+}
+
+bool j1EntityManager::CleanUp()
+{
+	return true;
 }
