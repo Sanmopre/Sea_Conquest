@@ -87,12 +87,12 @@ bool j1Player::CleanUp()
 void j1Player::Drag_Mouse() 
 {
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 	{
 		App->input->GetMousePosition(start_mouse_position.x, start_mouse_position.y);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) 
+	if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
 	{
 		App->input->GetMousePosition(mouse_position.x, mouse_position.y);
 		selector = { start_mouse_position.x - App->render->camera.x,start_mouse_position.y - App->render->camera.y,mouse_position.x - start_mouse_position.x,mouse_position.y - start_mouse_position.y };
