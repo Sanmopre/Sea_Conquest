@@ -17,9 +17,10 @@ public:
 	bool CleanUp();
 
 	Entity* AddEntity(float x, float y, Entity_Type type, int level);
-	void DeleteEntity(Entity* entity);
+	void DeleteEntity(Entity* _entity);
 
 	std::vector<Entity*> entities;
+	Entity* enttest;
 };
 
 #endif // __j1EntityManager_H__
