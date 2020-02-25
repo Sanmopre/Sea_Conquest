@@ -46,20 +46,14 @@ bool j1Player::Start()
 
 bool j1Player::PreUpdate()
 {
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		App->input->GetMousePosition(mouse_position2.x, mouse_position2.y);
-	}
+
 	return true;
 }
 
 bool j1Player::Update()
 {
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
-		App->input->GetMousePosition(mouse_position.x, mouse_position.y);
-		prueba = { mouse_position2.x,mouse_position2.y,mouse_position.x - mouse_position2.x,mouse_position.y - mouse_position2.y };
-		App->render->DrawQuad(prueba, 0, 255, 0, 80);
-	}
-
+	
+	Drag_Mouse();
 	return true;
 }
 
@@ -83,9 +77,27 @@ bool j1Player::Load(pugi::xml_node& data)
 	return true;
 }
 
-bool j1Player::CleanUp() {
+bool j1Player::CleanUp()
+{
 
 	return true;
+
+}
+
+void j1Player::Drag_Mouse() 
+{
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		App->input->GetMousePosition(start_mouse_position.x, start_mouse_position.y);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) 
+	{
+		App->input->GetMousePosition(mouse_position.x, mouse_position.y);
+		selector = { start_mouse_position.x - App->render->camera.x,start_mouse_position.y - App->render->camera.y,mouse_position.x - start_mouse_position.x,mouse_position.y - start_mouse_position.y };
+		App->render->DrawQuad(selector,0,255,0,25);
+	}
 
 }
 

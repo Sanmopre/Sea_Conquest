@@ -30,14 +30,16 @@ public:
 	//LOADING AND SAVING OPTIONS
 	bool Save(pugi::xml_node& data);
 	bool Load(pugi::xml_node& data);	
+	
 
+	void Drag_Mouse();
 private:
 
 
-	SDL_Rect prueba{ 0,0,0,0 };
+	SDL_Rect selector;
 
 	iPoint mouse_position; 
-	iPoint mouse_position2;
+	iPoint start_mouse_position;
 	SDL_Texture* Tex_Player;
 	states state;	
 
