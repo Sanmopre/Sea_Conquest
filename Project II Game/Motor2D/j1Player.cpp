@@ -15,6 +15,7 @@
 
 j1Player::j1Player() : j1Module()
 {
+
 	name.create("player");
 }
 
@@ -30,6 +31,8 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	folder.create(config.child("folder").child_value());
 
+	camera_speed = config.child("camera").attribute("speed").as_int(1);
+	camera_offset = config.child("camera").attribute("offset").as_int(10);
 
 	node = config;
 	return ret;
@@ -117,10 +120,10 @@ void j1Player::Camera_Control()
 	if (mouse_position.y == 0) {
 		App->render->camera.y = App->render->camera.y + camera_speed;
 	}
-	if (mouse_position.x > win_width - 10) {
+	if (mouse_position.x > win_width - camera_offset) {
 		App->render->camera.x = App->render->camera.x - camera_speed;
 	}
-	if (mouse_position.y > win_height - 10) {
+	if (mouse_position.y > win_height - camera_offset) {
 		App->render->camera.y = App->render->camera.y - camera_speed;
 	}
 

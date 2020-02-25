@@ -26,4 +26,8 @@
     <folder>maps/</folder>
   </map>
 
+  <camera>
+    <camera speed ="1" offset ="10"/>
+  </camera>
+
 </config>

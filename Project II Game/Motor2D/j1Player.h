@@ -50,7 +50,8 @@ private:
 
 	uint win_height;
 	uint win_width;
-	int camera_speed = 1;
+	int camera_speed;
+	int camera_offset;
 };
 
 #endif // __j1PLAYER_H__
