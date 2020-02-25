@@ -52,7 +52,7 @@ bool j1Player::PreUpdate()
 
 bool j1Player::Update()
 {
-	
+	Camera_Control();
 	Drag_Mouse();
 	return true;
 }
@@ -105,4 +105,20 @@ void j1Player::Drag_Mouse()
 
 }
 
+void j1Player::Camera_Control() {
 
+	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
+	if (mouse_position.x == 0) {
+		App->render->camera.x = App->render->camera.x + 1;
+	}
+	if (mouse_position.y == 0) {
+		App->render->camera.y = App->render->camera.y + 1;
+	}
+	if (mouse_position.x > 1530) {
+		App->render->camera.x = App->render->camera.x - 1;
+	}
+	if (mouse_position.y > 845) {
+		App->render->camera.y = App->render->camera.y - 1;
+	}
+
+}

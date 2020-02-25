@@ -33,6 +33,7 @@ public:
 	
 
 	void Drag_Mouse();
+	void Camera_Control();
 private:
 
 
