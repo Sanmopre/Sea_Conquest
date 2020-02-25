@@ -48,7 +48,8 @@ private:
 	pugi::xml_node	node;
 	p2SString file;
 
-
+	uint win_height;
+	uint win_width;
 	int camera_speed = 1;
 };
 
