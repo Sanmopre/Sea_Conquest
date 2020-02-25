@@ -11,7 +11,7 @@
   </renderer>
 
   <window>
-    <resolution width="1920" height="1080" scale="1"/>
+    <resolution width="1000" height="650" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
@@ -25,5 +25,9 @@
   <map>
     <folder>maps/</folder>
   </map>
+
+  <camera>
+    <camera speed ="1" offset ="10"/>
+  </camera>
 
 </config>

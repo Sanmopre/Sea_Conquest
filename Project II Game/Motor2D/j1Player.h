@@ -48,8 +48,10 @@ private:
 	pugi::xml_node	node;
 	p2SString file;
 
-
-	int camera_speed = 1;
+	uint win_height;
+	uint win_width;
+	int camera_speed;
+	int camera_offset;
 };
 
 #endif // __j1PLAYER_H__

@@ -15,6 +15,7 @@
 
 j1Player::j1Player() : j1Module()
 {
+
 	name.create("player");
 }
 
@@ -30,6 +31,8 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	folder.create(config.child("folder").child_value());
 
+	camera_speed = config.child("camera").attribute("speed").as_int(1);
+	camera_offset = config.child("camera").attribute("offset").as_int(10);
 
 	node = config;
 	return ret;
@@ -41,7 +44,9 @@ bool j1Player::Start()
 	bool ret = true;
 	LOG("Player Started");
 	Tex_Player = App->tex->Load("");
+	App->win->GetWindowSize( win_width,win_height);
 	return ret;
+
 }
 
 bool j1Player::PreUpdate()
@@ -105,7 +110,8 @@ void j1Player::Drag_Mouse()
 
 }
 
-void j1Player::Camera_Control() {
+void j1Player::Camera_Control() 
+{
 
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
 	if (mouse_position.x == 0) {
@@ -114,10 +120,10 @@ void j1Player::Camera_Control() {
 	if (mouse_position.y == 0) {
 		App->render->camera.y = App->render->camera.y + camera_speed;
 	}
-	if (mouse_position.x > 1915) {
+	if (mouse_position.x > win_width - camera_offset) {
 		App->render->camera.x = App->render->camera.x - camera_speed;
 	}
-	if (mouse_position.y > 1075) {
+	if (mouse_position.y > win_height - camera_offset) {
 		App->render->camera.y = App->render->camera.y - camera_speed;
 	}
 
