@@ -16,6 +16,7 @@
 #include "j1Player.h"
 #include "j1EntityManager.h"
 
+
 // TODO 3: Measure the amount of ms that takes to execute:
 // App constructor, Awake, Start and CleanUp
 // LOG the result
@@ -172,25 +173,43 @@ void j1App::FinishUpdate()
 	if(want_to_load == true)
 		LoadGameNow();
 
-	// TODO 4: Now calculate:
-	// Amount of frames since startup
-	// Amount of time since game start (use a low resolution timer)
-	// Average FPS for the whole game life
-	// Amount of ms took the last update
-	// Amount of frames during the last second
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
 
-	float avg_fps = 0.0f;
-	float seconds_since_startup = 0.0f;
-	float dt = 0.0f;
-	uint32 last_frame_ms = 0;
-	uint32 frames_on_last_update = 0;
-	uint64 frame_count = 0;
+	float avg_fps = float(frame_count) / startup_time.ReadSec();
+	float seconds_since_startup = startup_time.ReadSec();
+	uint32 last_frame_ms = frame_time.Read();
+	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ",
-			  avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
+	char* cap = "OFF";
+	char* vsync = "OFF";
+
+	if (fpscap)
+		cap = "ON";
+	else
+		cap = "OFF";
+
+	//if (App->render->vsync)
+	//	vsync = "ON";
+	//else
+	//	vsync = "OFF";
+
+	//sprintf_s(title, 256, "QR || FPS: %02u / EstFPS: %02u/ Av.FPS: %.2f / Last Frame Ms: %02u / Cap: %s / Vsync: %s / dt: %f                                                     COINS:%d",
+	//	frames_on_last_update, framerate_cap, avg_fps, last_frame_ms, cap,/* vsync,*/ dt);
 
 	App->win->SetTitle(title);
+	//App->win->SetTitle(App->input->GetText().GetString());
+	if ((framerate_cap >= 0) && fpscap)
+	{
+		if ((last_frame_ms < (1000 / framerate_cap))) {
+			SDL_Delay((1000 / framerate_cap) - last_frame_ms);
+		}
+	}
 }
 
 // Call modules before each loop iteration

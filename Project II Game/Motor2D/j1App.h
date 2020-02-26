@@ -4,6 +4,8 @@
 #include "p2List.h"
 #include "j1Module.h"
 #include "PugiXml\src\pugixml.hpp"
+#include "j1Timer.h"
+#include "j1PerfTimer.h"
 
 // Modules
 class j1Window;
@@ -17,7 +19,7 @@ class j1PathFinding;
 class j1Player;
 class j1EntityManager;
 
-class j1App
+class j1App 
 {
 public:
 
@@ -104,6 +106,21 @@ private:
 	bool				want_to_load = false;
 	p2SString			load_game;
 	mutable p2SString	save_game;
+
+	j1Timer				startup_time;
+	j1Timer				frame_time;
+	j1Timer				last_sec_frame_time;
+	uint32				last_sec_frame_count = 0;
+	uint32				prev_last_sec_frame_count = 0;
+
+public:
+
+	uint32				framerate_cap = 30;
+	bool				fpscap = false;
+	uint64				frame_count = 0;
+	float dt = 0.1f;
+	uint32 getFpsCap() { return framerate_cap; };
+	void setFpsCap(uint32 fps);
 
 };
 
