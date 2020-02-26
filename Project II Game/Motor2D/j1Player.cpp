@@ -5,6 +5,7 @@
 #include "j1Input.h"
 #include "j1Audio.h"
 #include "j1Render.h"
+#include "j1Window.h"
 #include "j1Player.h"
 #include "j1Scene.h"
 #include "j1Window.h"
@@ -55,17 +56,7 @@ bool j1Player::PreUpdate()
 	return true;
 }
 
-bool j1Player::Update()
-{
-	Camera_Control();
-	Drag_Mouse();
-	Mouse_Cursor();
-	return true;
-}
-
-
-
-bool j1Player::Save(pugi::xml_node& data) 
+bool j1Player::Save(pugi::xml_node& data)
 {
 	//PLAYER POSITION
 	LOG("Loading player state");
@@ -83,6 +74,17 @@ bool j1Player::Load(pugi::xml_node& data)
 	return true;
 }
 
+bool j1Player::Update()
+{
+	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
+
+	Mouse_Cursor();
+	Camera_Control();
+
+	Drag_Mouse();
+	return true;
+}
+
 bool j1Player::CleanUp()
 {
 
@@ -96,15 +98,14 @@ void j1Player::Drag_Mouse()
 	if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 	{
 		App->input->GetMousePosition(start_mouse_position.x, start_mouse_position.y);
-		start_mouse_position.x -= App->render->camera.x;
-		start_mouse_position.y -= App->render->camera.y;
+		start_mouse_position.x -= App->render->camera.x / App->win->GetScale();
+		start_mouse_position.y -= App->render->camera.y / App->win->GetScale();
 	}
 
 	if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
 	{
-		App->input->GetMousePosition(mouse_position.x, mouse_position.y);
-		mouse_position.x -= App->render->camera.x;
-		mouse_position.y -= App->render->camera.y;
+		mouse_position.x -= App->render->camera.x / App->win->GetScale();
+		mouse_position.y -= App->render->camera.y / App->win->GetScale();
 		selector = { start_mouse_position.x, start_mouse_position.y, mouse_position.x - start_mouse_position.x, mouse_position.y - start_mouse_position.y };
 		App->render->DrawQuad(selector,0,255,0,25);
 	}
@@ -119,18 +120,30 @@ void j1Player::Drag_Mouse()
 void j1Player::Camera_Control()
 {
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
-	if (mouse_position.x == 0) {
-		App->render->camera.x = App->render->camera.x + camera_speed;
-	}
-	if (mouse_position.y == 0) {
-		App->render->camera.y = App->render->camera.y + camera_speed;
-	}
-	if (mouse_position.x > win_width - camera_offset) {
-		App->render->camera.x = App->render->camera.x - camera_speed;
-	}
-	if (mouse_position.y > win_height - camera_offset) {
-		App->render->camera.y = App->render->camera.y - camera_speed;
-	}
+
+	if (mouse_position.x == 0) 
+		App->render->camera.x += camera_speed;
+
+	if (mouse_position.y == 0) 
+		App->render->camera.y += camera_speed;
+
+	if (mouse_position.x > win_width - camera_offset) 
+		App->render->camera.x -= camera_speed;
+
+	if (mouse_position.y > win_height - camera_offset) 
+		App->render->camera.y -= camera_speed;
+
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		App->render->camera.y += camera_speed;
+
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		App->render->camera.y -= camera_speed;
+
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		App->render->camera.x += camera_speed;
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		App->render->camera.x -= camera_speed;
 }
 
 void j1Player::Select_Entitites(SDL_Rect select_area)

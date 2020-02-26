@@ -5,6 +5,7 @@
 
 #include "j1Input.h"
 #include "j1Render.h"
+#include "j1Window.h"
 
 using namespace std;
 
@@ -35,8 +36,8 @@ bool j1EntityManager::Update()
 	{
 		iPoint test;
 		App->input->GetMousePosition(test.x, test.y);
-		test.x -= App->render->camera.x;
-		test.y -= App->render->camera.y;
+		test.x -= App->render->camera.x / App->win->GetScale();
+		test.y -= App->render->camera.y / App->win->GetScale();
 		enttest = AddEntity(test.x, test.y, Entity_Type::BOAT, 1);
 
 		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
