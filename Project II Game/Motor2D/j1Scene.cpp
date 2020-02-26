@@ -31,7 +31,8 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	//if (App->map->Load("iso_walk.tmx") == true)
+	App->map->Load("iso_walk.tmx") == true;
+	/*/
 	if(App->map->Load("este fk men.tmx") == true)
 	{
 		int w, h;
@@ -40,7 +41,7 @@ bool j1Scene::Start()
 			App->pathfinding->SetMap(w, h, data);
 
 		RELEASE_ARRAY(data);
-	}
+	}//*/
 
 	debug_tex = App->tex->Load("maps/path2.png");
 
