@@ -139,10 +139,8 @@ void j1Render::AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const
 
 void j1Render::BlitAll()
 {
-	//LOG("|||||||||||||||||BLIT_QUEUE||||||||||||||||");
 	for (auto e = blit_queue.begin(); e != blit_queue.end(); e++)
 	{
-		//LOG("Bliting in the layer %d", e->first);
 		SDL_Texture* event_texture = e->second.texture;
 		if (event_texture != nullptr)
 		{
@@ -165,8 +163,6 @@ void j1Render::BlitAll()
 	}
 	if(blit_queue.size() != 0)
 		blit_queue.erase(blit_queue.begin(), blit_queue.end());
-
-	//LOG("|||||||||||||||||||||%d|||||||||||||||||||||", blit_queue.size());
 }
 
 bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool fliped, float speed, double angle, int pivot_x, int pivot_y) const

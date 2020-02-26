@@ -34,7 +34,7 @@ public:
 	virtual void Update(float dt) {};
 	virtual void CleanUp() {};
 
-	fPoint position;
+	iPoint position;
 	Entity_Type type;
 	bool selected;
 	int level;
@@ -50,7 +50,7 @@ public:
 	int speed;
 	int range;
 	Orientation looking;
-	fPoint destination;
+	iPoint destination;
 
 protected:
 
