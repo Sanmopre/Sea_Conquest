@@ -114,7 +114,7 @@ bool j1Scene::Update()
 	for(uint i = 0; i < path->Count(); ++i)
 	{
 		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		App->render->Blit(debug_tex, pos.x, pos.y);
+		//App->render->AddBlitEvent(0,debug_tex, pos.x, pos.y);
 	}
 
 	return true;

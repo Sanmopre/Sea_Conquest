@@ -7,6 +7,8 @@
 
 #define VSYNC true
 
+using namespace std;
+
 j1Render::j1Render() : j1Module()
 {
 	name.create("renderer");
@@ -16,11 +18,9 @@ j1Render::j1Render() : j1Module()
 	background.a = 0;
 }
 
-// Destructor
 j1Render::~j1Render()
 {}
 
-// Called before render is available
 bool j1Render::Awake(pugi::xml_node& config)
 {
 	LOG("Create SDL rendering context");
@@ -52,7 +52,6 @@ bool j1Render::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-// Called before the first frame
 bool j1Render::Start()
 {
 	LOG("render start");
@@ -61,7 +60,6 @@ bool j1Render::Start()
 	return true;
 }
 
-// Called each loop iteration
 bool j1Render::PreUpdate()
 {
 	SDL_RenderClear(renderer);
@@ -70,6 +68,7 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update()
 {
+	BlitAll();
 	return true;
 }
 
@@ -80,7 +79,6 @@ bool j1Render::PostUpdate()
 	return true;
 }
 
-// Called before quitting
 bool j1Render::CleanUp()
 {
 	LOG("Destroying SDL render");
@@ -88,7 +86,6 @@ bool j1Render::CleanUp()
 	return true;
 }
 
-// Load Game State
 bool j1Render::Load(pugi::xml_node& data)
 {
 	camera.x = data.child("camera").attribute("x").as_int();
@@ -97,7 +94,6 @@ bool j1Render::Load(pugi::xml_node& data)
 	return true;
 }
 
-// Save Game State
 bool j1Render::Save(pugi::xml_node& data) const
 {
 	pugi::xml_node cam = data.append_child("camera");
@@ -134,8 +130,36 @@ iPoint j1Render::ScreenToWorld(int x, int y) const
 	return ret;
 }
 
-// Blit to screen
-bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, const bool fliped, float speed, double angle, int pivot_x, int pivot_y) const
+void j1Render::AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section, bool fliped, float speed)
+{
+	BlitEvent event{texture, x, y, section, fliped, speed};
+
+	blit_queue.insert(make_pair(layer,event));
+}
+
+void j1Render::BlitAll()
+{
+	//LOG("|||||||||||||||||BLIT_QUEUE||||||||||||||||");
+	for (auto e = blit_queue.begin(); e != blit_queue.end(); e++)
+	{
+		//LOG("Bliting in the layer %d", e->first);
+
+		SDL_Texture* event_texture = e->second.texture;
+		int event_x = e->second.x;
+		int event_y = e->second.y;
+		const SDL_Rect* event_rect = &e->second.section;
+		bool event_flip = e->second.fliped;
+		float event_speed = e->second.speed;
+
+		Blit(event_texture, event_x, event_y, event_rect, event_flip, event_speed);
+	}
+	if(blit_queue.size() != 0)
+		blit_queue.erase(blit_queue.begin(), blit_queue.end());
+
+	//LOG("|||||||||||||||||||||%d|||||||||||||||||||||", blit_queue.size());
+}
+
+bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool fliped, float speed, double angle, int pivot_x, int pivot_y) const
 {
 	bool ret = true;
 	float scale = App->win->GetScale();
@@ -179,7 +203,6 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		ret = false;
 	}
 
-	
 	return ret;
 }
 
