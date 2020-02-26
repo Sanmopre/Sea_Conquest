@@ -26,7 +26,10 @@ Boat::~Boat()
 void Boat::Update(float dt)
 {
 	SDL_Rect r = { position.x, position.y, 20, 20 };
-	App->render->DrawQuad(r, 0,0,200);
+	if(!selected)
+		App->render->DrawQuad(r, 0,0,200);
+	else
+		App->render->DrawQuad(r, 0, 200, 0);
 }
 
 void Boat::CleanUp()

@@ -59,6 +59,7 @@ bool j1Player::Update()
 {
 	Camera_Control();
 	Drag_Mouse();
+	//App->render->DrawQuad(debug_selector, 255, 255, 255, 50);
 	return true;
 }
 
@@ -108,6 +109,11 @@ void j1Player::Drag_Mouse()
 		App->render->DrawQuad(selector,0,255,0,25);
 	}
 
+	if (App->input->GetMouseButtonDown(1) == KEY_UP)
+	{
+		Select_Entitites(selector);
+	}
+
 }
 
 void j1Player::Camera_Control() 
@@ -127,4 +133,31 @@ void j1Player::Camera_Control()
 		App->render->camera.y = App->render->camera.y - camera_speed;
 	}
 
+}
+
+void j1Player::Select_Entitites(SDL_Rect select_area)
+{
+	LOG("Ax -> %d | Ay -> %d | Aw -> %d | Ah -> %d", select_area.x, select_area.y, select_area.w, select_area.h);
+	int buffer;
+	if (select_area.x > select_area.x + select_area.w)
+	{
+		select_area.x = select_area.x + select_area.w;
+		select_area.w *= -1;
+	}
+	if (select_area.y > select_area.y + select_area.h)
+	{
+		select_area.y = select_area.y + select_area.h;
+		select_area.h *= -1;
+	}
+	LOG("Ax -> %d | Ay -> %d | Aw -> %d | Ah -> %d", select_area.x, select_area.y, select_area.w, select_area.h);
+	debug_selector = select_area;
+
+	for (auto entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
+		if ((*entity)->position.x > select_area.x &&
+			(*entity)->position.x < (select_area.x + select_area.w) &&
+			(*entity)->position.y > select_area.y &&
+			(*entity)->position.y < (select_area.y + select_area.h))
+			(*entity)->selected = true;
+		else
+			(*entity)->selected = false;	
 }

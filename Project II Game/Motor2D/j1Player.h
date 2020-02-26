@@ -2,7 +2,6 @@
 #define __J1PLAYER_H__
 
 #include "j1Module.h"
-#include "j1Entities.h"
 #include "p2Point.h"
 #include "p2Log.h"
 #include "SDL/include/SDL_rect.h"
@@ -31,13 +30,14 @@ public:
 	bool Save(pugi::xml_node& data);
 	bool Load(pugi::xml_node& data);	
 	
+private:
 
 	void Drag_Mouse();
 	void Camera_Control();
-private:
-
+	void Select_Entitites(SDL_Rect);
 
 	SDL_Rect selector;
+	SDL_Rect debug_selector;
 
 	iPoint mouse_position; 
 	iPoint start_mouse_position;

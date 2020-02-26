@@ -77,7 +77,6 @@ void j1EntityManager::DeleteEntity(Entity* entity_)
 		{
 			if ((*entity) == entity_)
 			{
-				LOG("Deleting entity Kapp");
 				delete (*entity);
 				entities.erase(entity, entity + 1);
 				entities.shrink_to_fit();
