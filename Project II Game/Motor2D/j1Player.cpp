@@ -110,16 +110,16 @@ void j1Player::Camera_Control(float dt)
 		App->render->camera.y -= camera_speed*dt*1000;
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += camera_speed;
+		App->render->camera.y += camera_speed * dt * 1000;
 
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= camera_speed;
+		App->render->camera.y -= camera_speed * dt * 1000;
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += camera_speed;
+		App->render->camera.x += camera_speed * dt * 1000;
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= camera_speed;
+		App->render->camera.x -= camera_speed * dt * 1000;
 }
 
 void j1Player::Select_Entitites(SDL_Rect select_area)

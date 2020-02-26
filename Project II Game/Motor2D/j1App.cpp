@@ -201,17 +201,17 @@ void j1App::FinishUpdate()
 	else
 		cap = "OFF";
 
-	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) && framerate_cap > 10)
+	if ((App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN) && framerate_cap > 10)
 		framerate_cap -= 10;
-	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS))
+	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN)
 		framerate_cap += 10;
 	//if (App->render->vsync)
 	//	vsync = "ON";
 	//else
 	//	vsync = "OFF";
 
-	//sprintf_s(title, 256, "QR || FPS: %02u / EstFPS: %02u/ Av.FPS: %.2f / Last Frame Ms: %02u / Cap: %s / Vsync: %s / dt: %f                                                     COINS:%d",
-	//	frames_on_last_update, framerate_cap, avg_fps, last_frame_ms, cap,/* vsync,*/ dt);
+	sprintf_s(title, 256, "QR || FPS: %02u / EstFPS: %02u/ Av.FPS: %.2f / Last Frame Ms: %02u / Cap: %s / Vsync: -- / dt: %f                                                     COINS:%d",
+		frames_on_last_update, framerate_cap, avg_fps, last_frame_ms, cap,/* vsync,*/ dt);
 
 	App->win->SetTitle(title);
 	LOG("Last frame ms %d", last_frame_ms);
