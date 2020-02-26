@@ -110,7 +110,7 @@ void j1Player::Drag_Mouse()
 
 }
 
-void j1Player::Camera_Control() 
+void j1Player::Camera_Control()
 {
 
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
@@ -126,5 +126,9 @@ void j1Player::Camera_Control()
 	if (mouse_position.y > win_height - camera_offset) {
 		App->render->camera.y = App->render->camera.y - camera_speed;
 	}
-
+	if (App->input->GetKey(SDL_SCANCODE_SPACE))
+	{
+		App->render->camera.x = 69;
+		App->render->camera.y = 420;
+	}
 }

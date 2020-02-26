@@ -7,15 +7,20 @@ class j1Timer
 {
 public:
 
-	// Constructor
 	j1Timer();
 
 	void Start();
-	uint32 Read() const;
+	void Stop();
+	void Resume();
+
 	float ReadSec() const;
+	uint Read() const;
 
 private:
-	uint32	started_at;
+
+	bool	running;
+	uint	started_at;
+	uint	stopped_at;
 };
 
 #endif //__j1TIMER_H__

@@ -220,6 +220,11 @@ bool j1Map::Load(const char* file_name)
 			ret = LoadTilesetImage(tileset, set);
 		}
 
+		if (ret == true)
+		{
+			ret = LoadTilesetAnimations(tileset, set);
+		}
+
 		data.tilesets.add(set);
 	}
 
@@ -356,6 +361,33 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 		set->offset_y = 0;
 	}
 
+	return ret;
+}
+
+bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
+{
+	bool ret = true;
+	LOG("UEP, mirant aver si hi ha animacions!");
+	for (pugi::xml_node tile = tileset_node.child("tile"); tile != NULL; tile = tile.next_sibling("tile"))
+	{
+		if (tile != NULL && !tile.attribute("type").empty())
+		{
+			LOG("UEP, found an animating tile!");
+			uint aniId = tile.attribute("id").as_uint();
+			pugi::xml_node ani = tile.child("animation");
+			for (pugi::xml_node frame = ani.child("frame"); frame != NULL; frame = frame.next_sibling("frame"))
+			{
+				uint tileID = frame.attribute("tileid").as_uint();
+				uint duration = frame.attribute("duration").as_uint();
+			}
+			
+		}
+		else
+		{
+			LOG("UEP, no s'han trobat animacions");
+		}
+		
+	}
 	return ret;
 }
 

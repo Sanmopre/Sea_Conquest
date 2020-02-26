@@ -7,7 +7,6 @@ class j1PerfTimer
 {
 public:
 
-	// Constructor
 	j1PerfTimer();
 
 	void Start();
