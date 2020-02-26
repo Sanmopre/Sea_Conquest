@@ -29,6 +29,8 @@ class Entity
 {
 public:
 
+	Entity() { selected = false; };
+
 	virtual void Update(float dt) {};
 	virtual void CleanUp() {};
 

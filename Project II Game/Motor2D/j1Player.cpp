@@ -60,7 +60,6 @@ bool j1Player::Update()
 	Camera_Control();
 	Drag_Mouse();
 	Mouse_Cursor();
-
 	return true;
 }
 
@@ -136,7 +135,6 @@ void j1Player::Camera_Control()
 
 void j1Player::Select_Entitites(SDL_Rect select_area)
 {
-	LOG("Ax -> %d | Ay -> %d | Aw -> %d | Ah -> %d", select_area.x, select_area.y, select_area.w, select_area.h);
 	int buffer;
 	if (select_area.x > select_area.x + select_area.w)
 	{
@@ -148,8 +146,7 @@ void j1Player::Select_Entitites(SDL_Rect select_area)
 		select_area.y = select_area.y + select_area.h;
 		select_area.h *= -1;
 	}
-	LOG("Ax -> %d | Ay -> %d | Aw -> %d | Ah -> %d", select_area.x, select_area.y, select_area.w, select_area.h);
-	debug_selector = select_area;
+	//LOG("Ax -> %d | Ay -> %d | Aw -> %d | Ah -> %d", select_area.x, select_area.y, select_area.w, select_area.h);
 
 	for (auto entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
 		if ((*entity)->position.x > select_area.x &&
@@ -163,7 +160,7 @@ void j1Player::Select_Entitites(SDL_Rect select_area)
 
 void j1Player::Mouse_Cursor() 
 {
-SDL_ShowCursor(SDL_DISABLE);
-App->input->GetMousePosition(mouse_poisition_static.x, mouse_poisition_static.y);
-App->render->Blit(Tex_Player, mouse_poisition_static.x, mouse_poisition_static.y, &texture_rect, SDL_FLIP_NONE, 1.0);
+	SDL_ShowCursor(SDL_DISABLE);
+	App->input->GetMousePosition(mouse_poisition_static.x, mouse_poisition_static.y);
+	App->render->Blit(Tex_Player, mouse_poisition_static.x, mouse_poisition_static.y, &texture_rect, SDL_FLIP_NONE, 1.0);
 }

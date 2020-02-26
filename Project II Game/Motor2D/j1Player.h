@@ -38,7 +38,6 @@ private:
 	void Select_Entitites(SDL_Rect);
 
 	SDL_Rect selector;
-	SDL_Rect debug_selector;
 	SDL_Rect texture_rect{ 0,0,300,300 };
 	iPoint mouse_poisition_static;
 	iPoint mouse_position; 
