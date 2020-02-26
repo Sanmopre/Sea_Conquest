@@ -8,12 +8,6 @@
 
 struct SDL_Texture;
 
-enum states {
-	DRAGGING,
-	RELEASE
-};
-
-
 class j1Player : public j1Module
 {
 public:
@@ -40,11 +34,11 @@ private:
 
 	SDL_Rect selector;
 	SDL_Rect texture_rect{ 0,0,300,300 };
-	iPoint mouse_poisition_static;
+
+	SDL_Texture* Tex_Player;
+
 	iPoint mouse_position; 
 	iPoint start_mouse_position;
-	SDL_Texture* Tex_Player;
-	states state;	
 
 	p2SString	folder;
 	pugi::xml_node	node;

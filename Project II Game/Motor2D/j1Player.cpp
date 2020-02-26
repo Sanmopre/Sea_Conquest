@@ -46,6 +46,8 @@ bool j1Player::Start()
 	LOG("Player Started");
 	Tex_Player = App->tex->Load("textures/test2.png");
 	App->win->GetWindowSize( win_width,win_height);
+
+	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
 
 }
@@ -80,8 +82,10 @@ bool j1Player::Update()
 
 	Mouse_Cursor();
 	Camera_Control();
-	Zoom();
-	Drag_Mouse();
+	//Zoom();
+
+	//This function should always be last//
+	Drag_Mouse(); 
 	return true;
 }
 
@@ -173,9 +177,7 @@ void j1Player::Select_Entitites(SDL_Rect select_area)
 
 void j1Player::Mouse_Cursor() 
 {
-	SDL_ShowCursor(SDL_DISABLE);
-	App->input->GetMousePosition(mouse_poisition_static.x, mouse_poisition_static.y);
-	App->render->Blit(Tex_Player, mouse_poisition_static.x, mouse_poisition_static.y, &texture_rect, SDL_FLIP_NONE, 1.0);
+	App->render->Blit(Tex_Player, mouse_position.x, mouse_position.y, &texture_rect, SDL_FLIP_NONE, 1.0);
 }
 
 void j1Player::Zoom() 
