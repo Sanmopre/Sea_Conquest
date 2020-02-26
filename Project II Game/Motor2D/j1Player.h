@@ -27,7 +27,7 @@ public:
 private:
 
 	void Drag_Mouse();
-	void Camera_Control();
+	void Camera_Control(float dt);
 	void Mouse_Cursor();
 	void Select_Entitites(SDL_Rect);
 	void Zoom();

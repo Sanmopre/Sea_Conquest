@@ -79,7 +79,7 @@ bool j1Player::Update(float dt)
 {
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
 
-	Camera_Control();
+	Camera_Control(dt);
 	Zoom();
 
 	//This functions should always be last//
@@ -95,19 +95,19 @@ bool j1Player::CleanUp()
 
 }
 
-void j1Player::Camera_Control()
+void j1Player::Camera_Control(float dt)
 {
 	if (mouse_position.x == 0) 
-		App->render->camera.x += camera_speed;
+		App->render->camera.x += camera_speed*dt*1000;
 
 	if (mouse_position.y == 0) 
-		App->render->camera.y += camera_speed;
+		App->render->camera.y += camera_speed*dt*1000;
 
 	if (mouse_position.x > win_width - camera_offset) 
-		App->render->camera.x -= camera_speed;
+		App->render->camera.x -= camera_speed*dt*1000;
 
 	if (mouse_position.y > win_height - camera_offset) 
-		App->render->camera.y -= camera_speed;
+		App->render->camera.y -= camera_speed*dt*1000;
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += camera_speed;
