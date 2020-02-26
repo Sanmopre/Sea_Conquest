@@ -162,7 +162,14 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
+	frame_count++;
+	last_sec_frame_count++;
+
+	dt = frame_time.ReadSec();
+	LOG("DT: %f", dt);
+	frame_time.Start();
 }
+
 
 // ---------------------------------------------
 void j1App::FinishUpdate()
@@ -194,6 +201,10 @@ void j1App::FinishUpdate()
 	else
 		cap = "OFF";
 
+	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) && framerate_cap > 10)
+		framerate_cap -= 10;
+	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS))
+		framerate_cap += 10;
 	//if (App->render->vsync)
 	//	vsync = "ON";
 	//else
@@ -203,8 +214,9 @@ void j1App::FinishUpdate()
 	//	frames_on_last_update, framerate_cap, avg_fps, last_frame_ms, cap,/* vsync,*/ dt);
 
 	App->win->SetTitle(title);
+	LOG("Last frame ms %d", last_frame_ms);
 	//App->win->SetTitle(App->input->GetText().GetString());
-	if ((framerate_cap >= 0) && fpscap)
+	if ((framerate_cap > 0) && fpscap)
 	{
 		if ((last_frame_ms < (1000 / framerate_cap))) {
 			SDL_Delay((1000 / framerate_cap) - last_frame_ms);
@@ -250,7 +262,7 @@ bool j1App::DoUpdate()
 			continue;
 		}
 
-		ret = item->data->Update();
+		ret = item->data->Update(dt);
 	}
 
 	return ret;

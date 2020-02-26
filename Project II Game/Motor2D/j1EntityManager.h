@@ -13,7 +13,7 @@ public:
 	~j1EntityManager();
 
 	bool Start();
-	bool Update();
+	bool Update(float dt);
 	bool CleanUp();
 
 	Entity* AddEntity(float x, float y, Entity_Type, int level);

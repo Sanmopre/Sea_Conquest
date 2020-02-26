@@ -75,7 +75,7 @@ bool j1Player::Load(pugi::xml_node& data)
 	return true;
 }
 
-bool j1Player::Update()
+bool j1Player::Update(float dt)
 {
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
 

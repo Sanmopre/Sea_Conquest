@@ -25,7 +25,7 @@ bool j1EntityManager::Start()
 	return true;
 }
 
-bool j1EntityManager::Update()
+bool j1EntityManager::Update(float dt)
 {
 	for (vector<Entity*>::iterator entity = entities.begin(); entity != entities.end(); entity++)
 	{
