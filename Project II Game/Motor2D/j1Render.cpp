@@ -130,9 +130,9 @@ iPoint j1Render::ScreenToWorld(int x, int y) const
 	return ret;
 }
 
-void j1Render::AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section, bool fliped, float speed)
+void j1Render::AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section, bool fliped, float speed, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
-	BlitEvent event{texture, x, y, section, fliped, speed};
+	BlitEvent event{texture, x, y, section, fliped, speed, r, g, b, a};
 
 	blit_queue.insert(make_pair(layer,event));
 }
@@ -143,15 +143,25 @@ void j1Render::BlitAll()
 	for (auto e = blit_queue.begin(); e != blit_queue.end(); e++)
 	{
 		//LOG("Bliting in the layer %d", e->first);
-
 		SDL_Texture* event_texture = e->second.texture;
-		int event_x = e->second.x;
-		int event_y = e->second.y;
-		const SDL_Rect* event_rect = &e->second.section;
-		bool event_flip = e->second.fliped;
-		float event_speed = e->second.speed;
-
-		Blit(event_texture, event_x, event_y, event_rect, event_flip, event_speed);
+		if (event_texture != nullptr)
+		{
+			int event_x = e->second.x;
+			int event_y = e->second.y;
+			const SDL_Rect* event_rect = &e->second.section;
+			bool event_flip = e->second.fliped;
+			float event_speed = e->second.speed;
+			Blit(event_texture, event_x, event_y, event_rect, event_flip, event_speed);
+		}
+		else
+		{
+			const SDL_Rect& event_rect = e->second.section;
+			uint event_r = e->second.r;
+			uint event_g = e->second.g;
+			uint event_b = e->second.b;
+			uint event_a = e->second.a;
+			DrawQuad(event_rect, event_r, event_g, event_b, event_a);
+		}
 	}
 	if(blit_queue.size() != 0)
 		blit_queue.erase(blit_queue.begin(), blit_queue.end());
