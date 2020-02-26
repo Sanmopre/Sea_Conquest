@@ -66,7 +66,7 @@ bool j1Render::PreUpdate()
 	return true;
 }
 
-bool j1Render::Update()
+bool j1Render::Update(float dt)
 {
 	BlitAll();
 	return true;
