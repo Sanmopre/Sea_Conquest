@@ -80,7 +80,7 @@ bool j1Player::Update()
 
 	Mouse_Cursor();
 	Camera_Control();
-
+	Zoom();
 	Drag_Mouse();
 	return true;
 }
@@ -176,4 +176,29 @@ void j1Player::Mouse_Cursor()
 	SDL_ShowCursor(SDL_DISABLE);
 	App->input->GetMousePosition(mouse_poisition_static.x, mouse_poisition_static.y);
 	App->render->Blit(Tex_Player, mouse_poisition_static.x, mouse_poisition_static.y, &texture_rect, SDL_FLIP_NONE, 1.0);
+}
+
+void j1Player::Zoom() 
+{
+	SDL_Event event;
+	while (SDL_PollEvent(&event))
+	{
+		if (event.type == SDL_MOUSEWHEEL)
+		{
+			if (event.wheel.y > 0) 
+			{
+				App->win->scale = App->win->scale + 0.02;
+			}
+			else if (event.wheel.y < 0) 
+			{
+				App->win->scale = App->win->scale - 0.02;
+			}
+
+		}
+		else if (event.type == SDL_MOUSEBUTTONDOWN)
+		{
+			App->win->scale = 1;
+		}
+	}
+
 }
