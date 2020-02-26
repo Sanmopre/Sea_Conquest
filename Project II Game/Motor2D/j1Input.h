@@ -68,15 +68,16 @@ public:
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
-
+	float			ball_roll;
 private:
 	bool		windowEvents[WE_COUNT];
 	j1KeyState*	keyboard;
 	j1KeyState	mouse_buttons[NUM_MOUSE_BUTTONS];
-	int			mouse_motion_x;
-	int			mouse_motion_y;
-	int			mouse_x;
-	int			mouse_y;
+	float			mouse_motion_x;
+	float			mouse_motion_y;
+	float			mouse_x;
+	float			mouse_y;
+	
 };
 
 #endif // __j1INPUT_H__

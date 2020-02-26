@@ -80,7 +80,7 @@ bool j1Player::Update()
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
 
 	Camera_Control();
-	//Zoom();
+	Zoom();
 
 	//This functions should always be last//
 	Mouse_Cursor();
@@ -181,25 +181,18 @@ void j1Player::Drag_Mouse()
 
 void j1Player::Zoom() 
 {
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
-		if (event.type == SDL_MOUSEWHEEL)
-		{
-			if (event.wheel.y > 0) 
+	
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 			{
-				App->win->scale = App->win->scale + 0.02;
+				App->win->scale = App->win->scale + 0.001;
 			}
-			else if (event.wheel.y < 0) 
+			else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 			{
-				App->win->scale = App->win->scale - 0.02;
+				App->win->scale = App->win->scale - 0.001;
 			}
-
-		}
-		else if (event.type == SDL_MOUSEBUTTONDOWN)
-		{
+		
+			else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+			{
 			App->win->scale = 1;
-		}
-	}
-
+			}
 }

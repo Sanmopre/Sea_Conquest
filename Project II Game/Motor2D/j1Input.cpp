@@ -80,6 +80,7 @@ bool j1Input::PreUpdate()
 
 	while(SDL_PollEvent(&event) != 0)
 	{
+			
 		switch(event.type)
 		{
 			case SDL_QUIT:
@@ -124,6 +125,7 @@ bool j1Input::PreUpdate()
 				mouse_y = event.motion.y / scale;
 				//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
+
 		}
 	}
 
