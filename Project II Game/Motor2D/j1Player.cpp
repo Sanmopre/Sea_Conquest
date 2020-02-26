@@ -43,7 +43,7 @@ bool j1Player::Start()
 {
 	bool ret = true;
 	LOG("Player Started");
-	Tex_Player = App->tex->Load("");
+	Tex_Player = App->tex->Load("textures/test2.png");
 	App->win->GetWindowSize( win_width,win_height);
 	return ret;
 
@@ -59,7 +59,8 @@ bool j1Player::Update()
 {
 	Camera_Control();
 	Drag_Mouse();
-	//App->render->DrawQuad(debug_selector, 255, 255, 255, 50);
+	Mouse_Cursor();
+
 	return true;
 }
 
@@ -158,4 +159,11 @@ void j1Player::Select_Entitites(SDL_Rect select_area)
 			(*entity)->selected = true;
 		else
 			(*entity)->selected = false;	
+}
+
+void j1Player::Mouse_Cursor() 
+{
+SDL_ShowCursor(SDL_DISABLE);
+App->input->GetMousePosition(mouse_poisition_static.x, mouse_poisition_static.y);
+App->render->Blit(Tex_Player, mouse_poisition_static.x, mouse_poisition_static.y, &texture_rect, SDL_FLIP_NONE, 1.0);
 }

@@ -34,11 +34,13 @@ private:
 
 	void Drag_Mouse();
 	void Camera_Control();
+	void Mouse_Cursor();
 	void Select_Entitites(SDL_Rect);
 
 	SDL_Rect selector;
 	SDL_Rect debug_selector;
-
+	SDL_Rect texture_rect{ 0,0,300,300 };
+	iPoint mouse_poisition_static;
 	iPoint mouse_position; 
 	iPoint start_mouse_position;
 	SDL_Texture* Tex_Player;
