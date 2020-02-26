@@ -49,7 +49,6 @@ bool j1Player::Start()
 
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
-
 }
 
 bool j1Player::PreUpdate()
@@ -80,11 +79,11 @@ bool j1Player::Update()
 {
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
 
-	Mouse_Cursor();
 	Camera_Control();
 	//Zoom();
 
-	//This function should always be last//
+	//This functions should always be last//
+	Mouse_Cursor();
 	Drag_Mouse(); 
 	return true;
 }
@@ -96,35 +95,8 @@ bool j1Player::CleanUp()
 
 }
 
-void j1Player::Drag_Mouse() 
-{
-
-	if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
-	{
-		App->input->GetMousePosition(start_mouse_position.x, start_mouse_position.y);
-		start_mouse_position.x -= App->render->camera.x / App->win->GetScale();
-		start_mouse_position.y -= App->render->camera.y / App->win->GetScale();
-	}
-
-	if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
-	{
-		mouse_position.x -= App->render->camera.x / App->win->GetScale();
-		mouse_position.y -= App->render->camera.y / App->win->GetScale();
-		selector = { start_mouse_position.x, start_mouse_position.y, mouse_position.x - start_mouse_position.x, mouse_position.y - start_mouse_position.y };
-		App->render->DrawQuad(selector,0,255,0,25);
-	}
-
-	if (App->input->GetMouseButtonDown(1) == KEY_UP)
-	{
-		Select_Entitites(selector);
-	}
-
-}
-
 void j1Player::Camera_Control()
 {
-	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
-
 	if (mouse_position.x == 0) 
 		App->render->camera.x += camera_speed;
 
@@ -177,7 +149,34 @@ void j1Player::Select_Entitites(SDL_Rect select_area)
 
 void j1Player::Mouse_Cursor() 
 {
-	App->render->Blit(Tex_Player, mouse_position.x, mouse_position.y, &texture_rect, SDL_FLIP_NONE, 1.0);
+	mouse_position.x -= App->render->camera.x / App->win->GetScale();
+	mouse_position.y -= App->render->camera.y / App->win->GetScale();
+	App->render->Blit(Tex_Player, mouse_position.x, mouse_position.y, &texture_rect);
+}
+
+void j1Player::Drag_Mouse()
+{
+
+	if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
+	{
+		App->input->GetMousePosition(start_mouse_position.x, start_mouse_position.y);
+		start_mouse_position.x -= App->render->camera.x / App->win->GetScale();
+		start_mouse_position.y -= App->render->camera.y / App->win->GetScale();
+	}
+
+	if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
+	{
+		//mouse_position.x -= App->render->camera.x / App->win->GetScale();
+		//mouse_position.y -= App->render->camera.y / App->win->GetScale();
+		selector = { start_mouse_position.x, start_mouse_position.y, mouse_position.x - start_mouse_position.x, mouse_position.y - start_mouse_position.y };
+		App->render->DrawQuad(selector, 0, 255, 0, 25);
+	}
+
+	if (App->input->GetMouseButtonDown(1) == KEY_UP)
+	{
+		Select_Entitites(selector);
+	}
+
 }
 
 void j1Player::Zoom() 
