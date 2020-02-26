@@ -15,11 +15,7 @@
 #include "j1App.h"
 #include "j1Player.h"
 #include "j1EntityManager.h"
-
-
-// TODO 3: Measure the amount of ms that takes to execute:
-// App constructor, Awake, Start and CleanUp
-// LOG the result
+#include <thread>
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -166,11 +162,14 @@ void j1App::PrepareUpdate()
 	last_sec_frame_count++;
 
 	dt = frame_time.ReadSec();
-	LOG("DT: %f", dt);
+	//LOG("DT: %f", dt);
 	frame_time.Start();
 }
 
-
+void logsomething(char* something)
+{
+	LOG(something);
+}
 // ---------------------------------------------
 void j1App::FinishUpdate()
 {
@@ -209,12 +208,25 @@ void j1App::FinishUpdate()
 	//	vsync = "ON";
 	//else
 	//	vsync = "OFF";
-
+	////////char* thread1 = "thread1";								   Thread optimization testing, do not touch
+	////////char* thread2 = "thread2";								   Thread optimization testing, do not touch
+	////////char* thread3 = "thread3";								   Thread optimization testing, do not touch
+	////////char* thread4 = "thread4";								   Thread optimization testing, do not touch
+	////////														   Thread optimization testing, do not touch
+	////////std::thread t1(logsomething, thread1);					   Thread optimization testing, do not touch
+	////////std::thread t2(logsomething, thread2);					   Thread optimization testing, do not touch
+	////////std::thread t3(logsomething, thread3);					   Thread optimization testing, do not touch
+	////////std::thread t4(logsomething, thread4);					   Thread optimization testing, do not touch
+	////////t1.join();												   Thread optimization testing, do not touch
+	////////t2.join();												   Thread optimization testing, do not touch
+	////////t3.join();												   Thread optimization testing, do not touch
+	////////t4.join();												   Thread optimization testing, do not touch
 	sprintf_s(title, 256, "QR || FPS: %02u / EstFPS: %02u/ Av.FPS: %.2f / Last Frame Ms: %02u / Cap: %s / Vsync: -- / dt: %f                                                     COINS:%d",
 		frames_on_last_update, framerate_cap, avg_fps, last_frame_ms, cap,/* vsync,*/ dt);
 
 	App->win->SetTitle(title);
-	LOG("Last frame ms %d", last_frame_ms);
+
+	//LOG("Last frame ms %d", last_frame_ms);
 	//App->win->SetTitle(App->input->GetText().GetString());
 	if ((framerate_cap > 0) && fpscap)
 	{
@@ -223,6 +235,8 @@ void j1App::FinishUpdate()
 		}
 	}
 }
+
+
 
 // Call modules before each loop iteration
 bool j1App::PreUpdate()
