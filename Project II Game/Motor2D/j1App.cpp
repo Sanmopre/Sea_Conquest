@@ -221,7 +221,7 @@ void j1App::FinishUpdate()
 	////////t2.join();												   Thread optimization testing, do not touch
 	////////t3.join();												   Thread optimization testing, do not touch
 	////////t4.join();												   Thread optimization testing, do not touch
-	sprintf_s(title, 256, "QR || FPS: %02u / EstFPS: %02u/ Av.FPS: %.2f / Last Frame Ms: %02u / Cap: %s / Vsync: -- / dt: %f                                                     COINS:%d",
+	sprintf_s(title, 256, "QR || FPS: %02u / EstFPS: %02u/ Av.FPS: %.2f / Last Frame Ms: %02u / Cap: %s / Vsync: -- / dt: %f",
 		frames_on_last_update, framerate_cap, avg_fps, last_frame_ms, cap,/* vsync,*/ dt);
 
 	App->win->SetTitle(title);

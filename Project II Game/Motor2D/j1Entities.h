@@ -83,6 +83,8 @@ public:
 
 	void Update(float);
 	void CleanUp();
+
+	uint r, g, b;
 };
 
 #endif // __j1Entities_H__
