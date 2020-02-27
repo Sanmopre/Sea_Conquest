@@ -22,6 +22,10 @@ public:
 
 	std::vector<Entity*> entities;
 	Entity* enttest;
+
+private:
+
+	void QuickDeleteEntity(std::vector<Entity*>::iterator itr);
 };
 
 #endif // __j1EntityManager_H__

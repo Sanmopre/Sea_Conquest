@@ -5,6 +5,8 @@
 #include "p2Log.h"
 #include "j1App.h"
 
+#include "Color.h"
+
 struct SDL_Texture;
 
 enum class Orientation
@@ -29,11 +31,22 @@ class Entity
 {
 public:
 
-	Entity() { selected = false; };
+	Entity() { selected = false; to_delete = false; }
 
 	virtual void Update(float dt) {};
 	virtual void CleanUp() {};
 
+	bool to_delete;
+
+	void Damage(int damage, Entity* target)
+	{
+		target->health -= damage;
+		if (target->health < 0)
+			target->health = 0;
+	}
+
+	int health;
+	int max_health;
 	iPoint position;
 	Entity_Type type;
 	bool selected;
@@ -46,7 +59,6 @@ class Unit : public Entity
 {
 public:
 
-	int health;
 	int speed;
 	int range;
 	Orientation looking;
@@ -54,7 +66,7 @@ public:
 
 protected:
 
-	fPoint past_frame_dest;
+	iPoint past_frame_dest;
 	//void Path_to(fPoint); Add when pathfinding is done
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,7 +74,7 @@ class Structure : public Entity
 {
 public:
 
-	int health;
+	iPoint tile;
 
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -84,7 +96,8 @@ public:
 	void Update(float);
 	void CleanUp();
 
-	uint r, g, b;
+	Color color;
+	Entity* target;
 };
 
 #endif // __j1Entities_H__

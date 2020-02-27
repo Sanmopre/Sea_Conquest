@@ -29,7 +29,12 @@ bool j1EntityManager::Update(float dt)
 {
 	for (vector<Entity*>::iterator entity = entities.begin(); entity != entities.end(); entity++)
 	{
-		(*entity)->Update(6.9f);
+		if ((*entity)->to_delete)
+		{
+			//NOT THE YATTAS !!!
+		}
+		else
+			(*entity)->Update(6.9f);
 	}
 	////////////////////////////////////ENTITIES_DEBUG///////////////////////////////////////////////////
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
@@ -84,6 +89,13 @@ void j1EntityManager::DeleteEntity(Entity* entity_)
 				break;
 			}
 		}
+}
+
+void j1EntityManager::QuickDeleteEntity(std::vector<Entity*>::iterator entity)
+{
+	delete (*entity);
+	entities.erase(entity, entity + 1);
+	entities.shrink_to_fit();
 }
 
 void j1EntityManager::DeleteAll()
