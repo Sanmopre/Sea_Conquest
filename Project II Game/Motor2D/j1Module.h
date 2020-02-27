@@ -11,6 +11,17 @@
 
 class j1App;
 struct Collider;
+class j1GUIelement;
+
+enum class GUI_Event
+{
+	EVENT_UNKOWNN = -1,
+
+	EVENT_ONCLICK,
+	EVENT_DRAG,
+	EVENT_HOVER,
+};
+
 class j1Module
 {
 public:
@@ -76,6 +87,8 @@ public:
 	{
 
 	}
+
+	virtual bool GuiObserver(GUI_Event type, j1GUIelement* element, p2SString txt = "", p2SString name = "") { return true; }
 
 public:
 

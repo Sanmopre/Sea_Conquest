@@ -68,6 +68,19 @@ public:
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
+
+
+	void EnableTextInput();
+	void DisableTextInput();
+	int GetCursorPosition();
+
+	p2SString GetText();
+	p2SString GetModifiedString();
+
+	p2SString	final_text;
+	p2SString	text;
+
+
 	float			ball_roll;
 private:
 	bool		windowEvents[WE_COUNT];
@@ -77,7 +90,9 @@ private:
 	float			mouse_motion_y;
 	float			mouse_x;
 	float			mouse_y;
-	
+
+	int			cursor_position = 0;
+	bool		text_input = false;
 };
 
 #endif // __j1INPUT_H__

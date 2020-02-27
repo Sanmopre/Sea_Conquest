@@ -3,6 +3,9 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Window.h"
+#include "j1Fonts.h"
+#include "j1Scene.h"
+
 
 #define MAX_KEYS 300
 
@@ -156,4 +159,46 @@ void j1Input::GetMouseMotion(int& x, int& y)
 {
 	x = mouse_motion_x;
 	y = mouse_motion_y;
+}
+
+void j1Input::EnableTextInput()
+{
+	SDL_StartTextInput();
+	text_input = true;
+}
+
+void j1Input::DisableTextInput() {
+
+	SDL_StopTextInput();
+	text_input = false;
+	App->input->text.Clear();
+}
+
+p2SString j1Input::GetText() {
+
+	return text;
+}
+
+int j1Input::GetCursorPosition() {
+
+	int width = 0;
+	int height = 0;
+
+	App->fonts->CalcSize(GetModifiedString().GetString(), width, height);
+
+	return width;
+}
+
+p2SString j1Input::GetModifiedString()
+{
+
+	if (cursor_position != 0) {
+
+		p2SString new_text(text.GetString());
+		new_text.Cut(text.Length() - cursor_position);
+		return new_text;
+	}
+
+	else
+		return text;
 }

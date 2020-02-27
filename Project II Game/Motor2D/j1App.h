@@ -18,6 +18,8 @@ class j1Map;
 class j1PathFinding;
 class j1Player;
 class j1EntityManager;
+class j1GUI;
+class j1Fonts;
 
 class j1App 
 {
@@ -92,7 +94,8 @@ public:
 	j1PathFinding*		pathfinding = NULL;
 	j1Player*			player = NULL;
 	j1EntityManager*	entitymanager = NULL;
-
+	j1GUI*				gui = NULL;
+	j1Fonts*			fonts = NULL;
 private:
 
 	p2List<j1Module*>	modules;

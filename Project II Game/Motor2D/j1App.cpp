@@ -15,6 +15,8 @@
 #include "j1App.h"
 #include "j1Player.h"
 #include "j1EntityManager.h"
+#include "j1GUI.h"
+#include "j1Fonts.h"
 #include <thread>
 
 // Constructor
@@ -30,7 +32,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new j1PathFinding();
 	player = new j1Player();
 	entitymanager = new j1EntityManager();
-
+	gui = new j1GUI();
+	fonts = new j1Fonts();
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -42,6 +45,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding);
 	AddModule(player);
 	AddModule(entitymanager);
+	AddModule(gui);
+	AddModule(fonts);
 
 	// render last to swap buffer
 	AddModule(render);
