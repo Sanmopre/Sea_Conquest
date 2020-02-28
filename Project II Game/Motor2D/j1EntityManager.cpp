@@ -27,14 +27,24 @@ bool j1EntityManager::Start()
 
 bool j1EntityManager::Update(float dt)
 {
-	for (vector<Entity*>::iterator entity = entities.begin(); entity != entities.end(); entity++)
+	int counter = 0;
+
+	while (counter != entities.size())
 	{
-		if ((*entity)->to_delete)
+		vector<Entity*>::iterator entity = entities.begin();
+		entity += counter;
+		for (; entity != entities.end(); entity++)
 		{
-			//NOT THE YATTAS !!!
+			if ((*entity)->to_delete)
+			{
+				QuickDeleteEntity(entity);
+				break;
+			}
+			else
+				(*entity)->Update(6.9f);
+
+			counter++;
 		}
-		else
-			(*entity)->Update(6.9f);
 	}
 	////////////////////////////////////ENTITIES_DEBUG///////////////////////////////////////////////////
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
