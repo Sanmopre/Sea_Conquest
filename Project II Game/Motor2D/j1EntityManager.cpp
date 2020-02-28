@@ -58,6 +58,13 @@ bool j1EntityManager::Update(float dt)
 		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+	{
+		enttest = AddEntity(0, 0, Entity_Type::BOATHOUSE, 0);
+
+		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
 	{
 		DeleteEntity(enttest);
@@ -81,6 +88,10 @@ Entity* j1EntityManager::AddEntity(float x, float y, Entity_Type type, int level
 	{
 	case Entity_Type::BOAT:
 		entities.push_back(new Boat(x, y, level));
+		break;
+	case Entity_Type::BOATHOUSE:
+		entities.push_back(new BoatHouse());
+		break;
 	}	
 
 	return *(entities.end() - 1);
