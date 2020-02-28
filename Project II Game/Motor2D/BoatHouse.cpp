@@ -48,7 +48,7 @@ void BoatHouse::Update(float dt)
 			placed = true;
 			tile = placing_tile;
 		}
-		if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 		{
 			to_delete = true;
 		}
@@ -61,7 +61,7 @@ void BoatHouse::Update(float dt)
 		}
 		else
 		{
-			if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+			if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 			{
 				placed = false;
 			}
