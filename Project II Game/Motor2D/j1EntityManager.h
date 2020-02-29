@@ -16,7 +16,7 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 
-	Entity* AddEntity(float x, float y, Entity_Type, int level);
+	Entity* AddEntity(int x = 0, int y = 0, Entity_Type = Entity_Type::NONE, int level = 1, int team = 0);
 	void DeleteEntity(Entity*);
 	void DeleteAll();
 

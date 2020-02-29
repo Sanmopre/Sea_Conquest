@@ -53,14 +53,32 @@ bool j1EntityManager::Update(float dt)
 		App->input->GetMousePosition(test.x, test.y);
 		test.x -= App->render->camera.x / App->win->GetScale();
 		test.y -= App->render->camera.y / App->win->GetScale();
-		enttest = AddEntity(test.x, test.y, Entity_Type::BOAT, 1);
+		enttest = AddEntity(test.x, test.y, Entity_Type::BOAT, 1, 0);
+
+		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+	{
+		iPoint test;
+		App->input->GetMousePosition(test.x, test.y);
+		test.x -= App->render->camera.x / App->win->GetScale();
+		test.y -= App->render->camera.y / App->win->GetScale();
+		enttest = AddEntity(test.x, test.y, Entity_Type::BOAT, 1, 1);
 
 		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 	{
-		enttest = AddEntity(0, 0, Entity_Type::BOATHOUSE, 0);
+		enttest = AddEntity(0, 0, Entity_Type::BOATHOUSE, 0, 0);
+
+		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+	{
+		enttest = AddEntity(0, 0, Entity_Type::BOATHOUSE, 0, 1);
 
 		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
@@ -82,15 +100,15 @@ bool j1EntityManager::Update(float dt)
 	return true;
 }
 
-Entity* j1EntityManager::AddEntity(float x, float y, Entity_Type type, int level)
+Entity* j1EntityManager::AddEntity(int x, int y, Entity_Type type, int level, int team)
 {
 	switch (type)
 	{
 	case Entity_Type::BOAT:
-		entities.push_back(new Boat(x, y, level));
+		entities.push_back(new Boat(x, y, level, team));
 		break;
 	case Entity_Type::BOATHOUSE:
-		entities.push_back(new BoatHouse());
+		entities.push_back(new BoatHouse(team));
 		break;
 	}	
 

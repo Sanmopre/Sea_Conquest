@@ -6,6 +6,7 @@
 #include "j1App.h"
 #include "SDL/include/SDL.h"
 
+#include "j1Render.h"
 #include "Color.h"
 
 struct SDL_Texture;
@@ -47,6 +48,29 @@ public:
 			target->health = 0;
 	}
 
+	void  ShowHPbar(int extra_width, int height)
+	{
+		if (!showing_hpbar)
+		{
+			showing_hpbar = true;
+
+			SDL_Rect health_rect = { rect.x - extra_width, rect.y - 20, rect.w + extra_width*2, height };
+			Color health_color(96u, 96u, 96u);
+
+			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, 0.0f, health_color.r, health_color.g, health_color.b, health_color.a);
+
+			float hrw = health_rect.w;
+			hrw /= max_health;
+			hrw *= health;
+			health_rect.w = hrw;
+			health_color.SetColor(0u, 204u, 0u);
+
+			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, 0.0f, health_color.r, health_color.g, health_color.b, health_color.a);
+		}
+	}
+
+	int team;
+
 	int health;
 	int max_health;
 	iPoint position;
@@ -56,6 +80,10 @@ public:
 
 	SDL_Rect rect; //probably will be the future current_animation
 	SDL_Texture* texture;
+
+protected:
+
+	bool showing_hpbar;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Unit : public Entity
@@ -92,21 +120,28 @@ public:
 class Boat : public Unit
 {
 public:
-	Boat();
-	Boat(float x, float y, int level);
+	Boat(int x = 0, int y = 0, int level = 1, int team = 0);
 	~Boat();
 
 	void Update(float);
 	void CleanUp();
 
-	Color color;
 	Entity* target;
+
+private:
+
+	void Move();
+	void SetDestination();
+	void Attack();
+	void FindTarget();
+
+	Color color;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class BoatHouse : public Structure
 {
 public:
-	BoatHouse();
+	BoatHouse(int team = 0, iPoint tile = {0, 0});
 	~BoatHouse();
 
 	void Update(float);

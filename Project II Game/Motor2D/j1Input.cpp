@@ -1,7 +1,9 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
+
 #include "j1Input.h"
+#include "j1Render.h"
 #include "j1Window.h"
 #include "j1Fonts.h"
 #include "j1Scene.h"
@@ -12,7 +14,6 @@
 j1Input::j1Input() : j1Module()
 {
 	name.create("input");
-
 	keyboard = new j1KeyState[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(j1KeyState) * MAX_KEYS);
 	memset(mouse_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_MOUSE_BUTTONS);
@@ -153,6 +154,16 @@ void j1Input::GetMousePosition(int& x, int& y)
 {
 	x = mouse_x;
 	y = mouse_y;
+}
+
+iPoint j1Input::GetMouseWorldPosition()
+{
+	iPoint ret;
+	GetMousePosition(ret.x, ret.y);
+	ret.x -= App->render->camera.x / App->win->GetScale();
+	ret.y -= App->render->camera.y / App->win->GetScale();
+
+	return ret;
 }
 
 void j1Input::GetMouseMotion(int& x, int& y)

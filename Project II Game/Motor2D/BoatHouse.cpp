@@ -6,13 +6,12 @@
 #include "j1EntityManager.h"
 #include "j1Map.h"
 
-BoatHouse::BoatHouse()
+BoatHouse::BoatHouse(int team, iPoint tile)
 {
 	type = Entity_Type::BOATHOUSE;
-	App->input->GetMousePosition(position.x, position.y);
-	position.x -= App->render->camera.x / App->win->GetScale();
-	position.y -= App->render->camera.y / App->win->GetScale();
+	position = App->input->GetMouseWorldPosition();
 	level = 1;
+	this->team = team;
 	max_health = 500;
 	health = max_health;
 	placed = false;
@@ -26,21 +25,22 @@ BoatHouse::~BoatHouse()
 
 void BoatHouse::Update(float dt)
 {
-	if (health == 0)
-		to_delete = true;
-
-	rect = { position.x, position.y, 40, 40 };
+	showing_hpbar = false;
+	rect.x = position.x;
+	rect.y = position.y;
 
 	if (!placed)
 	{
-		color.SetColor(0u, 100u, 255u);
+		if (team == 0)
+			color.Blue();
+		else if (team == 1)
+			color.Red();
 
-		App->input->GetMousePosition(position.x, position.y);
-		position.x -= App->render->camera.x / App->win->GetScale();
-		position.y -= App->render->camera.y / App->win->GetScale();
+		position = App->input->GetMouseWorldPosition();
 
 		iPoint placing_tile = App->map->WorldToMap(position.x, position.y);
 		position = App->map->MapToWorld(placing_tile.x, placing_tile.y);
+
 		rect.x = position.x;
 		rect.y = position.y;
 
@@ -49,44 +49,40 @@ void BoatHouse::Update(float dt)
 			placed = true;
 			tile = placing_tile;
 		}
+
 		if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
-		{
-			to_delete = true;
-		}
+			CleanUp();
 	}
 	else
 	{
 		if (!selected)
 		{
-			color.SetColor(0u, 100u, 255u);
+			if (team == 0)
+				color.Blue();
+			else if (team == 1)
+				color.Red();
 		}
 		else
 		{
+			if (team == 0)
+				color.SetColor(0u, 255u, 255u);
+			else if (team == 1)
+				color.SetColor(255u, 255u, 0u);
+
 			if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
-			{
 				placed = false;
-			}
-			color.SetColor(0u, 255u, 255u);
-
-			SDL_Rect health_rect = { rect.x - 10, rect.y - 20, rect.w + 20, 5 };
-			Color health_color(96u, 96u, 96u);
-
-			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, 0.0f, health_color.r, health_color.g, health_color.b, health_color.a);
-
-			float hrw = health_rect.w;
-			hrw /= max_health;
-			hrw *= health;
-			health_rect.w = hrw;
-			health_color.SetColor(0u, 204u, 0u);
-
-			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, 0.0f, health_color.r, health_color.g, health_color.b, health_color.a);
+			
+			ShowHPbar(10, 5);
 		}
 	}
 
 	App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, 0.0f, color.r, color.g, color.b, color.a);
+
+	if (health == 0)
+		CleanUp();
 }
 
 void BoatHouse::CleanUp()
 {
-
+	to_delete = true;
 }

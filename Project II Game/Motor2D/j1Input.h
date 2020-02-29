@@ -2,6 +2,7 @@
 #define __j1INPUT_H__
 
 #include "j1Module.h"
+#include "p2Point.h"
 #include "SDL/include/SDL.h"
 
 //#define NUM_KEYS 352
@@ -32,20 +33,13 @@ class j1Input : public j1Module
 public:
 
 	j1Input();
-
-	// Destructor
 	virtual ~j1Input();
 
-	// Called before render is available
+
 	bool Awake(pugi::xml_node&);
-
-	// Called before the first frame
 	bool Start();
-
-	// Called each loop iteration
 	bool PreUpdate();
 
-	// Called before quitting
 	bool CleanUp();
 
 	// Gather relevant win events
@@ -67,6 +61,7 @@ public:
 
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
+	iPoint GetMouseWorldPosition();
 	void GetMouseMotion(int& x, int& y);
 
 
