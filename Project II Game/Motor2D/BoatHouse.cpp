@@ -16,6 +16,7 @@ BoatHouse::BoatHouse()
 	max_health = 500;
 	health = max_health;
 	placed = false;
+	rect = { position.x, position.y, 40, 40 };
 }
 
 BoatHouse::~BoatHouse()
@@ -28,7 +29,7 @@ void BoatHouse::Update(float dt)
 	if (health == 0)
 		to_delete = true;
 
-	SDL_Rect rect = { position.x, position.y, 40, 40 };
+	rect = { position.x, position.y, 40, 40 };
 
 	if (!placed)
 	{

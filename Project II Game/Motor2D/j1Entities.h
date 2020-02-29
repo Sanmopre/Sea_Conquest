@@ -4,6 +4,7 @@
 #include "p2Point.h"
 #include "p2Log.h"
 #include "j1App.h"
+#include "SDL/include/SDL.h"
 
 #include "Color.h"
 
@@ -53,6 +54,7 @@ public:
 	bool selected;
 	int level;
 
+	SDL_Rect rect; //probably will be the future current_animation
 	SDL_Texture* texture;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

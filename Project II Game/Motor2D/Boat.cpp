@@ -37,7 +37,8 @@ Boat::~Boat()
 
 void Boat::Update(float dt)
 {
-	SDL_Rect rect = { position.x, position.y, 20, 20 };
+	rect = { position.x, position.y, 20, 20 };
+
 	if (!selected)
 	{
 		color.SetColor(0u, 0u, 255u);
