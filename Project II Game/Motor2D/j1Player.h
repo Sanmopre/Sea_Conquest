@@ -48,6 +48,10 @@ private:
 	uint win_width;
 	int camera_speed;
 	int camera_offset;
+
+
+	//test
+	j1GUIelement* Image = nullptr;
 };
 
 #endif // __j1PLAYER_H__

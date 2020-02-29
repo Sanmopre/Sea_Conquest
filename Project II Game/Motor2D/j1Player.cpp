@@ -9,6 +9,7 @@
 #include "j1Player.h"
 #include "j1Scene.h"
 #include "j1Window.h"
+#include "j1GUI.h"
 
 #include "j1EntityManager.h"
 
@@ -46,7 +47,7 @@ bool j1Player::Start()
 	LOG("Player Started");
 	Tex_Player = App->tex->Load("textures/test2.png");
 	App->win->GetWindowSize( win_width,win_height);
-
+	Image = App->gui->AddGUIelement(GUItype::GUI_IMAGE, nullptr, { 10, 60 }, { 100,100 }, false, false, { 100, 100, 200, 280 }, nullptr, this);
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
 }

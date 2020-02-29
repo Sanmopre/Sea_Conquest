@@ -39,7 +39,7 @@ bool j1GUI::Awake(pugi::xml_node& config)
 bool j1GUI::Start()
 {
 	//Load the global GUI texture
-	atlasTexture = App->tex->Load(atlasFile.GetString());
+	atlasTexture = App->tex->Load("textures/test2.png");
 
 	return true;
 }
