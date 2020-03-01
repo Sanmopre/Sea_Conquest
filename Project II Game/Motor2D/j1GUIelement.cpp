@@ -31,7 +31,7 @@ void j1GUIelement::Draw()
 		App->render->DrawQuad({ Map_Position.x, Map_Position.y - App->render->camera.y, rect.w, rect.h }, 10, 10, 200, 140, true, false, true);
 	}
 	else {
-		App->render->DrawQuad({ Map_Position.x, Map_Position.y - App->render->camera.y, rect.w, rect.h }, 140, 70, 20, 140, true, false, true);
+		App->render->DrawQuad({ Map_Position.x, Map_Position.y - App->render->camera.y, rect.w, rect.h }, 140, 70, 220, 140, true, false, true);
 	}
 }
 
