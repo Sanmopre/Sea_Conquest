@@ -142,9 +142,15 @@ void j1Player::Select_Entitites(SDL_Rect select_area)
 			select_area.x + select_area.w >(*entity)->position.x && 
 			select_area.y < (*entity)->position.y + (*entity)->rect.h && 
 			select_area.h + select_area.y >(*entity)->position.y)
-			(*entity)->selected = true;
+			if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
+				(*entity)->selected = false;
+			else
+				(*entity)->selected = true;
 		else
-			(*entity)->selected = false;	
+		{
+			if (App->input->GetKey(SDL_SCANCODE_LSHIFT) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT)
+				(*entity)->selected = false;
+		}
 }
 
 void j1Player::Mouse_Cursor() 

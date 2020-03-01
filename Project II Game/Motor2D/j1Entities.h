@@ -29,6 +29,19 @@ enum class Entity_Type
 	BOATHOUSE,
 	NONE
 };
+
+struct storage
+{
+	int wood;
+	int cotton;
+	int stone;
+	int metal;
+
+	int maxwood;
+	int maxcotton;
+	int maxstone;
+	int maxmetal;
+};
 ///////////////////////////////////////////////CLASSES//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Entity
 {
@@ -48,13 +61,28 @@ public:
 			target->health = 0;
 	}
 
+	int team;
+
+	int health;
+	int max_health;
+	iPoint position;
+	Entity_Type type;
+	bool selected;
+	int level;
+	storage load;
+
+	SDL_Rect rect; //probably will be the future current_animation
+	SDL_Texture* texture;
+
+protected:
+
 	void  ShowHPbar(int extra_width, int height)
 	{
 		if (!showing_hpbar)
 		{
 			showing_hpbar = true;
 
-			SDL_Rect health_rect = { rect.x - extra_width, rect.y - 20, rect.w + extra_width*2, height };
+			SDL_Rect health_rect = { rect.x - extra_width, rect.y - 20, rect.w + extra_width * 2, height };
 			Color health_color(96u, 96u, 96u);
 
 			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, 0.0f, health_color.r, health_color.g, health_color.b, health_color.a);
@@ -68,20 +96,6 @@ public:
 			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, 0.0f, health_color.r, health_color.g, health_color.b, health_color.a);
 		}
 	}
-
-	int team;
-
-	int health;
-	int max_health;
-	iPoint position;
-	Entity_Type type;
-	bool selected;
-	int level;
-
-	SDL_Rect rect; //probably will be the future current_animation
-	SDL_Texture* texture;
-
-protected:
 
 	bool showing_hpbar;
 };
