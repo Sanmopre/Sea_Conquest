@@ -6,43 +6,52 @@
 #include "j1Audio.h"
 
 
-j1GUIscrollBar::j1GUIscrollBar(SCROLL_TYPE scrollTypeInput) {
+j1GUIscrollBar::j1GUIscrollBar(SCROLL_TYPE TypeInput) {
 
-	this->type = GUItype::GUI_SCROLLBAR;	
-	scrollType = scrollTypeInput;
+	this->type = GUItype::GUI_SCROLLBAR;
+	Type = TypeInput;
 }
 
-j1GUIscrollBar::~j1GUIscrollBar() {}
+j1GUIscrollBar::~j1GUIscrollBar() {
+
+}
 
 
 bool j1GUIscrollBar::Awake(pugi::xml_node&)
-{return true;}
+{
+
+	return true;
+}
 
 
 bool j1GUIscrollBar::Start()
 {
 
-	
-	// Creates the draggeable button into the scroll bar with a value.
-	scrollButton = App->gui->AddGUIelement(GUItype::GUI_BUTTON, this, globalPosition, localPosition, true, true, { 432, 36, 14 , 16 }, nullptr, this->listener, true, false);
-	scrollButton->globalPosition.y = globalPosition.y - scrollButton->rect.h / 2 + this->rect.h / 2;
-	value = 0;
 
-	// Get the global GUI texture
-	texture = App->gui->GetAtlasTexture();
+
+	Button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, this, Map_Position, Inside_Position, true, true, { 432, 36, 14 , 16 }, nullptr, this->listener, true, false);
+	Button->Map_Position.y = Map_Position.y - Button->rect.h / 2 + this->rect.h / 2;
+	Value = 0;
+
+	if (this->Type == SCROLL_TYPE::SCROLL_MUSIC)
+	{
+
+	}
+
 	return true;
 }
 
 bool j1GUIscrollBar::PreUpdate()
 {
-	scrollButton->enabled = enabled;
+
+	Button->enabled = enabled;
 	above = OnAbove();
 
 	return true;
 }
 
 bool j1GUIscrollBar::Update(float dt)
-{	
+{
 	if (interactable) {
 		if (above)
 		{
@@ -50,18 +59,21 @@ bool j1GUIscrollBar::Update(float dt)
 				OnClick();
 		}
 	}
-	
+
 	return true;
 }
 
 bool j1GUIscrollBar::PostUpdate()
-{	
-	// Check our desired limits and get the value from our position with a max of 128. (The volume)
+{
 	ScrollLimits();
-	value = -((float(-scrollButton->localPosition.x) / (float(-this->rect.w) + float(scrollButton->rect.w))) * 128);
+	Value = -((float(-Button->Inside_Position.x) / (float(-this->rect.w) + float(Button->rect.w))) * 128);
 
+	if (this->Type == SCROLL_TYPE::SCROLL_MUSIC)
+	{
 
-	if(enabled)
+	}
+
+	if (enabled)
 		Draw();
 
 	return true;
@@ -77,19 +89,19 @@ bool j1GUIscrollBar::CleanUp()
 
 void j1GUIscrollBar::ScrollLimits() {
 
-	// We don't need to put Y axis limits, because we're not using it.
-
-	if (scrollButton->localPosition.x > 0)
+	if (Button->Inside_Position.x > 0)
 	{
-		scrollButton->localPosition.x = 0;
+		Button->Inside_Position.x = 0;
 
-		scrollButton->globalPosition.x = scrollButton->parent->globalPosition.x - scrollButton->localPosition.x;
+		Button->Map_Position.x = Button->parent->Map_Position.x - Button->Inside_Position.x;
+
 	}
-	else if (scrollButton->localPosition.x < (-this->rect.w + scrollButton->rect.w))
+	else if (Button->Inside_Position.x < (-this->rect.w + Button->rect.w))
 	{
-		scrollButton->localPosition.x = -this->rect.w + scrollButton->rect.w;
+		Button->Inside_Position.x = -this->rect.w + Button->rect.w;
 
-		scrollButton->globalPosition.x = scrollButton->parent->globalPosition.x - scrollButton->localPosition.x;
+		Button->Map_Position.x = Button->parent->Map_Position.x - Button->Inside_Position.x;
+
 	}
 
 }

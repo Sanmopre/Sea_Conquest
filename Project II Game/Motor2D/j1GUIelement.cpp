@@ -10,51 +10,31 @@
 
 
 j1GUIelement::~j1GUIelement()
-{ }
+{
+
+}
 
 bool j1GUIelement::Start()
-{ return true; }
+{
+
+
+	return true;
+}
 
 
 void j1GUIelement::Draw()
 {
-	// All the visual feedback from the state of the GUI
-	/*
-	if (above && interactable && !decorative)
+
+	if (above && interactable)
 	{
-		SDL_SetTextureColorMod(texture, 160, 160, 160);
-		SDL_SetTextureAlphaMod(texture, 255);
-	}
-	else if (!above && interactable && !decorative)
-	{
-		SDL_SetTextureColorMod(texture, 255, 255, 255);
-		SDL_SetTextureAlphaMod(texture, 255);
+		App->render->DrawQuad({ Map_Position.x, Map_Position.y, rect.w, rect.h }, 0, 255, 255, 255, false, false, true);
+		App->render->DrawQuad({ Map_Position.x, Map_Position.y, rect.w, rect.h }, 10, 10, 200, 140, true, false, true);
 	}
 
-	if (!interactable && this->type != GUItype::GUI_BUTTON && !decorative)
-	{
-		SDL_SetTextureColorMod(texture, 255, 255, 255);
-		SDL_SetTextureAlphaMod(texture, 255);
-	}
-	else if (!interactable && this->type == GUItype::GUI_BUTTON && !decorative) 
-	{
-		SDL_SetTextureColorMod(texture, 255, 255, 255);
-		SDL_SetTextureAlphaMod(texture, 50);
-	}
-
-	if (decorative) 
-	{
-		SDL_SetTextureColorMod(texture, 255, 255, 255);
-		SDL_SetTextureAlphaMod(texture, 255);
-	}
-		*/
-	//App->render->Blit(texture, globalPosition.x, globalPosition.y, &rect, 0.0f, 0.0f);
-
-	if(App->gui->debugUI)
-		App->render->DrawQuad({ globalPosition.x, globalPosition.y, rect.w, rect.h }, 0, 255, 255, 255, false, false, true);
+	App->render->DrawQuad({ Map_Position.x, Map_Position.y, rect.w, rect.h }, 140, 70, 20, 140, true, false, true);
 }
 
-// Detects when the mouse is above any GUI element and sends the info to the observer.
+
 bool j1GUIelement::OnAbove()
 {
 	bool ret = false;
@@ -62,12 +42,12 @@ bool j1GUIelement::OnAbove()
 	SDL_Point mouse;
 	App->input->GetMousePosition(mouse.x, mouse.y);
 
-	SDL_Rect intersect = {globalPosition.x , globalPosition.y, rect.w, rect.h };
+	SDL_Rect intersect = { Map_Position.x , Map_Position.y, rect.w, rect.h };
 
 	if (SDL_PointInRect(&mouse, &intersect) && this->enabled && this->interactable) {
 		if (listener != nullptr)
 		{
-			this->listener->GuiObserver(GUI_Event::EVENT_HOVER, this, nullptr, nullptr);
+			this->listener->GUI_Event_Manager(GUI_Event::EVENT_HOVER, this);
 		}
 		ret = true;
 	}
@@ -75,30 +55,22 @@ bool j1GUIelement::OnAbove()
 	return ret;
 }
 
-// Detects when click to any GUI element and sends the info to the observer.
+
 void j1GUIelement::OnClick()
 {
-
-	if (listener != nullptr) 
+	if (listener != nullptr)
 	{
-		this->listener->GuiObserver(GUI_Event::EVENT_ONCLICK, this, nullptr, nullptr);
-	}		
-
+		this->listener->GUI_Event_Manager(GUI_Event::EVENT_ONCLICK, this);
+	}
 }
-
 
 
 void j1GUIelement::OnRelease()
 {
-	
-}
 
+}
 
 void j1GUIelement::Dragging()
 {
-
-}
-
-void j1GUIelement::PrintText(const char* txt) {
 
 }

@@ -88,7 +88,10 @@ public:
 
 	}
 
-	virtual bool GuiObserver(GUI_Event type, j1GUIelement* element, p2SString txt = "", p2SString name = "") { return true; }
+	virtual void GUI_Event_Manager(GUI_Event type, j1GUIelement* element)
+	{
+
+	}
 
 public:
 

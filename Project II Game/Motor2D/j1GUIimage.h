@@ -14,10 +14,19 @@ public:
 	j1GUIimage();
 	~j1GUIimage();
 
+	bool Awake(pugi::xml_node&);
+
+	bool PreUpdate();
 	bool PostUpdate();
+
 	bool CleanUp();
+
+	bool Load(pugi::xml_node&) { return true; };
+	bool Save(pugi::xml_node&) const  const { return true; };
+
 };
 
 
 #endif // !__J1GUIIMAGE__
+
 

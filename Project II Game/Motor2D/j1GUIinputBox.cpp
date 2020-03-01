@@ -6,32 +6,40 @@
 #include "j1Textures.h"
 #include "j1Window.h"
 
-j1GUIinputBox::j1GUIinputBox(char* text) 
+j1GUIinputBox::j1GUIinputBox(char* text)
 {
-	this->type = GUItype::GUI_INPUTBOX;	
-	texture = App->gui->GetAtlasTexture();	
+	this->type = GUItype::GUI_INPUTBOX;
+
 }
 
 j1GUIinputBox::~j1GUIinputBox() {
 
 }
 
-bool j1GUIinputBox::Start()
+
+bool j1GUIinputBox::Awake(pugi::xml_node&)
 {
-	//Adding input box's string
-	string = App->gui->AddGUIelement(GUItype::GUI_LABEL, this, globalPosition, { 0,10 }, true, enabled, { localPosition.x,localPosition.y,50,50 }, text);
+
 	return true;
 }
 
+bool j1GUIinputBox::Start()
+{
+	string = App->gui->ADD_ELEMENT(GUItype::GUI_LABEL, this, Map_Position, { 0,3 }, true, enabled, { Inside_Position.x,Inside_Position.y,50,50 }, text);
+	return true;
+}
+
+
 bool j1GUIinputBox::PreUpdate()
-{	
-	string->enabled = enabled;	
+{
+	string->enabled = enabled;
 
-	//If it's focused, enable TEXT INPUT
-	if (focus && enabled) 
+	if (focus)
+	{
 		App->input->EnableTextInput();
+	}
 
-	else if (!focus || !enabled)
+	else if (!focus)
 		App->input->DisableTextInput();
 
 	above = OnAbove();
@@ -41,48 +49,33 @@ bool j1GUIinputBox::PreUpdate()
 
 bool j1GUIinputBox::Update(float dt)
 {
-	//Setting texture of the string written
-	if (enabled) 
-	{
-		if (App->input->GetText().Length()!=0) {
-			App->tex->UnLoad(string->texture);
-			string->texture = App->fonts->Print(App->input->GetText().GetString());
-		}	
-		else {
-			App->tex->UnLoad(string->texture);
-			string->texture = App->fonts->Print(" ");
-		}
-	}
 
-	//Setting focus of input box
-	if (above) 
+	if (above)
 	{
 		if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 			OnClick();
-	}	
+	}
 	else {
 		if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
-			focus=false;
-	}	
+			focus = false;
+	}
+
 
 	return true;
 }
 
 bool j1GUIinputBox::PostUpdate()
-{	
+{
 	if (enabled) {
+		Draw();
 
-		//Draws the rectangle to write in
-		App->render->DrawQuad(rect,255,255,255,255,false, false);				
-
-		//Draws the cursor(rectangle)
 		if (focus)
 		{
-			SDL_Rect rect = { (string->globalPosition.x + App->input->GetCursorPosition()) * App->win->GetScale(), 
-				(string->globalPosition.y + localPosition.y) * App->win->GetScale() , 2,  string->rect.h-4  };
+			SDL_Rect rect = { (string->Map_Position.x + string->rect.w) * App->win->GetScale() , (string->Map_Position.y + Inside_Position.y) * App->win->GetScale(), 2,  string->rect.h + 10 };
 			App->render->DrawQuad(rect, 255, 255, 255, 255, true, false);
 		}
 	}
+
 
 	return true;
 }
@@ -94,6 +87,13 @@ bool j1GUIinputBox::CleanUp()
 
 void j1GUIinputBox::OnClick()
 {
-	focus = true;	
+	focus = true;
+
 }
+
+void j1GUIinputBox::OnRelease()
+{
+
+}
+
 
