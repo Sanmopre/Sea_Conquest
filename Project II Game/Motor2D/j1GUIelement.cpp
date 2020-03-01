@@ -19,7 +19,7 @@ bool j1GUIelement::Start()
 void j1GUIelement::Draw()
 {
 	// All the visual feedback from the state of the GUI
-
+	/*
 	if (above && interactable && !decorative)
 	{
 		SDL_SetTextureColorMod(texture, 160, 160, 160);
@@ -47,7 +47,7 @@ void j1GUIelement::Draw()
 		SDL_SetTextureColorMod(texture, 255, 255, 255);
 		SDL_SetTextureAlphaMod(texture, 255);
 	}
-		
+		*/
 	//App->render->Blit(texture, globalPosition.x, globalPosition.y, &rect, 0.0f, 0.0f);
 
 	if(App->gui->debugUI)

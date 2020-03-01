@@ -26,7 +26,6 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 	bool DeleteElements();
-	bool DeleteConsole();
 	bool Save(pugi::xml_node&) const;
 	bool Load(pugi::xml_node&);
 	
@@ -37,7 +36,7 @@ public:
 public:
 
 	p2List<j1GUIelement*>	GUIelementList;
-	bool		debugUI = false;
+	bool		debugUI = true;
 
 private:
 
