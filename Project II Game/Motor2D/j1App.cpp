@@ -17,6 +17,7 @@
 #include "j1EntityManager.h"
 #include "j1GUI.h"
 #include "j1Fonts.h"
+#include "j1InGameUI.h"
 #include <thread>
 
 // Constructor
@@ -34,6 +35,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entitymanager = new j1EntityManager();
 	gui = new j1GUI();
 	fonts = new j1Fonts();
+	InGameUI = new j1InGameUI();
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -47,6 +49,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entitymanager);
 	AddModule(gui);
 	AddModule(fonts);
+	AddModule(InGameUI);
 
 	// render last to swap buffer
 	AddModule(render);

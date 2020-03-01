@@ -6,20 +6,6 @@
 struct SDL_Texture;
 
 
-struct Game_Menu {
-
-	j1GUIelement* Menu_button = nullptr;
-	j1GUIelement* Title = nullptr;
-	j1GUIelement* Image = nullptr;
-	j1GUIelement* Exit_button = nullptr;
-	j1GUIelement* Return_button = nullptr;
-	j1GUIelement* Resume_button = nullptr;
-	j1GUIelement* Music_scroll = nullptr;
-	j1GUIelement* Save = nullptr;
-	j1GUIelement* Load = nullptr;
-	j1GUIelement* label1 = nullptr;
-};
-
 class j1Scene : public j1Module
 {
 public:
@@ -48,17 +34,10 @@ public:
 	bool CleanUp();
 
 
-
-
-	void Add_UI();
-	void Activate_Menu();
-	void GUI_Event_Manager(GUI_Event type, j1GUIelement* element);
-
 private:
 	SDL_Texture* debug_tex;
-	j1GUIelement* Menu_button = nullptr;
 
-	Game_Menu menu;
+
 };
 
 #endif // __j1SCENE_H__

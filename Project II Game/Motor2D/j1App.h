@@ -20,6 +20,7 @@ class j1Player;
 class j1EntityManager;
 class j1GUI;
 class j1Fonts;
+class j1InGameUI;
 
 class j1App 
 {
@@ -96,6 +97,7 @@ public:
 	j1EntityManager*	entitymanager = NULL;
 	j1GUI*				gui = NULL;
 	j1Fonts*			fonts = NULL;
+	j1InGameUI*			InGameUI = NULL;
 private:
 
 	p2List<j1Module*>	modules;
