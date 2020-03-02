@@ -150,7 +150,11 @@ void j1Render::BlitAll()
 			const SDL_Rect* event_rect = &e->second.section;
 			bool event_flip = e->second.fliped;
 			float event_speed = e->second.speed;
-			Blit(event_texture, event_x, event_y, event_rect, event_flip, event_ui, event_speed);
+			if (event_x > (-camera.x / App->win->GetScale()) - 200 && 
+				event_x < (-camera.x + camera.w) / App->win->GetScale() &&
+				event_y >(-camera.y / App->win->GetScale()) - 200 && 
+				event_y < (-camera.y + camera.h) / App->win->GetScale())
+				Blit(event_texture, event_x, event_y, event_rect, event_flip, event_ui, event_speed);
 		}
 		else
 		{
@@ -159,6 +163,10 @@ void j1Render::BlitAll()
 			uint event_g = e->second.g;
 			uint event_b = e->second.b;
 			uint event_a = e->second.a;
+			if (event_rect.x > (-camera.x / App->win->GetScale()) - 200 &&
+				event_rect.x < (-camera.x + camera.w) / App->win->GetScale() &&
+				event_rect.y >(-camera.y / App->win->GetScale()) - 200 &&
+				event_rect.y < (-camera.y + camera.h) / App->win->GetScale())
 			DrawQuad(event_rect, event_r, event_g, event_b, event_a, event_ui);
 		}
 	}
