@@ -35,7 +35,8 @@ public:
 	void GUI_Event_Manager(GUI_Event type, j1GUIelement* element);
 
 private:
-	int MiddleScreen;
+	int MiddleScreenW;
+	int MiddleScreenH;
 	Game_Menu menu;
 };
 
