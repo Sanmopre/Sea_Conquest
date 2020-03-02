@@ -132,32 +132,20 @@ iPoint j1Render::ScreenToWorld(int x, int y) const
 
 void j1Render::AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section, bool fliped, bool ui, float speed, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
-	if (texture != nullptr)
-	{
-		if (x > (-camera.x / App->win->GetScale()) - 200 &&
-			x < (-camera.x + camera.w) / App->win->GetScale() &&
-			y >(-camera.y / App->win->GetScale()) - 200 &&
-			y < (-camera.y + camera.h) / App->win->GetScale())
-		{
-			BlitEvent event{ texture, x, y, section, fliped, ui, speed, r, g, b, a };
+	BlitEvent event{ texture, x, y, section, fliped, ui, speed, r, g, b, a };
 
+	if (texture != nullptr) //differentiate texture blits from quad draws
+	{
+		if (x > (-camera.x / App->win->GetScale()) - 200 && x < (-camera.x + camera.w) / App->win->GetScale() &&
+			y >(-camera.y / App->win->GetScale()) - 200 && y < (-camera.y + camera.h) / App->win->GetScale())
 			blit_queue.insert(make_pair(layer, event));
-		}
 	}
 	else
 	{
-		if (section.x > (-camera.x / App->win->GetScale()) - 200 &&
-			section.x < (-camera.x + camera.w) / App->win->GetScale() &&
-			section.y >(-camera.y / App->win->GetScale()) - 200 &&
-			section.y < (-camera.y + camera.h) / App->win->GetScale())
-		{
-			BlitEvent event{ texture, x, y, section, fliped, ui, speed, r, g, b, a };
-
+		if (section.x > (-camera.x / App->win->GetScale()) - 200 && section.x < (-camera.x + camera.w) / App->win->GetScale() &&
+			section.y >(-camera.y / App->win->GetScale()) - 200 && section.y < (-camera.y + camera.h) / App->win->GetScale())
 			blit_queue.insert(make_pair(layer, event));
-		}
 	}
-
-
 }
 
 void j1Render::BlitAll()
@@ -166,7 +154,8 @@ void j1Render::BlitAll()
 	{
 		SDL_Texture* event_texture = e->second.texture;
 		bool event_ui = e->second.ui;
-		if (event_texture != nullptr)
+
+		if (event_texture != nullptr)//differentiate texture blits from quad draws
 		{
 			int event_x = e->second.x;
 			int event_y = e->second.y;
