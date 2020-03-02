@@ -27,6 +27,7 @@ bool j1InGameUI::Awake(pugi::xml_node& config)
 
 bool j1InGameUI::Start()
 {
+	MiddleScreen = App->win->width/2 - 100;
 	Add_UI();
 	return true;
 }
@@ -55,12 +56,12 @@ bool j1InGameUI::CleanUp()
 void j1InGameUI::Add_UI()
 {
 	menu.Menu_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { 1400,20 }, { 0,0 }, true, true, { 0,0,100,50 }, "OPTIONS", this);
-	menu.Return_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { 610,430 }, { 00,0 }, true, false, { 0, 0,130,22 }, "RETURN", this);
-	menu.Title = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { 605,300 }, { 0,0 }, false, false, { 0, 0,139,27 }, "MENU", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-	menu.Resume_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { 610,400 }, { 0,0 }, true, false, { 0, 0,130,22 }, "RESUME", this);
-	menu.Exit_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { 610,460 }, { 0,0 }, true, false, { 0, 0,130,22 }, "EXIT", this);
-	menu.Save = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { 610,520 }, { 0,0 }, true, false, { 0, 0,130,22 }, "SAVE", this);
-	menu.Load = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { 610,490 }, { 0,0 }, true, false, { 0, 0,130,22 }, "LOAD", this);
+	menu.Return_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreen,430 }, { 00,0 }, true, false, { 0, 0,130,22 }, "RETURN", this);
+	menu.Title = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreen,300 }, { 0,0 }, false, false, { 0, 0,139,27 }, "MENU", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	menu.Resume_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreen,400 }, { 0,0 }, true, false, { 0, 0,130,22 }, "RESUME", this);
+	menu.Exit_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreen,460 }, { 0,0 }, true, false, { 0, 0,130,22 }, "EXIT", this);
+	menu.Save = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreen,520 }, { 0,0 }, true, false, { 0, 0,130,22 }, "SAVE", this);
+	menu.Load = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreen,490 }, { 0,0 }, true, false, { 0, 0,130,22 }, "LOAD", this);
 }
 
 
