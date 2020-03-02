@@ -76,7 +76,7 @@ void BoatHouse::Update(float dt)
 		}
 	}
 
-	App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, 0.0f, color.r, color.g, color.b, color.a);
+	App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, false, 0.0f, color.r, color.g, color.b, color.a);
 
 	if (health == 0)
 		CleanUp();

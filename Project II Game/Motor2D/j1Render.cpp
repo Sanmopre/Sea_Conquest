@@ -130,9 +130,9 @@ iPoint j1Render::ScreenToWorld(int x, int y) const
 	return ret;
 }
 
-void j1Render::AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section, bool fliped, float speed, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+void j1Render::AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section, bool fliped, bool ui, float speed, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
-	BlitEvent event{texture, x, y, section, fliped, speed, r, g, b, a};
+	BlitEvent event{texture, x, y, section, fliped, ui, speed, r, g, b, a};
 
 	blit_queue.insert(make_pair(layer,event));
 }
@@ -142,6 +142,7 @@ void j1Render::BlitAll()
 	for (auto e = blit_queue.begin(); e != blit_queue.end(); e++)
 	{
 		SDL_Texture* event_texture = e->second.texture;
+		bool event_ui = e->second.ui;
 		if (event_texture != nullptr)
 		{
 			int event_x = e->second.x;
@@ -149,7 +150,7 @@ void j1Render::BlitAll()
 			const SDL_Rect* event_rect = &e->second.section;
 			bool event_flip = e->second.fliped;
 			float event_speed = e->second.speed;
-			Blit(event_texture, event_x, event_y, event_rect, event_flip, event_speed);
+			Blit(event_texture, event_x, event_y, event_rect, event_flip, event_ui, event_speed);
 		}
 		else
 		{
@@ -158,21 +159,29 @@ void j1Render::BlitAll()
 			uint event_g = e->second.g;
 			uint event_b = e->second.b;
 			uint event_a = e->second.a;
-			DrawQuad(event_rect, event_r, event_g, event_b, event_a);
+			DrawQuad(event_rect, event_r, event_g, event_b, event_a, event_ui);
 		}
 	}
 	if(blit_queue.size() != 0)
 		blit_queue.erase(blit_queue.begin(), blit_queue.end());
 }
 
-bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool fliped, float speed, double angle, int pivot_x, int pivot_y) const
+bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool fliped, bool ui, float speed, double angle, int pivot_x, int pivot_y) const
 {
 	bool ret = true;
 	float scale = App->win->GetScale();
 
 	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + x * scale;
-	rect.y = (int)(camera.y * speed) + y * scale;
+	if (!ui)
+	{
+		rect.x = (int)(camera.x * speed) + x * scale;
+		rect.y = (int)(camera.y * speed) + y * scale;
+	}
+	else
+	{
+		rect.x = (int)(camera.x * speed) + x;
+		rect.y = (int)(camera.y * speed) + y;
+	}
 
 	if(section != NULL)
 	{
@@ -184,8 +193,11 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 	}
 
-	rect.w *= scale;
-	rect.h *= scale;
+	if (!ui)
+	{
+		rect.w *= scale;
+		rect.h *= scale;
+	}
 
 	SDL_Point* p = NULL;
 	SDL_Point pivot;
@@ -212,7 +224,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	return ret;
 }
 
-bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool use_camera, bool guiHitBox) const
+bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool ui, bool filled, bool use_camera, bool guiHitBox) const
 {
 	bool ret = true;
 	float scale = App->win->GetScale();
@@ -222,22 +234,41 @@ bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 
 	SDL_Rect rec(rect);
 
-	if (use_camera)
+	if (!ui)
 	{
-		rec.x = (int)(camera.x + rect.x * scale);
-		rec.y = (int)(camera.y + rect.y * scale);
-		rec.w *= scale;
-		rec.h *= scale;
+		if (use_camera)
+		{
+			rec.x = (int)(camera.x + rect.x * scale);
+			rec.y = (int)(camera.y + rect.y * scale);
+			rec.w *= scale;
+			rec.h *= scale;
+		}
+		else if (guiHitBox)
+		{
+
+			rec.x = (int)(rect.x * scale);
+			rec.y = (int)(camera.y + rect.y * scale);
+			rec.w *= scale;
+			rec.h *= scale;
+
+		}
 	}
-	else if (guiHitBox)
+	else
 	{
+		if (use_camera)
+		{
+			rec.x = (int)(camera.x + rect.x);
+			rec.y = (int)(camera.y + rect.y);
+		}
+		else if (guiHitBox)
+		{
 
-		rec.x = (int)(rect.x * scale);
-		rec.y = (int)(camera.y + rect.y * scale);
-		rec.w *= scale;
-		rec.h *= scale;
+			rec.x = (int)(rect.x);
+			rec.y = (int)(camera.y + rect.y);
 
+		}
 	}
+
 
 	int result = (filled) ? SDL_RenderFillRect(renderer, &rec) : SDL_RenderDrawRect(renderer, &rec);
 
