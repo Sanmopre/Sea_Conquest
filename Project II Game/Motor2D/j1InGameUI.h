@@ -37,6 +37,7 @@ public:
 private:
 	int MiddleScreenW;
 	int MiddleScreenH;
+	int width;
 	Game_Menu menu;
 };
 
