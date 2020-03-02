@@ -132,9 +132,32 @@ iPoint j1Render::ScreenToWorld(int x, int y) const
 
 void j1Render::AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section, bool fliped, bool ui, float speed, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
-	BlitEvent event{texture, x, y, section, fliped, ui, speed, r, g, b, a};
+	if (texture != nullptr)
+	{
+		if (x > (-camera.x / App->win->GetScale()) - 200 &&
+			x < (-camera.x + camera.w) / App->win->GetScale() &&
+			y >(-camera.y / App->win->GetScale()) - 200 &&
+			y < (-camera.y + camera.h) / App->win->GetScale())
+		{
+			BlitEvent event{ texture, x, y, section, fliped, ui, speed, r, g, b, a };
 
-	blit_queue.insert(make_pair(layer,event));
+			blit_queue.insert(make_pair(layer, event));
+		}
+	}
+	else
+	{
+		if (section.x > (-camera.x / App->win->GetScale()) - 200 &&
+			section.x < (-camera.x + camera.w) / App->win->GetScale() &&
+			section.y >(-camera.y / App->win->GetScale()) - 200 &&
+			section.y < (-camera.y + camera.h) / App->win->GetScale())
+		{
+			BlitEvent event{ texture, x, y, section, fliped, ui, speed, r, g, b, a };
+
+			blit_queue.insert(make_pair(layer, event));
+		}
+	}
+
+
 }
 
 void j1Render::BlitAll()
@@ -163,10 +186,6 @@ void j1Render::BlitAll()
 			uint event_g = e->second.g;
 			uint event_b = e->second.b;
 			uint event_a = e->second.a;
-			if (event_rect.x > (-camera.x / App->win->GetScale()) - 200 &&
-				event_rect.x < (-camera.x + camera.w) / App->win->GetScale() &&
-				event_rect.y >(-camera.y / App->win->GetScale()) - 200 &&
-				event_rect.y < (-camera.y + camera.h) / App->win->GetScale())
 			DrawQuad(event_rect, event_r, event_g, event_b, event_a, event_ui);
 		}
 	}
