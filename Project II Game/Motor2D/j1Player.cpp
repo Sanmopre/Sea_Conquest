@@ -103,10 +103,10 @@ void j1Player::Camera_Control(float dt)
 	if (mouse_position.y == 0) 
 		App->render->camera.y += camera_speed*dt*1000;
 
-	if (mouse_position.x > win_width - camera_offset) 
+	if (mouse_position.x > (win_width - camera_offset)/App->win->scale)
 		App->render->camera.x -= camera_speed*dt*1000;
 
-	if (mouse_position.y > win_height - camera_offset) 
+	if (mouse_position.y > (win_height - camera_offset)/App->win->scale)
 		App->render->camera.y -= camera_speed*dt*1000;
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
