@@ -1,3 +1,3 @@
-# {QA Workflow}
+# QA Workflow
 
 ## Description
