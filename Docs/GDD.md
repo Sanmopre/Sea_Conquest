@@ -1,3 +1,3 @@
-# {GDD Document}
+# {GDD}
 
 ## Description
