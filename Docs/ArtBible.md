@@ -1,3 +1,3 @@
-# {Art Bible}
+# Art Bible
 
 ## Description
