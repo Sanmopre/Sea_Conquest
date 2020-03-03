@@ -16,14 +16,13 @@
  - {ControlsScheme}
 
 ## Developers
-
- - {Moliner Préjano, Santiago} - {Lead}        - {Github Link: https://github.com/Sanmopre}
- - {Rami Rodríguez, David}     - {Programming} - {Github Link: https://github.com/Paideieitor}
- - {Quintana Griera, Miquel}   - {Art/Audio}   - {Github Link: https://github.com/Leukino}
- - {Tarrés Amselem, Oscar}     - {Management}  - {Github Link: https://github.com/oscarta3}
- - {Robles Muñoz, Albert}      - {QA}          - {Github Link: https://github.com/Albertito029}
- - {Espinosa Castillo, Albert} - {Programming} - {Github Link: https://github.com/albertec1}
- - {Gallardo Quesada, Marc}    - {Design}      - {Github Link: https://github.com/Marchusky}
+ - {Moliner Préjano, Santiago} - {Lead}        - {[GitHub account](https://github.com/Sanmopre)}
+ - {Rami Rodríguez, David}     - {Programming} - {[GitHub account](https://github.com/Paideieitor)}
+ - {Quintana Griera, Miquel}   - {Art/Audio}   - {[GitHub account](https://github.com/Leukino)}
+ - {Tarrés Amselem, Oscar}     - {Management}  - {[GitHub account](https://github.com/oscarta3)}
+ - {Robles Muñoz, Albert}      - {QA}          - {[GitHub account](https://github.com/Albertito029)}
+ - {Espinosa Castillo, Albert} - {Programming} - {[GitHub account](https://github.com/albertec1)}
+ - {Gallardo Quesada, Marc}    - {Design}      - {[GitHub account](https://github.com/Marchusky)}
 
 ## License
 
