@@ -112,6 +112,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1GUIelement* element)
 		if (element == menu.Exit_button) {
 			Activate_Menu();
 		}
+		if (element == menu.Title) {
+			Activate_Menu();
+		}
 	}
 	}
 }

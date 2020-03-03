@@ -32,7 +32,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("iso_walk.tmx") == true;
+	App->map->Load("mapa men.tmx") == true;
 	/*/
 	if(App->map->Load("este fk men.tmx") == true)
 	{
