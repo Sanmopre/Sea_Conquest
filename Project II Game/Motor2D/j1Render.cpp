@@ -130,7 +130,7 @@ iPoint j1Render::ScreenToWorld(int x, int y) const
 	return ret;
 }
 
-void j1Render::AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section, bool fliped, bool ui, float speed, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+void j1Render::AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section, bool fliped, bool ui, float speed, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool ignoreculling)
 {
 	BlitEvent event{ texture, x, y, section, fliped, ui, speed, r, g, b, a };
 
@@ -142,7 +142,9 @@ void j1Render::AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const
 	}
 	else
 	{
-		if (section.x > (-camera.x / App->win->GetScale()) - 100 && section.x < (-camera.x + camera.w) / App->win->GetScale() &&
+		if (ignoreculling)
+			blit_queue.insert(make_pair(layer, event));
+		else if(section.x > (-camera.x / App->win->GetScale()) - 100 && section.x < (-camera.x + camera.w) / App->win->GetScale() && 
 			section.y >(-camera.y / App->win->GetScale()) - 100 && section.y < (-camera.y + camera.h) / App->win->GetScale())
 			blit_queue.insert(make_pair(layer, event));
 	}
