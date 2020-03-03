@@ -1,3 +1,3 @@
-# {GUI Document}
+# GUI Document
 
 ## Description
