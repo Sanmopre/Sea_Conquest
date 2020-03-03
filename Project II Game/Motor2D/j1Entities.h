@@ -8,6 +8,7 @@
 
 #include "j1Render.h"
 #include "Color.h"
+#include "j1Timer.h"
 
 struct SDL_Texture;
 
@@ -82,7 +83,7 @@ protected:
 			SDL_Rect health_rect = { rect.x - extra_width, rect.y - 20, rect.w + extra_width * 2, height };
 			Color health_color(96u, 96u, 96u);
 
-			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, false, 0.0f, health_color.r, health_color.g, health_color.b, health_color.a);
+			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, false, health_color.r, health_color.g, health_color.b, health_color.a);
 
 			float hrw = health_rect.w;
 			hrw /= max_health;
@@ -90,7 +91,7 @@ protected:
 			health_rect.w = hrw;
 			health_color.SetColor(0u, 204u, 0u);
 
-			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, false, 0.0f, health_color.r, health_color.g, health_color.b, health_color.a);
+			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, false, health_color.r, health_color.g, health_color.b, health_color.a);
 		}
 	}
 
@@ -146,6 +147,7 @@ private:
 	void Attack();
 	void FindTarget();
 
+	timed_var firerate;
 	Color color;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

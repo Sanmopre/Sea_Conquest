@@ -3,6 +3,12 @@
 
 #include "p2Defs.h"
 
+struct timed_var
+{
+	int iterations;
+	int counter = 0;
+};
+
 class j1Timer
 {
 public:

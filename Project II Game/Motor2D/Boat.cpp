@@ -14,10 +14,13 @@ Boat::Boat(int x, int y, int level, int team)
 	destination = position;
 	this->level = level;
 	this->team = team;
+	speed = 1;
 	range = 100;
+	firerate = { 1000 };
 	max_health = 100;
 	health = max_health;
 	rect = { position.x, position.y, 20, 20 };
+	target = nullptr;
 }
 
 Boat::~Boat()
@@ -41,25 +44,39 @@ void Boat::Update(float dt)
 	else
 	{
 		if (team == 0)
+		{
 			color.SetColor(0u, 255u, 255u);
+
+			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+				SetDestination();
+
+			//if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			//	Attack();
+		}
 		else if (team == 1)
+		{
 			color.SetColor(255u, 255u, 0u);
-		
-
-		if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
-			SetDestination();
-
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-			Attack();
+		}
+			
 
 		ShowHPbar(10, 5);
+	}
+
+	if (target != nullptr && dt != 0.0f)
+	{
+		firerate.counter++;
+		if (firerate.counter >= (firerate.iterations / dt))
+		{
+			Attack();
+			firerate.counter = 0;
+		}
 	}
 
 	Move();
 
 	FindTarget();
 
-	App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, 0.0f, false, color.r, color.g, color.b, color.a);
+	App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, false, color.r, color.g, color.b, color.a);
 
 	if (health == 0)
 		CleanUp();
@@ -75,13 +92,13 @@ void  Boat::Move()
 	if (destination != position)
 	{
 		if (position.x < destination.x)
-			position.x++;
+			position.x += speed;
 		if (position.x > destination.x)
-			position.x--;
+			position.x -= speed;
 		if (position.y < destination.y)
-			position.y++;
+			position.y += speed;
 		if (position.y > destination.y)
-			position.y--;
+			position.y -= speed;
 	}
 }
 
@@ -94,8 +111,7 @@ void  Boat::SetDestination()
 
 void  Boat::Attack()
 {
-	if (target != nullptr)
-		Damage(10, target);
+	Damage(10, target);
 }
 
 void  Boat::FindTarget()
