@@ -1,3 +1,3 @@
-# {Audio Bible}
+# Audio Bible
 
 ## Description
