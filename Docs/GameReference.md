@@ -5,20 +5,20 @@
 ### Description
 
 ### Technical Profile
-CPU:
-GPU:
-Memory:
-Resolution:
-FPS:
-Assets:
-Etc:
+- CPU:
+- GPU:
+- Memory:
+- Resolution:
+- FPS:
+- Assets:
+- Etc:
 
 ### Origin
-Authors:
-Versions:
-Date of Release:
-Hardware:
-Etc:
+- Authors:
+- Versions:
+- Date of Release:
+- Hardware:
+- Etc:
 
 ### Plot and narrative
 bla bla bla (añadir screenshots del juego comparado)
