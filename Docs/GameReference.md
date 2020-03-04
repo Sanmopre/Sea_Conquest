@@ -4,14 +4,10 @@
 
 ### Description
 
-### Technical Profile
-- CPU:
-- GPU:
-- Memory:
-- Resolution:
-- FPS:
-- Assets:
-- Etc:
+
+### Plot and narrative
+bla bla bla (añadir screenshots del juego comparado)
+
 
 ### Origin
 - Authors:
@@ -20,5 +16,12 @@
 - Hardware:
 - Etc:
 
-### Plot and narrative
-bla bla bla (añadir screenshots del juego comparado)
+
+### Technical Profile
+- CPU:
+- GPU:
+- Memory:
+- Resolution:
+- FPS:
+- Assets:
+- Etc:
