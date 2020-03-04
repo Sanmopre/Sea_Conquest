@@ -13,7 +13,6 @@ struct BlitEvent
 	const SDL_Rect section;
 	bool fliped;
 	bool ui;
-	float speed;
 	uint r, g, b, a;
 };
 
@@ -41,7 +40,7 @@ public:
 	void ResetViewPort();
 	iPoint ScreenToWorld(int x, int y) const;
 
-	void AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section, bool fliped = false, bool ui = false, float speed = 1.0f, Uint8 r = 0u, Uint8 g = 0u, Uint8 b = 0u, Uint8 a = 255, bool ignoreculing = false);
+	void AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const SDL_Rect section, bool fliped = false, bool ui = false, Uint8 r = 0u, Uint8 g = 0u, Uint8 b = 0u, Uint8 a = 255, bool ignoreculing = false);
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool ui = false, bool filled = true, bool use_camera = true, bool guiHitBox = false) const;
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
