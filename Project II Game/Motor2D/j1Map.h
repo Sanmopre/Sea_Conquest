@@ -5,8 +5,10 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
-
+#include <vector>
 // ----------------------------------------------------
+struct Animation;
+
 struct Properties
 {
 	struct Property
@@ -138,6 +140,7 @@ private:
 public:
 
 	MapData data;
+	std::vector<Animation> wholeAnimations;
 
 private:
 

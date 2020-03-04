@@ -3,18 +3,18 @@
  <tileset firstgid="1" name="Animation_test" tilewidth="20" tileheight="27" tilecount="1144" columns="52">
   <grid orientation="isometric" width="20" height="25"/>
   <image source="../textures/Enemy.png" width="1053" height="607"/>
-  <tile id="0" type="animation">
+  <tile id="0" type="boat">
    <animation>
-    <frame tileid="0" duration="100"/>
-    <frame tileid="3" duration="100"/>
-    <frame tileid="6" duration="100"/>
-    <frame tileid="9" duration="100"/>
-    <frame tileid="12" duration="100"/>
-    <frame tileid="15" duration="100"/>
-    <frame tileid="18" duration="100"/>
-    <frame tileid="21" duration="100"/>
-    <frame tileid="24" duration="100"/>
-    <frame tileid="27" duration="100"/>
+    <frame tileid="0" duration="66"/>
+    <frame tileid="3" duration="420"/>
+    <frame tileid="6" duration="69"/>
+    <frame tileid="9" duration="666"/>
+    <frame tileid="12" duration="4"/>
+    <frame tileid="15" duration="777"/>
+    <frame tileid="18" duration="370"/>
+    <frame tileid="21" duration="1337"/>
+    <frame tileid="24" duration="443"/>
+    <frame tileid="27" duration="512"/>
    </animation>
   </tile>
  </tileset>

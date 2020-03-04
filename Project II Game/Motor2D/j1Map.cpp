@@ -5,6 +5,8 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include <math.h>
+#include "animation.h"
+#include "j1Entities.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -49,10 +51,14 @@ void j1Map::Draw()
 				{
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
 
-					SDL_Rect r = tileset->GetTileRect(tile_id);
+					SDL_Rect r = tileset->GetTileRect(tile_id); //todo get tile id's then positions from animations
+					// /*ARRAY THAT CONTAINS TILE ID'S*/, ARRAY THAT CONTAINS MS, int number of frames, width and height of animations
+					// LOAD TEXTURE AND PUT IT IN ENTITY
+					// CREATE ANIMATION, PUT SDL_RECTS FROM WIDTH HEIGHT AND TILE ID'S POSITIONS FROM EVERY FRAME, PUT MS FROM EVERY FRAME
+					// 
 					iPoint pos = MapToWorld(x, y);
 
-					App->render->AddBlitEvent(0,tileset->texture, pos.x, pos.y, r);
+					App->render->AddBlitEvent(0,tileset->texture, pos.x, pos.y, r);//todo 
 				}
 			}
 		}
@@ -372,20 +378,37 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 	{
 		if (tile != NULL && !tile.attribute("type").empty())
 		{
-			LOG("UEP, found an animating tile!");
+			
 			uint aniId = tile.attribute("id").as_uint();
-			pugi::xml_node ani = tile.child("animation");
-			for (pugi::xml_node frame = ani.child("frame"); frame != NULL; frame = frame.next_sibling("frame"))
+			pugi::xml_node image = tileset_node.child("image");
+			SDL_Texture* texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
+			pugi::xml_node animationNode = tile.child("animation");
+			Animation animation;
+			animation.texture = texture;
+			if (strcmp(tile.attribute("type").as_string(), "animation_boatdown") == 0)
+				animation.type = Entity_Type::BOAT;
+			else 
+				animation.type = Entity_Type::NONE;
+			
+			LOG("UEP, found an animating tile! Type: %d", animation.type);
+			int nFrames = 0;
+			for (pugi::xml_node frame = animationNode.child("frame"); frame != NULL; frame = frame.next_sibling("frame"))
 			{
 				uint tileID = frame.attribute("tileid").as_uint();
+				SDL_Rect rect = set->GetTileRect(tileID);
+				animation.frames[nFrames] = rect;
+				animation.PushBack(rect);
 				uint duration = frame.attribute("duration").as_uint();
+				animation.speeds[nFrames] = duration;
+				nFrames++;
+				LOG("Uep! Parseao frame %d, %d %d %d %d %d ms ", nFrames, rect.x, rect.y, rect.w, rect.h, duration);
 			}
-			
+			wholeAnimations.push_back(animation);
 		}
-		else
-		{
-			LOG("UEP, no s'han trobat animacions");
-		}
+		//else
+		//{
+		// LOG("UEP, no s'han trobat animacions");
+		//}
 		
 	}
 	return ret;

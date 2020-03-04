@@ -85,6 +85,9 @@
     <ClCompile Include="j1InGameUI.cpp">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="animation.cpp">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">

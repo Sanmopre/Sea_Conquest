@@ -5,6 +5,7 @@
 #include "j1Input.h"
 #include "j1EntityManager.h"
 #include <vector>
+#include "j1Map.h"
 
 Boat::Boat(int x, int y, int level, int team)
 {
@@ -17,7 +18,15 @@ Boat::Boat(int x, int y, int level, int team)
 	range = 100;
 	max_health = 100;
 	health = max_health;
-	rect = { position.x, position.y, 20, 20 };
+	//rect = { position.x, position.y, 20, 20 };
+	for (std::vector<Animation>::iterator i = App->map->wholeAnimations.begin(); i != App->map->wholeAnimations.end(); i++) 
+	{
+		if (this->type == (i)->type)
+		{
+			this->animation = i->GetAnimation();
+			break;
+		}
+	}
 }
 
 Boat::~Boat()
@@ -59,8 +68,8 @@ void Boat::Update(float dt)
 
 	FindTarget();
 
-	App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, 0.0f, false, color.r, color.g, color.b, color.a);
-
+	//App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, 0.0f, false, color.r, color.g, color.b, color.a);
+	App->render->AddBlitEvent(1, animation.texture, 0, 0, animation.GetCurrentFrame(), false, 0.0f, false);
 	if (health == 0)
 		CleanUp();
 }
