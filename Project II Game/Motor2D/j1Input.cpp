@@ -156,12 +156,13 @@ void j1Input::GetMousePosition(int& x, int& y)
 	y = mouse_y;
 }
 
-iPoint j1Input::GetMouseWorldPosition()
+fPoint j1Input::GetMouseWorldPosition()
 {
-	iPoint ret;
-	GetMousePosition(ret.x, ret.y);
-	ret.x -= App->render->camera.x / App->win->GetScale();
-	ret.y -= App->render->camera.y / App->win->GetScale();
+	fPoint ret;
+	int mx, my;
+	GetMousePosition(mx, my);
+	ret.x = mx - App->render->camera.x / App->win->GetScale();
+	ret.y = my - App->render->camera.y / App->win->GetScale();
 
 	return ret;
 }

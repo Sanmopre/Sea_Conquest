@@ -56,7 +56,7 @@ void j1Map::Draw()
 					// LOAD TEXTURE AND PUT IT IN ENTITY
 					// CREATE ANIMATION, PUT SDL_RECTS FROM WIDTH HEIGHT AND TILE ID'S POSITIONS FROM EVERY FRAME, PUT MS FROM EVERY FRAME
 					// 
-					iPoint pos = MapToWorld(x, y);
+					iPoint pos = MapToWorld<iPoint>(x, y);
 
 					App->render->AddBlitEvent(0,tileset->texture, pos.x, pos.y, r);//todo 
 				}
@@ -96,29 +96,6 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 	}
 
 	return set;
-}
-
-iPoint j1Map::MapToWorld(int x, int y) const
-{
-	iPoint ret;
-
-	if(data.type == MAPTYPE_ORTHOGONAL)
-	{
-		ret.x = x * data.tile_width;
-		ret.y = y * data.tile_height;
-	}
-	else if(data.type == MAPTYPE_ISOMETRIC)
-	{
-		ret.x = (x - y) * (data.tile_width * 0.5f);
-		ret.y = (x + y) * (data.tile_height * 0.5f);
-	}
-	else
-	{
-		LOG("Unknown map type");
-		ret.x = x; ret.y = y;
-	}
-
-	return ret;
 }
 
 iPoint j1Map::WorldToMap(int x, int y) const

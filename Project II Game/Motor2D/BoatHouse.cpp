@@ -15,7 +15,7 @@ BoatHouse::BoatHouse(int team, iPoint tile)
 	max_health = 500;
 	health = max_health;
 	placed = false;
-	rect = { position.x, position.y, 40, 40 };
+	rect = { (int)position.x, (int)position.y, 40, 40 };
 }
 
 BoatHouse::~BoatHouse()
@@ -39,7 +39,7 @@ void BoatHouse::Update(float dt)
 		position = App->input->GetMouseWorldPosition();
 
 		iPoint placing_tile = App->map->WorldToMap(position.x, position.y);
-		position = App->map->MapToWorld(placing_tile.x, placing_tile.y);
+		position = App->map->MapToWorld<fPoint>(placing_tile.x, placing_tile.y);
 
 		rect.x = position.x;
 		rect.y = position.y;

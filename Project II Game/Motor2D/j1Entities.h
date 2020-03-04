@@ -22,7 +22,8 @@ enum class Orientation
 	SOUTH,
 	SOUTH_WEST,
 	WEST,
-	NORTH_WEST
+	NORTH_WEST,
+	NONE
 };
 
 enum class Entity_Type
@@ -64,7 +65,7 @@ public:
 
 	int health;
 	int max_health;
-	iPoint position;
+	fPoint position;
 	Entity_Type type;
 	bool selected;
 	int level;
@@ -104,14 +105,14 @@ class Unit : public Entity
 {
 public:
 
-	int speed;
+	float speed;
 	int range;
-	Orientation looking;
-	iPoint destination;
+	Orientation orientation;
+	fPoint destination;
 
 protected:
 
-	iPoint past_frame_dest;
+	fPoint past_frame_dest;
 	//void Path_to(fPoint); Add when pathfinding is done
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -134,7 +135,7 @@ public:
 class Boat : public Unit
 {
 public:
-	Boat(int x = 0, int y = 0, int level = 1, int team = 0);
+	Boat(float x = 0, float y = 0, int level = 1, int team = 0);
 	~Boat();
 
 	void Update(float);
@@ -144,7 +145,7 @@ public:
 
 private:
 
-	void Move();
+	void Move(float dt);
 	void SetDestination();
 	void Attack();
 	void FindTarget();

@@ -106,7 +106,7 @@ bool j1Scene::Update(float dt)
 	App->input->GetMousePosition(x, y);
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMap(p.x, p.y);
-	p = App->map->MapToWorld(p.x, p.y);
+	p = App->map->MapToWorld<iPoint>(p.x, p.y);
 
 	//App->render->Blit(debug_tex, p.x, p.y);
 
@@ -114,7 +114,7 @@ bool j1Scene::Update(float dt)
 
 	for(uint i = 0; i < path->Count(); ++i)
 	{
-		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+		iPoint pos = App->map->MapToWorld<iPoint>(path->At(i)->x, path->At(i)->y);
 		//App->render->AddBlitEvent(0,debug_tex, pos.x, pos.y);
 	}
 

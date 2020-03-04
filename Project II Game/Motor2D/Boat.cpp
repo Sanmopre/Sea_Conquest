@@ -7,7 +7,7 @@
 #include <vector>
 #include "j1Map.h"
 
-Boat::Boat(int x, int y, int level, int team)
+Boat::Boat(float x, float y, int level, int team)
 {
 	type = Entity_Type::BOAT;
 	position.x = x;
@@ -15,12 +15,12 @@ Boat::Boat(int x, int y, int level, int team)
 	destination = position;
 	this->level = level;
 	this->team = team;
-	speed = 1;
+	speed = 100;
 	range = 100;
 	firerate = { 1 };
 	max_health = 100;
 	health = max_health;
-	//rect = { position.x, position.y, 20, 20 };
+
 	for (std::vector<Animation>::iterator i = App->map->wholeAnimations.begin(); i != App->map->wholeAnimations.end(); i++) 
 	{
 		if (this->type == (i)->type)
@@ -29,7 +29,7 @@ Boat::Boat(int x, int y, int level, int team)
 			break;
 		}
 	}
-	rect = { position.x, position.y, 20, 20 };
+	rect = { (int)position.x, (int)position.y, 20, 20 };
 	target = nullptr;
 
 }
@@ -60,9 +60,6 @@ void Boat::Update(float dt)
 
 			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
 				SetDestination();
-
-			//if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-			//	Attack();
 		}
 		else if (team == 1)
 		{
@@ -73,7 +70,9 @@ void Boat::Update(float dt)
 		ShowHPbar(10, 5);
 	}
 
-	if (target != nullptr && dt != 0.0f)
+	if (destination != position)
+		Move(dt);
+	else if (target != nullptr && dt != 0.0f)
 	{
 		firerate.counter++;
 		if (firerate.counter >= (firerate.iterations / dt))
@@ -82,8 +81,6 @@ void Boat::Update(float dt)
 			firerate.counter = 0;
 		}
 	}
-
-	Move();
 
 	FindTarget();
 
@@ -99,26 +96,61 @@ void Boat::CleanUp()
 	to_delete = true;
 }
 
-void  Boat::Move()
+void  Boat::Move(float dt)
 {
-	if (destination != position)
+	orientation = Orientation::NONE;
+
+	if (position.x < destination.x)
 	{
-		if (position.x < destination.x)
-			position.x += speed;
+		position.x += speed * dt;
 		if (position.x > destination.x)
-			position.x -= speed;
-		if (position.y < destination.y)
-			position.y += speed;
-		if (position.y > destination.y)
-			position.y -= speed;
+			position.x = destination.x;
+
+		orientation = Orientation::EAST;
 	}
+	if (position.x > destination.x)
+	{
+		position.x -= speed * dt;
+		if (position.x < destination.x)
+			position.x = destination.x;
+
+		orientation = Orientation::WEST;
+	}
+	if (position.y < destination.y)
+	{
+		position.y += speed * dt;
+		if (position.y > destination.y)
+			position.y = destination.y;
+
+		if(orientation == Orientation::NONE)
+			orientation = Orientation::SOUTH;
+		else if (orientation == Orientation::EAST)
+			orientation = Orientation::SOUTH_EAST;
+		else if (orientation == Orientation::WEST)
+			orientation = Orientation::SOUTH_WEST;
+	}
+	if (position.y > destination.y)
+	{
+		position.y -= speed * dt;
+		if (position.y < destination.y)
+			position.y = destination.y;
+
+		if (orientation == Orientation::NONE)
+			orientation = Orientation::NORTH;
+		else if (orientation == Orientation::EAST)
+			orientation = Orientation::NORTH_EAST;
+		else if (orientation == Orientation::WEST)
+			orientation = Orientation::NORTH_WEST;
+	}
+	
 }
 
 void  Boat::SetDestination()
 {
-	App->input->GetMousePosition(destination.x, destination.y);
-	destination.x -= App->render->camera.x / App->win->GetScale();
-	destination.y -= App->render->camera.y / App->win->GetScale();	
+	int mx, my;
+	App->input->GetMousePosition(mx, my);
+	destination.x = mx - App->render->camera.x / App->win->GetScale();
+	destination.y = my - App->render->camera.y / App->win->GetScale();	
 }
 
 void  Boat::Attack()

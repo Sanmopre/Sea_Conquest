@@ -122,7 +122,30 @@ public:
 	// Load new map
 	bool Load(const char* path);
 
-	iPoint MapToWorld(int x, int y) const;
+	template<class type>
+	type MapToWorld(int x, int y) const
+	{
+		type ret;
+
+		if (data.type == MAPTYPE_ORTHOGONAL)
+		{
+			ret.x = x * data.tile_width;
+			ret.y = y * data.tile_height;
+		}
+		else if (data.type == MAPTYPE_ISOMETRIC)
+		{
+			ret.x = (x - y) * (data.tile_width * 0.5f);
+			ret.y = (x + y) * (data.tile_height * 0.5f);
+		}
+		else
+		{
+			LOG("Unknown map type");
+			ret.x = x; ret.y = y;
+		}
+
+		return ret;
+	}
+
 	iPoint WorldToMap(int x, int y) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
