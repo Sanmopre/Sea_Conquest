@@ -82,7 +82,7 @@ protected:
 		{
 			showing_hpbar = true;
 
-			SDL_Rect health_rect = {animation.GetCurrentFrame().x - extra_width, animation.GetCurrentFrame().y - 20, animation.GetCurrentFrame().w + extra_width * 2, height };
+			SDL_Rect health_rect = { rect.x - extra_width, rect.y - 20, rect.w + extra_width * 2, height };
 			Color health_color(96u, 96u, 96u);
 
 			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, false, health_color.r, health_color.g, health_color.b, health_color.a);

@@ -41,7 +41,7 @@ bool j1EntityManager::Update(float dt)
 				break;
 			}
 			else
-				(*entity)->Update(6.9f);
+				(*entity)->Update(dt);
 
 			counter++;
 		}

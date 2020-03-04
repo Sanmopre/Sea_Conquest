@@ -17,7 +17,7 @@ Boat::Boat(int x, int y, int level, int team)
 	this->team = team;
 	speed = 1;
 	range = 100;
-	firerate = { 1000 };
+	firerate = { 1 };
 	max_health = 100;
 	health = max_health;
 	//rect = { position.x, position.y, 20, 20 };
