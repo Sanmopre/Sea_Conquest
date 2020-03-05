@@ -17,7 +17,7 @@ public:
 	bool CleanUp();
 
 	Entity* AddEntity(float x = 0, float y = 0, Entity_Type = Entity_Type::NONE, int level = 1, int team = 0);
-	void RequestEntity(EntityRequest); //use when creating an entity within another entity
+
 	void DeleteEntity(Entity*);
 	void DeleteAll();
 
@@ -25,7 +25,7 @@ public:
 
 private:
 
-	std::vector<EntityRequest> entityqueue;
+	std::vector<Entity*> buffer;
 	void QuickDeleteEntity(std::vector<Entity*>::iterator itr);
 };
 

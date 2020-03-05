@@ -85,7 +85,6 @@ bool j1Player::Update(float dt)
 	Mouse_Cursor();
 	Drag_Mouse(); 
 
-
 	return true;
 }
 

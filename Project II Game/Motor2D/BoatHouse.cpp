@@ -73,7 +73,7 @@ void BoatHouse::Update(float dt)
 					}
 				}
 			}
-			App->entitymanager->RequestEntity(*unitqueue.begin());
+			App->entitymanager->AddEntity(unitqueue.begin()->x, unitqueue.begin()->y, unitqueue.begin()->type, unitqueue.begin()->level, unitqueue.begin()->team);
 			unitqueue.erase(unitqueue.begin());
 			unitqueue.shrink_to_fit();
 			building_time.counter = 0;
