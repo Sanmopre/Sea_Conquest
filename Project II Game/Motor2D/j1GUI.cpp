@@ -8,7 +8,7 @@
 #include "j1GUIinputBox.h"
 #include "j1GUIlabel.h"
 #include "j1GUIimage.h"
-
+#include "j1GUItext.h"
 #include "j1GUIscrollBar.h"
 
 
@@ -121,6 +121,9 @@ j1GUIelement* j1GUI::ADD_ELEMENT(GUItype type, j1GUIelement* parent, iPoint Map_
 		break;
 	case GUItype::GUI_SCROLLBAR:
 		temp = new j1GUIscrollBar(scrollType);
+		break;
+	case GUItype::GUI_TEXT:
+		temp = new j1GUItext();
 		break;
 	}
 
