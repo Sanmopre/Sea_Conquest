@@ -46,6 +46,16 @@ bool j1EntityManager::Update(float dt)
 			counter++;
 		}
 	}
+
+	if (entityqueue.size() != 0)
+	{
+		for (vector<EntityRequest>::iterator request = entityqueue.begin(); request != entityqueue.end(); request++)
+		{
+			AddEntity(request->x, request->y, request->type, request->level, request->team);
+		}
+		entityqueue.erase(entityqueue.begin(), entityqueue.end());
+		entityqueue.shrink_to_fit();
+	}
 	////////////////////////////////////ENTITIES_DEBUG///////////////////////////////////////////////////
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 	{
@@ -53,7 +63,7 @@ bool j1EntityManager::Update(float dt)
 		App->input->GetMousePosition(test.x, test.y);
 		test.x -= App->render->camera.x / App->win->GetScale();
 		test.y -= App->render->camera.y / App->win->GetScale();
-		enttest = AddEntity(test.x, test.y, Entity_Type::BOAT, 1, 0);
+		AddEntity(test.x, test.y, Entity_Type::BOAT, 1, 0);
 
 		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
@@ -64,30 +74,32 @@ bool j1EntityManager::Update(float dt)
 		App->input->GetMousePosition(test.x, test.y);
 		test.x -= App->render->camera.x / App->win->GetScale();
 		test.y -= App->render->camera.y / App->win->GetScale();
-		enttest = AddEntity(test.x, test.y, Entity_Type::BOAT, 1, 1);
+		AddEntity(test.x, test.y, Entity_Type::BOAT, 1, 1);
 
 		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 	{
-		enttest = AddEntity(0, 0, Entity_Type::BOATHOUSE, 0, 0);
+		AddEntity(0, 0, Entity_Type::BOATHOUSE, 0, 0);
 
 		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
 	{
-		enttest = AddEntity(0, 0, Entity_Type::BOATHOUSE, 0, 1);
+		AddEntity(0, 0, Entity_Type::BOATHOUSE, 0, 1);
 
 		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
 	{
-		DeleteEntity(enttest);
-		if(entities.size() != 0)
-			enttest = *(entities.end() - 1);
+		for (vector<Entity*>::iterator entity = entities.begin(); entity != entities.end(); entity++)
+		{
+			if ((*entity)->selected)
+				(*entity)->CleanUp();
+		}
 		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 
@@ -100,8 +112,9 @@ bool j1EntityManager::Update(float dt)
 	return true;
 }
 
-Entity* j1EntityManager::AddEntity(int x, int y, Entity_Type type, int level, int team)
+Entity* j1EntityManager::AddEntity(float x, float y, Entity_Type type, int level, int team)
 {
+	LOG("AA");
 	switch (type)
 	{
 	case Entity_Type::BOAT:
@@ -113,6 +126,13 @@ Entity* j1EntityManager::AddEntity(int x, int y, Entity_Type type, int level, in
 	}	
 
 	return *(entities.end() - 1);
+}
+
+void j1EntityManager::RequestEntity(EntityRequest request)
+{
+	EntityRequest entity = { request.x, request.y, request.type, request.level, request.team };
+
+	entityqueue.push_back(entity);
 }
 
 void j1EntityManager::DeleteEntity(Entity* entity_)

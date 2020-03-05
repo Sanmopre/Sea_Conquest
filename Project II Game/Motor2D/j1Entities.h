@@ -5,6 +5,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "SDL/include/SDL.h"
+#include <vector>
 
 #include "j1Render.h"
 #include "Color.h"
@@ -31,6 +32,14 @@ enum class Entity_Type
 	BOAT,
 	BOATHOUSE,
 	NONE
+};
+
+struct EntityRequest
+{
+	float x, y;
+	Entity_Type type;
+	int level;
+	int team;
 };
 
 struct storage
@@ -169,6 +178,10 @@ public:
 	void Update(float);
 	void CleanUp();
 
+	void BuildUnit(Entity_Type type, int level);
+
+	std::vector<EntityRequest> unitqueue;
+	timed_var building_time;
 	Color color;
 };
 #endif // __j1Entities_H__
