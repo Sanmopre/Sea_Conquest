@@ -14,7 +14,8 @@ enum class GUItype
 	GUI_INPUTBOX,
 	GUI_SCROLLBAR,
 	GUI_LABEL,
-	GUI_IMAGE
+	GUI_IMAGE,
+	GUI_TEXT
 };
 
 enum class SCROLL_TYPE
