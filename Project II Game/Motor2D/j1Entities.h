@@ -49,8 +49,8 @@ public:
 
 	Entity() { selected = false; to_delete = false; }
 
-	virtual void Update(float dt) {};
-	virtual void CleanUp() {};
+	virtual void Update(float dt) = 0;
+	virtual void CleanUp() = 0;
 
 	bool to_delete;
 
@@ -105,8 +105,9 @@ class Unit : public Entity
 {
 public:
 
+	Unit() { orientation = Orientation::NORTH; }
+
 	float speed;
-	int range;
 	Orientation orientation;
 	fPoint destination;
 
@@ -120,8 +121,12 @@ class Structure : public Entity
 {
 public:
 
-	iPoint tile;
+	Structure() { placed = false; }
 
+	iPoint tile;
+	bool placed;
+
+	void NotPlacedBehaviour();
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Resource : public Entity
@@ -141,6 +146,7 @@ public:
 	void Update(float);
 	void CleanUp();
 
+	int range;
 	Entity* target;
 
 private:
@@ -162,8 +168,6 @@ public:
 
 	void Update(float);
 	void CleanUp();
-
-	bool placed;
 
 	Color color;
 };

@@ -14,7 +14,6 @@ BoatHouse::BoatHouse(int team, iPoint tile)
 	this->team = team;
 	max_health = 500;
 	health = max_health;
-	placed = false;
 	rect = { (int)position.x, (int)position.y, 40, 40 };
 }
 
@@ -29,53 +28,26 @@ void BoatHouse::Update(float dt)
 	rect.x = position.x;
 	rect.y = position.y;
 
-	if (!placed)
+	NotPlacedBehaviour();
+
+	if (selected)
 	{
+		if (team == 0)
+			color.SetColor(0u, 255u, 255u);
+		else if (team == 1)
+			color.SetColor(255u, 255u, 0u);
+
+		if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+			placed = false;
+		
+		ShowHPbar(10, 5);
+	}
+	else
 		if (team == 0)
 			color.Blue();
 		else if (team == 1)
 			color.Red();
-
-		position = App->input->GetMouseWorldPosition();
-
-		iPoint placing_tile = App->map->WorldToMap(position.x, position.y);
-		position = App->map->MapToWorld<fPoint>(placing_tile.x, placing_tile.y);
-
-		rect.x = position.x;
-		rect.y = position.y;
-
-		if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
-		{
-			placed = true;
-			tile = placing_tile;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
-			CleanUp();
-	}
-	else
-	{
-		if (!selected)
-		{
-			if (team == 0)
-				color.Blue();
-			else if (team == 1)
-				color.Red();
-		}
-		else
-		{
-			if (team == 0)
-				color.SetColor(0u, 255u, 255u);
-			else if (team == 1)
-				color.SetColor(255u, 255u, 0u);
-
-			if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
-				placed = false;
-			
-			ShowHPbar(10, 5);
-		}
-	}
-
+	
 	App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, false, color.r, color.g, color.b, color.a);
 
 	if (health == 0)
