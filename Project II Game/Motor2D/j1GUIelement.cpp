@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Scene.h"
+#include "j1Textures.h"
 
 
 j1GUIelement::~j1GUIelement()
@@ -25,14 +26,7 @@ bool j1GUIelement::Start()
 void j1GUIelement::Draw()
 {
 
-	if (above && interactable)
-	{
-		App->render->DrawQuad({ Map_Position.x, Map_Position.y - App->render->camera.y, rect.w, rect.h }, 0, 255, 255, 255, true, false, false, true);
-		App->render->DrawQuad({ Map_Position.x, Map_Position.y - App->render->camera.y, rect.w, rect.h }, 10, 10, 200, 140, true, true, false, true);
-	}
-	else {
-		App->render->DrawQuad({ Map_Position.x, Map_Position.y - App->render->camera.y, rect.w, rect.h }, 140, 70, 220, 140, true, true, false, true);
-	}
+
 }
 
 

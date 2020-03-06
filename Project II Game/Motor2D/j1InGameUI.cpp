@@ -60,14 +60,13 @@ bool j1InGameUI::CleanUp()
 //UI FUNCTIONS
 void j1InGameUI::Add_UI()
 {
-	menu.Menu_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, {width - 200,20 }, { 0,0 }, true, true, { 0,0,100,50 }, "OPTIONS", this);
-	menu.Return_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW,MiddleScreenH }, { 00,0 }, true, false, { 0, 0,130,22 }, "RETURN", this);
-	menu.Title = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW - 20,MiddleScreenH-140}, { 0,0 }, false, false, { 0, 0,175,47 }, "MENU", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-	menu.Resume_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW,MiddleScreenH + 30 }, { 0,0 }, true, false, { 0, 0,130,22 }, "RESUME", this);
-	menu.Exit_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW,MiddleScreenH +60 }, { 0,0 }, true, false, { 0, 0,130,22 }, "EXIT", this);
-	menu.Save = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW,MiddleScreenH +90 }, { 0,0 }, true, false, { 0, 0,130,22 }, "SAVE", this);
-	menu.Load = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW,MiddleScreenH +120 }, { 0,0 }, true, false, { 0, 0,130,22 }, "LOAD", this);
-	menu.Image = App->gui->ADD_ELEMENT(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 50,MiddleScreenH - 140 }, { 0,0 }, true, false, { 0, 0,245,300 },"",this);
+	menu.Menu_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, {width -250,10 }, { 0,0 }, true, true, { 0,0,200,65 }, "OPTIONS", this);
+	menu.Return_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH-140 }, { 0,0 }, true, false, { 0,0,200,65 }, "RETURN", this);
+	menu.Resume_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH -60}, { 0,0 }, true, false, { 0,0,200,65 }, "RESUME", this);
+	menu.Exit_button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH + 15 }, { 0,0 }, true, false, { 0,0,200,65 }, "EXIT", this);
+	menu.Save = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +90 }, { 0,0 }, true, false, { 0,0,200,65 }, "SAVE", this);
+	menu.Load = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +165}, { 0,0 }, true, false, { 0,0,200,65 }, "LOAD", this);
+	menu.Image = App->gui->ADD_ELEMENT(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 50,0 }, { 0,0 }, true, false, { 0, 0,350,500 },"",this);
 }
 
 
@@ -75,7 +74,6 @@ void j1InGameUI::Activate_Menu()
 {
 	menu.Resume_button->enabled = !menu.Resume_button->enabled;
 	menu.Return_button->enabled = !menu.Return_button->enabled;
-	menu.Title->enabled = !menu.Title->enabled;
 	menu.Exit_button->enabled = !menu.Exit_button->enabled;
 	menu.Load->enabled = !menu.Load->enabled;
 	menu.Save->enabled = !menu.Save->enabled;
@@ -115,9 +113,7 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1GUIelement* element)
 		if (element == menu.Exit_button) {
 			Activate_Menu();
 		}
-		if (element == menu.Title) {
-			Activate_Menu();
-		}
+
 	}
 	}
 }
