@@ -2,6 +2,7 @@
 #define __j1INGAMEUI_H__
 
 #include "j1Module.h"
+#include "SDL/include/SDL_rect.h"
 
 struct Game_Menu {
 
@@ -17,6 +18,8 @@ struct Game_Menu {
 	j1GUIelement* label1 = nullptr;
 
 };
+
+struct SDL_Texture;
 
 class j1InGameUI : public j1Module
 {
@@ -40,6 +43,9 @@ private:
 	int MiddleScreenH;
 	int width;
 	Game_Menu menu;
+
+	SDL_Texture* UI_Image;
+	SDL_Rect texture_rect{ 0,0,1280,200 };
 };
 
 #endif // __j1WINDOW_H__

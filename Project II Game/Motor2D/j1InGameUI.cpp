@@ -2,6 +2,8 @@
 #include "j1InGameUI.h"
 #include "j1Window.h"
 #include "j1GUI.h"
+#include "j1Textures.h"
+#include "j1Render.h"
 
 
 
@@ -27,6 +29,7 @@ bool j1InGameUI::Awake(pugi::xml_node& config)
 
 bool j1InGameUI::Start()
 {
+	UI_Image = App->tex->Load("textures/UIimage.png");
 	MiddleScreenW = App->win->width/2 - 100;
 	MiddleScreenH = App->win->height/ 2 - 100;
 	width = App->win->width;
@@ -43,7 +46,7 @@ bool j1InGameUI::PreUpdate()
 
 bool j1InGameUI::Update(float dt)
 {
-
+	App->render->AddBlitEvent(2, UI_Image, 0 - App->render->camera.x, 520 - App->render->camera.y, texture_rect);
 	return true;
 }
 

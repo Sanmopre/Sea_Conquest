@@ -48,6 +48,7 @@ private:
 	uint win_width;
 	int camera_speed;
 	int camera_offset;
+	SDL_Texture* UI_Image;
 };
 
 #endif // __j1PLAYER_H__

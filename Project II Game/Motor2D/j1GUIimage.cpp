@@ -1,5 +1,7 @@
 #include "j1GUIimage.h"
 #include "j1App.h"
+#include "j1Textures.h"
+#include "j1Render.h"
 
 
 j1GUIimage::j1GUIimage() {
@@ -22,6 +24,11 @@ bool j1GUIimage::PreUpdate()
 {
 
 	return true;
+}
+
+bool j1GUIimage::Update(float dt) { 
+	
+return true; 
 }
 
 bool j1GUIimage::PostUpdate()
