@@ -138,8 +138,8 @@ void Boat::Update(float dt)
 		Move(dt);
 	else if (target != nullptr && dt != 0.0f)
 	{
-		firerate.counter++;
-		if (firerate.counter >= (firerate.iterations / dt))
+		firerate.counter += dt;
+		if (firerate.counter >= firerate.iterations)
 		{
 			Attack();
 			firerate.counter = 0;

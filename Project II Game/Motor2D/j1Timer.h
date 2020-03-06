@@ -5,8 +5,8 @@
 
 struct timed_var
 {
-	int iterations;
-	int counter = 0;
+	float iterations;
+	float counter = 0;
 };
 
 class j1Timer
