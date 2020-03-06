@@ -3,7 +3,6 @@
 
 #include "SDL/include/SDL_rect.h"
 
-//#include "j1App.h"
 #define MAX_FRAMES 200
 typedef unsigned int uint;
 enum class Entity_Type;

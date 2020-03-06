@@ -15,13 +15,12 @@ Boat::Boat(float x, float y, int level, int team)
 	destination = position;
 	this->level = level;
 	this->team = team;
-	speed = 100;
+	speed = 50;
 	range = 100;
 	firerate = { 1 };
 	max_health = 100;
 	health = max_health;
-	if (true)
-		LOG("I have crippling depression"); LOG("I have even more crippling depression");
+	
 	for (std::vector<Animation>::iterator i = App->map->allAnimations.begin(); i != App->map->allAnimations.end(); i++) 
 	{
 		if (this->type == (i)->type)
@@ -73,63 +72,14 @@ Boat::~Boat()
 void Boat::Update(float dt)
 {
 	showing_hpbar = false;
-	switch (orientation)
-	{
-	case Orientation::NORTH:
-	{
-		rect = north.GetCurrentFrame(); texture = north.texture; break;
-	}
-	case Orientation::NORTH_EAST:
-	{
-		rect = north_east.GetCurrentFrame(); texture = north_east.texture; break;
-	}
-	case Orientation::EAST:
-	{
-		rect = east.GetCurrentFrame(); texture = east.texture; break;
-	}
-	case Orientation::SOUTH_EAST:
-	{
-		rect = south_east.GetCurrentFrame(); texture = south_east.texture; break;
-	}
-	case Orientation::SOUTH:
-	{
-		rect = south.GetCurrentFrame(); texture = south.texture; break;
-	}
-	case Orientation::SOUTH_WEST:
-	{
-		rect = south_west.GetCurrentFrame(); texture = south_west.texture; break;
-	}
-	case Orientation::WEST:
-	{
-		rect = west.GetCurrentFrame(); texture = west.texture; break;
-	}
-	case Orientation::NORTH_WEST:
-	{
-		rect = north_west.GetCurrentFrame(); texture = north_west.texture; break;
-	}
-	}
-	
-	if (!selected)
-	{
-		if (team == 0)
-			color.Blue();
-		else if (team == 1)
-			color.Red();
-	}
-	else
-	{
-		if (team == 0)
-		{
-			color.SetColor(0u, 255u, 255u);
 
+	SelectAnimation();
+	
+	if (selected)
+	{
+		if (team == 0)
 			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
-				SetDestination();
-		}
-		else if (team == 1)
-		{
-			color.SetColor(255u, 255u, 0u);
-		}
-			
+				SetDestination();		
 
 		ShowHPbar(10, 5);
 	}
@@ -148,9 +98,8 @@ void Boat::Update(float dt)
 
 	FindTarget();
 
-	App->render->AddBlitEvent(1, texture, position.x, position.y, rect, false, 0.0f, false);
-	//App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, false, color.r, color.g, color.b, color.a);
-	//App->render->AddBlitEvent(1, animation.texture, 0, 0, {(int)position.x, (int)position.y, animation.GetCurrentFrame().w, animation.GetCurrentFrame().h});
+	App->render->AddBlitEvent(1, texture, position.x, position.y, rect);
+	
 	if (health == 0)
 		CleanUp();
 }
@@ -244,4 +193,50 @@ void  Boat::FindTarget()
 	}
 	if (!first)
 		target = nullptr;
+}
+
+void Boat::SelectAnimation()
+{
+	switch (orientation)
+	{
+	case Orientation::NORTH:
+		rect = north.GetCurrentFrame();
+		texture = north.texture;
+		break;
+
+	case Orientation::NORTH_EAST:
+		rect = north_east.GetCurrentFrame();
+		texture = north_east.texture;
+		break;
+
+	case Orientation::EAST:
+		rect = east.GetCurrentFrame();
+		texture = east.texture;
+		break;
+
+	case Orientation::SOUTH_EAST:
+		rect = south_east.GetCurrentFrame();
+		texture = south_east.texture;
+		break;
+
+	case Orientation::SOUTH:
+		rect = south.GetCurrentFrame();
+		texture = south.texture;
+		break;
+
+	case Orientation::SOUTH_WEST:
+		rect = south_west.GetCurrentFrame();
+		texture = south_west.texture;
+		break;
+
+	case Orientation::WEST:
+		rect = west.GetCurrentFrame();
+		texture = west.texture;
+		break;
+
+	case Orientation::NORTH_WEST:
+		rect = north_west.GetCurrentFrame();
+		texture = north_west.texture;
+		break;
+	}
 }

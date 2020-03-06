@@ -14,7 +14,6 @@ Animation Animation::GetAnimation()
 
 SDL_Rect& Animation::GetCurrentFrame()
 {
-	//current_frame += speeds[current_speed++] * (App->dt / 0.016f);
 	current_frame += speed * (App->dt / 100);
 	if (current_frame >= last_frame)
 	{
