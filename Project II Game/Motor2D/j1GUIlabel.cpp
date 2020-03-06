@@ -23,7 +23,7 @@ bool j1GUIlabel::Awake(pugi::xml_node&)
 
 bool j1GUIlabel::Start()
 {
-	texture = App->fonts->Print(text);
+	texture = App->fonts->Print("nigger");
 	return true;
 }
 
@@ -36,7 +36,9 @@ bool j1GUIlabel::PreUpdate()
 
 bool j1GUIlabel::Update(float dt)
 {
-	
+	App->fonts->CalcSize(App->input->GetText().GetString(), rect.w, rect.h);
+	if (enabled)
+		App->render->AddBlitEvent(5,texture, 1, 1,rect);
 
 	return true;
 }
