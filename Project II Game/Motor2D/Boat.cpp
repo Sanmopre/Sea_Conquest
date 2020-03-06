@@ -20,13 +20,44 @@ Boat::Boat(float x, float y, int level, int team)
 	firerate = { 1 };
 	max_health = 100;
 	health = max_health;
-
-	for (std::vector<Animation>::iterator i = App->map->wholeAnimations.begin(); i != App->map->wholeAnimations.end(); i++) 
+	if (true)
+		LOG("I have crippling depression"); LOG("I have even more crippling depression");
+	for (std::vector<Animation>::iterator i = App->map->allAnimations.begin(); i != App->map->allAnimations.end(); i++) 
 	{
 		if (this->type == (i)->type)
 		{
-			this->animation = i->GetAnimation();
-			break;
+			if ((i)->orientation == Orientation::NORTH)
+			{
+				this->north = i->GetAnimation(); continue;
+			}
+			if ((i)->orientation == Orientation::NORTH_EAST)
+			{
+				this->north_east = i->GetAnimation(); continue;
+			}
+			if ((i)->orientation == Orientation::EAST)
+			{
+				this->east = i->GetAnimation(); continue;
+			}
+			if ((i)->orientation == Orientation::SOUTH_EAST)
+			{
+				this->south_east = i->GetAnimation(); continue;
+			}
+			if ((i)->orientation == Orientation::SOUTH)
+			{
+				this->south = i->GetAnimation(); continue;
+			}
+			if ((i)->orientation == Orientation::SOUTH_WEST)
+			{
+				this->south_west = i->GetAnimation(); continue;
+			}
+			if ((i)->orientation == Orientation::WEST)
+			{
+				this->west = i->GetAnimation(); continue;
+			}
+			if ((i)->orientation == Orientation::NORTH_WEST)
+			{
+				this->north_west = i->GetAnimation(); continue;
+			}
 		}
 	}
 	rect = { (int)position.x, (int)position.y, 20, 20 };
@@ -42,9 +73,42 @@ Boat::~Boat()
 void Boat::Update(float dt)
 {
 	showing_hpbar = false;
-	rect.x = position.x;
-	rect.y = position.y;
-
+	switch (orientation)
+	{
+	case Orientation::NORTH:
+	{
+		rect = north.GetCurrentFrame(); texture = north.texture; break;
+	}
+	case Orientation::NORTH_EAST:
+	{
+		rect = north_east.GetCurrentFrame(); texture = north_east.texture; break;
+	}
+	case Orientation::EAST:
+	{
+		rect = east.GetCurrentFrame(); texture = east.texture; break;
+	}
+	case Orientation::SOUTH_EAST:
+	{
+		rect = south_east.GetCurrentFrame(); texture = south_east.texture; break;
+	}
+	case Orientation::SOUTH:
+	{
+		rect = south.GetCurrentFrame(); texture = south.texture; break;
+	}
+	case Orientation::SOUTH_WEST:
+	{
+		rect = south_west.GetCurrentFrame(); texture = south_west.texture; break;
+	}
+	case Orientation::WEST:
+	{
+		rect = west.GetCurrentFrame(); texture = west.texture; break;
+	}
+	case Orientation::NORTH_WEST:
+	{
+		rect = north_west.GetCurrentFrame(); texture = north_west.texture; break;
+	}
+	}
+	
 	if (!selected)
 	{
 		if (team == 0)
@@ -84,9 +148,9 @@ void Boat::Update(float dt)
 
 	FindTarget();
 
-	//App->render->AddBlitEvent(1, animation.texture, 0, 0, animation.GetCurrentFrame(), false, 0.0f, false);
-	App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, false, color.r, color.g, color.b, color.a);
-
+	App->render->AddBlitEvent(1, texture, position.x, position.y, rect, false, 0.0f, false);
+	//App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, false, color.r, color.g, color.b, color.a);
+	//App->render->AddBlitEvent(1, animation.texture, 0, 0, {(int)position.x, (int)position.y, animation.GetCurrentFrame().w, animation.GetCurrentFrame().h});
 	if (health == 0)
 		CleanUp();
 }

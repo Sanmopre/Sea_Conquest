@@ -7,6 +7,7 @@
 #define MAX_FRAMES 200
 typedef unsigned int uint;
 enum class Entity_Type;
+enum class Orientation;
 
 class Animation
 {
@@ -14,9 +15,10 @@ public:
 	bool loop = true;
 	float defspeed = 1.0f;
 	SDL_Rect frames[MAX_FRAMES];
-	float speeds[MAX_FRAMES];
+	float speed;
 	uint n_frames = 0;
 	Entity_Type type;
+	Orientation orientation;
 	SDL_Texture* texture;
 
 private:

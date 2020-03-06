@@ -71,8 +71,7 @@ public:
 	int level;
 	storage load;
 
-	SDL_Rect rect; //probably will be the future current_animation
-	Animation animation;
+	SDL_Rect rect; // /*probably will be*/ It is the current_animation
 	SDL_Texture* texture;
 
 protected:
@@ -83,7 +82,7 @@ protected:
 		{
 			showing_hpbar = true;
 
-			SDL_Rect health_rect = { rect.x - extra_width, rect.y - 20, rect.w + extra_width * 2, height };
+			SDL_Rect health_rect = { position.x - extra_width, position.y - 20, /*animation.GetCurrentFrame().w*/ 32 + extra_width * 2, height };
 			Color health_color(96u, 96u, 96u);
 
 			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, false, health_color.r, health_color.g, health_color.b, health_color.a);
@@ -112,6 +111,15 @@ public:
 	fPoint destination;
 
 protected:
+
+	Animation north;
+	Animation north_east;
+	Animation east;
+	Animation south_east;
+	Animation south;
+	Animation south_west;
+	Animation west;
+	Animation north_west;
 
 	fPoint past_frame_dest;
 	//void Path_to(fPoint); Add when pathfinding is done

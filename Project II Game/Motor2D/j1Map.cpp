@@ -130,11 +130,20 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	SDL_Rect rect;
 	rect.w = tile_width;
 	rect.h = tile_height;
-	rect.x = margin + ((rect.w + spacing) * (relative_id % num_tiles_width));
-	rect.y = margin + ((rect.h + spacing) * (relative_id / num_tiles_width));
+	rect.x = margin + ((rect.w+ spacing) * (relative_id % num_tiles_width));
+	rect.y = margin + ((rect.h+ spacing) * (relative_id / num_tiles_width));
 	return rect;
 }
-
+SDL_Rect TileSet::GetAnimTileRect(int id, uint columns)
+{
+	//int relative_id = id - firstgid;
+	SDL_Rect rect;
+	rect.w = tile_width;
+	rect.h = tile_height;
+	rect.x = rect.w * (id % columns);
+	rect.y = rect.h * (id / columns);
+	return rect;
+}
 // Called before quitting
 bool j1Map::CleanUp()
 {
@@ -350,7 +359,8 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 {
 	bool ret = true;
-	LOG("UEP, mirant aver si hi ha animacions!");
+	uint columns = tileset_node.attribute("columns").as_uint();
+	LOG("UEP, mirant aver si hi ha animacions!, %d columns", columns);
 	for (pugi::xml_node tile = tileset_node.child("tile"); tile != NULL; tile = tile.next_sibling("tile"))
 	{
 		if (tile != NULL && !tile.attribute("type").empty())
@@ -362,25 +372,66 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 			pugi::xml_node animationNode = tile.child("animation");
 			Animation animation;
 			animation.texture = texture;
-			if (strcmp(tile.attribute("type").as_string(), "animation_boatdown") == 0)
+			const char* typestring = tile.attribute("type").as_string();
+			if (strcmp(typestring, "animation_boat_north") == 0)
+			{
 				animation.type = Entity_Type::BOAT;
-			else 
+				animation.orientation = Orientation::NORTH;
+			}
+			else if (strcmp(typestring, "animation_boat_north_east") == 0)
+			{
+				animation.type = Entity_Type::BOAT;
+				animation.orientation = Orientation::NORTH_EAST;
+			}
+			else if (strcmp(typestring, "animation_boat_east") == 0)
+			{
+				animation.type = Entity_Type::BOAT;
+				animation.orientation = Orientation::EAST;
+			}
+			else if (strcmp(typestring, "animation_boat_south_east") == 0)
+			{
+				animation.type = Entity_Type::BOAT;
+				animation.orientation = Orientation::SOUTH_EAST;
+			}
+			else if (strcmp(typestring, "animation_boat_south") == 0)
+			{
+				animation.type = Entity_Type::BOAT;
+				animation.orientation = Orientation::SOUTH;
+			}
+			else if (strcmp(typestring, "animation_boat_south_west") == 0)
+			{
+				animation.type = Entity_Type::BOAT;
+				animation.orientation = Orientation::SOUTH_WEST;
+			}
+			else if (strcmp(typestring, "animation_boat_west") == 0)
+			{
+				animation.type = Entity_Type::BOAT;
+				animation.orientation = Orientation::WEST;
+			}
+			else if (strcmp(typestring, "animation_boat_north_west") == 0)
+			{
+				animation.type = Entity_Type::BOAT;
+				animation.orientation = Orientation::NORTH_WEST;
+			}
+			else
+			{
 				animation.type = Entity_Type::NONE;
-			
+				animation.orientation = Orientation::NONE;
+			}
+				
 			LOG("UEP, found an animating tile! Type: %d", animation.type);
 			int nFrames = 0;
 			for (pugi::xml_node frame = animationNode.child("frame"); frame != NULL; frame = frame.next_sibling("frame"))
 			{
 				uint tileID = frame.attribute("tileid").as_uint();
-				SDL_Rect rect = set->GetTileRect(tileID);
-				animation.frames[nFrames] = rect;
+				SDL_Rect rect = set->GetAnimTileRect(tileID, columns);
 				animation.PushBack(rect);
 				uint duration = frame.attribute("duration").as_uint();
-				animation.speeds[nFrames] = duration;
+				animation.speed = duration;
 				nFrames++;
 				LOG("Uep! Parseao frame %d, %d %d %d %d %d ms ", nFrames, rect.x, rect.y, rect.w, rect.h, duration);
 			}
-			wholeAnimations.push_back(animation);
+			allAnimations.push_back(animation);
 		}
 		//else
 		//{

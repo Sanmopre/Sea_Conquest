@@ -63,7 +63,7 @@ struct MapLayer
 struct TileSet
 {
 	SDL_Rect GetTileRect(int id) const;
-
+	SDL_Rect GetAnimTileRect(int id, uint columns);
 	p2SString			name;
 	int					firstgid;
 	int					margin;
@@ -163,7 +163,7 @@ private:
 public:
 
 	MapData data;
-	std::vector<Animation> wholeAnimations;
+	std::vector<Animation> allAnimations;
 
 private:
 
