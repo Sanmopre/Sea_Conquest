@@ -1,7 +1,15 @@
 # Game Comparison: "Ultimate Admiral: Age of Sail"
 
+![](https://steamcdn-a.akamaihd.net/steam/apps/1069650/capsule_616x353.jpg?t=1583317396)
+
 ### Description
 Ultimate Admiral: Age of Sail is a unique wargame allowing you to experience the best of the Ultimate Series AI and tactical engine in naval, land and combined arms landing operations, witnessing the birth of the marines.
+
+This RTS game combines land and sea combat, sailing the seas with naval units to defend the seas and transporting land units with the aim of capturing different settlements on the coast, this combination creates an interesting synergy for the player to explore.
+
+This game also focuses on managing the city, economy and units to make the most of the different technologies and tactics available.
+
+![](https://i.ytimg.com/vi/FijDuN8xhhI/maxresdefault.jpg)
 
 
 ### Plot and narrative
@@ -10,6 +18,7 @@ Taking the role of a famous commander, you will be at the heart of the historica
 - In the British Campaign, you will follow Horatio’s Nelson journey from midshipman on the shores of Central America to the admiral who defeated the great armada in the battle of Trafalgar.
 
 - In the American campaign, you will play the role of John Paul Jones, participate in the War of Independence and stand at the origins of the United States Navy winning freedom for your country.
+
 
 
 ### Origin
