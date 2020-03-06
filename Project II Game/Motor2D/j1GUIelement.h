@@ -74,6 +74,7 @@ public:
 	SDL_Texture* texture = nullptr;
 	SDL_Texture* texture_button = nullptr;
 	SDL_Texture* texture_button_1 = nullptr;
+	SDL_Texture* menu_image = nullptr;
 
 };
 
