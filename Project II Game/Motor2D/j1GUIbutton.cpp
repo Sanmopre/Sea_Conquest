@@ -29,7 +29,7 @@ bool j1GUIButton::Start()
 
 
 	if (text != nullptr)
-		label = App->gui->ADD_ELEMENT(GUItype::GUI_LABEL, this, Map_Position, Inside_Position, true, true, { 0,0,0,0 }, text);
+		label = App->gui->AddElement(GUItype::GUI_LABEL, this, Map_Position, Inside_Position, true, true, { 0,0,0,0 }, text);
 
 	return true;
 }

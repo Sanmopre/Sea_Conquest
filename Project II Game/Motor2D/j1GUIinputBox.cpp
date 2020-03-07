@@ -25,7 +25,7 @@ bool j1GUIinputBox::Awake(pugi::xml_node&)
 
 bool j1GUIinputBox::Start()
 {
-	string = App->gui->ADD_ELEMENT(GUItype::GUI_LABEL, this, Map_Position, { 0,3 }, true, enabled, { Inside_Position.x,Inside_Position.y,50,50 }, text);
+	string = App->gui->AddElement(GUItype::GUI_LABEL, this, Map_Position, { 0,3 }, true, enabled, { Inside_Position.x,Inside_Position.y,50,50 }, text);
 	return true;
 }
 

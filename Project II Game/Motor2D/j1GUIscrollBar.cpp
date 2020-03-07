@@ -29,7 +29,7 @@ bool j1GUIscrollBar::Start()
 
 
 
-	Button = App->gui->ADD_ELEMENT(GUItype::GUI_BUTTON, this, Map_Position, Inside_Position, true, true, { 432, 36, 14 , 16 }, nullptr, this->listener, true, false);
+	Button = App->gui->AddElement(GUItype::GUI_BUTTON, this, Map_Position, Inside_Position, true, true, { 432, 36, 14 , 16 }, nullptr, this->listener, true, false);
 	Button->Map_Position.y = Map_Position.y - Button->rect.h / 2 + this->rect.h / 2;
 	Value = 0;
 

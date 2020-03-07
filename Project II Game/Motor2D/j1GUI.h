@@ -5,6 +5,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1GUIelement.h"
+#include <vector>
 
 
 class j1Entity;
@@ -28,9 +29,10 @@ public:
 	bool Save(pugi::xml_node&) const;
 	bool Load(pugi::xml_node&);
 
-	void Update_Position(j1GUIelement* element, iPoint position, iPoint localPosition);
-	j1GUIelement* ADD_ELEMENT(GUItype type, j1GUIelement* parent, iPoint Map_Position, iPoint Inside_Position, bool interactable, bool enabled, SDL_Rect section, char* text = nullptr, j1Module* listener = nullptr, bool X_drag = false, bool Y_drag = false, SCROLL_TYPE scrollType = SCROLL_TYPE::SCROLL_NONE, bool decor = false);
+	void UpdatePosition(j1GUIelement* element, iPoint position, iPoint localPosition);
+	j1GUIelement* AddElement(GUItype type, j1GUIelement* parent, iPoint Map_Position, iPoint Inside_Position, bool interactable, bool enabled, SDL_Rect section, char* text = nullptr, j1Module* listener = nullptr, bool X_drag = false, bool Y_drag = false, SCROLL_TYPE scrollType = SCROLL_TYPE::SCROLL_NONE, bool decor = false);
 	p2List<j1GUIelement*>	GUI_ELEMENTS;
+	//std::vector<j1GUIelement*> gui_elements;
 };
 
 #endif //  __j1GUI_H__
