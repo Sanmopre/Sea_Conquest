@@ -24,7 +24,8 @@ public:
 
 	bool Load(pugi::xml_node&) { return true; };
 	bool Save(pugi::xml_node&) const  const { return true; };
-
+private: 	
+	int font_name = -1;
 };
 
 #endif // !__J1GUILABEL__

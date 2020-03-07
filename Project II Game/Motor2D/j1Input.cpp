@@ -196,7 +196,7 @@ int j1Input::GetCursorPosition() {
 	int width = 0;
 	int height = 0;
 
-	App->fonts->CalcSize(GetModifiedString().GetString(), width, height);
+	//App->fonts->CalcSize(GetModifiedString().GetString(), width, height);
 
 	return width;
 }

@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Input.h"
+#include "j1Window.h"
 
 j1GUIlabel::j1GUIlabel()
 {
@@ -23,22 +24,22 @@ bool j1GUIlabel::Awake(pugi::xml_node&)
 
 bool j1GUIlabel::Start()
 {
-	texture = App->fonts->Print("");
+	font_name = App->fonts->Load("textures/NameTile.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
 	return true;
 }
 
 
 bool j1GUIlabel::PreUpdate()
 {
-	App->fonts->CalcSize(App->input->GetText().GetString(), rect.w, rect.h);
+
 	return true;
 }
 
 bool j1GUIlabel::Update(float dt)
 {
-	App->fonts->CalcSize(App->input->GetText().GetString(), rect.w, rect.h);
+
 	if (enabled)
-		App->render->AddBlitEvent(5,texture, 1, 1,rect);
+		App->fonts->BlitText(Map_Position.x + Inside_Position.x - App->render->camera.x/App->win->scale, Map_Position.y + Inside_Position.y - App->render->camera.y / App->win->scale, 1, text);
 
 	return true;
 }

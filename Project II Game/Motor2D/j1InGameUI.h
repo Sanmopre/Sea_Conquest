@@ -42,6 +42,8 @@ private:
 	int MiddleScreenW;
 	int MiddleScreenH;
 	int width;
+	int font_name = -1;
+
 	Game_Menu menu;
 
 	SDL_Texture* UI_Image;
