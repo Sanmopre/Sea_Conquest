@@ -23,7 +23,7 @@ bool j1GUIlabel::Awake(pugi::xml_node&)
 
 bool j1GUIlabel::Start()
 {
-	texture = App->fonts->Print("nigger");
+	texture = App->fonts->Print("");
 	return true;
 }
 
