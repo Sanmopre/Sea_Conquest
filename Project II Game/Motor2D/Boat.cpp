@@ -173,7 +173,9 @@ void  Boat::Attack()
 
 void  Boat::FindTarget()
 {
-	bool first = false;
+	float targetdistance = range;
+	float distance = 0.0f;
+
 	for (std::vector<Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
 	{
 		if (*e != this && (*e)->team != team)
@@ -182,16 +184,19 @@ void  Boat::FindTarget()
 				position.y + range >(*e)->position.y &&
 				position.y - range < (*e)->position.y)
 			{
-				if (!first)
-				{
-					first = true;
-					target = *e;
-				}
+				distance = sqrtf((position.x - (*e)->position.x) * (position.x - (*e)->position.x) + (position.y - (*e)->position.y) * (position.y - (*e)->position.y));
 
+				if (distance < range && distance < targetdistance)
+				{
+					target = *e;
+					targetdistance = distance;
+				}
+				
 				ShowHPbar(10, 5);
 			}
 	}
-	if (!first)
+
+	if(distance == 0.0f)
 		target = nullptr;
 }
 
@@ -206,37 +211,37 @@ void Boat::SelectAnimation()
 
 	case Orientation::NORTH_EAST:
 		rect = north_east.GetCurrentFrame();
-		texture = north_east.texture;
+
 		break;
 
 	case Orientation::EAST:
 		rect = east.GetCurrentFrame();
-		texture = east.texture;
+
 		break;
 
 	case Orientation::SOUTH_EAST:
 		rect = south_east.GetCurrentFrame();
-		texture = south_east.texture;
+
 		break;
 
 	case Orientation::SOUTH:
 		rect = south.GetCurrentFrame();
-		texture = south.texture;
+
 		break;
 
 	case Orientation::SOUTH_WEST:
 		rect = south_west.GetCurrentFrame();
-		texture = south_west.texture;
+
 		break;
 
 	case Orientation::WEST:
 		rect = west.GetCurrentFrame();
-		texture = west.texture;
+
 		break;
 
 	case Orientation::NORTH_WEST:
 		rect = north_west.GetCurrentFrame();
-		texture = north_west.texture;
+
 		break;
 	}
 }
