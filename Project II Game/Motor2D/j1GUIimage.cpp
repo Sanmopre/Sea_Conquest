@@ -2,6 +2,7 @@
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Render.h"
+#include "j1Window.h"
 
 
 j1GUIimage::j1GUIimage() {
@@ -35,7 +36,7 @@ bool j1GUIimage::Update(float dt) {
 
 
 	if (enabled) {
-			App->render->AddBlitEvent(3, menu_image, Map_Position.x - App->render->camera.x, Map_Position.y - App->render->camera.y, rect);
+			App->render->AddBlitEvent(3, menu_image, Map_Position.x - App->render->camera.x / App->win->scale, Map_Position.y - App->render->camera.y / App->win->scale, rect);
 	}
 
 

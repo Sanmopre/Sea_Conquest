@@ -62,6 +62,8 @@ bool j1Window::Awake(pugi::xml_node& config)
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 
+		flags |= SDL_WINDOW_INPUT_GRABBED;
+
 		window = SDL_CreateWindow(App->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == NULL)
@@ -111,4 +113,22 @@ void j1Window::GetWindowSize(uint& width, uint& height) const
 float j1Window::GetScale() const
 {
 	return scale;
+}
+
+void j1Window::Fullscreen()
+{
+	//Destroy window
+	if (window != NULL)
+	{
+		SDL_DestroyWindow(window);
+	}
+
+	Uint32 flags = SDL_WINDOW_SHOWN;
+	flags |= SDL_WINDOW_FULLSCREEN;
+	flags |= SDL_WINDOW_INPUT_GRABBED;
+	flags |= SDL_WINDOW_SHOWN;
+	
+	window = SDL_CreateWindow(App->GetTitle(), 0, 0, width, height, flags);
+	screen_surface = SDL_GetWindowSurface(window);
+
 }

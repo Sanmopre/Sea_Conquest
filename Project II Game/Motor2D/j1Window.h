@@ -30,6 +30,8 @@ public:
 	// Retrieve window scale
 	float GetScale() const;
 
+	void Fullscreen();
+
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;
