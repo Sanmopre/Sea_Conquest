@@ -41,6 +41,7 @@ bool j1GUIlabel::Update(float dt)
 	if (enabled)
 		App->fonts->BlitText(Map_Position.x + Inside_Position.x - App->render->camera.x/App->win->scale, Map_Position.y + Inside_Position.y - App->render->camera.y / App->win->scale, 1, text);
 
+
 	return true;
 }
 

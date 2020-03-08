@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Fonts.h"
+#include <iostream>
 
 
 
@@ -31,9 +32,9 @@ bool j1InGameUI::Awake(pugi::xml_node& config)
 bool j1InGameUI::Start()
 {
 
+	font_name = App->fonts->Load("textures/NameTile.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
 
-
-
+	resources = App->tex->Load("textures/Recursos.png");
 	UI_Image = App->tex->Load("textures/UIimage.png");
 	MiddleScreenW = App->win->width/2 - 100;
 	MiddleScreenH = App->win->height/ 2 - 100;
@@ -53,7 +54,26 @@ bool j1InGameUI::Update(float dt)
 {
 
 	App->render->AddBlitEvent(2, UI_Image, 0 - App->render->camera.x, 520 - App->render->camera.y, texture_rect);
+	App->render->AddBlitEvent(3,resources , 0 - App->render->camera.x, 0 - App->render->camera.y, texture_rect_1);
+
+
+
+
+
+	//UPDATE RESOURCES
+
+	sprintf_s(text_type_0, 10, "%7d", type_0);
+	sprintf_s(text_type_1, 10, "%7d", type_1);
+	sprintf_s(text_type_2, 10, "%7d", type_2);
+
+	App->fonts->BlitText(10 - App->render->camera.x / App->win->scale, 5 - App->render->camera.y / App->win->scale, 1,text_type_0);
+	App->fonts->BlitText(140 - App->render->camera.x / App->win->scale, 5 - App->render->camera.y / App->win->scale, 1, text_type_1);
+	App->fonts->BlitText(280 - App->render->camera.x / App->win->scale, 5 - App->render->camera.y / App->win->scale, 1, text_type_2);
+
+	
 	return true;
+
+
 }
 
 bool j1InGameUI::CleanUp()
@@ -67,7 +87,7 @@ bool j1InGameUI::CleanUp()
 void j1InGameUI::Add_UI()
 {
 	menu.Menu_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, {width -250,10 }, { 60,30 }, true, true, { 0,0,200,65 }, "OPTIONS", this);
-	menu.Return_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH-140 }, { 60,30 }, true, false, { 0,0,200,65 }, "RETURN", this);
+	menu.Return_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH-140 }, { 0,30 }, true, false, { 0,0,200,65 }, "MORE RESOURCES", this);
 	menu.Resume_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH -60}, { 60,30 }, true, false, { 0,0,200,65 }, "RESUME", this);
 	menu.Exit_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH + 15 }, {60,30 }, true, false, { 0,0,200,65 }, "E IT", this);
 	menu.Save = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +90 }, { 60,30 }, true, false, { 0,0,200,65 }, "SA E", this);
@@ -95,7 +115,10 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1GUIelement* element)
 	{
 
 		if (element == menu.Return_button) {
-			Activate_Menu();
+			//Activate_Menu();
+			type_1 = type_1 + 34;
+			type_2 = type_2 + 54;
+			type_0 = type_0 + 3;
 		}
 
 		if (element == menu.Exit_button) {
