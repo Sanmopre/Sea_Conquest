@@ -1,10 +1,9 @@
 # ReadMe
 
-## Game Title
+## Sea conquest
 
-### Description
-
-bla bla bla
+### Description:
+Sea conquest is an isometric RTS game that focuses on conquering islands and defeating the enemy pirates. To conquer all the islands an win you’ll need to move your units, build your bases, manage your resources, and attack your enemies. Controlling your resources is a big part of this game, so you’ll need to build a strategy to to protect yourself from incoming pirate attacks, and produce resource income to progress.
 
 ## Developers
  - {Moliner Préjano, Santiago} - {Lead}        - {[GitHub account](https://github.com/Sanmopre)}
