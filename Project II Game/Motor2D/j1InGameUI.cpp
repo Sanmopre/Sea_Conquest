@@ -32,6 +32,10 @@ bool j1InGameUI::Awake(pugi::xml_node& config)
 bool j1InGameUI::Start()
 {
 
+	type_0 = 0;
+	type_1 = 0;
+	type_2 = 0;
+
 	font_name = App->fonts->Load("textures/NameTile.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
 
 	resources = App->tex->Load("textures/Recursos.png");
@@ -116,9 +120,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1GUIelement* element)
 
 		if (element == menu.Return_button) {
 			//Activate_Menu();
-			type_1 = type_1 + 34;
-			type_2 = type_2 + 54;
-			type_0 = type_0 + 3;
+			type_1 = type_1 + 100;
+			type_2 = type_2 + 420;
+			type_0 = type_0 + 69;
 		}
 
 		if (element == menu.Exit_button) {
