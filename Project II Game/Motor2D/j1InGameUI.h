@@ -32,6 +32,7 @@ public:
 	bool Start();
 	bool PreUpdate();
 	bool Update(float dt);
+	bool PostUpdate();
 	bool CleanUp();
 
 	void Add_UI();
@@ -62,6 +63,7 @@ private:
 	SDL_Rect texture_rect{ 0,0,1280,200 };
 	SDL_Rect texture_rect_1{ 0,0,400,30 };
 	int font_name = -1;
+	bool quit = false;
 };
 
 #endif // __j1WINDOW_H__
