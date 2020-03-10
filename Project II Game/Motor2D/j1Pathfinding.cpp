@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1PathFinding.h"
 
+
 j1PathFinding::j1PathFinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH),width(0), height(0)
 {
 	name.create("pathfinding");
@@ -46,7 +47,8 @@ bool j1PathFinding::CheckBoundaries(const iPoint& pos) const
 bool j1PathFinding::IsWalkable(const iPoint& pos) const
 {
 	uchar t = GetTileAt(pos);
-	return t != INVALID_WALK_CODE && t > 0;
+	//return t != INVALID_WALK_CODE && t > 0;
+	return true;
 }
 
 // Utility: return the walkability value of a tile
@@ -125,19 +127,39 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 	if(App->pathfinding->IsWalkable(cell))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
+	//north east
+	cell.create(pos.x + 1, pos.y + 1);
+	if (App->pathfinding->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+
+	// east
+	cell.create(pos.x + 1, pos.y);
+	if (App->pathfinding->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+
+	// south east
+	cell.create(pos.x + 1, pos.y - 1);
+	if (App->pathfinding->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+
 	// south
 	cell.create(pos.x, pos.y - 1);
 	if(App->pathfinding->IsWalkable(cell))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
-	// east
-	cell.create(pos.x + 1, pos.y);
-	if(App->pathfinding->IsWalkable(cell))
+	// south west
+	cell.create(pos.x - 1, pos.y - 1);
+	if (App->pathfinding->IsWalkable(cell))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.create(pos.x - 1, pos.y);
 	if(App->pathfinding->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+
+	// north west
+	cell.create(pos.x - 1, pos.y - 1);
+	if (App->pathfinding->IsWalkable(cell))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	return list_to_fill.list.count();
@@ -167,10 +189,115 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
-	int ret = -1;
 
-	// Nice try :)
+	last_path.Clear();
 
+	int ret = 1;
+
+	//if (IsWalkable(origin) == true && IsWalkable(destination) == true && origin != destination)
+	//{
+
+	
+
+		PathList openlist;
+		PathList closedlist;
+
+		PathNode originNode(0, origin.DistanceNoSqrt(destination), origin, nullptr);						 
+		openlist.list.add(originNode);
+
+		while (openlist.list.count() > 0)
+		{
+
+			
+
+			p2List_item<PathNode>* lowestscore = openlist.GetNodeLowestScore();
+			p2List_item<PathNode>* current = closedlist.list.add(lowestscore->data);
+			closedlist.list.add(current->data);
+			openlist.list.del(openlist.GetNodeLowestScore());
+
+			if (current->data.pos == destination)
+			{
+
+				
+				last_path.Clear();
+				const PathNode* path_node = &current->data;
+
+				while (path_node)
+				{
+					LOG("HOLA");
+					last_path.PushBack(path_node->pos);
+					LOG("%d %d ", path_node->pos.x, path_node->pos.y);
+					SDL_Rect rect;
+					//Color rectcolor(255u,0u,0u);
+					rect = { path_node->pos.x - 5, path_node->pos.y - 5, 10,10 };
+					
+					
+
+					path_node = path_node->parent;
+				}
+
+				LOG("flipeamos¿");
+				
+
+				last_path.Flip();
+				break;
+
+			}
+
+			else
+			{
+
+				LOG("3");
+
+				PathList neighbourslist;
+				current->data.FindWalkableAdjacents(neighbourslist);
+
+				//closedlist.list.end->data.FindWalkableAdjacents(neighbourslist);
+
+				for (p2List_item<PathNode>* iterator = neighbourslist.list.start; iterator; iterator = iterator->next)
+				{
+					
+					if (closedlist.Find(iterator->data.pos))
+						continue;
+
+					else if (openlist.Find(iterator->data.pos))
+					{
+						PathNode tmp = openlist.Find(iterator->data.pos)->data;
+						iterator->data.CalculateF(destination);
+
+						if (tmp.g > iterator->data.g)
+						{
+							tmp.parent = iterator->data.parent;
+						}
+					}
+
+					else
+					{
+						iterator->data.CalculateF(destination);
+						openlist.list.add(iterator->data);
+
+						LOG("%d %d ", iterator->data.pos.x, iterator->data.pos.y);
+
+					}
+				}
+
+				neighbourslist.list.clear();
+
+			}
+
+		}
+
+	//}
+
+	/*else
+	{
+
+		ret = -1;
+		return ret;
+
+	}*/
+	
 	return ret;
+
 }
 
