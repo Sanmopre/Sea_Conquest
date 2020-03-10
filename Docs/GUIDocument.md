@@ -38,13 +38,13 @@ While playing, the player will have the option to pause the game by pressing the
 
 There will be 3 options:
 
-**1. Resume:**
+**1. Resume:** This option will unpause the game.
 
-**2. Settings:**
+**2. Settings:** This option will show a new menu where the player will be able to tweak volumes, enable the FPS cap or set the game to fullscreen or not.
 
-**3. Main Menu:**
+**3. Main Menu:** This option will take the player back to the main menu.
 
-![]()
+![](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GUI/In-Game%20Menu%20Diagram.png)
 
 *In-Game Menu diagram*
 ### HUD
