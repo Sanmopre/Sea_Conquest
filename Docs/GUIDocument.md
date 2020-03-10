@@ -10,7 +10,13 @@ This document explains how the User Interface will be displayed in our game. Eac
 
 ### Main Menu
 
-This will be the first screen of the game. There will be three options:
+This will be the first screen of the game with user interface elements. 
+This image is what we will base from to do our concepts for the game.
+![](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GUI/Main%20Menu%20Reference.jpg)
+
+*Reference from Age of Sail*
+
+There will be three options:
 
 **1. Play:** There will be two buttons, "new game" and "continue", the player will be able to either start a new game or continue from his last save.
 
@@ -18,5 +24,25 @@ This will be the first screen of the game. There will be three options:
 
 **3. Exit:** This option will close the game.
 
+![](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GUI/Main%20Menu%20Diagram.jpg)
+
+*Main Menu diagram.*
+
 ### In-Game Menu
+
+While playing, the player will have the option to pause the game by pressing the Escape button. The game will frezze and this menu will pop up. It is very similar to the main menu, but it won't change the screen, the menu will appear and disappear in the middle of the window.
+
+![](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GUI/In-Game%20Menu%20Reference.jpg)
+
+*Reference from Civilization VI*
+
+There will be 3 options:
+
+**1. Resume:**
+**2. Settings:**
+**3. Main Menu:**
+
+![]()
+
+*In-Game Menu diagram*
 ### HUD
