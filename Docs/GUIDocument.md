@@ -10,13 +10,21 @@ This document explains how the User Interface will be displayed in our game. Eac
 
 ### Main Menu
 
-This will be the first screen of the game. There will be three options:
+This will be the first screen of the game with user interface elements. 
+This image is what we will base from to do our concepts for the game.
+![](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GUI/Ultimate-Admiral-Main-Menu.jpg)
+*Reference from Age of Sail*
+
+There will be three options:
 
 **1. Play:** There will be two buttons, "new game" and "continue", the player will be able to either start a new game or continue from his last save.
 
 **2. Settings:** This option will show a new menu where the player will be able to tweak volumes, enable the FPS cap or set the game to fullscreen or not.
 
 **3. Exit:** This option will close the game.
+
+![](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GUI/Main%20menu.jpg)
+*This is the Main Menu diagram.*
 
 ### In-Game Menu
 ### HUD
