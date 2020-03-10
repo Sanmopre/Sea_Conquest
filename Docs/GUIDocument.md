@@ -50,7 +50,7 @@ There will be 3 options:
 
 ### HUD
 
-The HUD is a very important part of the UI of our game because it has to be very clear, give the most information possible, and at the same time not bother the player while playing. So we're going to follow this guidelines in order to get a great HUD.
+The HUD is a very important part of the UI of our game because it has to be very clear, give the most information possible and at the same time not bother the player while playing. So we're going to follow this guidelines in order to get a great HUD.
 
 **1. Location:** The HUD is going to be located in the margins of the screen because we dont want to hide anything from the player's view. And larger icons like a mini-map will be placed on corners because we tend to avoid that information and look in the center.
 
@@ -62,4 +62,4 @@ The HUD is a very important part of the UI of our game because it has to be very
 
 *Reference from Age of Empires 2*
 
-In this example we can see how everything we mentioned is very important for the HUD in RTS games. All the information is displayed in the margins, it's simple and clear, the minimap is located in the bottom-right corner so it doesn't block anything from view, and most importantly, the player has a lot of vision over the game itself.
+In this example we can see how everything we mentioned is very important for the HUD in RTS games. All the information is displayed in the margins, it's simple and clear, the minimap is located in the bottom-right corner so it doesn't block anything from view and most importantly, the player has a lot of vision over the game itself.
