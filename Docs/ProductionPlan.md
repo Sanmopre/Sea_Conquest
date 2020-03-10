@@ -61,5 +61,7 @@ Gameplay
 
 ##Risk and Contingency List
 
-We hope our theam does not have any complication during the development of the game, but accidents can happen, and we have to be prepared for it, and have solutions to solve it. In this table we list the problems we might have with its probability and the possible solution for it.
+We hope our theam does not have any complication during the development of the game, but accidents can happen, and we have to be prepared for it, and have solutions to solve it. In this table we list the problems we might have with its probability and the possible solution for it. (""LIST IS IN A WORD DOCUMENT INSIDE THE DOCS FOLDER"")
+
+
 
