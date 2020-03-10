@@ -1,4 +1,4 @@
-# GDD
+﻿# GDD
 
 
 ![](https://cdn.discordapp.com/attachments/677083100106326034/686977359294890000/unknown.png)
@@ -92,7 +92,7 @@ Since the game is set at the sea, we will make sure the world does not feel bori
 The music we are introducing in our game has to match with its context. For that reason, we have chosen some tracks similar to the ones at Pirates of the Caribbean. We have also taken inspiration from other games of the genre such as Age of Empires.
 
 The sounds and effects of our game will be produced both by our teammate in charge of
-Art & Sound, Miquel Quintana and using a tool provided by our teacher Ramon. 
+Art & Sound, Miquel Quintana and using a tool provided by our teacher Ramon, as well as Audacity for audio editing and FL Studio 20 for music composing.
 
 Idle music should be some kind of background that accompanies the player while doing the most routinary actions.
 	
