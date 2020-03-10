@@ -1,5 +1,7 @@
 # GUI Document
 
+This document explains how the User Interface will be displayed in our game. Each menu has a diagram that shows how every option works and what will happen. There will be references on what we will try to emulate. (This won't be the final concepts for the game)
+
 ## Index
 
 - [Main Menu](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GUIDocument.md#main-menu)
@@ -7,5 +9,14 @@
 - [HUD](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GUIDocument.md#hud)
 
 ### Main Menu
+
+This will be the first screen of the game. There will be three options:
+
+**1. Play:** There will be two buttons, "new game" and "continue", the player will be able to either start a new game or continue from his last save.
+
+**2. Settings:** This option will show a new menu where the player will be able to tweak volumes, enable the FPS cap or set the game to fullscreen or not.
+
+**3. Exit:** This option will close the game.
+
 ### In-Game Menu
 ### HUD
