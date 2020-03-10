@@ -59,9 +59,21 @@ Website
 Trailer
 Gameplay
 
-##Risk and Contingency List
+##Risk and Contingency List:
 
 We hope our theam does not have any complication during the development of the game, but accidents can happen, and we have to be prepared for it, and have solutions to solve it. In this table we list the problems we might have with its probability and the possible solution for it. (""LIST IS IN A WORD DOCUMENT INSIDE THE DOCS FOLDER"")
+
+##Budget:
+
+Each member will be paid equally, and amount of 1000 euros, and during the duration of 4 months that means 4000 euros per developer in th team. With a total of 7 developers that sums up to an amount of 28000 euros. Adding 15% in social security, that’s a total cost for the employees of 32200 euros. We also might spend some of our budget in character or map sprites, as we want the game to be as original as possible. We might need to spend money during the final gold version in the game trailer and website.
+
+##Sprint record and Logs: 
+
+WEEK 1:
+WEEK 2:
+WEEK 3:
+WEEK 4:
+WEEL 5:
 
 
 
