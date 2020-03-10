@@ -47,4 +47,19 @@ There will be 3 options:
 ![](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GUI/In-Game%20Menu%20Diagram.png)
 
 *In-Game Menu diagram*
+
 ### HUD
+
+The HUD is a very important part of the UI of our game because it has to be very clear, give the most information possible, and at the same time not bother the player while playing. So we're going to follow this guidelines in order to get a great HUD.
+
+**1. Location:** The HUD is going to be located in the margins of the screen because we dont want to hide anything from the player's view. And larger icons like a mini-map will be placed on corners because we tend to avoid that information and look in the center.
+
+**2. Order:** Everything must be grouped in different sections, resources, life/xp bars, maps... If the player knows where to find different information we're going to make things much easier for him.
+
+**3.Scale:** As we said before, we don't want to block the vision of the player so we must create a HUD big enough so it's clear and easy to read, but small in order to get the most out of our window size. 
+
+![](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GUI/Age%20Of%20Empires%20Reference.jpg)
+
+*Reference from Age of Empires 2*
+
+In this example we can see how everything we mentioned is very important for the HUD in RTS games. All the information is displayed in the margins, it's simple and clear, the minimap is located in the bottom-right corner so it doesn't block anything from view, and most importantly, the player has a lot of vision over the game itself.
