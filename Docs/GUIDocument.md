@@ -32,14 +32,16 @@ There will be three options:
 
 While playing, the player will have the option to pause the game by pressing the Escape button. The game will frezze and this menu will pop up. It is very similar to the main menu, but it won't change the screen, the menu will appear and disappear in the middle of the window.
 
-![](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GUI/In-Game%20Menu%20Reference.jpg)
+![](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GUI/In-Game%20Menu%20Reference.png)
 
 *Reference from Civilization VI*
 
 There will be 3 options:
 
 **1. Resume:**
+
 **2. Settings:**
+
 **3. Main Menu:**
 
 ![]()
