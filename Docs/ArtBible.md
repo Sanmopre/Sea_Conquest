@@ -2,13 +2,13 @@
 
 # Index
 
-- [Introduction]()
-- [References]()
-- [Art Style]()
-  - [Scenario]()
-  - [Level of detail]()
-  - [Camera]()
-  - [Scale]()
+- [Introduction](https://pipoya.itch.io/vehicle-ship-sprites)
+- [References](https://pipoya.itch.io/vehicle-ship-sprites)
+- [Art Style](https://pipoya.itch.io/vehicle-ship-sprites)
+  - [Scenario](https://pipoya.itch.io/vehicle-ship-sprites)
+  - [Level of detail](https://pipoya.itch.io/vehicle-ship-sprites)
+  - [Camera](https://pipoya.itch.io/vehicle-ship-sprites)
+  - [Scale](https://pipoya.itch.io/vehicle-ship-sprites)
 
 # Introduction
 
