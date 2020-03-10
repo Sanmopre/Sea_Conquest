@@ -2,13 +2,13 @@
 
 # Index
 
-- [Introduction](https://pipoya.itch.io/vehicle-ship-sprites)
-- [References](https://pipoya.itch.io/vehicle-ship-sprites)
-- [Art Style](https://pipoya.itch.io/vehicle-ship-sprites)
-  - [Scenario](https://pipoya.itch.io/vehicle-ship-sprites)
-  - [Level of detail](https://pipoya.itch.io/vehicle-ship-sprites)
-  - [Camera](https://pipoya.itch.io/vehicle-ship-sprites)
-  - [Scale](https://pipoya.itch.io/vehicle-ship-sprites)
+- [Introduction](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/ArtBible.md#introduction)
+- [References](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/ArtBible.md#references)
+- [Art Style](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/ArtBible.md#art-style)
+  - [Scenario](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/ArtBible.md#scenario)
+  - [Level of detail](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/ArtBible.md#level-of-detail)
+  - [Camera](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/ArtBible.md#camera)
+  - [Scale](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/ArtBible.md#scale)
 
 # Introduction
 
