@@ -36,7 +36,6 @@ The story of the game is placed in an archipelago at a time when pirates represe
 The abandoned islands were soon occupied by pirates, who fortified them and established a base camp to make sure nobody was taking that territory back. Not much time passed until the pirates were ready to resume the pillage and the closer territory was the actual border of the continent. The attacks started again. Villages were set on fire and the inhabitants of the coast were starting to move again towards the center of the country causing the kingdom to start to collapse. Tired and desperate, the king looks for some help to kick the foreigners out of his territory forever; offering lots of gold and land to whoever that stands up for the challenge…
 
 
-
 ## 2. Story Progression
 
 The game starts with an intro where you present yourself and your group as great pirates and mercenaries. The king then makes an offer to you: he states he will make you the richest man on the country if you succeed and that you can also keep everything you find while taking the other pirates down.
@@ -44,6 +43,7 @@ The next part is the tutorial where you have the control over a part of the coas
 Once that is done, you are confident enough to try and conquer the first island. This island siege is the second part of the tutorial, where you are given the control over a shipyard and are introduced to the concepts of unit creation, island siege and resource recollection and management.
 From there on, the tutorial ends and you are alone against the enemy pirates. You will get help sometimes by the previous captain of your group, who now is too old to rule but not to give a helping hand from time to time.
 
+![](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GDD%20Pictures/pirate%20banner.png?raw=true)
 
 ## 3.	Gameplay
 
@@ -52,6 +52,8 @@ This is the most extensive and important part of the Game Design Document. Here 
 ### 3.1. Goals
 
 The goal of our game s to wipe out the pirates from the coast and take back the islands they conquered. In order to do that, the player has to arrive to the last island and destroy the defenses that protect it.
+
+![](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GDD%20Pictures/islands.png?raw=true)
 
 ### 3.2. Game Mechanics
 
@@ -86,6 +88,7 @@ There is only one way of losing. If your main base at the coast is destroyed, yo
 This is a 2D isometric game, with quality pixel art sprites. In our game, we have two sides fighting with ships so the battles could become messy, we have created a different flag to differentiate each faction. This way, we are making sure the player does not get confused in the middle of a fight.
 Since the game is set at the sea, we will make sure the world does not feel boring adding clouds, wind streams, storms, tornados, whirlpools and waves.
 
+![](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GDD%20Pictures/litle%20fleet.png?raw=true)
 
 ## 5.   Music and Sounds
 
