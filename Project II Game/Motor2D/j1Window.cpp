@@ -119,8 +119,7 @@ void j1Window::Fullscreen()
 {
 	if (fullscreen == false) {
 		Uint32 flags = SDL_WINDOW_SHOWN;
-		flags |= SDL_WINDOW_FULLSCREEN;
-		flags |= SDL_WINDOW_RESIZABLE;
+		flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		SDL_SetWindowFullscreen(window, flags);
 		fullscreen = true;
 	}
