@@ -43,6 +43,7 @@ public:
 	uint		height;
 private:
 	p2SString	title;
+	bool fullscreen = false;
 	
 	
 };
