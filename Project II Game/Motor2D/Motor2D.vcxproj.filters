@@ -88,7 +88,7 @@
     <ClCompile Include="j1Button.cpp">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClCompile>
-    <ClCompile Include="j1Boat.cpp">
+    <ClCompile Include="Boat.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
   </ItemGroup>
