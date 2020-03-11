@@ -77,18 +77,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
-    <ClCompile Include="Boat.cpp" />
+    <ClCompile Include="j1Boat.cpp" />
     <ClCompile Include="BoatHouse.cpp" />
     <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Fonts.cpp" />
     <ClCompile Include="j1GUI.cpp" />
-    <ClCompile Include="j1GUIbutton.cpp" />
-    <ClCompile Include="j1GUIelement.cpp" />
-    <ClCompile Include="j1GUIimage.cpp" />
-    <ClCompile Include="j1GUIinputBox.cpp" />
-    <ClCompile Include="j1GUIlabel.cpp" />
-    <ClCompile Include="j1GUIscrollBar.cpp" />
+    <ClCompile Include="j1Button.cpp" />
+    <ClCompile Include="j1Element.cpp" />
+    <ClCompile Include="j1Image.cpp" />
+    <ClCompile Include="j1InputBox.cpp" />
+    <ClCompile Include="j1Label.cpp" />
+    <ClCompile Include="j1ScrollBar.cpp" />
     <ClCompile Include="j1InGameUI.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -105,7 +105,6 @@
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
-    <ClCompile Include="j1GUItext.cpp" />
     <ClCompile Include="Structure.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -116,13 +115,7 @@
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1Fonts.h" />
     <ClInclude Include="j1GUI.h" />
-    <ClInclude Include="j1GUIbutton.h" />
-    <ClInclude Include="j1GUIelement.h" />
-    <ClInclude Include="j1GUIimage.h" />
-    <ClInclude Include="j1GUIinputBox.h" />
-    <ClInclude Include="j1GUIlabel.h" />
-    <ClInclude Include="j1GUIscrollBar.h" />
-    <ClInclude Include="j1GUItext.h" />
+    <ClInclude Include="j1GUIElements.h" />
     <ClInclude Include="j1InGameUI.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Pathfinding.h" />

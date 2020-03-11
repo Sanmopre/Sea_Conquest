@@ -52,33 +52,6 @@
     <ClCompile Include="j1EntityManager.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Boat.cpp">
-      <Filter>Desenvolupament  ========\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="j1GUI.cpp">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="j1GUIbutton.cpp">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="j1GUIelement.cpp">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="j1GUIimage.cpp">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="j1GUIinputBox.cpp">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="j1GUIlabel.cpp">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="j1GUIscrollBar.cpp">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Fonts.cpp">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClCompile>
     <ClCompile Include="BoatHouse.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
@@ -91,8 +64,32 @@
     <ClCompile Include="Structure.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="j1GUItext.cpp">
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1GUI.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Element.cpp">
       <Filter>Desenvolupament  ========\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Image.cpp">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1InputBox.cpp">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Label.cpp">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1ScrollBar.cpp">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Button.cpp">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Boat.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -174,34 +171,16 @@
     <ClInclude Include="Color.h">
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="j1GUI.h">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="j1GUIbutton.h">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="j1GUIelement.h">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="j1GUIimage.h">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="j1GUIinputBox.h">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="j1GUIlabel.h">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="j1GUIscrollBar.h">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Fonts.h">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClInclude>
     <ClInclude Include="j1InGameUI.h">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="j1GUItext.h">
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1GUI.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1GUIElements.h">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClInclude>
   </ItemGroup>

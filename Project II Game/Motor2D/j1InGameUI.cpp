@@ -114,7 +114,7 @@ void j1InGameUI::Activate_Menu()
 	menu.Image->enabled = !menu.Image->enabled;
 }
 
-void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1GUIelement* element)
+void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 {
 	switch (type)
 	{
@@ -123,7 +123,6 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1GUIelement* element)
 	{
 
 		if (element == menu.Return_button) {
-			//Activate_Menu();
 			type_1 = type_1 + 100;
 			type_2 = type_2 + 420;
 			type_0 = type_0 + 69;

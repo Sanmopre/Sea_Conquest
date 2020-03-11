@@ -1,5 +1,5 @@
 #include "j1GUI.h"
-#include "j1GUIelement.h"
+#include "j1GUIElements.h"
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
@@ -10,12 +10,12 @@
 #include "j1Textures.h"
 
 
-j1GUIelement::~j1GUIelement()
+j1Element::~j1Element()
 {
 
 }
 
-bool j1GUIelement::Start()
+bool j1Element::Start()
 {
 
 
@@ -23,21 +23,21 @@ bool j1GUIelement::Start()
 }
 
 
-void j1GUIelement::Draw()
+void j1Element::Draw()
 {
 
 
 }
 
 
-bool j1GUIelement::OnAbove()
+bool j1Element::OnAbove()
 {
 	bool ret = false;
 
 	SDL_Point mouse;
 	App->input->GetMousePosition(mouse.x, mouse.y);
 
-	SDL_Rect intersect = { Map_Position.x / App->win->scale , Map_Position.y / App->win->scale, rect.w, rect.h };
+	SDL_Rect intersect = { map_position.x / App->win->scale , map_position.y / App->win->scale, rect.w, rect.h };
 
 	if (SDL_PointInRect(&mouse, &intersect) && this->enabled && this->interactable) {
 		if (listener != nullptr)
@@ -51,7 +51,7 @@ bool j1GUIelement::OnAbove()
 }
 
 
-void j1GUIelement::OnClick()
+void j1Element::OnClick()
 {
 	if (listener != nullptr)
 	{
@@ -60,12 +60,12 @@ void j1GUIelement::OnClick()
 }
 
 
-void j1GUIelement::OnRelease()
+void j1Element::OnRelease()
 {
 
 }
 
-void j1GUIelement::Dragging()
+void j1Element::Dragging()
 {
 
 }

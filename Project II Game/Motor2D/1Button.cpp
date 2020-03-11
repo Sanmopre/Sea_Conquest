@@ -1,5 +1,6 @@
 #include "j1App.h"
-#include "j1GUIButton.h"
+#include "j1GUIElements.h"
+
 #include "j1Input.h"
 #include "j1GUI.h"
 #include "j1Textures.h"
@@ -15,13 +16,6 @@ j1GUIButton::~j1GUIButton() {
 
 }
 
-
-bool j1GUIButton::Awake(pugi::xml_node&)
-{
-
-	return true;
-}
-
 bool j1GUIButton::Start()
 {
 
@@ -30,7 +24,7 @@ bool j1GUIButton::Start()
 
 
 	if (text != nullptr)
-		label = App->gui->AddElement(GUItype::GUI_LABEL, this, Map_Position, Inside_Position, true, true, { 0,0,0,0 }, text);
+		label = App->gui->AddElement(GUItype::GUI_LABEL, this, map_position, inside_position, true, true, { 0,0,0,0 }, text);
 
 	return true;
 }
@@ -61,7 +55,7 @@ bool j1GUIButton::Update(float dt)
 
 				iPoint mouseClick = { 0,0 };
 				App->input->GetMousePosition(mouseClick.x, mouseClick.y);
-				Drag = { mouseClick.x - (this->Map_Position.x), mouseClick.y - (this->Map_Position.y) };
+				drag = { mouseClick.x - ((int)this->map_position.x), mouseClick.y - ((int)this->map_position.y) };
 
 			}
 
@@ -82,10 +76,10 @@ bool j1GUIButton::Update(float dt)
 	if (enabled) {
 		if (above && interactable)
 		{
-			App->render->AddBlitEvent(2, texture_button_1, Map_Position.x - App->render->camera.x / App->win->scale, Map_Position.y - App->render->camera.y / App->win->scale, rect);
+			App->render->AddBlitEvent(2, texture_button_1, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
 		}
 		else {
-			App->render->AddBlitEvent(2, texture_button, Map_Position.x - App->render->camera.x / App->win->scale, Map_Position.y - App->render->camera.y / App->win->scale, rect);
+			App->render->AddBlitEvent(2, texture_button, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
 		}
 	}
 
@@ -112,32 +106,32 @@ void j1GUIButton::Dragging()
 void j1GUIButton::MovingIt(float dt)
 {
 
-	iPoint MousePos = { 0,0 };
-	App->input->GetMousePosition(MousePos.x, MousePos.y);
+	iPoint mouse_pos = { 0,0 };
+	App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
 
-	iPoint currentPos = this->Map_Position;
+	fPoint currentPos = this->map_position;
 
 
 	if (X_drag)
-		this->Map_Position.x += ((MousePos.x - this->Map_Position.x) - Drag.x);
+		this->map_position.x += ((mouse_pos.x - this->map_position.x) - drag.x);
 
 	if (Y_drag)
-		this->Map_Position.y += ((MousePos.y - this->Map_Position.y) - Drag.y);
+		this->map_position.y += ((mouse_pos.y - this->map_position.y) - drag.y);
 
 
 	if (parent != nullptr)
 	{
 		if (X_drag)
-			this->Inside_Position.x += currentPos.x - this->Map_Position.x;
+			this->inside_position.x += currentPos.x - this->map_position.x;
 
 		if (Y_drag)
-			this->Inside_Position.y += currentPos.y - this->Map_Position.y;
+			this->inside_position.y += currentPos.y - this->map_position.y;
 
 		if (X_drag)
-			this->Map_Position.x = parent->Map_Position.x - Inside_Position.x;
+			this->map_position.x = parent->map_position.x - inside_position.x;
 
 		if (Y_drag)
-			this->Map_Position.y = parent->Map_Position.y - Inside_Position.y;
+			this->map_position.y = parent->map_position.y - inside_position.y;
 	}
 
 }

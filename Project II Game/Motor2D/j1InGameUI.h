@@ -6,16 +6,16 @@
 
 struct Game_Menu {
 
-	j1GUIelement* Menu_button = nullptr;
-	j1GUIelement* Title = nullptr;
-	j1GUIelement* Image = nullptr;
-	j1GUIelement* Exit_button = nullptr;
-	j1GUIelement* Return_button = nullptr;
-	j1GUIelement* Resume_button = nullptr;
-	j1GUIelement* Music_scroll = nullptr;
-	j1GUIelement* Save = nullptr;
-	j1GUIelement* Load = nullptr;
-	j1GUIelement* label1 = nullptr;
+	j1Element* Menu_button;
+	j1Element* Title;
+	j1Element* Image;
+	j1Element* Exit_button;
+	j1Element* Return_button;
+	j1Element* Resume_button;
+	j1Element* Music_scroll;
+	j1Element* Save;
+	j1Element* Load;
+	j1Element* label1;
 
 };
 
@@ -37,13 +37,13 @@ public:
 
 	void Add_UI();
 	void Activate_Menu();
-	void GUI_Event_Manager(GUI_Event type, j1GUIelement* element);
+	void GUI_Event_Manager(GUI_Event type, j1Element* element);
 
 private:
 	//positions
-	int MiddleScreenW;
-	int MiddleScreenH;
-	int width;
+	float MiddleScreenW;
+	float MiddleScreenH;
+	float width;
 	
 
 	//resources
