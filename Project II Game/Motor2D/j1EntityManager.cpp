@@ -31,7 +31,7 @@ bool j1EntityManager::Update(float dt)
 
 	while (counter != entities.size())
 	{
-		vector<Entity*>::iterator entity = entities.begin();
+		vector<j1Entity*>::iterator entity = entities.begin();
 		entity += counter;
 		for (; entity != entities.end(); entity++)
 		{
@@ -49,7 +49,7 @@ bool j1EntityManager::Update(float dt)
 
 	if (buffer.size() != 0)
 	{
-		for (vector<Entity*>::iterator bufferentity = buffer.begin(); bufferentity != buffer.end(); bufferentity++)
+		for (vector<j1Entity*>::iterator bufferentity = buffer.begin(); bufferentity != buffer.end(); bufferentity++)
 		{
 			entities.push_back(*bufferentity);
 		}
@@ -63,9 +63,9 @@ bool j1EntityManager::Update(float dt)
 		App->input->GetMousePosition(test.x, test.y);
 		test.x -= App->render->camera.x / App->win->GetScale();
 		test.y -= App->render->camera.y / App->win->GetScale();
-		AddEntity(test.x, test.y, Entity_Type::BOAT, 1, 0);
+		AddEntity(test.x, test.y, EntityType::BOAT, 1, 0);
 
-		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
+		//LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
@@ -74,62 +74,62 @@ bool j1EntityManager::Update(float dt)
 		App->input->GetMousePosition(test.x, test.y);
 		test.x -= App->render->camera.x / App->win->GetScale();
 		test.y -= App->render->camera.y / App->win->GetScale();
-		AddEntity(test.x, test.y, Entity_Type::BOAT, 1, 1);
+		AddEntity(test.x, test.y, EntityType::BOAT, 1, 1);
 
-		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
+		//LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 	{
-		AddEntity(0, 0, Entity_Type::BOATHOUSE, 0, 0);
+		AddEntity(0, 0, EntityType::BOATHOUSE, 0, 0);
 
-		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
+		//LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
 	{
-		AddEntity(0, 0, Entity_Type::BOATHOUSE, 0, 1);
+		AddEntity(0, 0, EntityType::BOATHOUSE, 0, 1);
 
-		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
+		//LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
 	{
-		for (vector<Entity*>::iterator entity = entities.begin(); entity != entities.end(); entity++)
+		for (vector<j1Entity*>::iterator entity = entities.begin(); entity != entities.end(); entity++)
 		{
 			if ((*entity)->selected)
 				(*entity)->CleanUp();
 		}
 
-		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
+		//LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
 	{
 		DeleteAll();
-		LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
+		//LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 	//*///////////////////////////////////////////////////////////////////////////////////////////////////
 	return true;
 }
 
-Entity* j1EntityManager::AddEntity(float x, float y, Entity_Type type, int level, int team)
+j1Entity* j1EntityManager::AddEntity(float x, float y, EntityType type, int level, int team)
 {
 	LOG("AA");
 	switch (type)
 	{
-	case Entity_Type::BOAT:
-		buffer.push_back(new Boat(x, y, level, team));
+	case EntityType::BOAT:
+		buffer.push_back(new j1Boat(x, y, level, team));
 		break;
-	case Entity_Type::BOATHOUSE:
-		buffer.push_back(new BoatHouse(team));
+	case EntityType::BOATHOUSE:
+		buffer.push_back(new j1BoatHouse(team));
 		break;
 	}	
 
 	return *(buffer.end() - 1);
 }
 
-void j1EntityManager::DeleteEntity(Entity* entity_)
+void j1EntityManager::DeleteEntity(j1Entity* entity_)
 {
 	if(entities.size() != 0)
 		for (auto entity = entities.begin(); entity != entities.end(); entity++)
@@ -144,7 +144,7 @@ void j1EntityManager::DeleteEntity(Entity* entity_)
 		}
 }
 
-void j1EntityManager::QuickDeleteEntity(std::vector<Entity*>::iterator entity)
+void j1EntityManager::QuickDeleteEntity(std::vector<j1Entity*>::iterator entity)
 {
 	delete (*entity);
 	entities.erase(entity, entity + 1);

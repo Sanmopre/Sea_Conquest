@@ -290,7 +290,6 @@ bool j1App::DoUpdate()
 	return ret;
 }
 
-// Call modules after each loop iteration
 bool j1App::PostUpdate()
 {
 	bool ret = true;

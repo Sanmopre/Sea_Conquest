@@ -7,19 +7,21 @@
 #include <vector>
 #include "j1Map.h"
 
-Boat::Boat(float x, float y, int level, int team)
+j1Boat::j1Boat(float x, float y, int level, int team)
 {
-	type = Entity_Type::BOAT;
+	type = EntityType::BOAT;
 	position.x = x;
 	position.y = y;
 	destination = position;
 	this->level = level;
+	trading_range = 50;
 	this->team = team;
 	speed = 50;
 	range = 100;
 	firerate = { 1 };
 	max_health = 100;
 	health = max_health;
+	storage = { 0, 0, 0, 200 };
 	
 	for (std::vector<Animation>::iterator i = App->map->allAnimations.begin(); i != App->map->allAnimations.end(); i++) 
 	{
@@ -64,12 +66,12 @@ Boat::Boat(float x, float y, int level, int team)
 
 }
 
-Boat::~Boat()
+j1Boat::~j1Boat()
 {
 
 }
 
-void Boat::Update(float dt)
+void j1Boat::Update(float dt)
 {
 	showing_hpbar = false;
 
@@ -78,8 +80,12 @@ void Boat::Update(float dt)
 	if (selected)
 	{
 		if (team == 0)
+		{
 			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
-				SetDestination();		
+				SetDestination();
+
+			Trading();
+		}
 
 		ShowHPbar(10, 5);
 	}
@@ -104,12 +110,12 @@ void Boat::Update(float dt)
 		CleanUp();
 }
 
-void Boat::CleanUp()
+void j1Boat::CleanUp()
 {
 	to_delete = true;
 }
 
-void  Boat::Move(float dt)
+void  j1Boat::Move(float dt)
 {
 	orientation = Orientation::NONE;
 
@@ -158,7 +164,7 @@ void  Boat::Move(float dt)
 	
 }
 
-void  Boat::SetDestination()
+void  j1Boat::SetDestination()
 {
 	int mx, my;
 	App->input->GetMousePosition(mx, my);
@@ -166,17 +172,17 @@ void  Boat::SetDestination()
 	destination.y = my - App->render->camera.y / App->win->GetScale();	
 }
 
-void  Boat::Attack()
+void  j1Boat::Attack()
 {
 	Damage(10, target);
 }
 
-void  Boat::FindTarget()
+void  j1Boat::FindTarget()
 {
 	float targetdistance = range;
 	float distance = 0.0f;
 
-	for (std::vector<Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
+	for (std::vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
 	{
 		if (*e != this && (*e)->team != team)
 			if (position.x + range > (*e)->position.x &&
@@ -200,7 +206,7 @@ void  Boat::FindTarget()
 		target = nullptr;
 }
 
-void Boat::SelectAnimation()
+void j1Boat::SelectAnimation()
 {
 	switch (orientation)
 	{

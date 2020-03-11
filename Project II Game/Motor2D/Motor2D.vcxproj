@@ -77,9 +77,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
-    <ClCompile Include="Boat.cpp" />
-    <ClCompile Include="BoatHouse.cpp" />
+    <ClCompile Include="j1Boat.cpp" />
+    <ClCompile Include="j1BoatHouse.cpp" />
     <ClCompile Include="j1Collision.cpp" />
+    <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Fonts.cpp" />
     <ClCompile Include="j1GUI.cpp" />
@@ -99,13 +100,13 @@
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1Scene.cpp" />
+    <ClCompile Include="j1Structure.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
-    <ClCompile Include="Structure.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h" />

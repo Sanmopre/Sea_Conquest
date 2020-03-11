@@ -3,7 +3,7 @@
 #include "j1Input.h"
 #include "j1Map.h"
 
-void Structure::NotPlacedBehaviour()
+void j1Structure::NotPlacedBehaviour()
 {
 	if (!placed)
 	{

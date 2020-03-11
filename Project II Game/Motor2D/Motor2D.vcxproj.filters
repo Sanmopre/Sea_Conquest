@@ -52,17 +52,11 @@
     <ClCompile Include="j1EntityManager.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="BoatHouse.cpp">
-      <Filter>Desenvolupament  ========\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="j1InGameUI.cpp">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="animation.cpp">
       <Filter>Desenvolupament  ========\Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Structure.cpp">
-      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
     <ClCompile Include="j1Fonts.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
@@ -88,7 +82,16 @@
     <ClCompile Include="j1Button.cpp">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Boat.cpp">
+    <ClCompile Include="j1Boat.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1BoatHouse.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Structure.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Entity.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
   </ItemGroup>

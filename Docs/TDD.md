@@ -66,9 +66,9 @@ Generic variables: should have the same name as their type, but the specifics ca
 void AddEntity(Entity_Type type)
  
 When creating an enum it must be declared class.
-Enums Class: Must be all lowercase, capitalizing the first letter of the first word and using underscore to separate words and in singular.
+Enums Class: Must be all lowercase, capitalizing the first letter of each word and in singular.
  
-Entity_type
+EntityType
  
 Enums Class items: All in uppercase and separating compound names with an underscore. 
  

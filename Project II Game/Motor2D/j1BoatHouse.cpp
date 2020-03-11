@@ -6,23 +6,25 @@
 #include "j1EntityManager.h"
 #include "j1Map.h"
 
-BoatHouse::BoatHouse(int team, iPoint tile)
+j1BoatHouse::j1BoatHouse(int team, iPoint tile)
 {
-	type = Entity_Type::BOATHOUSE;
+	type = EntityType::BOATHOUSE;
 	position = App->input->GetMouseWorldPosition();
 	level = 1;
 	this->team = team;
 	max_health = 500;
 	health = max_health;
 	rect = { (int)position.x, (int)position.y, 40, 40 };
+
+	storage = { 0, 0, 0, 1000 };
 }
 
-BoatHouse::~BoatHouse()
+j1BoatHouse::~j1BoatHouse()
 {
 
 }
 
-void BoatHouse::Update(float dt)
+void j1BoatHouse::Update(float dt)
 {
 	showing_hpbar = false;
 	rect.x = position.x;
@@ -41,7 +43,7 @@ void BoatHouse::Update(float dt)
 			placed = false;
 
 		if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
-			BuildUnit(Entity_Type::BOAT, 1);
+			BuildUnit(EntityType::BOAT, 1);
 		
 		ShowHPbar(10, 5);
 	}
@@ -53,13 +55,13 @@ void BoatHouse::Update(float dt)
 
 	if (unitqueue.size() != 0)
 	{
-		if (unitqueue.begin()->type == Entity_Type::BOAT)
+		if (unitqueue.begin()->type == EntityType::BOAT)
 			building_time.iterations = 5;
 
 		building_time.counter += dt;
 		if (building_time.counter >= building_time.iterations)
 		{
-			for (std::vector<Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
+			for (std::vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
 			{
 				bool changed = true;
 				while (changed)
@@ -86,13 +88,13 @@ void BoatHouse::Update(float dt)
 		CleanUp();
 }
 
-void BoatHouse::BuildUnit(Entity_Type type, int level)
+void j1BoatHouse::BuildUnit(EntityType type, int level)
 {
 	EntityRequest unit = { position.x + 50, position.y + 20, type, level, team };
 	unitqueue.push_back(unit);
 }
 
-void BoatHouse::CleanUp()
+void j1BoatHouse::CleanUp()
 {
 	unitqueue.erase(unitqueue.begin(), unitqueue.end());
 	unitqueue.shrink_to_fit();

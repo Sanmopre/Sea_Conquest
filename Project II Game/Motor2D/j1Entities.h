@@ -27,7 +27,7 @@ enum class Orientation
 	NONE
 };
 
-enum class Entity_Type
+enum class EntityType
 {
 	BOAT,
 	BOATHOUSE,
@@ -37,86 +37,65 @@ enum class Entity_Type
 struct EntityRequest
 {
 	float x, y;
-	Entity_Type type;
+	EntityType type;
 	int level;
 	int team;
 };
 
-struct storage
+struct Storage
 {
 	int wood;
 	int cotton;
-	int stone;
 	int metal;
 
 	int maxweight;
 };
 ///////////////////////////////////////////////CLASSES//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Entity
+class j1Entity
 {
 public:
 
-	Entity() { selected = false; to_delete = false; }
+	j1Entity() { selected = false; to_delete = false; }
 
 	virtual void Update(float dt) = 0;
 	virtual void CleanUp() = 0;
 
 	bool to_delete;
 
-	void Damage(int damage, Entity* target)
-	{
-		if (target != nullptr)
-		{
-			target->health -= damage;
-			if (target->health < 0)
-				target->health = 0;
-		}
-	}
+	void Damage(int damage, j1Entity* target);
 
 	int team;
 
 	int health;
 	int max_health;
 	fPoint position;
-	Entity_Type type;
+	EntityType type;
 	bool selected;
 	int level;
-	storage load;
 
-	SDL_Rect rect; // /*probably will be*/ It is the current_animation
+	Storage storage;
+	j1Entity* trading_entity;
+	int trading_entity_offset = 0;
+
+	SDL_Rect rect;
 	SDL_Texture* texture;
 
 protected:
 
-	void  ShowHPbar(int extra_width, int height)
-	{
-		if (!showing_hpbar)
-		{
-			showing_hpbar = true;
-
-			SDL_Rect health_rect = { position.x - extra_width, position.y - 20, /*animation.GetCurrentFrame().w*/ 32 + extra_width * 2, height };
-			Color health_color(96u, 96u, 96u);
-
-			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, false, health_color.r, health_color.g, health_color.b, health_color.a);
-
-			float hrw = health_rect.w;
-			hrw /= max_health;
-			hrw *= health;
-			health_rect.w = hrw;
-			health_color.SetColor(0u, 204u, 0u);
-
-			App->render->AddBlitEvent(2, nullptr, 0, 0, health_rect, false, false, health_color.r, health_color.g, health_color.b, health_color.a);
-		}
-	}
+	void  ShowHPbar(int extra_width, int height);
+	void Trading();
 
 	bool showing_hpbar;
+	int trading_range;
+
+	std::vector<j1Entity*> tradeable_list;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Unit : public Entity
+class j1Unit : public j1Entity
 {
 public:
 
-	Unit() { orientation = Orientation::NORTH; }
+	j1Unit() { orientation = Orientation::NORTH; }
 
 	float speed;
 	Orientation orientation;
@@ -137,11 +116,11 @@ protected:
 	//void Path_to(fPoint); Add when pathfinding is done
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Structure : public Entity
+class j1Structure : public j1Entity
 {
 public:
 
-	Structure() { placed = false; }
+	j1Structure() { placed = false; }
 
 	iPoint tile;
 	bool placed;
@@ -149,7 +128,7 @@ public:
 	void NotPlacedBehaviour();
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Resource : public Entity
+class j1Resource : public j1Entity
 {
 public:
 
@@ -157,17 +136,17 @@ public:
 
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Boat : public Unit
+class j1Boat : public j1Unit
 {
 public:
-	Boat(float x = 0, float y = 0, int level = 1, int team = 0);
-	~Boat();
+	j1Boat(float x = 0, float y = 0, int level = 1, int team = 0);
+	~j1Boat();
 
 	void Update(float);
 	void CleanUp();
 
 	int range;
-	Entity* target;
+	j1Entity* target;
 
 private:
 
@@ -180,16 +159,16 @@ private:
 	timed_var firerate;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class BoatHouse : public Structure
+class j1BoatHouse : public j1Structure
 {
 public:
-	BoatHouse(int team = 0, iPoint tile = {0, 0});
-	~BoatHouse();
+	j1BoatHouse(int team = 0, iPoint tile = {0, 0});
+	~j1BoatHouse();
 
 	void Update(float);
 	void CleanUp();
 
-	void BuildUnit(Entity_Type type, int level);
+	void BuildUnit(EntityType type, int level);
 
 	std::vector<EntityRequest> unitqueue;
 	timed_var building_time;

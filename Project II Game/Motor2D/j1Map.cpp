@@ -375,47 +375,47 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 			const char* typestring = tile.attribute("type").as_string();
 			if (strcmp(typestring, "animation_boat_north") == 0)
 			{
-				animation.type = Entity_Type::BOAT;
+				animation.type = EntityType::BOAT;
 				animation.orientation = Orientation::NORTH;
 			}
 			else if (strcmp(typestring, "animation_boat_north_east") == 0)
 			{
-				animation.type = Entity_Type::BOAT;
+				animation.type = EntityType::BOAT;
 				animation.orientation = Orientation::NORTH_EAST;
 			}
 			else if (strcmp(typestring, "animation_boat_east") == 0)
 			{
-				animation.type = Entity_Type::BOAT;
+				animation.type = EntityType::BOAT;
 				animation.orientation = Orientation::EAST;
 			}
 			else if (strcmp(typestring, "animation_boat_south_east") == 0)
 			{
-				animation.type = Entity_Type::BOAT;
+				animation.type = EntityType::BOAT;
 				animation.orientation = Orientation::SOUTH_EAST;
 			}
 			else if (strcmp(typestring, "animation_boat_south") == 0)
 			{
-				animation.type = Entity_Type::BOAT;
+				animation.type = EntityType::BOAT;
 				animation.orientation = Orientation::SOUTH;
 			}
 			else if (strcmp(typestring, "animation_boat_south_west") == 0)
 			{
-				animation.type = Entity_Type::BOAT;
+				animation.type = EntityType::BOAT;
 				animation.orientation = Orientation::SOUTH_WEST;
 			}
 			else if (strcmp(typestring, "animation_boat_west") == 0)
 			{
-				animation.type = Entity_Type::BOAT;
+				animation.type = EntityType::BOAT;
 				animation.orientation = Orientation::WEST;
 			}
 			else if (strcmp(typestring, "animation_boat_north_west") == 0)
 			{
-				animation.type = Entity_Type::BOAT;
+				animation.type = EntityType::BOAT;
 				animation.orientation = Orientation::NORTH_WEST;
 			}
 			else
 			{
-				animation.type = Entity_Type::NONE;
+				animation.type = EntityType::NONE;
 				animation.orientation = Orientation::NONE;
 			}
 				

@@ -16,17 +16,17 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 
-	Entity* AddEntity(float x = 0, float y = 0, Entity_Type = Entity_Type::NONE, int level = 1, int team = 0);
+	j1Entity* AddEntity(float x = 0, float y = 0, EntityType = EntityType::NONE, int level = 1, int team = 0);
 
-	void DeleteEntity(Entity*);
+	void DeleteEntity(j1Entity*);
 	void DeleteAll();
 
-	std::vector<Entity*> entities;
+	std::vector<j1Entity*> entities;
 
 private:
 
-	std::vector<Entity*> buffer;
-	void QuickDeleteEntity(std::vector<Entity*>::iterator itr);
+	std::vector<j1Entity*> buffer;
+	void QuickDeleteEntity(std::vector<j1Entity*>::iterator itr);
 };
 
 #endif // __j1EntityManager_H__
