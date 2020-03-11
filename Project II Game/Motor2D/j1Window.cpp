@@ -117,18 +117,10 @@ float j1Window::GetScale() const
 
 void j1Window::Fullscreen()
 {
-	//Destroy window
-	if (window != NULL)
-	{
-		SDL_DestroyWindow(window);
-	}
-
 	Uint32 flags = SDL_WINDOW_SHOWN;
 	flags |= SDL_WINDOW_FULLSCREEN;
-	flags |= SDL_WINDOW_INPUT_GRABBED;
-	flags |= SDL_WINDOW_SHOWN;
-	
-	window = SDL_CreateWindow(App->GetTitle(), 0, 0, width, height, flags);
-	screen_surface = SDL_GetWindowSurface(window);
+	flags |= SDL_WINDOW_RESIZABLE;
 
+	SDL_SetWindowFullscreen(window, flags);
+	SDL_SetWindowSize(window, width, height);
 }
