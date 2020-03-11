@@ -65,9 +65,12 @@ public:
 
 	void Damage(int damage, Entity* target)
 	{
-		target->health -= damage;
-		if (target->health < 0)
-			target->health = 0;
+		if (target != nullptr)
+		{
+			target->health -= damage;
+			if (target->health < 0)
+				target->health = 0;
+		}
 	}
 
 	int team;
