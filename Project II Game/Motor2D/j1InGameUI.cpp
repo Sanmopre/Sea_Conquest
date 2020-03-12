@@ -6,6 +6,8 @@
 #include "j1Render.h"
 #include "j1Fonts.h"
 #include "j1Input.h"
+#include "j1EntityManager.h"
+#include <vector>
 #include <iostream>
 
 
@@ -122,11 +124,16 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 	case GUI_Event::EVENT_ONCLICK:
 	{
 
-		if (element == menu.Return_button) {
-			type_1 = type_1 + 100;
-			type_2 = type_2 + 420;
-			type_0 = type_0 + 69;
-		}
+		if (element == menu.Return_button)
+			for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
+			{
+				if ((*entity)->selected)
+				{
+					(*entity)->storage.cotton += 10;
+					(*entity)->storage.wood += 15;
+					(*entity)->storage.metal += 5;
+				}
+			}
 
 		if (element == menu.Exit_button) {
 			App->win->Fullscreen();
