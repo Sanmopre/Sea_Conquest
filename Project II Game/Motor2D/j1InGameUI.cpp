@@ -129,7 +129,7 @@ bool j1InGameUI::CleanUp()
 //UI FUNCTIONS
 void j1InGameUI::Add_UI()
 {
-	menu.Menu_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, {width -250,10 }, { 60,30 }, true, true, { 0,0,200,65 }, "OPTIONS", this);
+	menu.Menu_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, {width -50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this,true,true, SCROLL_TYPE::SCROLL_NONE,true);
 	menu.Return_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH-140 }, { 0,30 }, true, false, { 0,0,200,65 }, "MORE RESOURCES", this);
 	menu.Resume_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH -60}, { 60,30 }, true, false, { 0,0,200,65 }, "RESUME", this);
 	menu.Exit_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH + 15 }, {60,30 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this);

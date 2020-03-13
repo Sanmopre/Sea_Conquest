@@ -74,6 +74,7 @@ public:
 	SDL_Texture* texture = nullptr;
 	SDL_Texture* texture_button = nullptr;
 	SDL_Texture* texture_button_1 = nullptr;
+	SDL_Texture* texture_button_2 = nullptr;
 	SDL_Texture* menu_image = nullptr;
 
 };
@@ -101,6 +102,7 @@ private:
 	iPoint drag = { 0,0 };
 
 	bool dragging;
+	bool options_button = false;
 };
 ////////////////////////////////////////////////////////////////
 class j1Image : public j1Element
