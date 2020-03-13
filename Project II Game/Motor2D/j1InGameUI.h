@@ -11,10 +11,16 @@ struct Game_Menu {
 	j1Element* Exit_button;
 	j1Element* Return_button;
 	j1Element* Resume_button;
-	j1Element* Music_scroll;
 	j1Element* Save;
 	j1Element* Load;
-	j1Element* label1;
+};
+
+struct Unit_Manager_UI {
+	j1Element* button_next;
+	j1Element* buton_prev;
+	j1Element* image;
+	j1Element* entity_type_Image;
+	j1Element* entity_name;
 };
 
 
@@ -44,6 +50,9 @@ public:
 	void Activate_Building_Menu();
 	void Deactivate_Building_Menu();
 	void Create_Building_Menu();
+
+	void Activate_Manager();
+	void Deactivate_Manager();
 	void GUI_Event_Manager(GUI_Event type, j1Element* element);
 
 private:
@@ -66,6 +75,7 @@ private:
 	//menu ui
 	Game_Menu menu;
 	Building_Menu building;
+	Unit_Manager_UI manager;
 
 	j1Entity* entity_ui = nullptr;
 

@@ -76,16 +76,19 @@ bool j1InGameUI::Update(float dt)
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//SEARCHING FOR SELECTED LOOP 
+	bool found_boat_builder = false;
 	bool found = false;
 	for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
 	{
 		if ((*entity)->selected)
 		{
+			//Activate_Manager();
+			found = true;
 			if ((*entity)->type == EntityType::BOATHOUSE) {
 				{
 					entity_ui = *entity;
 					Activate_Building_Menu();
-					found = true;
+					found_boat_builder = true;
 					break;
 				}
 			}
@@ -93,8 +96,11 @@ bool j1InGameUI::Update(float dt)
 		}
 	}
 
-	if (found == false)
+	if (found_boat_builder == false)
 	Deactivate_Building_Menu();
+
+	//if (found == false)
+	//Deactivate_Manager();
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 
@@ -129,6 +135,7 @@ bool j1InGameUI::CleanUp()
 //UI FUNCTIONS
 void j1InGameUI::Add_UI()
 {
+	//MENU
 	menu.Menu_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, {width -50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this,true,true, SCROLL_TYPE::SCROLL_NONE,true);
 	menu.Return_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH-140 }, { 0,30 }, true, false, { 0,0,200,65 }, "MORE RESOURCES", this);
 	menu.Resume_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH -60}, { 60,30 }, true, false, { 0,0,200,65 }, "RESUME", this);
@@ -136,6 +143,13 @@ void j1InGameUI::Add_UI()
 	menu.Save = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +90 }, { 60,30 }, true, false, { 0,0,200,65 }, "QUIT", this);
 	menu.Load = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +165}, { 60,30 }, true, false, { 0,0,200,65 }, "LOAD", this);
 	menu.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 50,0 }, { 0,0 }, true, false, { 0, 0,350,500 },"",this);
+
+	//ENTITY_MANAGER_UI
+	manager.image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 190,500 }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this);
+	manager.button_next = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
+	manager.buton_prev = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
+	manager.entity_type_Image = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
+//	manager.entity_name = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "LETS GO", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
 }
 
 
@@ -217,4 +231,23 @@ void j1InGameUI::Activate_Building_Menu()
 void j1InGameUI::Deactivate_Building_Menu() 
 {
 	building.Boat_Building_Button->enabled = false;
+}
+
+
+void j1InGameUI::Activate_Manager()
+{
+	manager.button_next->enabled = true;
+	manager.buton_prev->enabled = true;
+	manager.image->enabled = true;
+    manager.entity_type_Image->enabled = true;
+	manager.entity_name->enabled = true;
+}
+
+void j1InGameUI::Deactivate_Manager()
+{
+	manager.button_next->enabled = false;
+	manager.buton_prev->enabled = false;
+	manager.image->enabled = false;
+	manager.entity_type_Image->enabled = false;
+	manager.entity_name->enabled = false;
 }

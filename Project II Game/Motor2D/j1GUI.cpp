@@ -94,7 +94,7 @@ bool j1GUI::CleanUp()
 
 
 
-j1Element* j1GUI::AddElement(GUItype type, j1Element* parent, fPoint map_position, fPoint inside_position, bool interactable, bool enabled, SDL_Rect section, char* text, j1Module* listener, bool X_drag, bool Y_drag, SCROLL_TYPE scrollType, bool decor)
+j1Element* j1GUI::AddElement(GUItype type, j1Element* parent, fPoint map_position, fPoint inside_position, bool interactable, bool enabled, SDL_Rect section, char* text, j1Module* listener, bool X_drag, bool Y_drag, SCROLL_TYPE scrollType, bool decor, TEXTURE textureType)
 {
 
 	j1Element* temp = nullptr;
@@ -132,6 +132,7 @@ j1Element* j1GUI::AddElement(GUItype type, j1Element* parent, fPoint map_positio
 		temp->enabled = enabled;
 		temp->rect = section;
 		temp->text = text;
+	
 
 		GUI_ELEMENTS.add(temp)->data->Start();
 	}

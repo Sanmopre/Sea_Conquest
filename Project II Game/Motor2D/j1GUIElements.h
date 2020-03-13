@@ -27,6 +27,15 @@ enum class SCROLL_TYPE
 	SCROLL_MUSIC
 };
 
+enum class TEXTURE
+{
+	BUTON,
+	OPTIONS,
+	NEXT,
+	MANAGER_IMAGE,
+	NONE
+};
+
 class j1Element
 {
 
