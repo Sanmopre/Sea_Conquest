@@ -185,6 +185,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == menu.Menu_button) {
 			Activate_Menu();
 		}
+		if (element == building.Boat_Building_Button) {
+			entity_ui->BuildUnit(EntityType::BOAT,0);
+		}
 
 	}
 	}

@@ -46,10 +46,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(pathfinding);
 	AddModule(player);
-	AddModule(entitymanager);
 	AddModule(gui);
 	AddModule(fonts);
 	AddModule(InGameUI);
+	AddModule(entitymanager);
 
 	// render last to swap buffer
 	AddModule(render);
