@@ -76,10 +76,10 @@ bool j1Button::Update(float dt)
 	if (enabled) {
 		if (above && interactable)
 		{
-			App->render->AddBlitEvent(2, texture_button_1, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
+			App->render->AddBlitEvent(3, texture_button_1, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
 		}
 		else {
-			App->render->AddBlitEvent(2, texture_button, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
+			App->render->AddBlitEvent(3, texture_button, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
 		}
 	}
 
