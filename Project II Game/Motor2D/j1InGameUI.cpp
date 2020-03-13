@@ -7,6 +7,7 @@
 #include "j1Fonts.h"
 #include "j1Input.h"
 #include "j1EntityManager.h"
+#include "j1Entities.h"
 #include <vector>
 #include <iostream>
 
@@ -46,7 +47,16 @@ bool j1InGameUI::Start()
 	MiddleScreenW = App->win->width/2 - 100;
 	MiddleScreenH = App->win->height/ 2 - 100;
 	width = App->win->width;
+
+
+
+	//CREATES UI
+	Create_Building_Menu();
 	Add_UI();
+
+
+	//DISABLES UNITS UI
+	building.Boat_Building_Button->enabled = false;
 	return true;
 }
 
@@ -64,8 +74,31 @@ bool j1InGameUI::Update(float dt)
 	App->render->AddBlitEvent(3,resources , 0 - App->render->camera.x / App->win->scale, 0 - App->render->camera.y / App->win->scale, texture_rect_1);
 
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//SEARCHING FOR SELECTED LOOP 
+	bool found = false;
+	for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
+	{
+		if ((*entity)->selected)
+		{
+			if ((*entity)->type == EntityType::BOATHOUSE) {
+				{
+					entity_ui = *entity;
+					Activate_Building_Menu();
+					found = true;
+					break;
+				}
+			}
+			
+		}
+	}
 
+	if (found == false)
+	Deactivate_Building_Menu();
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 
+	
 
 	//UPDATE RESOURCES
 
@@ -152,6 +185,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == menu.Menu_button) {
 			Activate_Menu();
 		}
+		if (element == building.Boat_Building_Button) {
+			entity_ui->BuildUnit(EntityType::BOAT,0);
+		}
 
 	}
 	}
@@ -165,4 +201,20 @@ bool j1InGameUI::PostUpdate()
 	}
 	return ret;
 
+}
+
+void j1InGameUI::Create_Building_Menu() 
+{
+	building.Boat_Building_Button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 25,570 }, { 20,30 }, true, true, { 0,0,200,65 }, "CREATE BOAT", this);
+}
+
+
+void j1InGameUI::Activate_Building_Menu()
+{
+	building.Boat_Building_Button->enabled = true;
+}
+
+void j1InGameUI::Deactivate_Building_Menu() 
+{
+	building.Boat_Building_Button->enabled = false;
 }

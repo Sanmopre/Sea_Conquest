@@ -5,7 +5,6 @@
 #include "SDL/include/SDL_rect.h"
 
 struct Game_Menu {
-
 	j1Element* Menu_button;
 	j1Element* Title;
 	j1Element* Image;
@@ -16,10 +15,15 @@ struct Game_Menu {
 	j1Element* Save;
 	j1Element* Load;
 	j1Element* label1;
+};
 
+
+struct Building_Menu {
+	j1Element* Boat_Building_Button;
 };
 
 struct SDL_Texture;
+class j1Entity;
 
 class j1InGameUI : public j1Module
 {
@@ -37,6 +41,9 @@ public:
 
 	void Add_UI();
 	void Activate_Menu();
+	void Activate_Building_Menu();
+	void Deactivate_Building_Menu();
+	void Create_Building_Menu();
 	void GUI_Event_Manager(GUI_Event type, j1Element* element);
 
 private:
@@ -58,6 +65,10 @@ private:
 
 	//menu ui
 	Game_Menu menu;
+	Building_Menu building;
+
+	j1Entity* entity_ui = nullptr;
+
 	SDL_Texture* resources;
 	SDL_Texture* UI_Image;
 	SDL_Rect texture_rect{ 0,0,1280,200 };
