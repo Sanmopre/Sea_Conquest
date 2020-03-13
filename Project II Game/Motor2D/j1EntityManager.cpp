@@ -107,6 +107,7 @@ bool j1EntityManager::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
 	{
 		DeleteAll();
+
 		//LOG("There is %d entities with %d vector capacity", entities.size(), entities.capacity());
 	}
 	//*///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +116,6 @@ bool j1EntityManager::Update(float dt)
 
 j1Entity* j1EntityManager::AddEntity(float x, float y, EntityType type, int level, int team)
 {
-	LOG("AA");
 	switch (type)
 	{
 	case EntityType::BOAT:
@@ -163,5 +163,7 @@ void j1EntityManager::DeleteAll()
 
 bool j1EntityManager::CleanUp()
 {
+	DeleteAll();
+
 	return true;
 }
