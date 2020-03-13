@@ -112,6 +112,8 @@ void j1Boat::Update(float dt)
 
 void j1Boat::CleanUp()
 {
+	tradeable_list.erase(tradeable_list.begin(), tradeable_list.end());
+	tradeable_list.shrink_to_fit();
 	to_delete = true;
 }
 

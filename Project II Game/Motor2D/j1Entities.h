@@ -80,6 +80,8 @@ public:
 	SDL_Rect rect;
 	SDL_Texture* texture;
 
+	virtual void BuildUnit(EntityType type, int level) {}
+
 protected:
 
 	void  ShowHPbar(int extra_width, int height);
