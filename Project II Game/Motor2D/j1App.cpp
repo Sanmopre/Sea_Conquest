@@ -10,6 +10,7 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Scene.h"
+#include "j1Scene2.h"
 #include "j1Map.h"
 #include "j1Pathfinding.h"
 #include "j1App.h"
@@ -18,6 +19,7 @@
 #include "j1GUI.h"
 #include "j1Fonts.h"
 #include "j1InGameUI.h"
+#include "j1TransitionManager.h"
 #include <thread>
 
 // Constructor
@@ -29,6 +31,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	audio = new j1Audio();
 	scene = new j1Scene();
+	scene2 = new j1Scene2();
 	map = new j1Map();
 	pathfinding = new j1PathFinding();
 	player = new j1Player();
@@ -36,6 +39,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	gui = new j1GUI();
 	fonts = new j1Fonts();
 	InGameUI = new j1InGameUI();
+	transitions = new j1TransitionManager();
+
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -44,12 +49,14 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
+	//AddModule(scene2);
 	AddModule(pathfinding);
 	AddModule(player);
 	AddModule(gui);
 	AddModule(fonts);
 	AddModule(InGameUI);
 	AddModule(entitymanager);
+	AddModule(transitions);
 
 	// render last to swap buffer
 	AddModule(render);

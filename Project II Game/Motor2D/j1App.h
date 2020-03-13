@@ -14,6 +14,7 @@ class j1Render;
 class j1Textures;
 class j1Audio;
 class j1Scene;
+class j1Scene2;
 class j1Map;
 class j1PathFinding;
 class j1Player;
@@ -21,6 +22,7 @@ class j1EntityManager;
 class j1GUI;
 class j1Fonts;
 class j1InGameUI;
+class j1TransitionManager;
 
 class j1App 
 {
@@ -85,19 +87,21 @@ private:
 public:
 
 	// Modules
-	j1Window*			win = NULL;
-	j1Input*			input = NULL;
-	j1Render*			render = NULL;
-	j1Textures*			tex = NULL;
-	j1Audio*			audio = NULL;
-	j1Scene*			scene = NULL;
-	j1Map*				map = NULL;
-	j1PathFinding*		pathfinding = NULL;
-	j1Player*			player = NULL;
-	j1EntityManager*	entitymanager = NULL;
-	j1GUI*				gui = NULL;
-	j1Fonts*			fonts = NULL;
-	j1InGameUI*			InGameUI = NULL;
+	j1Window*				win = NULL;
+	j1Input*				input = NULL;
+	j1Render*				render = NULL;
+	j1Textures*				tex = NULL;
+	j1Audio*				audio = NULL;
+	j1Scene*				scene = NULL;
+	j1Scene2*				scene2 = NULL;
+	j1Map*					map = NULL;
+	j1PathFinding*			pathfinding = NULL;
+	j1Player*				player = NULL;
+	j1EntityManager*		entitymanager = NULL;
+	j1GUI*					gui = NULL;
+	j1Fonts*				fonts = NULL;
+	j1InGameUI*				InGameUI = NULL;
+	j1TransitionManager*	transitions = NULL;
 private:
 
 	p2List<j1Module*>	modules;

@@ -14,17 +14,17 @@
 #include "j1Transitions.h"
 #include "j1TransitionManager.h"
 
-j1Scene::j1Scene() : j1Module()
+j1Scene2::j1Scene2() : j1Module()
 {
-	name.create("scene");
+	name.create("scene2");
 }
 
 // Destructor
-j1Scene::~j1Scene()
+j1Scene2::~j1Scene2()
 {}
 
 // Called before render is available
-bool j1Scene::Awake()
+bool j1Scene2::Awake()
 {
 	LOG("Loading Scene");
 	bool ret = true;
@@ -33,7 +33,7 @@ bool j1Scene::Awake()
 }
 
 // Called before the first frame
-bool j1Scene::Start()
+bool j1Scene2::Start()
 {
 	App->map->Load("mapa men.tmx") == true;
 	/*/
@@ -53,7 +53,7 @@ bool j1Scene::Start()
 }
 
 // Called each loop iteration
-bool j1Scene::PreUpdate()
+bool j1Scene2::PreUpdate()
 {
 
 	// debug pathfing ------------------
@@ -65,9 +65,9 @@ bool j1Scene::PreUpdate()
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMap(p.x, p.y);
 
-	if(App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		if(origin_selected == true)
+		if (origin_selected == true)
 		{
 			App->pathfinding->CreatePath(origin, p);
 			origin_selected = false;
@@ -83,12 +83,12 @@ bool j1Scene::PreUpdate()
 }
 
 // Called each loop iteration
-bool j1Scene::Update(float dt)
+bool j1Scene2::Update(float dt)
 {
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame("save_game.xml");
 
 	App->map->Draw();
@@ -97,10 +97,10 @@ bool j1Scene::Update(float dt)
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
-					App->map->data.width, App->map->data.height,
-					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.count(),
-					map_coordinates.x, map_coordinates.y);
+		App->map->data.width, App->map->data.height,
+		App->map->data.tile_width, App->map->data.tile_height,
+		App->map->data.tilesets.count(),
+		map_coordinates.x, map_coordinates.y);
 
 	//App->win->SetTitle(title.GetString());
 
@@ -115,7 +115,7 @@ bool j1Scene::Update(float dt)
 
 	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 
-	for(uint i = 0; i < path->Count(); ++i)
+	for (uint i = 0; i < path->Count(); ++i)
 	{
 		iPoint pos = App->map->MapToWorld<iPoint>(path->At(i)->x, path->At(i)->y);
 		//App->render->AddBlitEvent(0,debug_tex, pos.x, pos.y);
@@ -125,7 +125,7 @@ bool j1Scene::Update(float dt)
 }
 
 // Called each loop iteration
-bool j1Scene::PostUpdate()
+bool j1Scene2::PostUpdate()
 {
 	bool ret = true;
 
@@ -133,19 +133,20 @@ bool j1Scene::PostUpdate()
 }
 
 // Called before quitting
-bool j1Scene::CleanUp()
+bool j1Scene2::CleanUp()
 {
 	LOG("Freeing scene");
 
 	return true;
 }
 
-void j1Scene::ChangeScene()
-{
+void j1Scene2::ChangeScene() {
+
 	this->active = false;
 	App->map->CleanUp();
 	CleanUp();
 
-	App->scene2->active = true;
-	App->scene2->Start();
+
+	App->scene->active = true;
+	App->scene->Start();
 }

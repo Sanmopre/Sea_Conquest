@@ -77,9 +77,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="FadeToColor.cpp" />
     <ClCompile Include="j1Boat.cpp" />
     <ClCompile Include="j1BoatHouse.cpp" />
     <ClCompile Include="j1Collision.cpp" />
+    <ClCompile Include="j1Color.cpp" />
     <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Fonts.cpp" />
@@ -89,6 +91,7 @@
     <ClCompile Include="j1Image.cpp" />
     <ClCompile Include="j1InputBox.cpp" />
     <ClCompile Include="j1Label.cpp" />
+    <ClCompile Include="j1Scene2.cpp" />
     <ClCompile Include="j1ScrollBar.cpp" />
     <ClCompile Include="j1InGameUI.cpp" />
     <ClCompile Include="j1Main.cpp" />
@@ -102,15 +105,24 @@
     <ClCompile Include="j1Scene.cpp" />
     <ClCompile Include="j1Structure.cpp" />
     <ClCompile Include="j1Timer.cpp" />
+    <ClCompile Include="j1TransitionManager.cpp" />
+    <ClCompile Include="j1Transitions.cpp" />
+    <ClCompile Include="Lines.cpp" />
+    <ClCompile Include="MoveToMouse.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
+    <ClCompile Include="Squares.cpp" />
+    <ClCompile Include="Wipe.cpp" />
+    <ClCompile Include="Zoom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="FadeToColor.h" />
+    <ClInclude Include="j1Color.h" />
     <ClInclude Include="j1Entities.h" />
     <ClInclude Include="j1Collision.h" />
     <ClInclude Include="j1EntityManager.h" />
@@ -123,7 +135,12 @@
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Scene.h" />
+    <ClInclude Include="j1Scene2.h" />
     <ClInclude Include="j1Timer.h" />
+    <ClInclude Include="j1TransitionManager.h" />
+    <ClInclude Include="j1Transitions.h" />
+    <ClInclude Include="Lines.h" />
+    <ClInclude Include="MoveToMouse.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="j1Audio.h" />
     <ClInclude Include="j1Input.h" />
@@ -139,6 +156,9 @@
     <ClInclude Include="p2SString.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="Squares.h" />
+    <ClInclude Include="Wipe.h" />
+    <ClInclude Include="Zoom.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\config.xml" />
