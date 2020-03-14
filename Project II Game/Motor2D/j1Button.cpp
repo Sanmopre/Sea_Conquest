@@ -18,9 +18,12 @@ j1Button::~j1Button() {
 
 bool j1Button::Start()
 {
+	if (textureType == TEXTURE::BUTON) {
+		texture_button = App->tex->Load("textures/BOTON.png");
+		texture_button_1 = App->tex->Load("textures/BOTON_1.png");
+	}
 
-	texture_button = App->tex->Load("textures/BOTON.png");
-	texture_button_1 = App->tex->Load("textures/BOTON_1.png");
+	if (textureType == TEXTURE::OPTIONS)
 	texture_button_2 = App->tex->Load("textures/BOTON_2.png");
 
 
@@ -75,10 +78,14 @@ bool j1Button::Update(float dt)
 	}
 
 	if (enabled) {
-		if (decorative == true) {
+
+
+		if (textureType == TEXTURE::OPTIONS) {
 			App->render->AddBlitEvent(3, texture_button_2, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
 		}
-		else {
+
+
+		if (textureType == TEXTURE::BUTON) {
 			if (above && interactable)
 			{
 				App->render->AddBlitEvent(3, texture_button_1, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
@@ -87,9 +94,12 @@ bool j1Button::Update(float dt)
 				App->render->AddBlitEvent(3, texture_button, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
 			}
 		}
-	}
 
 
+
+
+		}
+	
 	return true;
 }
 

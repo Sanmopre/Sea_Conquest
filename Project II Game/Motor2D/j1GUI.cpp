@@ -132,6 +132,7 @@ j1Element* j1GUI::AddElement(GUItype type, j1Element* parent, fPoint map_positio
 		temp->enabled = enabled;
 		temp->rect = section;
 		temp->text = text;
+		temp->textureType = textureType;
 	
 
 		GUI_ELEMENTS.add(temp)->data->Start();

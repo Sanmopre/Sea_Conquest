@@ -62,6 +62,7 @@ public:
 	j1Element* parent = nullptr;
 	j1Module* listener = nullptr;
 	GUItype type = GUItype::GUI_ERROR;
+	TEXTURE textureType = TEXTURE::NONE;
 	fPoint map_position = { 0,0 };
 	fPoint inside_position = { 0,0 };
 

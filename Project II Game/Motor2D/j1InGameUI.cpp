@@ -82,7 +82,7 @@ bool j1InGameUI::Update(float dt)
 	{
 		if ((*entity)->selected)
 		{
-			//Activate_Manager();
+			Activate_Manager();
 			found = true;
 			if ((*entity)->type == EntityType::BOATHOUSE) {
 				{
@@ -99,8 +99,8 @@ bool j1InGameUI::Update(float dt)
 	if (found_boat_builder == false)
 	Deactivate_Building_Menu();
 
-	//if (found == false)
-	//Deactivate_Manager();
+	if (found == false)
+	Deactivate_Manager();
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 
@@ -136,12 +136,12 @@ bool j1InGameUI::CleanUp()
 void j1InGameUI::Add_UI()
 {
 	//MENU
-	menu.Menu_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, {width -50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this,true,true, SCROLL_TYPE::SCROLL_NONE,true);
-	menu.Return_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH-140 }, { 0,30 }, true, false, { 0,0,200,65 }, "MORE RESOURCES", this);
-	menu.Resume_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH -60}, { 60,30 }, true, false, { 0,0,200,65 }, "RESUME", this);
-	menu.Exit_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH + 15 }, {60,30 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this);
-	menu.Save = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +90 }, { 60,30 }, true, false, { 0,0,200,65 }, "QUIT", this);
-	menu.Load = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +165}, { 60,30 }, true, false, { 0,0,200,65 }, "LOAD", this);
+	menu.Menu_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, {width -50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this,true,true, SCROLL_TYPE::SCROLL_NONE,true, TEXTURE::OPTIONS);
+	menu.Return_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH-140 }, { 0,30 }, true, false, { 0,0,200,65 }, "MORE RESOURCES", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.Resume_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH -60}, { 60,30 }, true, false, { 0,0,200,65 }, "RESUME", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.Exit_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH + 15 }, {60,30 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.Save = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +90 }, { 60,30 }, true, false, { 0,0,200,65 }, "QUIT", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.Load = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +165}, { 60,30 }, true, false, { 0,0,200,65 }, "LOAD", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 50,0 }, { 0,0 }, true, false, { 0, 0,350,500 },"",this);
 
 	//ENTITY_MANAGER_UI
@@ -149,7 +149,7 @@ void j1InGameUI::Add_UI()
 	manager.button_next = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
 	manager.buton_prev = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
 	manager.entity_type_Image = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
-//	manager.entity_name = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "LETS GO", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
+	manager.entity_name = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "LETS GO", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
 }
 
 
@@ -219,7 +219,7 @@ bool j1InGameUI::PostUpdate()
 
 void j1InGameUI::Create_Building_Menu() 
 {
-	building.Boat_Building_Button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 25,570 }, { 20,30 }, true, true, { 0,0,200,65 }, "CREATE BOAT", this);
+	building.Boat_Building_Button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 25,570 }, { 20,30 }, true, true, { 0,0,200,65 }, "CREATE BOAT", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 }
 
 
