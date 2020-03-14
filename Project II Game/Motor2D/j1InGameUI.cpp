@@ -51,7 +51,7 @@ bool j1InGameUI::Start()
 
 
 	//CREATES UI
-	Create_Building_Menu();
+
 	Add_UI();
 
 
@@ -104,7 +104,7 @@ bool j1InGameUI::Update(float dt)
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 
-	
+
 
 	//UPDATE RESOURCES
 
@@ -142,14 +142,19 @@ void j1InGameUI::Add_UI()
 	menu.Exit_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH + 15 }, {60,30 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.Save = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +90 }, { 60,30 }, true, false, { 0,0,200,65 }, "QUIT", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.Load = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +165}, { 60,30 }, true, false, { 0,0,200,65 }, "LOAD", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 50,0 }, { 0,0 }, true, false, { 0, 0,350,500 },"",this);
+	menu.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 50,0 }, { 0,0 }, true, false, { 0, 0,350,500 },"", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::IMAGE);
 
 	//ENTITY_MANAGER_UI
-	manager.image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 190,500 }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this);
-	manager.button_next = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
-	manager.buton_prev = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
+	manager.image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 390,525 }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MANAGER_IMAGE);
+	manager.button_next = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW - 440,585 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NEXT);
+	manager.buton_prev = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW -25,585 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NEXT);
 	manager.entity_type_Image = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
-	manager.entity_name = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "LETS GO", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
+	manager.entity_name_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 205,550 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
+//	manager.entity_name_boathouse = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 205,550 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT HOUSE", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
+
+
+	//BOAT_BUILDER_MENU
+	building.Boat_Building_Button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 195,600 }, { 20,30 }, true, true, { 0,0,200,65 }, "CREATE BOAT", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 }
 
 
@@ -217,11 +222,6 @@ bool j1InGameUI::PostUpdate()
 
 }
 
-void j1InGameUI::Create_Building_Menu() 
-{
-	building.Boat_Building_Button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 25,570 }, { 20,30 }, true, true, { 0,0,200,65 }, "CREATE BOAT", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-}
-
 
 void j1InGameUI::Activate_Building_Menu()
 {
@@ -240,7 +240,7 @@ void j1InGameUI::Activate_Manager()
 	manager.buton_prev->enabled = true;
 	manager.image->enabled = true;
     manager.entity_type_Image->enabled = true;
-	manager.entity_name->enabled = true;
+	manager.entity_name_boat->enabled = true;
 }
 
 void j1InGameUI::Deactivate_Manager()
@@ -249,5 +249,6 @@ void j1InGameUI::Deactivate_Manager()
 	manager.buton_prev->enabled = false;
 	manager.image->enabled = false;
 	manager.entity_type_Image->enabled = false;
-	manager.entity_name->enabled = false;
+	manager.entity_name_boat->enabled = false;
 }
+

@@ -33,6 +33,7 @@ enum class TEXTURE
 	OPTIONS,
 	NEXT,
 	MANAGER_IMAGE,
+	IMAGE,
 	NONE
 };
 
@@ -82,11 +83,6 @@ public:
 	SDL_Rect rect = { 0,0,0,0 };
 
 	SDL_Texture* texture = nullptr;
-	SDL_Texture* texture_button = nullptr;
-	SDL_Texture* texture_button_1 = nullptr;
-	SDL_Texture* texture_button_2 = nullptr;
-	SDL_Texture* menu_image = nullptr;
-
 };
 ////////////////////////////////////////////////////////////////
 class j1Button : public j1Element

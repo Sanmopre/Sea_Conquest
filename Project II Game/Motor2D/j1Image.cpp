@@ -16,7 +16,13 @@ j1Image::~j1Image() {
 
 bool j1Image::Start()
 {
-	menu_image = App->tex->Load("textures/image.png");
+	if (textureType == TEXTURE::IMAGE) 
+		texture = App->tex->Load("textures/image.png");
+
+	if (textureType == TEXTURE::MANAGER_IMAGE) 
+		texture = App->tex->Load("textures/MANAGER_IMAGE.png");
+
+
 	return true;
 }
 
@@ -30,7 +36,11 @@ bool j1Image::Update(float dt) {
 
 
 	if (enabled) {
-			App->render->AddBlitEvent(3, menu_image, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
+		if (textureType == TEXTURE::IMAGE)
+			App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
+
+		if (textureType == TEXTURE::MANAGER_IMAGE)
+			App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
 	}
 
 

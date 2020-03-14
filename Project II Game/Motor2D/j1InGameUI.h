@@ -20,7 +20,8 @@ struct Unit_Manager_UI {
 	j1Element* buton_prev;
 	j1Element* image;
 	j1Element* entity_type_Image;
-	j1Element* entity_name;
+	j1Element* entity_name_boat;
+	j1Element* entity_name_boathouse;
 };
 
 
@@ -49,7 +50,7 @@ public:
 	void Activate_Menu();
 	void Activate_Building_Menu();
 	void Deactivate_Building_Menu();
-	void Create_Building_Menu();
+	//void Name_Selector(EntityType type = EntityType::NONE);
 
 	void Activate_Manager();
 	void Deactivate_Manager();

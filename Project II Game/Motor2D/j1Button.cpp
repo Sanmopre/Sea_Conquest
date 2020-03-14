@@ -19,12 +19,15 @@ j1Button::~j1Button() {
 bool j1Button::Start()
 {
 	if (textureType == TEXTURE::BUTON) {
-		texture_button = App->tex->Load("textures/BOTON.png");
-		texture_button_1 = App->tex->Load("textures/BOTON_1.png");
+		texture = App->tex->Load("textures/BOTON.png");
+		texture = App->tex->Load("textures/BOTON_1.png");
 	}
 
 	if (textureType == TEXTURE::OPTIONS)
-	texture_button_2 = App->tex->Load("textures/BOTON_2.png");
+		texture = App->tex->Load("textures/BOTON_2.png");
+
+	if (textureType == TEXTURE::NEXT)
+		texture = App->tex->Load("textures/NEXT_BUTON.png");
 
 
 	if (text != nullptr)
@@ -81,17 +84,21 @@ bool j1Button::Update(float dt)
 
 
 		if (textureType == TEXTURE::OPTIONS) {
-			App->render->AddBlitEvent(3, texture_button_2, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
+			App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
+		}
+
+		if (textureType == TEXTURE::NEXT) {
+			App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
 		}
 
 
 		if (textureType == TEXTURE::BUTON) {
 			if (above && interactable)
 			{
-				App->render->AddBlitEvent(3, texture_button_1, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
+				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
 			}
 			else {
-				App->render->AddBlitEvent(3, texture_button, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
+				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
 			}
 		}
 
