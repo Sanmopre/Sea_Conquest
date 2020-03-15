@@ -124,6 +124,18 @@
     <ClCompile Include="j1Scene2.cpp">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Desenvolupament  ========\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Desenvolupament  ========\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="random.cpp">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="j1ParticleManager.cpp">
+      <Filter>Desenvolupament  ========\Particles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -246,6 +258,18 @@
     <ClInclude Include="j1Scene2.h">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Desenvolupament  ========\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Desenvolupament  ========\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="random.h">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1ParticleManager.h">
+      <Filter>Desenvolupament  ========\Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -277,6 +301,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Transitions\Types">
       <UniqueIdentifier>{edf84fc1-8325-41f7-bab4-a6f8d9f3d752}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Particles">
+      <UniqueIdentifier>{eb3d0453-429b-4711-b95a-b00b2fb6c59a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

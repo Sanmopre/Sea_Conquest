@@ -19,6 +19,7 @@ class j1Map;
 class j1PathFinding;
 class j1Player;
 class j1EntityManager;
+class j1ParticleManager;
 class j1GUI;
 class j1Fonts;
 class j1InGameUI;
@@ -98,6 +99,7 @@ public:
 	j1PathFinding*			pathfinding = NULL;
 	j1Player*				player = NULL;
 	j1EntityManager*		entitymanager = NULL;
+	j1ParticleManager*		pmanager = NULL;
 	j1GUI*					gui = NULL;
 	j1Fonts*				fonts = NULL;
 	j1InGameUI*				InGameUI = NULL;

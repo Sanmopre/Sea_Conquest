@@ -16,6 +16,7 @@
 #include "j1App.h"
 #include "j1Player.h"
 #include "j1EntityManager.h"
+#include "j1ParticleManager.h"
 #include "j1GUI.h"
 #include "j1Fonts.h"
 #include "j1InGameUI.h"
@@ -36,6 +37,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new j1PathFinding();
 	player = new j1Player();
 	entitymanager = new j1EntityManager();
+	pmanager = new j1ParticleManager();
 	gui = new j1GUI();
 	fonts = new j1Fonts();
 	InGameUI = new j1InGameUI();
@@ -56,6 +58,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fonts);
 	AddModule(InGameUI);
 	AddModule(entitymanager);
+	AddModule(pmanager);
 	AddModule(transitions);
 
 	// render last to swap buffer
