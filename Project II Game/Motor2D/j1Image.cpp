@@ -3,6 +3,7 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Window.h"
+#include "j1GUI.h"
 
 
 j1Image::j1Image() {
@@ -17,10 +18,10 @@ j1Image::~j1Image() {
 bool j1Image::Start()
 {
 	if (textureType == TEXTURE::IMAGE) 
-		texture = App->tex->Load("textures/image.png");
+		texture = App->gui->Load_Texture(TEXTURE::IMAGE);
 
 	if (textureType == TEXTURE::MANAGER_IMAGE) 
-		texture = App->tex->Load("textures/MANAGER_IMAGE.png");
+		texture = App->gui->Load_Texture(TEXTURE::MANAGER_IMAGE);
 
 
 	return true;

@@ -19,15 +19,15 @@ j1Button::~j1Button() {
 bool j1Button::Start()
 {
 	if (textureType == TEXTURE::BUTON) {
-		texture = App->tex->Load("textures/BOTON.png");
+		texture = App->gui->Load_Texture(TEXTURE::BUTON);
 		texture = App->tex->Load("textures/BOTON_1.png");
 	}
 
 	if (textureType == TEXTURE::OPTIONS)
-		texture = App->tex->Load("textures/BOTON_2.png");
+		texture = App->gui->Load_Texture(TEXTURE::OPTIONS);
 
 	if (textureType == TEXTURE::NEXT)
-		texture = App->tex->Load("textures/NEXT_BUTON.png");
+		texture = App->gui->Load_Texture(TEXTURE::NEXT);
 
 
 	if (text != nullptr)

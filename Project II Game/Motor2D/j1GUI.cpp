@@ -92,6 +92,30 @@ bool j1GUI::CleanUp()
 	return true;
 }
 
+SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
+{
+	switch (textureType)
+	{
+	case TEXTURE::BUTON:
+		texture_load = App->tex->Load("textures/BOTON.png");
+		break;
+	case TEXTURE::IMAGE:
+		texture_load = App->tex->Load("textures/image.png");
+		break;
+	case TEXTURE::MANAGER_IMAGE:
+		texture_load = App->tex->Load("textures/MANAGER_IMAGE.png");
+		break;
+	case TEXTURE::NEXT:
+		texture_load = App->tex->Load("textures/NEXT_BUTON.png");
+		break;
+	case TEXTURE::OPTIONS:
+		texture_load = App->tex->Load("textures/BOTON_2.png");
+		break;
+	}
+
+	return texture_load;
+}
+
 
 
 j1Element* j1GUI::AddElement(GUItype type, j1Element* parent, fPoint map_position, fPoint inside_position, bool interactable, bool enabled, SDL_Rect section, char* text, j1Module* listener, bool X_drag, bool Y_drag, SCROLL_TYPE scrollType, bool decor, TEXTURE textureType)
