@@ -42,7 +42,10 @@ bool j1Image::Update(float dt) {
 
 
 	if (enabled) {
-			App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
+		if (textureType == TEXTURE::MAIN_IMAGE)
+		App->render->AddBlitEvent(2, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false,true, 0, 0, 0, 0, true);
+		else
+		App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0, 0, 0, 0, true);
 	}
 
 

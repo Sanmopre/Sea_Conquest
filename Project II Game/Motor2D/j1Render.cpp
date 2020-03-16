@@ -136,7 +136,9 @@ void j1Render::AddBlitEvent(int layer, SDL_Texture* texture, int x, int y, const
 
 	if (texture != nullptr) //differentiate texture blits from quad draws
 	{
-		if (x > (-camera.x / App->win->GetScale()) - 100 && x < ((-camera.x + camera.w) / App->win->GetScale()) + 100 &&
+		if (ignoreculling)
+			blit_queue.insert(make_pair(layer, event));
+		else if (x > (-camera.x / App->win->GetScale()) - 100 && x < ((-camera.x + camera.w) / App->win->GetScale()) + 100 &&
 			y >(-camera.y / App->win->GetScale()) - 100 && y < ((-camera.y + camera.h) / App->win->GetScale()) + 100)
 			blit_queue.insert(make_pair(layer, event));
 	}

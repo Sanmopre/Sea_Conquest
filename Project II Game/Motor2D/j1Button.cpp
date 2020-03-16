@@ -96,10 +96,10 @@ bool j1Button::Update(float dt)
 		if (textureType == TEXTURE::BUTON) {
 			if (above && interactable)
 			{
-				App->render->AddBlitEvent(3, texture_hover, map_position.x - App->render->camera.x , map_position.y - App->render->camera.y,rect, false, true);
+				App->render->AddBlitEvent(3, texture_hover, map_position.x - App->render->camera.x , map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 			}
 			else {
-				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x , map_position.y - App->render->camera.y, rect, false, true);
+				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x , map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 			}
 		}
 
