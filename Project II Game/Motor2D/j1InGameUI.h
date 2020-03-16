@@ -86,10 +86,6 @@ private:
 
 	j1Entity* entity_ui = nullptr;
 
-	SDL_Texture* resources;
-	SDL_Texture* UI_Image;
-	//SDL_Rect texture_rect{ 0,0,1280,200 };
-	SDL_Rect texture_rect_1{ 0,0,400,30 };
 	int font_name = -1;
 	bool quit = false;
 };

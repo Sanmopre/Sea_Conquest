@@ -42,8 +42,6 @@ bool j1InGameUI::Start()
 
 	font_name = App->fonts->Load("textures/NameTile.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
 
-	resources = App->tex->Load("textures/Recursos.png");
-	UI_Image = App->tex->Load("textures/UIimage.png");
 	MiddleScreenW = App->win->width/2 - 100;
 	MiddleScreenH = App->win->height/ 2 - 100;
 	width = App->win->width;
@@ -69,11 +67,6 @@ bool j1InGameUI::PreUpdate()
 
 bool j1InGameUI::Update(float dt)
 {
-
-	//App->render->AddBlitEvent(2, UI_Image, 0 - App->render->camera.x / App->win->scale, 520 - App->render->camera.y / App->win->scale, texture_rect);
-	//App->render->AddBlitEvent(3,resources , 0 - App->render->camera.x / App->win->scale, 0 - App->render->camera.y / App->win->scale, texture_rect_1);
-
-
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//SEARCHING FOR SELECTED LOOP 
 	bool found_boat_builder = false;
@@ -112,14 +105,18 @@ bool j1InGameUI::Update(float dt)
 	sprintf_s(text_type_1, 10, "%7d", type_1);
 	sprintf_s(text_type_2, 10, "%7d", type_2);
 
-	App->fonts->BlitText(10 - App->render->camera.x / App->win->scale, 5 - App->render->camera.y / App->win->scale, 1,text_type_0);
-	App->fonts->BlitText(140 - App->render->camera.x / App->win->scale, 5 - App->render->camera.y / App->win->scale, 1, text_type_1);
-	App->fonts->BlitText(280 - App->render->camera.x / App->win->scale, 5 - App->render->camera.y / App->win->scale, 1, text_type_2);
+	App->fonts->BlitText(10 , 5 , 1,text_type_0);
+	App->fonts->BlitText(140 , 5 , 1, text_type_1);
+	App->fonts->BlitText(280 , 5 , 1, text_type_2);
 
 	//MENU FROM ESC
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		Activate_Menu();
+
+	++type_0;
+	++type_1;
+	++type_2;
 	return true;
 
 
