@@ -114,6 +114,12 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::BUTON_HOVER:
 		texture_load = App->tex->Load("textures/BOTON_1.png");
 		break;
+	case TEXTURE::MAIN_IMAGE:
+		texture_load = App->tex->Load("textures/UIimage.png");
+		break;
+	case TEXTURE::RESOURCES_IMAGE:
+		texture_load = App->tex->Load("textures/Recursos.png");
+		break;
 	}
 
 	return texture_load;

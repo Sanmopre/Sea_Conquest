@@ -24,6 +24,11 @@ struct Unit_Manager_UI {
 	j1Element* entity_name_boathouse;
 };
 
+struct In_Game_Basics {
+	j1Element* Image;
+	j1Element* Resources;
+};
+
 
 struct Building_Menu {
 	j1Element* Boat_Building_Button;
@@ -77,12 +82,13 @@ private:
 	Game_Menu menu;
 	Building_Menu building;
 	Unit_Manager_UI manager;
+	In_Game_Basics basics;
 
 	j1Entity* entity_ui = nullptr;
 
 	SDL_Texture* resources;
 	SDL_Texture* UI_Image;
-	SDL_Rect texture_rect{ 0,0,1280,200 };
+	//SDL_Rect texture_rect{ 0,0,1280,200 };
 	SDL_Rect texture_rect_1{ 0,0,400,30 };
 	int font_name = -1;
 	bool quit = false;

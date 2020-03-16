@@ -23,6 +23,11 @@ bool j1Image::Start()
 	if (textureType == TEXTURE::MANAGER_IMAGE) 
 		texture = App->gui->Load_Texture(TEXTURE::MANAGER_IMAGE);
 
+	if (textureType == TEXTURE::MAIN_IMAGE)
+		texture = App->gui->Load_Texture(TEXTURE::MAIN_IMAGE);
+
+	if (textureType == TEXTURE::RESOURCES_IMAGE)
+		texture = App->gui->Load_Texture(TEXTURE::RESOURCES_IMAGE);
 
 	return true;
 }
@@ -37,10 +42,6 @@ bool j1Image::Update(float dt) {
 
 
 	if (enabled) {
-		if (textureType == TEXTURE::IMAGE)
-			App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
-
-		if (textureType == TEXTURE::MANAGER_IMAGE)
 			App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
 	}
 

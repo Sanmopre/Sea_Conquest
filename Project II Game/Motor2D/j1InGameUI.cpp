@@ -70,8 +70,8 @@ bool j1InGameUI::PreUpdate()
 bool j1InGameUI::Update(float dt)
 {
 
-	App->render->AddBlitEvent(2, UI_Image, 0 - App->render->camera.x / App->win->scale, 520 - App->render->camera.y / App->win->scale, texture_rect);
-	App->render->AddBlitEvent(3,resources , 0 - App->render->camera.x / App->win->scale, 0 - App->render->camera.y / App->win->scale, texture_rect_1);
+	//App->render->AddBlitEvent(2, UI_Image, 0 - App->render->camera.x / App->win->scale, 520 - App->render->camera.y / App->win->scale, texture_rect);
+	//App->render->AddBlitEvent(3,resources , 0 - App->render->camera.x / App->win->scale, 0 - App->render->camera.y / App->win->scale, texture_rect_1);
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -155,6 +155,11 @@ void j1InGameUI::Add_UI()
 
 	//BOAT_BUILDER_MENU
 	building.Boat_Building_Button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 195,600 }, { 20,30 }, true, true, { 0,0,200,65 }, "CREATE BOAT", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+
+
+	//UI BASICS ALWAYS ACTIVE
+	basics.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,520 }, { 0,0 }, true, true, { 0, 0,1280,200 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MAIN_IMAGE);
+	basics.Resources = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,0 }, { 0,0 }, true, true, { 0, 0,400,30 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::RESOURCES_IMAGE);
 }
 
 
