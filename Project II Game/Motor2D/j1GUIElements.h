@@ -30,6 +30,7 @@ enum class SCROLL_TYPE
 enum class TEXTURE
 {
 	BUTON,
+	BUTON_HOVER,
 	OPTIONS,
 	NEXT,
 	MANAGER_IMAGE,
@@ -83,6 +84,7 @@ public:
 	SDL_Rect rect = { 0,0,0,0 };
 
 	SDL_Texture* texture = nullptr;
+	SDL_Texture* texture_hover = nullptr;
 };
 ////////////////////////////////////////////////////////////////
 class j1Button : public j1Element

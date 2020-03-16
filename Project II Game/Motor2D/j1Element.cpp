@@ -37,7 +37,7 @@ bool j1Element::OnAbove()
 	SDL_Point mouse;
 	App->input->GetMousePosition(mouse.x, mouse.y);
 
-	SDL_Rect intersect = { map_position.x / App->win->scale , map_position.y / App->win->scale, rect.w, rect.h };
+	SDL_Rect intersect = { map_position.x / App->win->scale , map_position.y / App->win->scale, rect.w / App->win->scale, rect.h / App->win->scale };
 
 	if (SDL_PointInRect(&mouse, &intersect) && this->enabled && this->interactable) {
 		if (listener != nullptr)

@@ -20,7 +20,7 @@ bool j1Button::Start()
 {
 	if (textureType == TEXTURE::BUTON) {
 		texture = App->gui->Load_Texture(TEXTURE::BUTON);
-		texture = App->tex->Load("textures/BOTON_1.png");
+		texture_hover = App->gui->Load_Texture(TEXTURE::BUTON_HOVER);
 	}
 
 	if (textureType == TEXTURE::OPTIONS)
@@ -95,7 +95,7 @@ bool j1Button::Update(float dt)
 		if (textureType == TEXTURE::BUTON) {
 			if (above && interactable)
 			{
-				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
+				App->render->AddBlitEvent(3, texture_hover, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
 			}
 			else {
 				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
