@@ -133,20 +133,20 @@ bool j1InGameUI::CleanUp()
 void j1InGameUI::Add_UI()
 {
 	//MENU
-	menu.Menu_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, {width -50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this,true,true, SCROLL_TYPE::SCROLL_NONE,true, TEXTURE::OPTIONS);
-	menu.Return_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH-140 }, { 0,30 }, true, false, { 0,0,200,65 }, "MORE RESOURCES", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.Resume_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH -60}, { 60,30 }, true, false, { 0,0,200,65 }, "RESUME", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.Exit_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH + 15 }, {60,30 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.Save = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +90 }, { 60,30 }, true, false, { 0,0,200,65 }, "QUIT", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.Load = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +165}, { 60,30 }, true, false, { 0,0,200,65 }, "LOAD", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 50,0 }, { 0,0 }, true, false, { 0, 0,350,500 },"", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::IMAGE);
+	menu.Menu_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, {width -50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this,false, false, SCROLL_TYPE::SCROLL_NONE,true, TEXTURE::OPTIONS);
+	menu.Return_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH-140 }, { 0,30 }, true, false, { 0,0,200,65 }, "MORE RESOURCES", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.Resume_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH -60}, { 60,30 }, true, false, { 0,0,200,65 }, "RESUME", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.Exit_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH + 15 }, {60,30 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.Save = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +90 }, { 60,30 }, true, false, { 0,0,200,65 }, "QUIT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.Load = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +165}, { 60,30 }, true, false, { 0,0,200,65 }, "LOAD", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 50,0 }, { 0,0 }, true, false, { 0, 0,350,500 },"", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::IMAGE);
 
 	//ENTITY_MANAGER_UI
-	manager.image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 390,525 }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MANAGER_IMAGE);
-	manager.button_next = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW - 440,585 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NEXT);
-	manager.buton_prev = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW -25,585 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NEXT);
-	manager.entity_type_Image = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
-	manager.entity_name_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 205,550 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
+	manager.image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 390,525 }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this,false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MANAGER_IMAGE);
+	manager.button_next = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW - 440,585 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NEXT);
+	manager.buton_prev = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW -25,585 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NEXT);
+	manager.entity_type_Image = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	manager.entity_name_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 205,550 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 //	manager.entity_name_boathouse = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 205,550 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT HOUSE", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
 
 
@@ -155,8 +155,8 @@ void j1InGameUI::Add_UI()
 
 
 	//UI BASICS ALWAYS ACTIVE
-	basics.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,520 }, { 0,0 }, true, true, { 0, 0,1280,200 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MAIN_IMAGE);
-	basics.Resources = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,0 }, { 0,0 }, true, true, { 0, 0,400,30 }, "", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::RESOURCES_IMAGE);
+	basics.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,520 }, { 0,0 }, true, true, { 0, 0,1280,200 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MAIN_IMAGE);
+	basics.Resources = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,0 }, { 0,0 }, true, true, { 0, 0,400,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::RESOURCES_IMAGE);
 }
 
 
