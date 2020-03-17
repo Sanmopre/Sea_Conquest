@@ -60,6 +60,9 @@ public:
 	void Activate_Manager();
 	void Deactivate_Manager();
 	void GUI_Event_Manager(GUI_Event type, j1Element* element);
+	
+	
+	bool  clicking_ui = false;
 
 private:
 	//positions
@@ -86,6 +89,8 @@ private:
 
 	j1Entity* entity_ui = nullptr;
 
+
+	
 	int font_name = -1;
 	bool quit = false;
 };

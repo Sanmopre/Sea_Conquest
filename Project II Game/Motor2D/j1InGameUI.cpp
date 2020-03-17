@@ -172,6 +172,7 @@ void j1InGameUI::Activate_Menu()
 
 void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 {
+ clicking_ui = true;
 	switch (type)
 	{
 
@@ -216,6 +217,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 
 bool j1InGameUI::PostUpdate()
 {
+
+	clicking_ui = false;
+
 	bool ret = true;
 	if (quit == true) {
 		return false;
