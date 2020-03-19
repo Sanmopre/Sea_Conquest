@@ -300,6 +300,9 @@ bool j1App::DoUpdate()
 			continue;
 		}
 
+		if (game_pause == true)
+			dt = 0.0f;
+
 		ret = item->data->Update(dt);
 	}
 

@@ -136,6 +136,8 @@ public:
 	uint32 getFpsCap() { return framerate_cap; };
 	void setFpsCap(uint32 fps);
 
+	bool				game_pause = false;
+
 };
 
 extern j1App* App;

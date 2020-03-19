@@ -85,7 +85,9 @@ bool j1Player::Update(float dt)
 	//This functions should always be last//
 	Mouse_Cursor();
 	if(App->InGameUI->clicking_ui == false)
-	Drag_Mouse(); 
+	
+	if(dt != 0.0f)
+		Drag_Mouse(); 
 
 	return true;
 }
