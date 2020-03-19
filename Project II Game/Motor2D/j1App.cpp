@@ -55,7 +55,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(map_2);
 	AddModule(scene);
-	AddModule(scene2);
+	//AddModule(scene2);
 	AddModule(pathfinding);
 	AddModule(player);
 	AddModule(gui);
@@ -130,8 +130,6 @@ bool j1App::Awake()
 bool j1App::Start()
 {
 	bool ret = true;
-
-	scene2->active = false;
 
 	p2List_item<j1Module*>* item;
 	item = modules.start;
