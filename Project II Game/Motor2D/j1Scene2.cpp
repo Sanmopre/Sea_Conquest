@@ -35,7 +35,7 @@ bool j1Scene2::Awake()
 // Called before the first frame
 bool j1Scene2::Start()
 {
-	App->map->Load("mapa men.tmx") == true;
+	App->map_2->Load("iso.tmx") == true;
 	/*/
 	if(App->map->Load("este fk men.tmx") == true)
 	{
@@ -63,7 +63,7 @@ bool j1Scene2::PreUpdate()
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
+	p = App->map_2->WorldToMap(p.x, p.y);
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
@@ -97,9 +97,9 @@ bool j1Scene2::Update(float dt)
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
-		App->map->data.width, App->map->data.height,
-		App->map->data.tile_width, App->map->data.tile_height,
-		App->map->data.tilesets.count(),
+		App->map_2->data.width, App->map->data.height,
+		App->map_2->data.tile_width, App->map->data.tile_height,
+		App->map_2->data.tilesets.count(),
 		map_coordinates.x, map_coordinates.y);
 
 	//App->win->SetTitle(title.GetString());
@@ -108,8 +108,8 @@ bool j1Scene2::Update(float dt)
 	//int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
-	p = App->map->MapToWorld<iPoint>(p.x, p.y);
+	p = App->map_2->WorldToMap(p.x, p.y);
+	p = App->map_2->MapToWorld<iPoint>(p.x, p.y);
 
 	//App->render->Blit(debug_tex, p.x, p.y);
 
@@ -117,7 +117,7 @@ bool j1Scene2::Update(float dt)
 
 	for (uint i = 0; i < path->Count(); ++i)
 	{
-		iPoint pos = App->map->MapToWorld<iPoint>(path->At(i)->x, path->At(i)->y);
+		iPoint pos = App->map_2->MapToWorld<iPoint>(path->At(i)->x, path->At(i)->y);
 		//App->render->AddBlitEvent(0,debug_tex, pos.x, pos.y);
 	}
 
@@ -143,7 +143,7 @@ bool j1Scene2::CleanUp()
 void j1Scene2::ChangeScene() {
 
 	this->active = false;
-	App->map->CleanUp();
+	App->map_2->CleanUp();
 	CleanUp();
 
 
