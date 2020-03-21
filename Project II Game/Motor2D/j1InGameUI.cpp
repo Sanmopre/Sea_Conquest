@@ -116,9 +116,9 @@ bool j1InGameUI::Update(float dt)
 		App->game_pause = !App->game_pause;
 	}
 
-	++type_0;
-	++type_1;
-	++type_2;
+	++type_0*dt;
+	++type_1*dt;
+	++type_2*dt;
 	return true;
 
 

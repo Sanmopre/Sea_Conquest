@@ -34,7 +34,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	folder.create(config.child("folder").child_value());
 
-	camera_speed = config.child("camera").attribute("speed").as_int(1);
+	camera_speed = config.child("camera").attribute("speed").as_int(2);
 	camera_offset = config.child("camera").attribute("offset").as_int(10);
 
 	node = config;
@@ -79,9 +79,10 @@ bool j1Player::Load(pugi::xml_node& data)
 bool j1Player::Update(float dt)
 {
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
+	
 	Camera_Control(dt);
 	Zoom();
-
+	Camera_Limit();
 	//This functions should always be last//
 	Mouse_Cursor();
 	if(App->InGameUI->clicking_ui == false)
@@ -102,23 +103,23 @@ bool j1Player::CleanUp()
 void j1Player::Camera_Control(float dt)
 {
 	if (mouse_position.x == 0) {
-		App->render->camera.x += camera_speed * dt * 1000;
+		App->render->camera.x += camera_speed * dt * 500;
 		//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
 	}
 	if (mouse_position.y == 0) {
-		App->render->camera.y += camera_speed * dt * 1000;
+		App->render->camera.y += camera_speed/2 * dt * 500;
 		//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
 	}
 
 	if (mouse_position.x > (win_width - camera_offset) / App->win->scale){
 			//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
-			App->render->camera.x -= camera_speed*dt*1000;
+			App->render->camera.x -= camera_speed*dt* 500;
 	}
 		
 
 	if (mouse_position.y > (win_height - camera_offset) / App->win->scale) {
 		//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
-		App->render->camera.y -= camera_speed * dt * 1000;
+		App->render->camera.y -= camera_speed/2 * dt * 500;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -211,4 +212,10 @@ void j1Player::Zoom()
 			{
 			App->win->scale = 1;
 			}
+}
+
+void j1Player::Camera_Limit()
+{
+	if(App->render->camera.x <= )
+
 }
