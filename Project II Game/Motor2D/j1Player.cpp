@@ -216,6 +216,5 @@ void j1Player::Zoom()
 
 void j1Player::Camera_Limit()
 {
-	if(App->render->camera.x <= )
 
 }

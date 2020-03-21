@@ -7,6 +7,7 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Transitions.h"
+#include "j1Map.h"
 #include "j1TransitionManager.h"
 
 
@@ -66,16 +67,15 @@ int j1SceneManager::ChangeScene(int scene)
 	switch (scene)
 	{
 	case 1:
-		App->scene->active = true;
-		App->scene2->active = false;
+		App->map->CleanUp();
+		App->map->Load("mapa men.tmx") == true;
 		return 1;
 		break;
 	case 2:
-		App->scene->active = false;
-		App->scene2->active = true;
+		App->map->CleanUp();
+		App->map->Load("iso.tmx") == true;
 		return 2;
 		break;
-	
 	}
 	return 0;
 }
