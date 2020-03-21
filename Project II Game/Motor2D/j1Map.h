@@ -4,6 +4,7 @@
 #include "PugiXml/src/pugixml.hpp"
 #include "p2List.h"
 #include "p2Point.h"
+#include "p2Log.h"
 #include "j1Module.h"
 #include <vector>
 // ----------------------------------------------------
@@ -157,6 +158,7 @@ private:
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 	bool LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set);
+	void CreateNodeMap();
 
 	TileSet* GetTilesetFromTileId(int id) const;
 

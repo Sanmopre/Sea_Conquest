@@ -22,7 +22,6 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	max_health = 100;
 	health = max_health;
 	storage = { 0, 0, 0, 200 };
-	
 	for (std::vector<Animation>::iterator i = App->map->allAnimations.begin(); i != App->map->allAnimations.end(); i++) 
 	{
 		if (this->type == (i)->type)
@@ -92,28 +91,37 @@ void j1Boat::Update(float dt)
 
 	if (destination != position)
 		Move(dt);
-	else if (target != nullptr && dt != 0.0f)
+	else 
 	{
-		firerate.counter += dt;
-		if (firerate.counter >= firerate.iterations)
+		NextStep();
+
+		if (target != nullptr && dt != 0.0f)
 		{
-			Attack();
-			firerate.counter = 0;
+			firerate.counter += dt;
+			if (firerate.counter >= firerate.iterations)
+			{
+				Attack();
+				firerate.counter = 0;
+			}
 		}
 	}
 
 	FindTarget();
 
-	App->render->AddBlitEvent(1, texture, position.x, position.y, rect);
-	
+	App->render->AddBlitEvent(1, texture, position.x - rect.w/2, position.y- rect.h/2, rect);
+	App->render->AddBlitEvent(0, nullptr, 0, 0, { (int)position.x - 2, (int)position.y - 2, 4,4 }, false, false, 0, 0, 255, 200);
 	if (health == 0)
 		CleanUp();
 }
 
 void j1Boat::CleanUp()
 {
+	path.erase(path.begin(), path.end());
+	path.shrink_to_fit();
+
 	tradeable_list.erase(tradeable_list.begin(), tradeable_list.end());
 	tradeable_list.shrink_to_fit();
+
 	to_delete = true;
 }
 
@@ -123,55 +131,78 @@ void  j1Boat::Move(float dt)
 
 	if (position.x < destination.x)
 	{
+		orientation = Orientation::EAST;
 		position.x += speed * dt;
+
 		if (position.x > destination.x)
 			position.x = destination.x;
-
-		orientation = Orientation::EAST;
 	}
 	if (position.x > destination.x)
 	{
+		orientation = Orientation::WEST;
 		position.x -= speed * dt;
+
 		if (position.x < destination.x)
 			position.x = destination.x;
-
-		orientation = Orientation::WEST;
 	}
 	if (position.y < destination.y)
 	{
-		position.y += speed * dt;
+		if (orientation == Orientation::NONE)
+		{
+			orientation = Orientation::SOUTH;
+			position.y += speed * dt;
+		}
+		else
+		{
+			if (orientation == Orientation::EAST)
+				orientation = Orientation::SOUTH_EAST;
+			else// if (orientation == Orientation::WEST)
+				orientation = Orientation::SOUTH_WEST;
+
+			position.y += speed / 2 * dt;
+		}
+
 		if (position.y > destination.y)
 			position.y = destination.y;
-
-		if(orientation == Orientation::NONE)
-			orientation = Orientation::SOUTH;
-		else if (orientation == Orientation::EAST)
-			orientation = Orientation::SOUTH_EAST;
-		else if (orientation == Orientation::WEST)
-			orientation = Orientation::SOUTH_WEST;
 	}
 	if (position.y > destination.y)
 	{
-		position.y -= speed * dt;
+		if (orientation == Orientation::NONE)
+		{
+			orientation = Orientation::NORTH;
+			position.y -= speed * dt;
+		}
+		else
+		{
+			if (orientation == Orientation::EAST)
+				orientation = Orientation::NORTH_EAST;
+			else// if (orientation == Orientation::WEST)
+				orientation = Orientation::NORTH_WEST;
+
+			position.y -= speed / 2 * dt;
+		}
+
 		if (position.y < destination.y)
 			position.y = destination.y;
+	}	
+}
 
-		if (orientation == Orientation::NONE)
-			orientation = Orientation::NORTH;
-		else if (orientation == Orientation::EAST)
-			orientation = Orientation::NORTH_EAST;
-		else if (orientation == Orientation::WEST)
-			orientation = Orientation::NORTH_WEST;
+void j1Boat::NextStep()
+{
+	if (path.size() != 0)
+	{
+		path.erase(path.begin());
+		destination = *path.begin();
 	}
-	
 }
 
 void  j1Boat::SetDestination()
 {
-	int mx, my;
-	App->input->GetMousePosition(mx, my);
-	destination.x = mx - App->render->camera.x / App->win->GetScale();
-	destination.y = my - App->render->camera.y / App->win->GetScale();	
+	iPoint m;
+	App->input->GetMousePosition(m.x, m.y);
+	m.x -= App->render->camera.x / App->win->GetScale();
+	m.y -= App->render->camera.y / App->win->GetScale();
+	GoTo({ (float)m.x, (float)m.y }, WATER);
 }
 
 void  j1Boat::Attack()

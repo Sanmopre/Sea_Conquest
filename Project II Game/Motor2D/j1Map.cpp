@@ -7,6 +7,7 @@
 #include <math.h>
 #include "animation.h"
 #include "j1Entities.h"
+#include "j1Pathfinding.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -32,7 +33,7 @@ void j1Map::Draw()
 {
 	if(map_loaded == false)
 		return;
-
+	
 	p2List_item<MapLayer*>* item = data.layers.start;
 
 	for(; item != NULL; item = item->next)
@@ -51,18 +52,25 @@ void j1Map::Draw()
 				{
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
 
-					SDL_Rect r = tileset->GetTileRect(tile_id); //todo get tile id's then positions from animations
-					// /*ARRAY THAT CONTAINS TILE ID'S*/, ARRAY THAT CONTAINS MS, int number of frames, width and height of animations
-					// LOAD TEXTURE AND PUT IT IN ENTITY
-					// CREATE ANIMATION, PUT SDL_RECTS FROM WIDTH HEIGHT AND TILE ID'S POSITIONS FROM EVERY FRAME, PUT MS FROM EVERY FRAME
-					// 
+					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld<iPoint>(x, y);
 
 					App->render->AddBlitEvent(0,tileset->texture, pos.x, pos.y, r);//todo 
+					//App->render->AddBlitEvent(0, nullptr, 0, 0, { pos.x - 2, pos.y - 2, 4,4 }, false, false, 255, 0, 0, 200);
 				}
 			}
 		}
 	}
+}
+
+void j1Map::CreateNodeMap()
+{
+	for (int y = 0; y < data.height; ++y)
+		for (int x = 0; x < data.width; ++x)
+		{
+			Node n(x, y, WATER);
+			App->pathfinding->NodeMap.push_back(n);
+		}	
 }
 
 int Properties::Get(const char* value, int default_value) const
@@ -112,7 +120,7 @@ iPoint j1Map::WorldToMap(int x, int y) const
 		
 		float half_width = data.tile_width * 0.5f;
 		float half_height = data.tile_height * 0.5f;
-		ret.x = int( (x / half_width + y / half_height) / 2) - 1;
+		ret.x = int( (x / half_width + y / half_height) / 2);
 		ret.y = int( (y / half_height - (x / half_width)) / 2);
 	}
 	else
@@ -260,6 +268,8 @@ bool j1Map::Load(const char* file_name)
 		}
 	}
 
+	CreateNodeMap();
+
 	map_loaded = ret;
 
 	return ret;
@@ -279,6 +289,7 @@ bool j1Map::LoadMap()
 	else
 	{
 		data.width = map.attribute("width").as_int();
+		App->pathfinding->map_size = data.width;
 		data.height = map.attribute("height").as_int();
 		data.tile_width = map.attribute("tilewidth").as_int();
 		data.tile_height = map.attribute("tileheight").as_int();

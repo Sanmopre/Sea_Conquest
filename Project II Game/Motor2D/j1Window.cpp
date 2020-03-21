@@ -62,7 +62,7 @@ bool j1Window::Awake(pugi::xml_node& config)
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 
-		flags |= SDL_WINDOW_INPUT_GRABBED;
+		//flags |= SDL_WINDOW_INPUT_GRABBED;
 
 		window = SDL_CreateWindow(App->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 

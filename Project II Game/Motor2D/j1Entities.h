@@ -11,6 +11,7 @@
 #include "Color.h"
 #include "animation.h"
 #include "j1Timer.h"
+#include "j1Pathfinding.h"
 
 struct SDL_Texture;
 
@@ -102,6 +103,7 @@ public:
 	float speed;
 	Orientation orientation;
 	fPoint destination;
+	vector<fPoint> path;
 
 protected:
 
@@ -115,7 +117,7 @@ protected:
 	Animation north_west;
 
 	fPoint past_frame_dest;
-	//void Path_to(fPoint); Add when pathfinding is done
+	void GoTo(fPoint destination, NodeType terrain);
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1Structure : public j1Entity
@@ -153,6 +155,7 @@ public:
 private:
 
 	void Move(float dt);
+	void NextStep();
 	void SetDestination();
 	void Attack();
 	void FindTarget();

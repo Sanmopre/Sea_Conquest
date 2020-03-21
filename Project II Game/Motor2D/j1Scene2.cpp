@@ -36,16 +36,6 @@ bool j1Scene2::Awake()
 bool j1Scene2::Start()
 {
 	App->map->Load("mapa men.tmx") == true;
-	/*/
-	if(App->map->Load("este fk men.tmx") == true)
-	{
-		int w, h;
-		uchar* data = NULL;
-		if(App->map->CreateWalkabilityMap(w, h, &data))
-			App->pathfinding->SetMap(w, h, data);
-
-		RELEASE_ARRAY(data);
-	}//*/
 
 	debug_tex = App->tex->Load("maps/path2.png");
 
@@ -55,76 +45,17 @@ bool j1Scene2::Start()
 // Called each loop iteration
 bool j1Scene2::PreUpdate()
 {
-
-	// debug pathfing ------------------
-	static iPoint origin;
-	static bool origin_selected = false;
-
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
-
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		if (origin_selected == true)
-		{
-			App->pathfinding->CreatePath(origin, p);
-			origin_selected = false;
-		}
-		else
-		{
-			origin = p;
-			origin_selected = true;
-		}
-	}
-
 	return true;
 }
 
 // Called each loop iteration
 bool j1Scene2::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
-
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->SaveGame("save_game.xml");
-
 	App->map->Draw();
-
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
-		App->map->data.width, App->map->data.height,
-		App->map->data.tile_width, App->map->data.tile_height,
-		App->map->data.tilesets.count(),
-		map_coordinates.x, map_coordinates.y);
-
-	//App->win->SetTitle(title.GetString());
-
-	// Debug pathfinding ------------------------------
-	//int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
-	p = App->map->MapToWorld<iPoint>(p.x, p.y);
-
-	//App->render->Blit(debug_tex, p.x, p.y);
-
-	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
-
-	for (uint i = 0; i < path->Count(); ++i)
-	{
-		iPoint pos = App->map->MapToWorld<iPoint>(path->At(i)->x, path->At(i)->y);
-		//App->render->AddBlitEvent(0,debug_tex, pos.x, pos.y);
-	}
 
 	return true;
 }
 
-// Called each loop iteration
 bool j1Scene2::PostUpdate()
 {
 	bool ret = true;
@@ -132,7 +63,6 @@ bool j1Scene2::PostUpdate()
 	return ret;
 }
 
-// Called before quitting
 bool j1Scene2::CleanUp()
 {
 	LOG("Freeing scene");

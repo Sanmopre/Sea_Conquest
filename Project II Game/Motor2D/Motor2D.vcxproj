@@ -119,6 +119,7 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="random.cpp" />
     <ClCompile Include="Squares.cpp" />
+    <ClCompile Include="Unit.cpp" />
     <ClCompile Include="Wipe.cpp" />
     <ClCompile Include="Zoom.cpp" />
   </ItemGroup>

@@ -21,7 +21,7 @@ void  j1Entity::ShowHPbar(int extra_width, int height)
 	{
 		showing_hpbar = true;
 
-		SDL_Rect Brect = { position.x - extra_width, position.y - 20, rect.w + extra_width * 2, height };
+		SDL_Rect Brect = { position.x - rect.w / 2 - extra_width, position.y  - rect.h / 2 - 20, rect.w + extra_width * 2, height };
 		Color Bcolor(96u, 96u, 96u);
 
 		float max_w = Brect.w;
