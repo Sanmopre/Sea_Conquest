@@ -21,6 +21,7 @@
 #include "j1Fonts.h"
 #include "j1InGameUI.h"
 #include "j1TransitionManager.h"
+#include "j1SceneManager.h"
 #include <thread>
 
 // Constructor
@@ -34,6 +35,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	scene2 = new j1Scene2();
 	map = new j1Map();
+	map_2 = new j1Map();
 	pathfinding = new j1PathFinding();
 	player = new j1Player();
 	entitymanager = new j1EntityManager();
@@ -42,6 +44,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	fonts = new j1Fonts();
 	InGameUI = new j1InGameUI();
 	transitions = new j1TransitionManager();
+	scenemanager = new j1SceneManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -50,6 +53,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
+	AddModule(map_2);
 	AddModule(scene);
 	//AddModule(scene2);
 	AddModule(pathfinding);
@@ -60,6 +64,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entitymanager);
 	AddModule(pmanager);
 	AddModule(transitions);
+	AddModule(scenemanager);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -125,6 +130,7 @@ bool j1App::Awake()
 bool j1App::Start()
 {
 	bool ret = true;
+
 	p2List_item<j1Module*>* item;
 	item = modules.start;
 
@@ -293,6 +299,9 @@ bool j1App::DoUpdate()
 		if(pModule->active == false) {
 			continue;
 		}
+
+		if (game_pause == true)
+			dt = 0.0f;
 
 		ret = item->data->Update(dt);
 	}

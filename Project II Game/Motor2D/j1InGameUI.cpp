@@ -111,12 +111,14 @@ bool j1InGameUI::Update(float dt)
 
 	//MENU FROM ESC
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 		Activate_Menu();
+		App->game_pause = !App->game_pause;
+	}
 
-	++type_0;
-	++type_1;
-	++type_2;
+	++type_0*dt;
+	++type_1*dt;
+	++type_2*dt;
 	return true;
 
 

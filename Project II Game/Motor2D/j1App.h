@@ -24,6 +24,7 @@ class j1GUI;
 class j1Fonts;
 class j1InGameUI;
 class j1TransitionManager;
+class j1SceneManager;
 
 class j1App 
 {
@@ -96,6 +97,7 @@ public:
 	j1Scene*				scene = NULL;
 	j1Scene2*				scene2 = NULL;
 	j1Map*					map = NULL;
+	j1Map*					map_2 = NULL;
 	j1PathFinding*			pathfinding = NULL;
 	j1Player*				player = NULL;
 	j1EntityManager*		entitymanager = NULL;
@@ -104,6 +106,7 @@ public:
 	j1Fonts*				fonts = NULL;
 	j1InGameUI*				InGameUI = NULL;
 	j1TransitionManager*	transitions = NULL;
+	j1SceneManager*			scenemanager = NULL;
 private:
 
 	p2List<j1Module*>	modules;
@@ -132,6 +135,8 @@ public:
 	float dt = 0.1f;
 	uint32 getFpsCap() { return framerate_cap; };
 	void setFpsCap(uint32 fps);
+
+	bool				game_pause = false;
 
 };
 

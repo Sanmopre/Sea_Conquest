@@ -35,7 +35,7 @@ bool j1Scene2::Awake()
 // Called before the first frame
 bool j1Scene2::Start()
 {
-	App->map->Load("mapa men.tmx") == true;
+	App->map_2->Load("iso.tmx") == true;
 
 	debug_tex = App->tex->Load("maps/path2.png");
 
@@ -45,6 +45,7 @@ bool j1Scene2::Start()
 // Called each loop iteration
 bool j1Scene2::PreUpdate()
 {
+
 	return true;
 }
 
@@ -73,7 +74,7 @@ bool j1Scene2::CleanUp()
 void j1Scene2::ChangeScene() {
 
 	this->active = false;
-	App->map->CleanUp();
+	App->map_2->CleanUp();
 	CleanUp();
 
 
