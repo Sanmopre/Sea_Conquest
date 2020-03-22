@@ -81,6 +81,9 @@ public:
 	SDL_Rect rect;
 	SDL_Texture* texture;
 
+	int GetRenderPositionX();
+	int GetRenderPositionY();
+
 	virtual void BuildUnit(EntityType type, int level) {}
 
 protected:

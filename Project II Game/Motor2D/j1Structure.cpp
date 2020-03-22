@@ -11,7 +11,7 @@ void j1Structure::NotPlacedBehaviour()
 
 		iPoint placing_tile = App->map->WorldToMap(position.x, position.y);
 		position = App->map->MapToWorld<fPoint>(placing_tile.x, placing_tile.y);
-		LOG("X: %d | Y: %d", placing_tile.x, placing_tile.y);
+
 		rect.x = position.x;
 		rect.y = position.y;
 

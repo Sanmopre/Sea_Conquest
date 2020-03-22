@@ -72,44 +72,48 @@ j1Boat::~j1Boat()
 
 void j1Boat::Update(float dt)
 {
-	showing_hpbar = false;
-
-	SelectAnimation();
-	
-	if (selected)
+	if (dt != 0.0f)
 	{
-		if (team == 0)
-		{
-			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
-				SetDestination();
+		showing_hpbar = false;
 
-			Trading();
+		SelectAnimation();
+		
+		if (selected)
+		{
+			if (team == 0)
+			{
+				if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+					SetDestination();
+
+				Trading();
+			}
+
+			ShowHPbar(10, 5);
 		}
 
-		ShowHPbar(10, 5);
-	}
-
-	if (destination != position)
-		Move(dt);
-	else 
-	{
-		NextStep();
-
-		if (target != nullptr && dt != 0.0f)
+		if (destination != position)
+			Move(dt);
+		else
 		{
-			firerate.counter += dt;
-			if (firerate.counter >= firerate.iterations)
+			NextStep();
+
+			if (target != nullptr)
 			{
-				Attack();
-				firerate.counter = 0;
+				firerate.counter += dt;
+				if (firerate.counter >= firerate.iterations)
+				{
+					Attack();
+					firerate.counter = 0;
+				}
 			}
 		}
+
+		FindTarget();
+
 	}
 
-	FindTarget();
+	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 
-	App->render->AddBlitEvent(1, texture, position.x - rect.w/2, position.y- rect.h/2, rect);
-	App->render->AddBlitEvent(0, nullptr, 0, 0, { (int)position.x - 2, (int)position.y - 2, 4,4 }, false, false, 0, 0, 255, 200);
 	if (health == 0)
 		CleanUp();
 }

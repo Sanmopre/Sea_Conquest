@@ -21,7 +21,7 @@ void  j1Entity::ShowHPbar(int extra_width, int height)
 	{
 		showing_hpbar = true;
 
-		SDL_Rect Brect = { position.x - rect.w / 2 - extra_width, position.y  - rect.h / 2 - 20, rect.w + extra_width * 2, height };
+		SDL_Rect Brect = { GetRenderPositionX() - extra_width, GetRenderPositionY() - 20, rect.w + extra_width * 2, height };
 		Color Bcolor(96u, 96u, 96u);
 
 		float max_w = Brect.w;
@@ -125,10 +125,20 @@ void j1Entity::Trading()
 			else if (t == tradeable_list.begin() + trading_entity_offset)
 			{
 				trading_entity = *t;
-				App->render->AddBlitEvent(0, nullptr, 0, 0, { (int)(*t)->position.x, (int)(*t)->position.y, 30, 30 }, false, false, 255, 255, 0, 100);
+				App->render->AddBlitEvent(0, nullptr, 0, 0, { (*t)->GetRenderPositionX(), (*t)->GetRenderPositionY(), 30, 30 }, false, false, 255, 255, 0, 100);
 			}
 
 			counter++;
 		}
 	}
+}
+
+int j1Entity::GetRenderPositionX()
+{
+	return position.x - rect.w / 2;
+}
+
+int j1Entity::GetRenderPositionY()
+{
+	return position.y - rect.h / 2;
 }
