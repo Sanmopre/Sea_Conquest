@@ -57,6 +57,7 @@ class j1Entity
 public:
 
 	j1Entity() { selected = false; to_delete = false; }
+	~j1Entity();
 
 	virtual void Update(float dt) = 0;
 	virtual void CleanUp() = 0;
@@ -102,6 +103,7 @@ class j1Unit : public j1Entity
 public:
 
 	j1Unit() { orientation = Orientation::NORTH; }
+	~j1Unit();
 
 	float speed;
 	Orientation orientation;

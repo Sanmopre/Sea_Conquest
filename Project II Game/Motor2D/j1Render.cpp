@@ -82,6 +82,7 @@ bool j1Render::PostUpdate()
 bool j1Render::CleanUp()
 {
 	LOG("Destroying SDL render");
+	std::multimap<int, BlitEvent>().swap(blit_queue);
 	SDL_DestroyRenderer(renderer);
 	return true;
 }
@@ -179,8 +180,10 @@ void j1Render::BlitAll()
 			DrawQuad(event_rect, event_r, event_g, event_b, event_a, event_ui);
 		}
 	}
-	if(blit_queue.size() != 0)
+	if (blit_queue.size() != 0)
+	{
 		blit_queue.erase(blit_queue.begin(), blit_queue.end());
+	}
 }
 
 bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool fliped, bool ui, float speed, double angle, int pivot_x, int pivot_y) const

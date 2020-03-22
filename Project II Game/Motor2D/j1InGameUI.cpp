@@ -46,7 +46,8 @@ bool j1InGameUI::Start()
 	MiddleScreenH = App->win->height/ 2 - 100;
 	width = App->win->width;
 
-
+	selected_offset = 0;
+	selected_total = 0;
 
 	//CREATES UI
 
@@ -67,13 +68,18 @@ bool j1InGameUI::PreUpdate()
 
 bool j1InGameUI::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
-		selected_offset--;
-	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
-		selected_offset++;
+	if (dt != 0)
+	{
+		if (selected_total != 0)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
+				selected_offset--;
+			if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+				selected_offset++;
+		}
 
-	GetSelectedEntity();
-
+		GetSelectedEntity();
+	}
 	//if (found_boat_builder == false)
 	//Deactivate_Building_Menu();
 	//
@@ -163,14 +169,11 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 	{
 
 		if (element == menu.Return_button)
-			for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
+			for (std::vector<j1Entity*>::iterator entity = App->entitymanager->selected_list.begin(); entity != App->entitymanager->selected_list.end(); entity++)
 			{
-				if ((*entity)->selected)
-				{
-					(*entity)->storage.cotton += 10;
-					(*entity)->storage.wood += 15;
-					(*entity)->storage.metal += 5;
-				}
+				(*entity)->storage.cotton += 10;
+				(*entity)->storage.wood += 15;
+				(*entity)->storage.metal += 5;
 			}
 
 		if (element == menu.Exit_button) {
@@ -246,9 +249,9 @@ void j1InGameUI::GetSelectedEntity()
 	selected = nullptr;
 	j1Entity* first, * last;
 	int counter = 0;
-	for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
+	for (std::vector<j1Entity*>::iterator entity = App->entitymanager->selected_list.begin(); entity != App->entitymanager->selected_list.end(); entity++)
 	{
-		if ((*entity)->selected)
+		if ((*entity)->team == 0)
 		{
 			if (counter == 0)
 				first = *entity;

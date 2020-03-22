@@ -22,6 +22,7 @@ public:
 	void DeleteAll();
 
 	std::vector<j1Entity*> entities;
+	std::vector<j1Entity*> selected_list;
 
 private:
 

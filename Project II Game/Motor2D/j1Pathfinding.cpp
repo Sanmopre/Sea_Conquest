@@ -174,3 +174,11 @@ vector<fPoint> j1PathFinding::CreatePath(Node* end, fPoint end_pos)
 
 	return ret;
 }
+
+bool j1PathFinding::CleanUp()
+{
+	NodeMap.erase(NodeMap.begin(), NodeMap.end());
+	NodeMap.shrink_to_fit();
+	
+	return true;
+}

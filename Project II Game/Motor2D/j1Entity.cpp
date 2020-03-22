@@ -5,6 +5,12 @@
 #include "j1EntityManager.h"
 #include <vector>
 
+j1Entity::~j1Entity()
+{
+	tradeable_list.erase(tradeable_list.begin(), tradeable_list.end());
+	tradeable_list.shrink_to_fit();
+}
+
 void j1Entity::Damage(int damage, j1Entity* target)
 {
 	if (target != nullptr)

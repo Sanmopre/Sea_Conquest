@@ -29,6 +29,9 @@ bool j1EntityManager::Update(float dt)
 {
 	int counter = 0;
 
+	selected_list.erase(selected_list.begin(), selected_list.end());
+	selected_list.shrink_to_fit();
+
 	while (counter != entities.size())
 	{
 		vector<j1Entity*>::iterator entity = entities.begin();
@@ -41,7 +44,11 @@ bool j1EntityManager::Update(float dt)
 				break;
 			}
 			else
+			{
 				(*entity)->Update(dt);
+				if ((*entity)->selected)
+					selected_list.push_back(*entity);
+			}
 
 			counter++;
 		}
@@ -159,10 +166,20 @@ void j1EntityManager::DeleteAll()
 		entities.erase(entities.begin(), entities.begin() + 1);
 		entities.shrink_to_fit();
 	}
+
+	while (buffer.size() != 0)
+	{
+		delete (*buffer.begin());
+		buffer.erase(buffer.begin(), buffer.begin() + 1);
+		buffer.shrink_to_fit();
+	}
 }
 
 bool j1EntityManager::CleanUp()
 {
+	selected_list.erase(selected_list.begin(), selected_list.end());
+	selected_list.shrink_to_fit();
+
 	DeleteAll();
 
 	return true;

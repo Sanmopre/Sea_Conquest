@@ -89,7 +89,7 @@ private:
 	In_Game_Basics basics;
 
 	j1Entity* selected;
-	int selected_offset = 0;
+	int selected_offset;
 	int selected_total;
 
 	void GetSelectedEntity();

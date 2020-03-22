@@ -48,6 +48,7 @@ class j1PathFinding : public j1Module
 public:
 
 	bool Start();
+	bool CleanUp();
 
 	int map_size;
 

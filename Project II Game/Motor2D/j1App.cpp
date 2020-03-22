@@ -54,14 +54,14 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(map_2);
+	AddModule(player);
+	AddModule(entitymanager);
 	AddModule(scene);
 	//AddModule(scene2);
 	AddModule(pathfinding);
-	AddModule(player);
 	AddModule(gui);
 	AddModule(fonts);
 	AddModule(InGameUI);
-	AddModule(entitymanager);
 	AddModule(pmanager);
 	AddModule(transitions);
 	AddModule(scenemanager);

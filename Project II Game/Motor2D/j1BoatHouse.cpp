@@ -95,8 +95,6 @@ void j1BoatHouse::BuildUnit(EntityType type, int level)
 
 void j1BoatHouse::CleanUp()
 {
-	tradeable_list.erase(tradeable_list.begin(), tradeable_list.end());
-	tradeable_list.shrink_to_fit();
 	unitqueue.erase(unitqueue.begin(), unitqueue.end());
 	unitqueue.shrink_to_fit();
 	to_delete = true;
