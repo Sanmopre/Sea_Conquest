@@ -67,38 +67,19 @@ bool j1InGameUI::PreUpdate()
 
 bool j1InGameUI::Update(float dt)
 {
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//SEARCHING FOR SELECTED LOOP 
-	bool found_boat_builder = false;
-	bool found = false;
-	for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
-	{
-		if ((*entity)->selected)
-		{
-			Activate_Manager();
-			found = true;
-			if ((*entity)->type == EntityType::BOATHOUSE) {
-				{
-					entity_ui = *entity;
-					Activate_Building_Menu();
-					found_boat_builder = true;
-					break;
-				}
-			}
-			
-		}
-	}
+	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
+		selected_offset--;
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+		selected_offset++;
 
-	if (found_boat_builder == false)
-	Deactivate_Building_Menu();
+	GetSelectedEntity();
 
-	if (found == false)
-	Deactivate_Manager();
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//if (found_boat_builder == false)
+	//Deactivate_Building_Menu();
+	//
+	//if (found == false)
+	//Deactivate_Manager();
 	
-
-
-
 	//UPDATE RESOURCES
 
 	sprintf_s(text_type_0, 10, "%7d", type_0);
@@ -209,9 +190,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == menu.Menu_button) {
 			Activate_Menu();
 		}
-		if (element == building.Boat_Building_Button) {
-			entity_ui->BuildUnit(EntityType::BOAT,0);
-		}
+		//if (element == building.Boat_Building_Button) {
+		//	entity_ui->BuildUnit(EntityType::BOAT,0);
+		//}
 
 	}
 	}
@@ -260,3 +241,37 @@ void j1InGameUI::Deactivate_Manager()
 	manager.entity_name_boat->enabled = false;
 }
 
+void j1InGameUI::GetSelectedEntity()
+{
+	selected = nullptr;
+	j1Entity* first, * last;
+	int counter = 0;
+	for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
+	{
+		if ((*entity)->selected)
+		{
+			if (counter == 0)
+				first = *entity;
+			last = *entity;
+
+			if (counter == selected_offset)
+				selected = *entity;
+
+			counter++;
+		}
+	}
+	selected_total = counter;
+	if (counter != 0 && selected == nullptr)
+		if (selected_offset < 0)
+		{
+			selected = last;
+			selected_offset = counter - 1;
+		}
+		else
+		{
+			selected = first;
+			selected_offset = 0;
+		}
+	if (selected != nullptr)
+		App->render->AddBlitEvent(0, nullptr, 0, 0, { selected->GetRenderPositionX(), selected->GetRenderPositionY(), 30, 30 }, false, false, 255, 0, 255, 100);
+}

@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "SDL/include/SDL_rect.h"
+#include <vector>
 
 struct Game_Menu {
 	j1Element* Menu_button;
@@ -87,8 +88,11 @@ private:
 	Unit_Manager_UI manager;
 	In_Game_Basics basics;
 
-	j1Entity* entity_ui = nullptr;
+	j1Entity* selected;
+	int selected_offset = 0;
+	int selected_total;
 
+	void GetSelectedEntity();
 
 	
 	int font_name = -1;

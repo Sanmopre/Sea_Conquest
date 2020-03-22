@@ -175,7 +175,6 @@ void j1Player::Mouse_Cursor()
 
 void j1Player::Drag_Mouse()
 {
-
 	if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 	{
 		App->input->GetMousePosition(start_mouse_position.x, start_mouse_position.y);
