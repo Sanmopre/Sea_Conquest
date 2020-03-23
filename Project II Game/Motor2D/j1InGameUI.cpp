@@ -276,8 +276,11 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 
 void j1InGameUI::Activate_Manager()
 {
-	manager.button_next->enabled = true;
-	manager.buton_prev->enabled = true;
+	if (selected_total > 1)
+	{
+		manager.button_next->enabled = true;
+		manager.buton_prev->enabled = true;
+	}
 	manager.image->enabled = true;
     manager.entity_type_Image->enabled = true;
 }
