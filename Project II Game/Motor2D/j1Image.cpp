@@ -29,6 +29,12 @@ bool j1Image::Start()
 	if (textureType == TEXTURE::RESOURCES_IMAGE)
 		texture = App->gui->Load_Texture(TEXTURE::RESOURCES_IMAGE);
 
+	if (textureType == TEXTURE::BOAT_IMAGE)
+		texture = App->gui->Load_Texture(TEXTURE::BOAT_IMAGE);
+
+	if (textureType == TEXTURE::BUILDING_IMAGE)
+		texture = App->gui->Load_Texture(TEXTURE::BUILDING_IMAGE);
+
 	return true;
 }
 

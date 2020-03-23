@@ -106,7 +106,10 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 		texture_load = App->tex->Load("textures/MANAGER_IMAGE.png");
 		break;
 	case TEXTURE::NEXT:
-		texture_load = App->tex->Load("textures/NEXT_BUTON.png");
+		texture_load = App->tex->Load("textures/next.png");
+		break;
+	case TEXTURE::PREV:
+		texture_load = App->tex->Load("textures/prev.png");
 		break;
 	case TEXTURE::OPTIONS:
 		texture_load = App->tex->Load("textures/BOTON_2.png");
@@ -119,6 +122,12 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 		break;
 	case TEXTURE::RESOURCES_IMAGE:
 		texture_load = App->tex->Load("textures/Recursos.png");
+		break;
+	case TEXTURE::BUILDING_IMAGE:
+		texture_load = App->tex->Load("textures/building_image.png");
+		break;
+	case TEXTURE::BOAT_IMAGE:
+		texture_load = App->tex->Load("textures/boat_image.png");
 		break;
 	}
 

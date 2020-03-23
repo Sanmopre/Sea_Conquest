@@ -26,8 +26,14 @@ bool j1Button::Start()
 	if (textureType == TEXTURE::OPTIONS)
 		texture = App->gui->Load_Texture(TEXTURE::OPTIONS);
 
+	if (textureType == TEXTURE::BOAT_IMAGE)
+		texture = App->gui->Load_Texture(TEXTURE::BOAT_IMAGE);
+
 	if (textureType == TEXTURE::NEXT)
 		texture = App->gui->Load_Texture(TEXTURE::NEXT);
+
+	if (textureType == TEXTURE::PREV)
+		texture = App->gui->Load_Texture(TEXTURE::PREV);
 
 
 	if (text != nullptr)
@@ -83,16 +89,6 @@ bool j1Button::Update(float dt)
 	if (enabled) {
 
 
-		if (textureType == TEXTURE::OPTIONS) {
-			App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x , map_position.y - App->render->camera.y , rect,false,true, 0u,  0u,  0u,  255, true);
-		
-		}
-
-		if (textureType == TEXTURE::NEXT) {
-			App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x , map_position.y - App->render->camera.y, rect,false, true);
-		}
-
-
 		if (textureType == TEXTURE::BUTON) {
 			if (above && interactable)
 			{
@@ -101,6 +97,10 @@ bool j1Button::Update(float dt)
 			else {
 				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x , map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 			}
+		}
+		else {
+			App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
+
 		}
 
 
