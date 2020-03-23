@@ -53,9 +53,6 @@ bool j1InGameUI::Start()
 
 	Add_UI();
 
-
-	//DISABLES UNITS UI
-	building.Boat_Building_Button->enabled = false;
 	return true;
 }
 
@@ -68,20 +65,15 @@ bool j1InGameUI::PreUpdate()
 
 bool j1InGameUI::Update(float dt)
 {
-	if (dt != 0)
-	{
-		if (selected_total != 0)
-		{
-			if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
-				selected_offset--;
-			if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
-				selected_offset++;
-		}
 
-		GetSelectedEntity();
-	}
+	GetSelectedEntity();
+	
+	
+	Manage_Entity_UI(selected);
+
+
 	//if (found_boat_builder == false)
-	//Deactivate_Building_Menu();
+
 	//
 	//if (found == false)
 	//Deactivate_Manager();
@@ -135,13 +127,14 @@ void j1InGameUI::Add_UI()
 	manager.button_next = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW - 440,585 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NEXT);
 	manager.buton_prev = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW -25,585 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NEXT);
 	manager.entity_type_Image = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-	manager.entity_name_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 205,550 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-//	manager.entity_name_boathouse = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 205,550 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT HOUSE", this, true, true, SCROLL_TYPE::SCROLL_NONE, true);
-
+	
+	
+	//BOAT_MENU
+	boat.entity_name_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 205,550 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT ", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 
 	//BOAT_BUILDER_MENU
 	building.Boat_Building_Button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 195,600 }, { 20,30 }, true, true, { 0,0,200,65 }, "CREATE BOAT", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-
+	building.entity_name_boathouse = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 205,550 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT HOUSE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 
 	//UI BASICS ALWAYS ACTIVE
 	basics.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,520 }, { 0,0 }, true, true, { 0, 0,1280,200 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MAIN_IMAGE);
@@ -193,9 +186,25 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == menu.Menu_button) {
 			Activate_Menu();
 		}
-		//if (element == building.Boat_Building_Button) {
-		//	entity_ui->BuildUnit(EntityType::BOAT,0);
-		//}
+		if (element == building.Boat_Building_Button) {
+		 selected->BuildUnit(EntityType::BOAT,0);
+		}
+		if (element == manager.button_next) {
+
+			if (selected_total != 0)
+			{
+					selected_offset--;
+			}
+
+		}
+		if (element == manager.buton_prev) {
+
+			if (selected_total != 0)
+			{
+					selected_offset++;
+			}
+
+		}
 
 	}
 	}
@@ -218,13 +227,54 @@ bool j1InGameUI::PostUpdate()
 void j1InGameUI::Activate_Building_Menu()
 {
 	building.Boat_Building_Button->enabled = true;
+	building.entity_name_boathouse->enabled = true;
 }
 
 void j1InGameUI::Deactivate_Building_Menu() 
 {
 	building.Boat_Building_Button->enabled = false;
+	building.entity_name_boathouse->enabled = false;
 }
 
+void j1InGameUI::Activate_Boat_Menu()
+{
+	boat.entity_name_boat->enabled = true;
+}
+
+void j1InGameUI::Deactivate_Boat_Menu()
+{
+	boat.entity_name_boat->enabled = false;
+}
+
+
+void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
+{
+	if (entity != nullptr) {
+
+		Activate_Manager();
+		switch (entity->type)
+		{
+		case EntityType::BOATHOUSE:
+			Activate_Building_Menu();
+			Deactivate_Boat_Menu();
+			break;
+		case EntityType::BOAT:
+			Activate_Boat_Menu();
+			Deactivate_Building_Menu();
+			break;
+		case EntityType::NONE:
+			Activate_Building_Menu();
+			Deactivate_Boat_Menu();
+			break;
+		}
+	}
+	else {
+		Deactivate_Manager();
+		Deactivate_Boat_Menu();
+		Deactivate_Building_Menu();
+	}
+
+}
 
 void j1InGameUI::Activate_Manager()
 {
@@ -232,7 +282,6 @@ void j1InGameUI::Activate_Manager()
 	manager.buton_prev->enabled = true;
 	manager.image->enabled = true;
     manager.entity_type_Image->enabled = true;
-	manager.entity_name_boat->enabled = true;
 }
 
 void j1InGameUI::Deactivate_Manager()
@@ -241,13 +290,13 @@ void j1InGameUI::Deactivate_Manager()
 	manager.buton_prev->enabled = false;
 	manager.image->enabled = false;
 	manager.entity_type_Image->enabled = false;
-	manager.entity_name_boat->enabled = false;
 }
 
 void j1InGameUI::GetSelectedEntity()
 {
 	selected = nullptr;
-	j1Entity* first, * last;
+	j1Entity* first  = nullptr;
+	j1Entity* last = nullptr;
 	int counter = 0;
 	for (std::vector<j1Entity*>::iterator entity = App->entitymanager->selected_list.begin(); entity != App->entitymanager->selected_list.end(); entity++)
 	{

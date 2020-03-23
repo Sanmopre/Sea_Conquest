@@ -21,8 +21,6 @@ struct Unit_Manager_UI {
 	j1Element* buton_prev;
 	j1Element* image;
 	j1Element* entity_type_Image;
-	j1Element* entity_name_boat;
-	j1Element* entity_name_boathouse;
 };
 
 struct In_Game_Basics {
@@ -32,7 +30,14 @@ struct In_Game_Basics {
 
 
 struct Building_Menu {
+	j1Element* entity_type_Image;
+	j1Element* entity_name_boathouse;
 	j1Element* Boat_Building_Button;
+};
+
+struct Boat_Menu {
+	j1Element* entity_type_Image;
+	j1Element* entity_name_boat;
 };
 
 struct SDL_Texture;
@@ -54,12 +59,26 @@ public:
 
 	void Add_UI();
 	void Activate_Menu();
+
+
+
+	//BOAT_BUILDING
 	void Activate_Building_Menu();
 	void Deactivate_Building_Menu();
-	//void Name_Selector(EntityType type = EntityType::NONE);
+
+	//BOAT
+	void Activate_Boat_Menu();
+	void Deactivate_Boat_Menu();
+
+
+
+	void Manage_Entity_UI(j1Entity* entity);
+
 
 	void Activate_Manager();
 	void Deactivate_Manager();
+
+
 	void GUI_Event_Manager(GUI_Event type, j1Element* element);
 	
 	
@@ -84,11 +103,14 @@ private:
 
 	//menu ui
 	Game_Menu menu;
-	Building_Menu building;
 	Unit_Manager_UI manager;
 	In_Game_Basics basics;
 
-	j1Entity* selected;
+	//ENtities
+	Building_Menu building;
+	Boat_Menu boat;
+
+	j1Entity* selected = nullptr;
 	int selected_offset;
 	int selected_total;
 
