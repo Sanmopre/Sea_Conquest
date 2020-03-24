@@ -34,6 +34,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	scene = new j1Scene();
 	scene2 = new j1Scene2();
+	InGameUI = new j1InGameUI();
 	map = new j1Map();
 	map_2 = new j1Map();
 	pathfinding = new j1PathFinding();
@@ -42,7 +43,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pmanager = new j1ParticleManager();
 	gui = new j1GUI();
 	fonts = new j1Fonts();
-	InGameUI = new j1InGameUI();
 	transitions = new j1TransitionManager();
 	scenemanager = new j1SceneManager();
 

@@ -19,7 +19,7 @@ public:
 	ParticleSystem(PARTICLE_TYPES type, p2Point<float>, int index);
 	~ParticleSystem();
 
-	//void update(float dt);
+	//void Update(float dt);
 
 	void loadSystem(); //maybe we should load each effect properties from an xml
 	bool activateSystem(int index);

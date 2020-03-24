@@ -6,6 +6,7 @@
 #include "j1EntityManager.h"
 #include <vector>
 #include "j1Map.h"
+#include "j1ParticleManager.h"
 
 j1Boat::j1Boat(float x, float y, int level, int team)
 {
@@ -102,13 +103,13 @@ void j1Boat::Update(float dt)
 				firerate.counter += dt;
 				if (firerate.counter >= firerate.iterations)
 				{
-					Attack();
+					Damage(10, target);
 					firerate.counter = 0;
 				}
 			}
 		}
 
-		FindTarget();
+		target = FindTarget(range, EntityType::NONE);
 
 	}
 
@@ -209,38 +210,15 @@ void  j1Boat::SetDestination()
 	GoTo({ (float)m.x, (float)m.y }, WATER);
 }
 
-void  j1Boat::Attack()
+void j1Boat::Damage(int damage, j1Entity* target)
 {
-	Damage(10, target);
-}
-
-void  j1Boat::FindTarget()
-{
-	float targetdistance = range;
-	float distance = 0.0f;
-
-	for (std::vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
+	if (target->health != 0.0f)
 	{
-		if (*e != this && (*e)->team != team)
-			if (position.x + range > (*e)->position.x &&
-				position.x - range < (*e)->position.x &&
-				position.y + range >(*e)->position.y &&
-				position.y - range < (*e)->position.y)
-			{
-				distance = sqrtf((position.x - (*e)->position.x) * (position.x - (*e)->position.x) + (position.y - (*e)->position.y) * (position.y - (*e)->position.y));
-
-				if (distance < range && distance < targetdistance)
-				{
-					target = *e;
-					targetdistance = distance;
-				}
-				
-				ShowHPbar(10, 5);
-			}
+		target->health -= damage;
+		if (target->health < 0)
+			target->health = 0;
+		//App->pmanager->createSystem(PARTICLE_TYPES::FIRE, target->position, 1);
 	}
-
-	if(distance == 0.0f)
-		target = nullptr;
 }
 
 void j1Boat::SelectAnimation()
