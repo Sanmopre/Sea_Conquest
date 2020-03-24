@@ -11,6 +11,7 @@
 #include "Color.h"
 #include "animation.h"
 #include "j1Timer.h"
+#include "j1Pathfinding.h"
 
 struct SDL_Texture;
 
@@ -31,6 +32,12 @@ enum class EntityType
 {
 	BOAT,
 	BOATHOUSE,
+	HARVESTER,
+	WOOD_RESOURCE,
+	COTTON_RESOURCE,
+	METAL_RESOURCE,
+	EVEN2_RESOURCE,
+	EVEN3_RESOURCE,
 	NONE
 };
 
@@ -63,13 +70,14 @@ class j1Entity
 public:
 
 	j1Entity() { selected = false; to_delete = false; }
+	~j1Entity();
 
 	virtual void Update(float dt) = 0;
 	virtual void CleanUp() = 0;
 
 	bool to_delete;
 
-	void Damage(int damage, j1Entity* target);
+
 
 	int team;
 
@@ -87,10 +95,16 @@ public:
 	SDL_Rect rect;
 	SDL_Texture* texture;
 
+	int GetRenderPositionX();
+	int GetRenderPositionY();
+
+	virtual void BuildUnit(EntityType type, int level) {}
+
 protected:
 
 	void  ShowHPbar(int extra_width, int height);
 	void Trading();
+	j1Entity* FindTarget(int range, EntityType type);
 
 	bool showing_hpbar;
 	int trading_range;
@@ -103,10 +117,12 @@ class j1Unit : public j1Entity
 public:
 
 	j1Unit() { orientation = Orientation::NORTH; }
+	~j1Unit();
 
 	float speed;
 	Orientation orientation;
 	fPoint destination;
+	vector<fPoint> path;
 
 protected:
 
@@ -120,7 +136,7 @@ protected:
 	Animation north_west;
 
 	fPoint past_frame_dest;
-	//void Path_to(fPoint); Add when pathfinding is done
+	void GoTo(fPoint destination, NodeType terrain);
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1Structure : public j1Entity
@@ -139,8 +155,10 @@ class j1Resource : public j1Entity
 {
 public:
 
-	int amount;
+	j1Resource(float x = 0, float y = 0, int level = 1, EntityType type = EntityType::EVEN3_RESOURCE);
 
+	void Update(float dt);
+	void CleanUp();
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1Boat : public j1Unit
@@ -158,10 +176,10 @@ public:
 private:
 
 	void Move(float dt);
+	void NextStep();
 	void SetDestination();
-	void Attack();
-	void FindTarget();
 	void SelectAnimation();
+	void Damage(int damage, j1Entity* target);
 
 	timed_var firerate;
 };
@@ -180,5 +198,11 @@ public:
 	std::vector<EntityRequest> unitqueue;
 	timed_var building_time;
 	Color color;
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class j1Island : public j1Resource
+{
+public:
+
 };
 #endif // __j1Entities_H__

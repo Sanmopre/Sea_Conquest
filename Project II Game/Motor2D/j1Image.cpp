@@ -3,6 +3,7 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Window.h"
+#include "j1GUI.h"
 
 
 j1Image::j1Image() {
@@ -16,7 +17,24 @@ j1Image::~j1Image() {
 
 bool j1Image::Start()
 {
-	menu_image = App->tex->Load("textures/image.png");
+	if (textureType == TEXTURE::IMAGE) 
+		texture = App->gui->Load_Texture(TEXTURE::IMAGE);
+
+	if (textureType == TEXTURE::MANAGER_IMAGE) 
+		texture = App->gui->Load_Texture(TEXTURE::MANAGER_IMAGE);
+
+	if (textureType == TEXTURE::MAIN_IMAGE)
+		texture = App->gui->Load_Texture(TEXTURE::MAIN_IMAGE);
+
+	if (textureType == TEXTURE::RESOURCES_IMAGE)
+		texture = App->gui->Load_Texture(TEXTURE::RESOURCES_IMAGE);
+
+	if (textureType == TEXTURE::BOAT_IMAGE)
+		texture = App->gui->Load_Texture(TEXTURE::BOAT_IMAGE);
+
+	if (textureType == TEXTURE::BUILDING_IMAGE)
+		texture = App->gui->Load_Texture(TEXTURE::BUILDING_IMAGE);
+
 	return true;
 }
 
@@ -30,7 +48,10 @@ bool j1Image::Update(float dt) {
 
 
 	if (enabled) {
-			App->render->AddBlitEvent(3, menu_image, map_position.x - App->render->camera.x / App->win->scale, map_position.y - App->render->camera.y / App->win->scale, rect);
+		if (textureType == TEXTURE::MAIN_IMAGE)
+		App->render->AddBlitEvent(2, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false,true, 0, 0, 0, 0, true);
+		else
+		App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0, 0, 0, 0, true);
 	}
 
 

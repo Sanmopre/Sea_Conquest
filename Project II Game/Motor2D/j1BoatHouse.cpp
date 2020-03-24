@@ -15,7 +15,6 @@ j1BoatHouse::j1BoatHouse(int team, iPoint tile)
 	max_health = 500;
 	health = max_health;
 	rect = { (int)position.x, (int)position.y, 40, 40 };
-
 	storage = { 0, 0, 0, 1000 };
 }
 

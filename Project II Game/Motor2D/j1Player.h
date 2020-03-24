@@ -31,6 +31,7 @@ private:
 	void Mouse_Cursor();
 	void Select_Entitites(SDL_Rect);
 	void Zoom();
+	void Camera_Limit();
 
 	SDL_Rect selector;
 	SDL_Rect texture_rect{ 0,0,300,300 };

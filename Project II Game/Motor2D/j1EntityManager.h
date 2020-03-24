@@ -26,6 +26,7 @@ public:
 	std::vector<j1Entity*> entities;
 	std::vector<Animation> allAnimations;
 	std::vector<TextureInfo> allTextures;
+	std::vector<j1Entity*> selected_list;
 
 private:
 

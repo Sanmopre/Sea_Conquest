@@ -33,7 +33,7 @@ bool j1Label::Update(float dt)
 {
 
 	if (enabled)
-		App->fonts->BlitText(map_position.x + inside_position.x - App->render->camera.x/App->win->scale, map_position.y + inside_position.y - App->render->camera.y / App->win->scale, 1, text);
+		App->fonts->BlitText(map_position.x + inside_position.x, map_position.y + inside_position.y , 1, text);
 
 
 	return true;

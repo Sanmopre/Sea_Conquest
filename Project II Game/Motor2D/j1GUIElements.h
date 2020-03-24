@@ -27,6 +27,23 @@ enum class SCROLL_TYPE
 	SCROLL_MUSIC
 };
 
+enum class TEXTURE
+{
+	BUTON,
+	BUTON_HOVER,
+	OPTIONS,
+	NEXT,
+	PREV,
+	SCROLL,
+	MANAGER_IMAGE,
+	IMAGE,
+	MAIN_IMAGE,
+	RESOURCES_IMAGE,
+	BUILDING_IMAGE,
+	BOAT_IMAGE,
+	NONE
+};
+
 class j1Element
 {
 
@@ -53,6 +70,7 @@ public:
 	j1Element* parent = nullptr;
 	j1Module* listener = nullptr;
 	GUItype type = GUItype::GUI_ERROR;
+	TEXTURE textureType = TEXTURE::NONE;
 	fPoint map_position = { 0,0 };
 	fPoint inside_position = { 0,0 };
 
@@ -72,10 +90,7 @@ public:
 	SDL_Rect rect = { 0,0,0,0 };
 
 	SDL_Texture* texture = nullptr;
-	SDL_Texture* texture_button = nullptr;
-	SDL_Texture* texture_button_1 = nullptr;
-	SDL_Texture* menu_image = nullptr;
-
+	SDL_Texture* texture_hover = nullptr;
 };
 ////////////////////////////////////////////////////////////////
 class j1Button : public j1Element
@@ -101,6 +116,7 @@ private:
 	iPoint drag = { 0,0 };
 
 	bool dragging;
+	bool options_button = false;
 };
 ////////////////////////////////////////////////////////////////
 class j1Image : public j1Element

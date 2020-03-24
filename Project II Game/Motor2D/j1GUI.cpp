@@ -92,9 +92,54 @@ bool j1GUI::CleanUp()
 	return true;
 }
 
+SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
+{
+	switch (textureType)
+	{
+	case TEXTURE::BUTON:
+		texture_load = App->tex->Load("textures/BOTON.png");
+		break;
+	case TEXTURE::IMAGE:
+		texture_load = App->tex->Load("textures/image.png");
+		break;
+	case TEXTURE::MANAGER_IMAGE:
+		texture_load = App->tex->Load("textures/MANAGER_IMAGE.png");
+		break;
+	case TEXTURE::NEXT:
+		texture_load = App->tex->Load("textures/next.png");
+		break;
+	case TEXTURE::PREV:
+		texture_load = App->tex->Load("textures/prev.png");
+		break;
+	case TEXTURE::OPTIONS:
+		texture_load = App->tex->Load("textures/BOTON_2.png");
+		break;
+	case TEXTURE::BUTON_HOVER:
+		texture_load = App->tex->Load("textures/BOTON_1.png");
+		break;
+	case TEXTURE::MAIN_IMAGE:
+		texture_load = App->tex->Load("textures/UIimage.png");
+		break;
+	case TEXTURE::RESOURCES_IMAGE:
+		texture_load = App->tex->Load("textures/Recursos.png");
+		break;
+	case TEXTURE::BUILDING_IMAGE:
+		texture_load = App->tex->Load("textures/building_image.png");
+		break;
+	case TEXTURE::BOAT_IMAGE:
+		texture_load = App->tex->Load("textures/boat_image.png");
+		break;
+	case TEXTURE::SCROLL:
+		texture_load = App->tex->Load("textures/scroll.png");
+		break;
+	}
+
+	return texture_load;
+}
 
 
-j1Element* j1GUI::AddElement(GUItype type, j1Element* parent, fPoint map_position, fPoint inside_position, bool interactable, bool enabled, SDL_Rect section, char* text, j1Module* listener, bool X_drag, bool Y_drag, SCROLL_TYPE scrollType, bool decor)
+
+j1Element* j1GUI::AddElement(GUItype type, j1Element* parent, fPoint map_position, fPoint inside_position, bool interactable, bool enabled, SDL_Rect section, char* text, j1Module* listener, bool X_drag, bool Y_drag, SCROLL_TYPE scrollType, bool decor, TEXTURE textureType)
 {
 
 	j1Element* temp = nullptr;
@@ -132,6 +177,8 @@ j1Element* j1GUI::AddElement(GUItype type, j1Element* parent, fPoint map_positio
 		temp->enabled = enabled;
 		temp->rect = section;
 		temp->text = text;
+		temp->textureType = textureType;
+	
 
 		GUI_ELEMENTS.add(temp)->data->Start();
 	}

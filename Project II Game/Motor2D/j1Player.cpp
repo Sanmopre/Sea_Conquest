@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Window.h"
 #include "j1GUI.h"
+#include "j1InGameUI.h"
 
 #include "j1EntityManager.h"
 
@@ -33,7 +34,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	folder.create(config.child("folder").child_value());
 
-	camera_speed = config.child("camera").attribute("speed").as_int(1);
+	camera_speed = config.child("camera").attribute("speed").as_int(2);
 	camera_offset = config.child("camera").attribute("offset").as_int(10);
 
 	node = config;
@@ -78,12 +79,16 @@ bool j1Player::Load(pugi::xml_node& data)
 bool j1Player::Update(float dt)
 {
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
+	
 	Camera_Control(dt);
 	Zoom();
-
+	Camera_Limit();
 	//This functions should always be last//
 	Mouse_Cursor();
-	Drag_Mouse(); 
+	if(App->InGameUI->clicking_ui == false)
+	
+	if(dt != 0.0f)
+		Drag_Mouse(); 
 
 	return true;
 }
@@ -102,19 +107,19 @@ void j1Player::Camera_Control(float dt)
 		//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
 	}
 	if (mouse_position.y == 0) {
-		App->render->camera.y += camera_speed * dt * 1000;
+		App->render->camera.y += camera_speed/2 * dt * 1000;
 		//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
 	}
 
 	if (mouse_position.x > (win_width - camera_offset) / App->win->scale){
 			//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
-			App->render->camera.x -= camera_speed*dt*1000;
+			App->render->camera.x -= camera_speed*dt* 1000;
 	}
 		
 
 	if (mouse_position.y > (win_height - camera_offset) / App->win->scale) {
 		//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
-		App->render->camera.y -= camera_speed * dt * 1000;
+		App->render->camera.y -= camera_speed/2 * dt * 1000;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -146,10 +151,10 @@ void j1Player::Select_Entitites(SDL_Rect select_area)
 	//LOG("Ax -> %d | Ay -> %d | Aw -> %d | Ah -> %d", select_area.x, select_area.y, select_area.w, select_area.h);
 
 	for (auto entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
-		if (select_area.x < (*entity)->position.x + (*entity)->rect.w &&
-			select_area.x + select_area.w >(*entity)->position.x && 
-			select_area.y < (*entity)->position.y + (*entity)->rect.h && 
-			select_area.h + select_area.y >(*entity)->position.y)
+		if (select_area.x < (*entity)->GetRenderPositionX() + (*entity)->rect.w &&
+			select_area.x + select_area.w >(*entity)->GetRenderPositionX() &&
+			select_area.y < (*entity)->GetRenderPositionY() + (*entity)->rect.h &&
+			select_area.h + select_area.y >(*entity)->GetRenderPositionY())
 			if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 				(*entity)->selected = false;
 			else
@@ -170,7 +175,6 @@ void j1Player::Mouse_Cursor()
 
 void j1Player::Drag_Mouse()
 {
-
 	if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 	{
 		App->input->GetMousePosition(start_mouse_position.x, start_mouse_position.y);
@@ -207,4 +211,9 @@ void j1Player::Zoom()
 			{
 			App->win->scale = 1;
 			}
+}
+
+void j1Player::Camera_Limit()
+{
+
 }

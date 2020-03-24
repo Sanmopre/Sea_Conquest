@@ -10,14 +10,18 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Scene.h"
+#include "j1Scene2.h"
 #include "j1Map.h"
 #include "j1Pathfinding.h"
 #include "j1App.h"
 #include "j1Player.h"
 #include "j1EntityManager.h"
+#include "j1ParticleManager.h"
 #include "j1GUI.h"
 #include "j1Fonts.h"
 #include "j1InGameUI.h"
+#include "j1TransitionManager.h"
+#include "j1SceneManager.h"
 #include <thread>
 
 // Constructor
@@ -29,13 +33,19 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	audio = new j1Audio();
 	scene = new j1Scene();
+	scene2 = new j1Scene2();
+	InGameUI = new j1InGameUI();
 	map = new j1Map();
+	map_2 = new j1Map();
 	pathfinding = new j1PathFinding();
 	player = new j1Player();
 	entitymanager = new j1EntityManager();
+	pmanager = new j1ParticleManager();
 	gui = new j1GUI();
 	fonts = new j1Fonts();
-	InGameUI = new j1InGameUI();
+	transitions = new j1TransitionManager();
+	scenemanager = new j1SceneManager();
+
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -43,13 +53,18 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-	AddModule(scene);
-	AddModule(pathfinding);
+	AddModule(map_2);
 	AddModule(player);
 	AddModule(entitymanager);
+	AddModule(scene);
+	//AddModule(scene2);
+	AddModule(pathfinding);
 	AddModule(gui);
 	AddModule(fonts);
 	AddModule(InGameUI);
+	AddModule(pmanager);
+	AddModule(transitions);
+	AddModule(scenemanager);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -115,6 +130,7 @@ bool j1App::Awake()
 bool j1App::Start()
 {
 	bool ret = true;
+
 	p2List_item<j1Module*>* item;
 	item = modules.start;
 
@@ -283,6 +299,9 @@ bool j1App::DoUpdate()
 		if(pModule->active == false) {
 			continue;
 		}
+
+		if (game_pause == true)
+			dt = 0.0f;
 
 		ret = item->data->Update(dt);
 	}

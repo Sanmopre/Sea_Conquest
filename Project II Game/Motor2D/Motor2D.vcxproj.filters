@@ -94,6 +94,57 @@
     <ClCompile Include="j1Entity.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="FadeToColor.cpp">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Lines.cpp">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveToMouse.cpp">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Squares.cpp">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Wipe.cpp">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Zoom.cpp">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="j1TransitionManager.cpp">
+      <Filter>Desenvolupament  ========\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Transitions.cpp">
+      <Filter>Desenvolupament  ========\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Color.cpp">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Scene2.cpp">
+      <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Desenvolupament  ========\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Desenvolupament  ========\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="random.cpp">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="j1ParticleManager.cpp">
+      <Filter>Desenvolupament  ========\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="j1SceneManager.cpp">
+      <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Resource.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Unit.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -186,6 +237,51 @@
     <ClInclude Include="j1GUIElements.h">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClInclude>
+    <ClInclude Include="FadeToColor.h">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Lines.h">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveToMouse.h">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Squares.h">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Wipe.h">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Zoom.h">
+      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="j1TransitionManager.h">
+      <Filter>Desenvolupament  ========\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Transitions.h">
+      <Filter>Desenvolupament  ========\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Color.h">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Scene2.h">
+      <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Desenvolupament  ========\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Desenvolupament  ========\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="random.h">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1ParticleManager.h">
+      <Filter>Desenvolupament  ========\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="j1SceneManager.h">
+      <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -211,6 +307,15 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\UI">
       <UniqueIdentifier>{c35b2584-ee30-4553-be6c-ce5e439cf695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Transitions">
+      <UniqueIdentifier>{261d3b2e-754f-4651-95cf-6d7b8e842588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Transitions\Types">
+      <UniqueIdentifier>{edf84fc1-8325-41f7-bab4-a6f8d9f3d752}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Particles">
+      <UniqueIdentifier>{eb3d0453-429b-4711-b95a-b00b2fb6c59a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

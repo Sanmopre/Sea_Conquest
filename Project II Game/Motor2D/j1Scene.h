@@ -33,6 +33,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void ChangeScene();
 
 private:
 	SDL_Texture* debug_tex;
