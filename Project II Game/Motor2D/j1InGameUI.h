@@ -14,6 +14,7 @@ struct Game_Menu {
 	j1Element* Resume_button;
 	j1Element* Save;
 	j1Element* Load;
+	j1Element* Scroll;
 };
 
 struct Unit_Manager_UI {

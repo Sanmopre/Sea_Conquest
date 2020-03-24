@@ -35,6 +35,9 @@ bool j1Button::Start()
 	if (textureType == TEXTURE::PREV)
 		texture = App->gui->Load_Texture(TEXTURE::PREV);
 
+	if (textureType == TEXTURE::SCROLL)
+		texture = App->gui->Load_Texture(TEXTURE::SCROLL);
+
 
 	if (text != nullptr)
 		label = App->gui->AddElement(GUItype::GUI_LABEL, this, map_position, inside_position, true, true, { 0,0,0,0 }, text);

@@ -19,14 +19,15 @@ j1ScrollBar::~j1ScrollBar() {
 
 bool j1ScrollBar::Start()
 {
-	Button = App->gui->AddElement(GUItype::GUI_BUTTON, this, map_position, inside_position, true, true, { 432, 36, 14 , 16 }, nullptr, this->listener, true, false);
+	Button = App->gui->AddElement(GUItype::GUI_BUTTON, this, map_position, inside_position, true, true, { 0, 0, 10 , 25 }, nullptr, this->listener, true, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
 	Button->map_position.y = map_position.y - Button->rect.h / 2 + this->rect.h / 2;
 	Value = 0;
 
-	if (this->Type == SCROLL_TYPE::SCROLL_MUSIC)
-	{
 
-	}
+
+	if (textureType == TEXTURE::SCROLL)
+		texture = App->gui->Load_Texture(TEXTURE::SCROLL);
+
 
 	return true;
 }
@@ -48,23 +49,20 @@ bool j1ScrollBar::Update(float dt)
 			if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 				OnClick();
 		}
+		
 	}
 
+	//DRAW FUNCTION
+	if(enabled == true)
+	App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
+
+	ScrollLimits();
+	Value = -((float(-Button->inside_position.x) / (float(-this->rect.w) + float(Button->rect.w))) * 128);
 	return true;
 }
 
 bool j1ScrollBar::PostUpdate()
 {
-	ScrollLimits();
-	Value = -((float(-Button->inside_position.x) / (float(-this->rect.w) + float(Button->rect.w))) * 128);
-
-	if (this->Type == SCROLL_TYPE::SCROLL_MUSIC)
-	{
-
-	}
-
-	if (enabled)
-		Draw();
 
 	return true;
 }

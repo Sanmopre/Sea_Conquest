@@ -129,6 +129,9 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::BOAT_IMAGE:
 		texture_load = App->tex->Load("textures/boat_image.png");
 		break;
+	case TEXTURE::SCROLL:
+		texture_load = App->tex->Load("textures/scroll.png");
+		break;
 	}
 
 	return texture_load;

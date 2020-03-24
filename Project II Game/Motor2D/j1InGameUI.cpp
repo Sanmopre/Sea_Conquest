@@ -113,6 +113,15 @@ void j1InGameUI::Add_UI()
 	menu.Load = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +165}, { 60,30 }, true, false, { 0,0,200,65 }, "LOAD", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 50,0 }, { 0,0 }, true, false, { 0, 0,350,500 },"", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::IMAGE);
 
+
+
+	///////////////////////////////
+	menu.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 60, 550 }, { 0,0 }, false, false, { 0, 0, 400, 10 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	///////////////////////////////
+	
+	
+
+
 	//ENTITY_MANAGER_UI
 	manager.image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 390,525 }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this,false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MANAGER_IMAGE);
 	manager.button_next = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW - 440,585 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::PREV);
@@ -144,6 +153,7 @@ void j1InGameUI::Activate_Menu()
 	menu.Load->enabled = !menu.Load->enabled;
 	menu.Save->enabled = !menu.Save->enabled;
 	menu.Image->enabled = !menu.Image->enabled;
+	menu.Scroll->enabled = !menu.Scroll->enabled;
 }
 
 void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
