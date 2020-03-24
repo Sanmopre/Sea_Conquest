@@ -32,67 +32,75 @@
   <tile id="22" terrain="1,1,1,1"/>
   <tile id="23" terrain="1,1,1,1"/>
  </tileset>
- <tileset firstgid="25" name="pipo-airship1_1" tilewidth="32" tileheight="32" tilecount="12" columns="3">
-  <image source="../textures/Pipoya Vehicle &amp; Ship Sprites/4-directional/pipo-airship1_1.png" width="96" height="128"/>
- </tileset>
- <tileset firstgid="37" name="pipo-boat" tilewidth="32" tileheight="32" tilecount="24" columns="6">
+ <tileset firstgid="25" name="pipo-boat" tilewidth="32" tileheight="32" tilecount="24" columns="6">
+  <properties>
+   <property name="level" type="int" value="1"/>
+   <property name="name" value="boat"/>
+  </properties>
   <image source="../textures/Pipoya Vehicle &amp; Ship Sprites/8-directional/pipo-boat.png" width="192" height="128"/>
-  <tile id="0" type="animation_boat_south">
+  <tile id="0" type="animation_eight_south">
    <animation>
     <frame tileid="0" duration="300"/>
     <frame tileid="1" duration="300"/>
     <frame tileid="2" duration="300"/>
    </animation>
   </tile>
-  <tile id="3" type="animation_boat_south_west">
+  <tile id="3" type="animation_eight_southwest">
    <animation>
     <frame tileid="3" duration="300"/>
     <frame tileid="4" duration="300"/>
     <frame tileid="5" duration="300"/>
    </animation>
   </tile>
-  <tile id="6" type="animation_boat_west">
+  <tile id="6" type="animation_eight_west">
    <animation>
     <frame tileid="6" duration="300"/>
     <frame tileid="7" duration="300"/>
     <frame tileid="8" duration="300"/>
    </animation>
   </tile>
-  <tile id="9" type="animation_boat_south_east">
+  <tile id="9" type="animation_eight_southeast">
    <animation>
     <frame tileid="9" duration="300"/>
     <frame tileid="10" duration="300"/>
     <frame tileid="11" duration="300"/>
    </animation>
   </tile>
-  <tile id="12" type="animation_boat_east">
+  <tile id="12" type="animation_eight_east">
    <animation>
     <frame tileid="12" duration="300"/>
     <frame tileid="13" duration="300"/>
     <frame tileid="14" duration="300"/>
    </animation>
   </tile>
-  <tile id="15" type="animation_boat_north_west">
+  <tile id="15" type="animation_eight_northwest">
    <animation>
     <frame tileid="15" duration="300"/>
     <frame tileid="16" duration="300"/>
     <frame tileid="17" duration="300"/>
    </animation>
   </tile>
-  <tile id="18" type="animation_boat_north">
+  <tile id="18" type="animation_eight_north">
    <animation>
     <frame tileid="18" duration="300"/>
     <frame tileid="19" duration="300"/>
     <frame tileid="20" duration="300"/>
    </animation>
   </tile>
-  <tile id="21" type="animation_boat_north_east">
+  <tile id="21" type="animation_eight_northeast">
    <animation>
     <frame tileid="21" duration="300"/>
     <frame tileid="22" duration="300"/>
     <frame tileid="23" duration="300"/>
    </animation>
   </tile>
+ </tileset>
+ <tileset firstgid="49" name="pipo-ship" tilewidth="32" tileheight="32" tilecount="24" columns="6">
+  <properties>
+   <property name="level" value="2"/>
+   <property name="name" value="galleon"/>
+  </properties>
+  <image source="../textures/Pipoya Vehicle &amp; Ship Sprites/8-directional/pipo-ship.png" width="192" height="128"/>
  </tileset>
  <layer id="1" name="Capa de Patrones 1" width="150" height="150">
   <data>

@@ -34,6 +34,13 @@ enum class EntityType
 	NONE
 };
 
+struct TextureInfo
+{
+	int level;
+	EntityType type;
+	SDL_Texture* texture;
+};
+
 struct EntityRequest
 {
 	float x, y;

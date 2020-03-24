@@ -163,7 +163,6 @@ private:
 public:
 
 	MapData data;
-	std::vector<Animation> allAnimations;
 
 private:
 

@@ -165,3 +165,15 @@ bool j1EntityManager::CleanUp()
 {
 	return true;
 }
+
+void j1EntityManager::addAnimation(Animation animation)
+{
+	allAnimations.push_back(animation);
+	return;
+}
+
+void j1EntityManager::addTexture(TextureInfo texture)
+{
+	allTextures.push_back(texture);
+	return;
+}

@@ -6,7 +6,8 @@
 #include "j1Map.h"
 #include <math.h>
 #include "animation.h"
-#include "j1Entities.h"
+
+#include "j1EntityManager.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -361,83 +362,82 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 	bool ret = true;
 	uint columns = tileset_node.attribute("columns").as_uint();
 	LOG("UEP, mirant aver si hi ha animacions!, %d columns", columns);
-	for (pugi::xml_node tile = tileset_node.child("tile"); tile != NULL; tile = tile.next_sibling("tile"))
+	pugi::xml_node image = tileset_node.child("image");
+	SDL_Texture* texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
+
+	TextureInfo texInfo;
+	texInfo.texture = texture;
+	pugi::xml_node properties = tileset_node.child("properties");
+	int level = 0;
+	std::string name;
+	for (pugi::xml_node property = properties.first_child(); property != NULL; property = property.next_sibling("property"))
 	{
-		if (tile != NULL && !tile.attribute("type").empty())
+		if (strcmp(property.attribute("name").as_string(), "level") == 0)
+			level = property.attribute("value").as_int();
+		if (strcmp(property.attribute("name").as_string(), "name") == 0)
 		{
+			name = property.attribute("value").as_string();
+			if (strcmp(name.c_str(), "boat") == 0)
+			{
+				texInfo.type = EntityType::BOAT;
+				texInfo.level = 1;
+			}
+			if (strcmp(name.c_str(), "galleon") == 0)
+			{
+				texInfo.type = EntityType::BOAT;
+				texInfo.level = 2;
+			}
 			
-			uint aniId = tile.attribute("id").as_uint();
-			pugi::xml_node image = tileset_node.child("image");
-			SDL_Texture* texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
-			pugi::xml_node animationNode = tile.child("animation");
-			Animation animation;
-			animation.texture = texture;
-			const char* typestring = tile.attribute("type").as_string();
-			if (strcmp(typestring, "animation_boat_north") == 0)
-			{
-				animation.type = EntityType::BOAT;
-				animation.orientation = Orientation::NORTH;
-			}
-			else if (strcmp(typestring, "animation_boat_north_east") == 0)
-			{
-				animation.type = EntityType::BOAT;
-				animation.orientation = Orientation::NORTH_EAST;
-			}
-			else if (strcmp(typestring, "animation_boat_east") == 0)
-			{
-				animation.type = EntityType::BOAT;
-				animation.orientation = Orientation::EAST;
-			}
-			else if (strcmp(typestring, "animation_boat_south_east") == 0)
-			{
-				animation.type = EntityType::BOAT;
-				animation.orientation = Orientation::SOUTH_EAST;
-			}
-			else if (strcmp(typestring, "animation_boat_south") == 0)
-			{
-				animation.type = EntityType::BOAT;
-				animation.orientation = Orientation::SOUTH;
-			}
-			else if (strcmp(typestring, "animation_boat_south_west") == 0)
-			{
-				animation.type = EntityType::BOAT;
-				animation.orientation = Orientation::SOUTH_WEST;
-			}
-			else if (strcmp(typestring, "animation_boat_west") == 0)
-			{
-				animation.type = EntityType::BOAT;
-				animation.orientation = Orientation::WEST;
-			}
-			else if (strcmp(typestring, "animation_boat_north_west") == 0)
-			{
-				animation.type = EntityType::BOAT;
-				animation.orientation = Orientation::NORTH_WEST;
-			}
-			else
-			{
-				animation.type = EntityType::NONE;
-				animation.orientation = Orientation::NONE;
-			}
-				
-			LOG("UEP, found an animating tile! Type: %d", animation.type);
-			int nFrames = 0;
-			for (pugi::xml_node frame = animationNode.child("frame"); frame != NULL; frame = frame.next_sibling("frame"))
-			{
-				uint tileID = frame.attribute("tileid").as_uint();
-				SDL_Rect rect = set->GetAnimTileRect(tileID, columns);
-				animation.PushBack(rect);
-				uint duration = frame.attribute("duration").as_uint();
-				animation.speed = duration;
-				nFrames++;
-				LOG("Uep! Parseao frame %d, %d %d %d %d %d ms ", nFrames, rect.x, rect.y, rect.w, rect.h, duration);
-			}
-			allAnimations.push_back(animation);
 		}
-		//else
-		//{
-		// LOG("UEP, no s'han trobat animacions");
-		//}
-		
+	}
+	LOG("Tileset with texture %d %s with texture %d", level, name.c_str(), texture);
+	App->entitymanager->addTexture(texInfo);
+	if (texInfo.type == EntityType::BOAT && texInfo.level == 1)
+	{
+		for (pugi::xml_node tile = tileset_node.child("tile"); tile != NULL; tile = tile.next_sibling("tile"))
+		{
+			if (tile != NULL && !tile.attribute("type").empty())
+			{
+				uint aniId = tile.attribute("id").as_uint();
+				pugi::xml_node animationNode = tile.child("animation");
+				Animation animation;
+				const char* typestring = tile.attribute("type").as_string();
+				if (strcmp(typestring, "animation_eight_north") == 0)
+					animation.name = "entity_eight_north";
+				else if (strcmp(typestring, "animation_eight_northeast") == 0)
+					animation.name = "entity_eight_northeast";
+				else if (strcmp(typestring, "animation_eight_east") == 0)
+					animation.name = "entity_eight_east";
+				else if (strcmp(typestring, "animation_eight_southeast") == 0)
+					animation.name = "entity_eight_southeast";
+				else if (strcmp(typestring, "animation_eight_south") == 0)
+					animation.name = "entity_eight_south";
+				else if (strcmp(typestring, "animation_eight_southwest") == 0)
+					animation.name = "entity_eight_southwest";
+				else if (strcmp(typestring, "animation_eight_west") == 0)
+					animation.name = "entity_eight_west";
+				else if (strcmp(typestring, "animation_eight_northwest") == 0)
+					animation.name = "entity_eight_northwest";
+				//else
+				//{
+				//	texInfo.type = EntityType::NONE;
+				//}
+
+				LOG("UEP, found an animating tile! Type: %s", animation.name);
+				int nFrames = 0;
+				for (pugi::xml_node frame = animationNode.child("frame"); frame != NULL; frame = frame.next_sibling("frame"))
+				{
+					uint tileID = frame.attribute("tileid").as_uint();
+					SDL_Rect rect = set->GetAnimTileRect(tileID, columns);
+					animation.PushBack(rect);
+					uint duration = frame.attribute("duration").as_uint();
+					animation.speed = duration;
+					nFrames++;
+					LOG("	 Uep! Parseao frame %d, %d %d %d %d %d ms ", nFrames, rect.x, rect.y, rect.w, rect.h, duration);
+				}
+				App->entitymanager->allAnimations.push_back(animation);
+			}
+		}
 	}
 	return ret;
 }

@@ -20,8 +20,12 @@ public:
 
 	void DeleteEntity(j1Entity*);
 	void DeleteAll();
+	void addAnimation(Animation);
+	void addTexture(TextureInfo);
 
 	std::vector<j1Entity*> entities;
+	std::vector<Animation> allAnimations;
+	std::vector<TextureInfo> allTextures;
 
 private:
 

@@ -16,9 +16,7 @@ public:
 	SDL_Rect frames[MAX_FRAMES];
 	float speed;
 	uint n_frames = 0;
-	EntityType type;
-	Orientation orientation;
-	SDL_Texture* texture;
+	char* name;
 
 private:
 	float current_frame;

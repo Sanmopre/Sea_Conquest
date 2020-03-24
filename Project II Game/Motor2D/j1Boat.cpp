@@ -23,47 +23,35 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	health = max_health;
 	storage = { 0, 0, 0, 200 };
 	
-	for (std::vector<Animation>::iterator i = App->map->allAnimations.begin(); i != App->map->allAnimations.end(); i++) 
+	for (std::vector<Animation>::iterator i = App->entitymanager->allAnimations.begin(); i != App->entitymanager->allAnimations.end(); i++)
 	{
-		if (this->type == (i)->type)
-		{
-			if ((i)->orientation == Orientation::NORTH)
-			{
-				this->north = i->GetAnimation(); continue;
-			}
-			if ((i)->orientation == Orientation::NORTH_EAST)
-			{
-				this->north_east = i->GetAnimation(); continue;
-			}
-			if ((i)->orientation == Orientation::EAST)
-			{
-				this->east = i->GetAnimation(); continue;
-			}
-			if ((i)->orientation == Orientation::SOUTH_EAST)
-			{
-				this->south_east = i->GetAnimation(); continue;
-			}
-			if ((i)->orientation == Orientation::SOUTH)
-			{
-				this->south = i->GetAnimation(); continue;
-			}
-			if ((i)->orientation == Orientation::SOUTH_WEST)
-			{
-				this->south_west = i->GetAnimation(); continue;
-			}
-			if ((i)->orientation == Orientation::WEST)
-			{
-				this->west = i->GetAnimation(); continue;
-			}
-			if ((i)->orientation == Orientation::NORTH_WEST)
-			{
-				this->north_west = i->GetAnimation(); continue;
-			}
-		}
+		if (strcmp("entity_eight_north", (i)->name) == 0)
+			this->north = i->GetAnimation();
+		if (strcmp("entity_eight_northeast", (i)->name) == 0)
+			this->north_east = i->GetAnimation();
+		if (strcmp("entity_eight_east", (i)->name) == 0)
+			this->east = i->GetAnimation();
+		if (strcmp("entity_eight_southeast", (i)->name) == 0)
+			this->south_east = i->GetAnimation();
+		if (strcmp("entity_eight_south", (i)->name) == 0)
+			this->south = i->GetAnimation();
+		if (strcmp("entity_eight_southwest", (i)->name) == 0)
+			this->south_west = i->GetAnimation();
+		if (strcmp("entity_eight_west", (i)->name) == 0)
+			this->west = i->GetAnimation();
+		if (strcmp("entity_eight_northwest", (i)->name) == 0)
+			this->north_west = i->GetAnimation();
+		
 	}
 	rect = { (int)position.x, (int)position.y, 20, 20 };
 	target = nullptr;
-
+	for (std::vector<TextureInfo>::iterator e = App->entitymanager->allTextures.begin(); e != App->entitymanager->allTextures.end(); e++)
+	{
+		if ((this->type == (e)->type) && (this->level == (e)->level))
+			{
+			this->texture = (e)->texture; continue;
+			}
+	}
 }
 
 j1Boat::~j1Boat()
@@ -212,7 +200,7 @@ void j1Boat::SelectAnimation()
 	{
 	case Orientation::NORTH:
 		rect = north.GetCurrentFrame();
-		texture = north.texture;
+		//texture = north.texture;
 		break;
 
 	case Orientation::NORTH_EAST:
