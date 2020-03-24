@@ -11,16 +11,6 @@ j1Entity::~j1Entity()
 	tradeable_list.shrink_to_fit();
 }
 
-void j1Entity::Damage(int damage, j1Entity* target)
-{
-	if (target != nullptr)
-	{
-		target->health -= damage;
-		if (target->health < 0)
-			target->health = 0;
-	}
-}
-
 void  j1Entity::ShowHPbar(int extra_width, int height)
 {
 	if (!showing_hpbar)
@@ -137,6 +127,38 @@ void j1Entity::Trading()
 			counter++;
 		}
 	}
+}
+
+j1Entity* j1Entity::FindTarget(int range, EntityType type)
+{
+	j1Entity* ret;
+
+	float targetdistance = range;
+	float distance = 0.0f;
+
+	for (std::vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
+		if (*e != this && (*e)->team != team)
+			if(type == EntityType::NONE || (*e)->type == type)
+				if (position.x + range > (*e)->position.x &&
+					position.x - range < (*e)->position.x &&
+					position.y + range >(*e)->position.y &&
+					position.y - range < (*e)->position.y)
+				{
+					distance = sqrtf((position.x - (*e)->position.x) * (position.x - (*e)->position.x) + (position.y - (*e)->position.y) * (position.y - (*e)->position.y));
+
+					if (distance < range && distance < targetdistance)
+					{
+						ret = *e;
+						targetdistance = distance;
+					}
+
+					ShowHPbar(10, 5);
+				}
+
+	if (distance == 0.0f)
+		ret = nullptr;
+
+	return ret;
 }
 
 int j1Entity::GetRenderPositionX()

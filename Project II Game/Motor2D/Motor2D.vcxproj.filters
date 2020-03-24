@@ -136,11 +136,14 @@
     <ClCompile Include="j1ParticleManager.cpp">
       <Filter>Desenvolupament  ========\Particles</Filter>
     </ClCompile>
-    <ClCompile Include="Unit.cpp">
-      <Filter>Desenvolupament  ========\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="j1SceneManager.cpp">
       <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Resource.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Unit.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

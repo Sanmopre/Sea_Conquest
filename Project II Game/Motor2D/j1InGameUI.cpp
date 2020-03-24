@@ -301,17 +301,18 @@ void j1InGameUI::GetSelectedEntity()
 	int counter = 0;
 	for (std::vector<j1Entity*>::iterator entity = App->entitymanager->selected_list.begin(); entity != App->entitymanager->selected_list.end(); entity++)
 	{
-		if ((*entity)->team == 0)
-		{
-			if (counter == 0)
-				first = *entity;
-			last = *entity;
+		if(*entity != nullptr)
+			if ((*entity)->team == 0)
+			{
+				if (counter == 0)
+					first = *entity;
+				last = *entity;
 
-			if (counter == selected_offset)
-				selected = *entity;
+				if (counter == selected_offset)
+					selected = *entity;
 
-			counter++;
-		}
+				counter++;
+			}
 	}
 	selected_total = counter;
 	if (counter != 0 && selected == nullptr)

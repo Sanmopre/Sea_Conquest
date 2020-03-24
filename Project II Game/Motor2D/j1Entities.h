@@ -32,6 +32,12 @@ enum class EntityType
 {
 	BOAT,
 	BOATHOUSE,
+	HARVESTER,
+	WOOD_RESOURCE,
+	COTTON_RESOURCE,
+	METAL_RESOURCE,
+	EVEN2_RESOURCE,
+	EVEN3_RESOURCE,
 	NONE
 };
 
@@ -64,7 +70,7 @@ public:
 
 	bool to_delete;
 
-	void Damage(int damage, j1Entity* target);
+
 
 	int team;
 
@@ -91,6 +97,7 @@ protected:
 
 	void  ShowHPbar(int extra_width, int height);
 	void Trading();
+	j1Entity* FindTarget(int range, EntityType type);
 
 	bool showing_hpbar;
 	int trading_range;
@@ -141,8 +148,10 @@ class j1Resource : public j1Entity
 {
 public:
 
-	int amount;
+	j1Resource(float x = 0, float y = 0, int level = 1, EntityType type = EntityType::EVEN3_RESOURCE);
 
+	void Update(float dt);
+	void CleanUp();
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1Boat : public j1Unit
@@ -162,9 +171,8 @@ private:
 	void Move(float dt);
 	void NextStep();
 	void SetDestination();
-	void Attack();
-	void FindTarget();
 	void SelectAnimation();
+	void Damage(int damage, j1Entity* target);
 
 	timed_var firerate;
 };
@@ -183,5 +191,11 @@ public:
 	std::vector<EntityRequest> unitqueue;
 	timed_var building_time;
 	Color color;
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class j1Island : public j1Resource
+{
+public:
+
 };
 #endif // __j1Entities_H__

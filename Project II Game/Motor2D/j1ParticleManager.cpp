@@ -57,7 +57,7 @@ void j1ParticleManager::deleteAllParticles()
 }
 ///////////////////ParticleSystems methods
 
-ParticleSystem* j1ParticleManager::createSystem(PARTICLE_TYPES type, p2Point<float> location)
+ParticleSystem* j1ParticleManager::createSystem(PARTICLE_TYPES type, fPoint location)
 {
 	ParticleSystem* newSystem = new ParticleSystem(type, location, Index);
 	systems.push_back(newSystem);
