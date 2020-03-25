@@ -80,13 +80,13 @@ int j1SceneManager::ChangeScene(int scene)
 	switch (scene)
 	{
 	case 1:
-		App->map->CleanUp();
-		App->map->Load("mapa men.tmx") == true;
+		//App->map->CleanUp();
+		//App->map->Load("mapa men.tmx") == true;
 		In_Main_Menu = false;
 		return 1;
 		break;
 	case 2:
-		App->map->CleanUp();
+		//App->map->CleanUp();
 
 		//Managing camera
 		App->render->camera.x = 0;

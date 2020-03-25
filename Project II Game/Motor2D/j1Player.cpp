@@ -106,21 +106,17 @@ void j1Player::Camera_Control(float dt)
 {
 	if (mouse_position.x == 0) {
 		App->render->camera.x += camera_speed * dt * 1000;
-		//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
 	}
 	if (mouse_position.y == 0) {
 		App->render->camera.y += camera_speed/2 * dt * 1000;
-		//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
 	}
 
 	if (mouse_position.x > (win_width - camera_offset) / App->win->scale){
-			//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
 			App->render->camera.x -= camera_speed*dt* 1000;
 	}
 		
 
 	if (mouse_position.y > (win_height - camera_offset) / App->win->scale) {
-		//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
 		App->render->camera.y -= camera_speed/2 * dt * 1000;
 	}
 
