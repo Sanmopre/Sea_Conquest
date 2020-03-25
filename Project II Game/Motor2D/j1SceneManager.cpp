@@ -34,7 +34,9 @@ bool j1SceneManager::Awake()
 // Called before the first frame
 bool j1SceneManager::Start()
 {
-	//main_texture = App->tex->Load("textures/Main_Screen.png");
+	//LOAD THE START OF BOTH SCENES
+	App->map->Load("mapa men.tmx") == true;
+	App->scene2->main_texture = App->tex->Load("textures/Main_Screen.png");
 	return true;
 }
 

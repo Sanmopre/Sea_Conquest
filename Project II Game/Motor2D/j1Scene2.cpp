@@ -35,10 +35,6 @@ bool j1Scene2::Awake()
 // Called before the first frame
 bool j1Scene2::Start()
 {
-	//App->map_2->Load("iso.tmx") == true;
-	main_texture = App->tex->Load("textures/Main_Screen.png");
-
-	//debug_tex = App->tex->Load("maps/path2.png");
 
 	return true;
 }
@@ -75,7 +71,6 @@ bool j1Scene2::CleanUp()
 void j1Scene2::ChangeScene() {
 	
 	this->active = false;
-
 	App->scene->active = true;
 	App->scene->Start();
 }
