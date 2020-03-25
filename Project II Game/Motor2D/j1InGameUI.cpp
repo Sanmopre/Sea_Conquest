@@ -309,21 +309,21 @@ void j1InGameUI::GetSelectedEntity()
 	j1Entity* first  = nullptr;
 	j1Entity* last = nullptr;
 	int counter = 0;
-	for (std::vector<j1Entity*>::iterator entity = App->entitymanager->selected_list.begin(); entity != App->entitymanager->selected_list.end(); entity++)
-	{
-		if(*entity != nullptr)
-			if ((*entity)->team == 0)
-			{
-				if (counter == 0)
-					first = *entity;
-				last = *entity;
+	if(App->entitymanager->selected_list.size() != 0)
+		for (std::vector<j1Entity*>::iterator entity = App->entitymanager->selected_list.begin(); entity != App->entitymanager->selected_list.end(); entity++)
+			if(*entity != nullptr)
+				if ((*entity)->team == 1)
+				{
+					if (counter == 0)
+						first = *entity;
+					last = *entity;
 
-				if (counter == selected_offset)
-					selected = *entity;
+					if (counter == selected_offset)
+						selected = *entity;
 
-				counter++;
-			}
-	}
+					counter++;
+				}
+		
 	selected_total = counter;
 	if (counter != 0 && selected == nullptr)
 		if (selected_offset < 0)

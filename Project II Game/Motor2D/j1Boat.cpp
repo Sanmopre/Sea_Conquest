@@ -23,36 +23,36 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	max_health = 100;
 	health = max_health;
 	storage = { 0, 0, 0, 200 };
+	target = nullptr;
 	
 	for (std::vector<Animation>::iterator i = App->entitymanager->allAnimations.begin(); i != App->entitymanager->allAnimations.end(); i++)
 	{
-		if (strcmp("entity_eight_north", (i)->name) == 0)
+		if (strcmp("entity_eight_north", i->name) == 0)
 			this->north = i->GetAnimation();
-		if (strcmp("entity_eight_northeast", (i)->name) == 0)
+		if (strcmp("entity_eight_northeast", i->name) == 0)
 			this->north_east = i->GetAnimation();
-		if (strcmp("entity_eight_east", (i)->name) == 0)
+		if (strcmp("entity_eight_east", i->name) == 0)
 			this->east = i->GetAnimation();
-		if (strcmp("entity_eight_southeast", (i)->name) == 0)
+		if (strcmp("entity_eight_southeast", i->name) == 0)
 			this->south_east = i->GetAnimation();
-		if (strcmp("entity_eight_south", (i)->name) == 0)
+		if (strcmp("entity_eight_south", i->name) == 0)
 			this->south = i->GetAnimation();
-		if (strcmp("entity_eight_southwest", (i)->name) == 0)
+		if (strcmp("entity_eight_southwest", i->name) == 0)
 			this->south_west = i->GetAnimation();
-		if (strcmp("entity_eight_west", (i)->name) == 0)
+		if (strcmp("entity_eight_west", i->name) == 0)
 			this->west = i->GetAnimation();
-		if (strcmp("entity_eight_northwest", (i)->name) == 0)
+		if (strcmp("entity_eight_northwest", i->name) == 0)
 			this->north_west = i->GetAnimation();
-		
 	}
-	rect = { (int)position.x, (int)position.y, 20, 20 };
-	target = nullptr;
+
 	for (std::vector<TextureInfo>::iterator e = App->entitymanager->allTextures.begin(); e != App->entitymanager->allTextures.end(); e++)
-	{
-		if ((this->type == (e)->type) && (this->level == (e)->level))
-			{
-			this->texture = (e)->texture; continue;
-			}
-	}
+		if (this->type == e->type && this->level == e->level)
+		{
+			this->texture = e->texture; 
+			break;
+		}
+
+	rect = north.GetCurrentFrame();
 }
 
 j1Boat::~j1Boat()
@@ -70,7 +70,7 @@ void j1Boat::Update(float dt)
 		
 		if (selected)
 		{
-			if (team == 0)
+			if (team == 1)
 			{
 				if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
 					SetDestination();
@@ -112,10 +112,6 @@ void j1Boat::CleanUp()
 {
 	path.erase(path.begin(), path.end());
 	path.shrink_to_fit();
-
-	tradeable_list.erase(tradeable_list.begin(), tradeable_list.end());
-	tradeable_list.shrink_to_fit();
-
 	to_delete = true;
 }
 
@@ -216,7 +212,6 @@ void j1Boat::SelectAnimation()
 	{
 	case Orientation::NORTH:
 		rect = north.GetCurrentFrame();
-		//texture = north.texture;
 		break;
 
 	case Orientation::NORTH_EAST:

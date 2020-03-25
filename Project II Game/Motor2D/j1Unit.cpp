@@ -9,7 +9,7 @@ j1Unit::~j1Unit()
 
 void j1Unit::GoTo(fPoint destination, NodeType terrain)
 {
-	path = App->pathfinding->PathTo(this->position, destination, terrain);
+	path.swap(App->pathfinding->PathTo(this->position, destination, terrain));
 
 	if(path.size() != 0)
 		this->destination = *path.begin();

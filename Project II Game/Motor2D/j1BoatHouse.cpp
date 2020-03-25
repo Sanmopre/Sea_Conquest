@@ -47,9 +47,9 @@ void j1BoatHouse::Update(float dt)
 		ShowHPbar(10, 5);
 	}
 	else
-		if (team == 0)
+		if (team == 1)
 			color.Blue();
-		else if (team == 1)
+		else if (team == 2)
 			color.Red();
 
 	if (unitqueue.size() != 0)
@@ -76,7 +76,8 @@ void j1BoatHouse::Update(float dt)
 			}
 			App->entitymanager->AddEntity(unitqueue.begin()->x, unitqueue.begin()->y, unitqueue.begin()->type, unitqueue.begin()->level, unitqueue.begin()->team);
 			unitqueue.erase(unitqueue.begin());
-			unitqueue.shrink_to_fit();
+			if (unitqueue.size() <= unitqueue.capacity() / 2)
+				unitqueue.shrink_to_fit();
 			building_time.counter = 0;
 		}
 	}

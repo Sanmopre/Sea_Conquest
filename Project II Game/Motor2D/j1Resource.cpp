@@ -7,7 +7,7 @@ j1Resource::j1Resource(float x, float y, int level, EntityType type)
 	position.y = y;
 	this->level = level;
 	this->type = type;
-
+	team = 0;
 	health = 1000;
 	storage.maxweight = 1000 * level;
 
