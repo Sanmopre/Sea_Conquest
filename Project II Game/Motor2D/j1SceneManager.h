@@ -3,6 +3,8 @@
 
 #include "j1Module.h"
 
+struct SDL_Texture;
+
 
 class j1SceneManager : public j1Module
 {
@@ -33,6 +35,10 @@ public:
 
 public:
 	int current_scene = 0;
+	bool In_Main_Menu = false;
+
+private: 
+	SDL_Texture* main_texture = nullptr;
 
 };
 

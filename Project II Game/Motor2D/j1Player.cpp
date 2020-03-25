@@ -11,6 +11,7 @@
 #include "j1Window.h"
 #include "j1GUI.h"
 #include "j1InGameUI.h"
+#include "j1SceneManager.h"
 
 #include "j1EntityManager.h"
 
@@ -79,17 +80,18 @@ bool j1Player::Load(pugi::xml_node& data)
 bool j1Player::Update(float dt)
 {
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
-	
-	Camera_Control(dt);
-	Zoom();
-	Camera_Limit();
+	if (App->scenemanager->In_Main_Menu == false) {
+		Camera_Control(dt);
+		Zoom();
+		Camera_Limit();
+	}
 	//This functions should always be last//
 	Mouse_Cursor();
-	if(App->InGameUI->clicking_ui == false)
-	
-	if(dt != 0.0f)
-		Drag_Mouse(); 
-
+	if (App->scenemanager->In_Main_Menu == false) {
+		if (App->InGameUI->clicking_ui == false)
+			if (dt != 0.0f)
+				Drag_Mouse();
+	}
 	return true;
 }
 
@@ -104,21 +106,17 @@ void j1Player::Camera_Control(float dt)
 {
 	if (mouse_position.x == 0) {
 		App->render->camera.x += camera_speed * dt * 1000;
-		//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
 	}
 	if (mouse_position.y == 0) {
 		App->render->camera.y += camera_speed/2 * dt * 1000;
-		//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
 	}
 
 	if (mouse_position.x > (win_width - camera_offset) / App->win->scale){
-			//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
 			App->render->camera.x -= camera_speed*dt* 1000;
 	}
 		
 
 	if (mouse_position.y > (win_height - camera_offset) / App->win->scale) {
-		//SDL_WarpMouseInWindow(App->win->window, mouse_position.x, mouse_position.y);
 		App->render->camera.y -= camera_speed/2 * dt * 1000;
 	}
 

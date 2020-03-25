@@ -8,6 +8,7 @@
 #include "j1Input.h"
 #include "j1EntityManager.h"
 #include "j1Entities.h"
+#include "j1SceneManager.h"
 #include <vector>
 #include <iostream>
 
@@ -70,15 +71,15 @@ bool j1InGameUI::Update(float dt)
 
 	
 	//UPDATE RESOURCES
-
+	
 	sprintf_s(text_type_0, 10, "%7d", type_0);
 	sprintf_s(text_type_1, 10, "%7d", type_1);
 	sprintf_s(text_type_2, 10, "%7d", type_2);
-
-	App->fonts->BlitText(10 , 5 , 1,text_type_0);
-	App->fonts->BlitText(140 , 5 , 1, text_type_1);
-	App->fonts->BlitText(280 , 5 , 1, text_type_2);
-
+	if (App->scenemanager->In_Main_Menu == false) {
+		App->fonts->BlitText(10, 5, 1, text_type_0);
+		App->fonts->BlitText(140, 5, 1, text_type_1);
+		App->fonts->BlitText(280, 5, 1, text_type_2);
+	}
 	//MENU FROM ESC
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
@@ -143,6 +144,8 @@ void j1InGameUI::Add_UI()
 	basics.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,520 }, { 0,0 }, true, true, { 0, 0,1280,200 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MAIN_IMAGE);
 	basics.Resources = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,0 }, { 0,0 }, true, true, { 0, 0,400,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::RESOURCES_IMAGE);
 }
+
+
 
 
 void j1InGameUI::Activate_Menu()
@@ -338,4 +341,33 @@ void j1InGameUI::GetSelectedEntity()
 		}
 	if (selected != nullptr)
 		App->render->AddBlitEvent(0, nullptr, 0, 0, { selected->GetRenderPositionX(), selected->GetRenderPositionY(), 30, 30 }, false, false, 255, 0, 255, 100);
+}
+
+void j1InGameUI::Deactivate_All_UI()
+{
+	Deactivate_Manager();
+	Deactivate_Boat_Menu();
+	Deactivate_Building_Menu();
+
+
+
+	menu.Resume_button->enabled = false;
+	menu.Return_button->enabled = false;
+	menu.Exit_button->enabled = false;
+	menu.Load->enabled = false;
+	menu.Save->enabled = false;
+	menu.Image->enabled = false;
+	menu.Scroll->enabled = false;
+
+	basics.Image->enabled = false;
+	basics.Resources->enabled = false;
+	menu.Menu_button->enabled = false;
+}
+
+
+void j1InGameUI::Activate_Necessary_UI() {
+	basics.Image->enabled = true;
+	basics.Resources->enabled = true;
+	menu.Menu_button->enabled = true;
+
 }
