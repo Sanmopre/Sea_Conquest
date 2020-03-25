@@ -75,7 +75,6 @@ bool j1Scene::CleanUp()
 void j1Scene::ChangeScene()
 {
 	this->active = false;
-	App->map->CleanUp();
 	CleanUp();
 
 	App->scene2->active = true;

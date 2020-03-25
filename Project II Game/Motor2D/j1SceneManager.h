@@ -4,7 +4,7 @@
 #include "j1Module.h"
 
 struct SDL_Texture;
-
+class j1Transitions;
 
 class j1SceneManager : public j1Module
 {
@@ -38,7 +38,8 @@ public:
 	bool In_Main_Menu = false;
 
 private: 
-	SDL_Texture* main_texture = nullptr;
+
+	j1Transitions* transition = nullptr;
 
 };
 

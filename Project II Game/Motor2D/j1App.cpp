@@ -57,7 +57,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);
 	AddModule(entitymanager);
 	AddModule(scene);
-	//AddModule(scene2);
+	AddModule(scene2);
 	AddModule(pathfinding);
 	AddModule(gui);
 	AddModule(fonts);
@@ -130,7 +130,10 @@ bool j1App::Awake()
 bool j1App::Start()
 {
 	bool ret = true;
+	////
+	scene2->active = false;
 
+		////
 	p2List_item<j1Module*>* item;
 	item = modules.start;
 
