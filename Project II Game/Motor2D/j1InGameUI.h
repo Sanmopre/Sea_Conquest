@@ -59,6 +59,8 @@ public:
 	bool CleanUp();
 
 	void Add_UI();
+	void Deactivate_All_UI();
+	void Activate_Necessary_UI();
 	void Activate_Menu();
 
 

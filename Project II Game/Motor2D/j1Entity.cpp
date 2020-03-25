@@ -132,6 +132,7 @@ void j1Entity::Trading()
 j1Entity* j1Entity::FindTarget(int range, EntityType type)
 {
 	j1Entity* ret;
+	ret = nullptr;
 
 	float targetdistance = range;
 	float distance = 0.0f;
