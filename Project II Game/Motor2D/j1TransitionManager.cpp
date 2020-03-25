@@ -38,6 +38,7 @@ void j1TransitionManager::CleanTransitions(j1Transitions* transition) {
 	
 	// Removes the list and deletes the transition
 	transitions_list.remove(transition);
+
 	delete transition;
 }
 

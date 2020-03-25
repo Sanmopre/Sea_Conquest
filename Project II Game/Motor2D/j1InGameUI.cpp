@@ -191,6 +191,7 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			Activate_Menu();
 		}
 		if (element == menu.Menu_button) {
+			App->game_pause = !App->game_pause;
 			Activate_Menu();
 		}
 		if (element == building.Boat_Building_Button) {

@@ -36,8 +36,8 @@ public:
 	void ChangeScene();
 
 private:
-	SDL_Texture* debug_tex;
 
+	SDL_Texture* main_texture = nullptr;
 
 };
 

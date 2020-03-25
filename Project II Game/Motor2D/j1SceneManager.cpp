@@ -34,7 +34,7 @@ bool j1SceneManager::Awake()
 // Called before the first frame
 bool j1SceneManager::Start()
 {
-	main_texture = App->tex->Load("textures/Main_Screen.png");
+	//main_texture = App->tex->Load("textures/Main_Screen.png");
 	return true;
 }
 
@@ -49,13 +49,12 @@ bool j1SceneManager::PreUpdate()
 bool j1SceneManager::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		current_scene = ChangeScene(1);
+		ChangeScene(1);
 
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-		current_scene = ChangeScene(2);
+		ChangeScene(2);
 
 	if (In_Main_Menu == true) {
-		App->render->AddBlitEvent(1, main_texture, 0, 0, { 0,0,1280,720 }, false, true, 0u, 0u, 0u, 255, true);
 		App->InGameUI->Deactivate_All_UI();
 	}
 	else {
@@ -80,19 +79,17 @@ int j1SceneManager::ChangeScene(int scene)
 	switch (scene)
 	{
 	case 1:
-		//App->map->CleanUp();
-		//App->map->Load("mapa men.tmx") == true;
+		App->scene2->ChangeScene();
 		In_Main_Menu = false;
 		return 1;
 		break;
 	case 2:
-		//App->map->CleanUp();
 
+		App->scene->ChangeScene();
 		//Managing camera
 		App->render->camera.x = 0;
 		App->render->camera.y = 0;
 		App->win->scale = 1;
-
 
 		In_Main_Menu = true;
 		return 2;

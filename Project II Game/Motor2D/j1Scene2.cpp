@@ -35,9 +35,10 @@ bool j1Scene2::Awake()
 // Called before the first frame
 bool j1Scene2::Start()
 {
-	App->map_2->Load("iso.tmx") == true;
+	//App->map_2->Load("iso.tmx") == true;
+	main_texture = App->tex->Load("textures/Main_Screen.png");
 
-	debug_tex = App->tex->Load("maps/path2.png");
+	//debug_tex = App->tex->Load("maps/path2.png");
 
 	return true;
 }
@@ -52,16 +53,16 @@ bool j1Scene2::PreUpdate()
 // Called each loop iteration
 bool j1Scene2::Update(float dt)
 {
-	App->map->Draw();
+	App->render->AddBlitEvent(1, main_texture, 0, 0, { 0,0,1280,720 }, false, true, 0u, 0u, 0u, 255, true);
 
 	return true;
 }
 
 bool j1Scene2::PostUpdate()
 {
-	bool ret = true;
 
-	return ret;
+
+	return true;
 }
 
 bool j1Scene2::CleanUp()
@@ -72,11 +73,8 @@ bool j1Scene2::CleanUp()
 }
 
 void j1Scene2::ChangeScene() {
-
+	
 	this->active = false;
-	App->map_2->CleanUp();
-	CleanUp();
-
 
 	App->scene->active = true;
 	App->scene->Start();
