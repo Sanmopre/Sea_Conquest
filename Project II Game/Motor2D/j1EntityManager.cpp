@@ -183,3 +183,23 @@ void j1EntityManager::addTexture(TextureInfo texture)
 	allTextures.push_back(texture);
 	return;
 }
+
+void j1EntityManager::SearchEntity(std::vector<j1Entity*>* result, int selected, int team)
+{
+	AddSearchRequest(result, true, selected, team, SearchType::SELECTED, { 0,0 }, 0, false);
+}
+void j1EntityManager::SearchEntity(std::vector<j1Entity*>* result, int team)
+{
+	AddSearchRequest(result, true, 2, team, SearchType::TEAM, { 0,0 }, 0, false);
+}
+void j1EntityManager::SearchEntity(std::vector<j1Entity*>* result, fPoint searcher_position, int range, bool circular, int team, int selected)
+{
+	AddSearchRequest(result, true, selected, team, SearchType::AREA, searcher_position, range, circular);
+}
+
+void j1EntityManager::AddSearchRequest(std::vector<j1Entity*>* result, bool list, int selected, int team, SearchType type, fPoint searcher_position, int range, bool circular)
+{
+	SearchRequest request(result, list, selected, team, type,searcher_position, range, circular);
+	
+	requests.push_back(request);
+}
