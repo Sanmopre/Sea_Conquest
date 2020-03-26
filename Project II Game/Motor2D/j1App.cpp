@@ -22,6 +22,7 @@
 #include "j1InGameUI.h"
 #include "j1TransitionManager.h"
 #include "j1SceneManager.h"
+#include "j1MainMenuUI.h"
 #include <thread>
 
 // Constructor
@@ -45,6 +46,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	fonts = new j1Fonts();
 	transitions = new j1TransitionManager();
 	scenemanager = new j1SceneManager();
+	mainmenu = new j1MainMenuUI();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -63,6 +65,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scenemanager);
 	AddModule(scene);
 	AddModule(scene2);
+	AddModule(mainmenu);
 	//Player input
 	AddModule(InGameUI);
 	AddModule(player);
