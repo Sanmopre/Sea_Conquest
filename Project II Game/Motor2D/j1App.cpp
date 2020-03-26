@@ -48,25 +48,30 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
+	//Hardware
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
+	AddModule(fonts);
+	//Map and GUI
 	AddModule(map);
 	AddModule(map_2);
-	AddModule(player);
-	AddModule(entitymanager);
-	AddModule(scene);
-	AddModule(scene2);
-	AddModule(pathfinding);
 	AddModule(gui);
-	AddModule(fonts);
-	AddModule(InGameUI);
-	AddModule(pmanager);
+	//Scenes
 	AddModule(transitions);
 	AddModule(scenemanager);
-
-	// render last to swap buffer
+	AddModule(scene);
+	AddModule(scene2);
+	//Player input
+	AddModule(InGameUI);
+	AddModule(player);
+	//Entities
+	AddModule(entitymanager);
+	AddModule(pathfinding);
+	//Particles
+	AddModule(pmanager);
+	//Render (last to swap buffer)
 	AddModule(render);
 }
 

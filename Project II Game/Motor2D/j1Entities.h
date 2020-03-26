@@ -50,6 +50,14 @@ struct TextureInfo
 
 struct EntityRequest
 {
+	EntityRequest(float x, float y, EntityType type, int level, int team)
+	{
+		this->x = x;
+		this->y = y;
+		this->type = type;
+		this->level = level;
+		this->team = team;
+	}
 	float x, y;
 	EntityType type;
 	int level;
@@ -91,6 +99,8 @@ public:
 	Storage storage;
 	j1Entity* trading_entity;
 	int trading_entity_offset = 0;
+	int trading_offset_modifier;
+	int trading_total;
 
 	SDL_Rect rect;
 	SDL_Texture* texture;

@@ -196,13 +196,13 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			Activate_Menu();
 		}
 		if (element == building.Boat_Building_Button) {
-		 selected->BuildUnit(EntityType::BOAT,0);
+			selected->BuildUnit(EntityType::BOAT, 1);
 		}
 		if (element == manager.button_next) {
 
 			if (selected_total != 0)
 			{
-					selected_offset--;
+				offset_modifier = -1;
 			}
 
 		}
@@ -210,11 +210,10 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 
 			if (selected_total != 0)
 			{
-					selected_offset++;
+				offset_modifier = 1;
 			}
 
 		}
-
 	}
 	}
 }
@@ -286,7 +285,6 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 		Deactivate_Boat_Menu();
 		Deactivate_Building_Menu();
 	}
-
 }
 
 void j1InGameUI::Activate_Manager()
@@ -295,6 +293,10 @@ void j1InGameUI::Activate_Manager()
 	{
 		manager.button_next->enabled = true;
 		manager.buton_prev->enabled = true;
+	}
+	else
+	{
+		selected_offset = 0;
 	}
 	manager.image->enabled = true;
     manager.entity_type_Image->enabled = true;
@@ -310,39 +312,69 @@ void j1InGameUI::Deactivate_Manager()
 
 void j1InGameUI::GetSelectedEntity()
 {
-	selected = nullptr;
-	j1Entity* first  = nullptr;
-	j1Entity* last = nullptr;
-	int counter = 0;
-	if(App->entitymanager->entities.size() != 0)
-		for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
-			if(*entity != nullptr)
-				if((*entity)->selected)
-					if ((*entity)->team == 1)
-					{
-						if (counter == 0)
-							first = *entity;
-						last = *entity;
-
-						if (counter == selected_offset)
-							selected = *entity;
-
-						counter++;
-					}
-	selected_total = counter;
-	if (counter != 0 && selected == nullptr)
-		if (selected_offset < 0)
+	std::vector<j1Entity*> selected_list;
+	for (std::vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
+	{
+		if ((*e)->selected && (*e)->team == 1)
 		{
-			selected = last;
-			selected_offset = counter - 1;
+				bool found = false;
+				for (std::vector<j1Entity*>::iterator s = selected_list.begin(); s != selected_list.end(); s++)
+					if (*e == *s)
+					{
+						found = true;
+						break;
+					}
+				if (!found)
+					selected_list.push_back(*e);
 		}
 		else
+			for (std::vector<j1Entity*>::iterator s = selected_list.begin(); s != selected_list.end(); s++)
+				if (*e == *s)
+				{
+					selected_list.erase(s);
+					break;
+				}
+	}
+	selected_total = selected_list.size();
+
+	int counter = 0;
+
+	for (std::vector<j1Entity*>::iterator s = selected_list.begin(); s != selected_list.end(); s++)
+	{
+		if (*s == selected)
 		{
-			selected = first;
-			selected_offset = 0;
+			selected_offset = counter;
+			break;
 		}
-	if (selected != nullptr)
-		App->render->AddBlitEvent(0, nullptr, 0, 0, { selected->GetRenderPositionX(), selected->GetRenderPositionY(), 30, 30 }, false, false, 255, 0, 255, 100);
+		counter++;
+	}
+
+	selected_offset += offset_modifier;
+	offset_modifier = 0;
+
+	if (selected_offset < 0)
+		selected_offset = selected_list.size() - 1;
+	if (selected_offset > selected_list.size() - 1)
+		selected_offset = 0;
+
+	counter = 0;
+	
+	while (counter != selected_list.size())
+	{
+		std::vector<j1Entity*>::iterator s = selected_list.begin();
+		s += counter;
+		for (; s != selected_list.end(); s++)
+		{
+			if (s == selected_list.begin() + selected_offset)
+			{
+				selected = *s;
+	
+				App->render->AddBlitEvent(0, nullptr, 0, 0, { selected->GetRenderPositionX(), selected->GetRenderPositionY(), 30, 30 }, false, false, 255, 0, 255, 100);
+			}
+	
+			counter++;
+		}
+	}
 }
 
 void j1InGameUI::Deactivate_All_UI()

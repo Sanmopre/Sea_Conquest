@@ -90,7 +90,7 @@ void j1BoatHouse::Update(float dt)
 
 void j1BoatHouse::BuildUnit(EntityType type, int level)
 {
-	EntityRequest unit = { position.x + 50, position.y + 20, type, level, team };
+	EntityRequest unit(position.x + 50, position.y + 20, type, level, team);
 	unitqueue.push_back(unit);
 }
 

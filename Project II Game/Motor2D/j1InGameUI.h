@@ -87,6 +87,8 @@ public:
 	
 	bool  clicking_ui = false;
 
+	j1Entity* selected = nullptr;
+
 private:
 	//positions
 	float MiddleScreenW;
@@ -113,8 +115,8 @@ private:
 	Building_Menu building;
 	Boat_Menu boat;
 
-	j1Entity* selected = nullptr;
 	int selected_offset;
+	int offset_modifier;
 	int selected_total;
 
 	void GetSelectedEntity();

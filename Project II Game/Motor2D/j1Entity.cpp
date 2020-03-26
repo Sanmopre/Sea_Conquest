@@ -60,6 +60,12 @@ void  j1Entity::ShowHPbar(int extra_width, int height)
 
 void j1Entity::Trading()
 {
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
+		trading_offset_modifier = -1;
+
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		trading_offset_modifier = 1;
+
 	for (std::vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
 	{
 		if (*e != this && team == (*e)->team)
@@ -69,59 +75,63 @@ void j1Entity::Trading()
 				position.y - trading_range < (*e)->position.y)
 			{
 				bool found = false;
-				for (std::vector<j1Entity*>::iterator t = tradeable_list.begin(); t != tradeable_list.end(); t++)
-				{
-					if (*e == *t)
+				for (std::vector<j1Entity*>::iterator s = tradeable_list.begin(); s != tradeable_list.end(); s++)
+					if (*e == *s)
 					{
 						found = true;
 						break;
 					}
-				}
 				if (!found)
 					tradeable_list.push_back(*e);
 			}
 			else
-			{
-				for (std::vector<j1Entity*>::iterator t = tradeable_list.begin(); t != tradeable_list.end(); t++)
-				{
-					if (*e == *t)
+				for (std::vector<j1Entity*>::iterator s = tradeable_list.begin(); s != tradeable_list.end(); s++)
+					if (*e == *s)
 					{
-						tradeable_list.erase(t);
+						tradeable_list.erase(s);
 						break;
 					}
-				}
-			}
+	}
+	trading_total = tradeable_list.size();
+
+	int counter = 0;
+
+	for (std::vector<j1Entity*>::iterator s = tradeable_list.begin(); s != tradeable_list.end(); s++)
+	{
+		if (*s == trading_entity)
+		{
+			trading_entity_offset = counter;
+			break;
+		}
+		counter++;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
-		trading_entity_offset--;
+	trading_entity_offset += trading_offset_modifier;
+	trading_offset_modifier = 0;
 
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		trading_entity_offset++;
-	
 	if (trading_entity_offset < 0)
 		trading_entity_offset = tradeable_list.size() - 1;
 	if (trading_entity_offset > tradeable_list.size() - 1)
 		trading_entity_offset = 0;
 
-	int counter = 0;
+	counter = 0;
 
 	while (counter != tradeable_list.size())
 	{
-		std::vector<j1Entity*>::iterator t = tradeable_list.begin();
-		t += counter;
-		for (; t != tradeable_list.end(); t++)
+		std::vector<j1Entity*>::iterator s = tradeable_list.begin();
+		s += counter;
+		for (; s != tradeable_list.end(); s++)
 		{
-			if ((*t)->health == 0)
+			if ((*s)->health == 0.0f)
 			{
-				tradeable_list.erase(t);
-				tradeable_list.shrink_to_fit();
+				tradeable_list.erase(s);
 				break;
 			}
-			else if (t == tradeable_list.begin() + trading_entity_offset)
+			else if (s == tradeable_list.begin() + trading_entity_offset)
 			{
-				trading_entity = *t;
-				App->render->AddBlitEvent(0, nullptr, 0, 0, { (*t)->GetRenderPositionX(), (*t)->GetRenderPositionY(), 30, 30 }, false, false, 255, 255, 0, 100);
+				trading_entity = *s;
+
+				App->render->AddBlitEvent(0, nullptr, 0, 0, { trading_entity->GetRenderPositionX(), trading_entity->GetRenderPositionY(), 30, 30 }, false, false, 0, 255, 255, 100);
 			}
 
 			counter++;

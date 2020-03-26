@@ -7,6 +7,7 @@
 #include <vector>
 #include "j1Map.h"
 #include "j1ParticleManager.h"
+#include "j1InGameUI.h"
 
 j1Boat::j1Boat(float x, float y, int level, int team)
 {
@@ -75,7 +76,8 @@ void j1Boat::Update(float dt)
 				if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
 					SetDestination();
 
-				Trading();
+				if(this == App->InGameUI->selected)
+					Trading();
 			}
 
 			ShowHPbar(10, 5);
