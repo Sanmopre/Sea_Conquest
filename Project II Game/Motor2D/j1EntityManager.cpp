@@ -28,10 +28,6 @@ bool j1EntityManager::Start()
 bool j1EntityManager::Update(float dt)
 {
 	int counter = 0;
-
-	selected_list.erase(selected_list.begin(), selected_list.end());
-	selected_list.shrink_to_fit();
-
 	while (counter != entities.size())
 	{
 		vector<j1Entity*>::iterator entity = entities.begin();
@@ -44,11 +40,7 @@ bool j1EntityManager::Update(float dt)
 				break;
 			}
 			else
-			{
 				(*entity)->Update(dt);
-				if ((*entity)->selected)
-					selected_list.push_back(*entity);
-			}
 
 			counter++;
 		}
@@ -94,8 +86,9 @@ bool j1EntityManager::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
 	{
-		for (vector<j1Entity*>::iterator entity = selected_list.begin(); entity != selected_list.end(); entity++)
-			(*entity)->CleanUp();
+		for (vector<j1Entity*>::iterator entity = entities.begin(); entity != entities.end(); entity++)
+			if((*entity)->selected)
+				(*entity)->CleanUp();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
@@ -164,9 +157,6 @@ void j1EntityManager::DeleteAll()
 
 bool j1EntityManager::CleanUp()
 {
-	selected_list.erase(selected_list.begin(), selected_list.end());
-	selected_list.shrink_to_fit();
-
 	DeleteAll();
 
 	return true;
@@ -182,24 +172,4 @@ void j1EntityManager::addTexture(TextureInfo texture)
 {
 	allTextures.push_back(texture);
 	return;
-}
-
-void j1EntityManager::SearchEntity(std::vector<j1Entity*>* result, int selected, int team)
-{
-	AddSearchRequest(result, true, selected, team, SearchType::SELECTED, { 0,0 }, 0, false);
-}
-void j1EntityManager::SearchEntity(std::vector<j1Entity*>* result, int team)
-{
-	AddSearchRequest(result, true, 2, team, SearchType::TEAM, { 0,0 }, 0, false);
-}
-void j1EntityManager::SearchEntity(std::vector<j1Entity*>* result, fPoint searcher_position, int range, bool circular, int team, int selected)
-{
-	AddSearchRequest(result, true, selected, team, SearchType::AREA, searcher_position, range, circular);
-}
-
-void j1EntityManager::AddSearchRequest(std::vector<j1Entity*>* result, bool list, int selected, int team, SearchType type, fPoint searcher_position, int range, bool circular)
-{
-	SearchRequest request(result, list, selected, team, type,searcher_position, range, circular);
-	
-	requests.push_back(request);
 }

@@ -169,12 +169,13 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 	{
 
 		if (element == menu.Return_button)
-			for (std::vector<j1Entity*>::iterator entity = App->entitymanager->selected_list.begin(); entity != App->entitymanager->selected_list.end(); entity++)
-			{
-				(*entity)->storage.cotton += 10;
-				(*entity)->storage.wood += 15;
-				(*entity)->storage.metal += 5;
-			}
+			for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
+				if ((*entity)->selected)
+				{
+					(*entity)->storage.cotton += 10;
+					(*entity)->storage.wood += 15;
+					(*entity)->storage.metal += 5;
+				}
 
 		if (element == menu.Exit_button) {
 			App->win->Fullscreen();
@@ -313,21 +314,21 @@ void j1InGameUI::GetSelectedEntity()
 	j1Entity* first  = nullptr;
 	j1Entity* last = nullptr;
 	int counter = 0;
-	if(App->entitymanager->selected_list.size() != 0)
-		for (std::vector<j1Entity*>::iterator entity = App->entitymanager->selected_list.begin(); entity != App->entitymanager->selected_list.end(); entity++)
+	if(App->entitymanager->entities.size() != 0)
+		for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
 			if(*entity != nullptr)
-				if ((*entity)->team == 1)
-				{
-					if (counter == 0)
-						first = *entity;
-					last = *entity;
+				if((*entity)->selected)
+					if ((*entity)->team == 1)
+					{
+						if (counter == 0)
+							first = *entity;
+						last = *entity;
 
-					if (counter == selected_offset)
-						selected = *entity;
+						if (counter == selected_offset)
+							selected = *entity;
 
-					counter++;
-				}
-		
+						counter++;
+					}
 	selected_total = counter;
 	if (counter != 0 && selected == nullptr)
 		if (selected_offset < 0)
