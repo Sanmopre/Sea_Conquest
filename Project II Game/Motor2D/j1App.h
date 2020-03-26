@@ -25,6 +25,7 @@ class j1Fonts;
 class j1InGameUI;
 class j1TransitionManager;
 class j1SceneManager;
+class j1MainMenuUI;
 
 class j1App 
 {
@@ -107,6 +108,7 @@ public:
 	j1InGameUI*				InGameUI = NULL;
 	j1TransitionManager*	transitions = NULL;
 	j1SceneManager*			scenemanager = NULL;
+	j1MainMenuUI*			mainmenu = NULL;
 private:
 
 	p2List<j1Module*>	modules;

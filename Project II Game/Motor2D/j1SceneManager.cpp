@@ -12,6 +12,7 @@
 #include "j1Textures.h"
 #include "j1InGameUI.h"
 #include "j1Window.h"
+#include "j1MainMenuUI.h"
 #include "j1TransitionManager.h"
 
 
@@ -58,9 +59,11 @@ bool j1SceneManager::Update(float dt)
 
 	if (In_Main_Menu == true) {
 		App->InGameUI->Deactivate_All_UI();
+		App->mainmenu->Activate_Menu();
 	}
 	else {
 		App->InGameUI->Activate_Necessary_UI();
+		App->mainmenu->Deactivate_Menu();
 	}
 
 	
