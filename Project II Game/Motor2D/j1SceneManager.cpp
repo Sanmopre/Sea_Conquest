@@ -7,6 +7,7 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Transitions.h"
+#include "j1EntityManager.h"
 #include "j1Render.h"
 #include "j1Map.h"
 #include "j1Textures.h"
@@ -54,8 +55,10 @@ bool j1SceneManager::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		ChangeScene(1);
 
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+		App->entitymanager->DeleteAll();
 		ChangeScene(2);
+	}
 
 	if (In_Main_Menu == true) {
 		App->InGameUI->Deactivate_All_UI();

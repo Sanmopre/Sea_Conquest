@@ -67,8 +67,12 @@ bool j1InGameUI::PreUpdate()
 bool j1InGameUI::Update(float dt)
 {
 	GetSelectedEntity();
-	Manage_Entity_UI(selected);
-
+	if (App->scenemanager->In_Main_Menu == false) {
+		Manage_Entity_UI(selected);
+	}
+	else {
+		Manage_Entity_UI(nullptr);
+	}
 	
 	//UPDATE RESOURCES
 	
