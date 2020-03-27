@@ -67,7 +67,7 @@ bool j1InGameUI::PreUpdate()
 bool j1InGameUI::Update(float dt)
 {
 	GetSelectedEntity();
-	if (App->scenemanager->In_Main_Menu == false) {
+	if (App->scenemanager->In_Main_Menu == false && selected_total != 0) {
 		Manage_Entity_UI(selected);
 	}
 	else {
@@ -131,7 +131,6 @@ void j1InGameUI::Add_UI()
 	manager.image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 390,525 }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this,false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MANAGER_IMAGE);
 	manager.button_next = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW - 440,585 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::PREV);
 	manager.buton_prev = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW -25,585 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NEXT);
-	manager.entity_type_Image = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { width - 50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	
 	
 	//BOAT_MENU
@@ -303,7 +302,6 @@ void j1InGameUI::Activate_Manager()
 		selected_offset = 0;
 	}
 	manager.image->enabled = true;
-    manager.entity_type_Image->enabled = true; //<------------ BLACK SQUARE BUG CAUSE
 }
 
 void j1InGameUI::Deactivate_Manager()
@@ -311,7 +309,6 @@ void j1InGameUI::Deactivate_Manager()
 	manager.button_next->enabled = false;
 	manager.buton_prev->enabled = false;
 	manager.image->enabled = false;
-	manager.entity_type_Image->enabled = false;
 }
 
 void j1InGameUI::GetSelectedEntity()
