@@ -139,6 +139,7 @@ public:
 	void setFpsCap(uint32 fps);
 
 	bool				game_pause = false;
+	bool				godmode = true;
 
 };
 

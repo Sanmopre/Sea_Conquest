@@ -142,8 +142,7 @@ bool j1App::Start()
 	bool ret = true;
 	////
 	scene2->active = false;
-
-		////
+	////
 	p2List_item<j1Module*>* item;
 	item = modules.start;
 
@@ -271,6 +270,9 @@ void j1App::FinishUpdate()
 			SDL_Delay((1000 / framerate_cap) - last_frame_ms);
 		}
 	}
+
+	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		godmode = !godmode;
 }
 
 

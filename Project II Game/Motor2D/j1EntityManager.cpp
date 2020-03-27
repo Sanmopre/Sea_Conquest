@@ -5,6 +5,7 @@
 
 #include "j1Input.h"
 #include "j1Render.h"
+#include "j1Textures.h"
 #include "j1Window.h"
 
 using namespace std;
@@ -21,6 +22,7 @@ j1EntityManager::~j1EntityManager()
 
 bool j1EntityManager::Start()
 {
+	gainzmode = App->tex->Load("textures/GAINZ MODE.png");
 	LOG("EntityManager Started");
 	return true;
 }
@@ -56,44 +58,48 @@ bool j1EntityManager::Update(float dt)
 		buffer.shrink_to_fit();
 	}
 	////////////////////////////////////ENTITIES_DEBUG///////////////////////////////////////////////////
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	if (App->godmode)
 	{
-		iPoint test;
-		App->input->GetMousePosition(test.x, test.y);
-		test.x -= App->render->camera.x / App->win->GetScale();
-		test.y -= App->render->camera.y / App->win->GetScale();
-		AddEntity(test.x, test.y, EntityType::BOAT, 1, 1);
-	}
+		App->render->AddBlitEvent(20, gainzmode, (-App->render->camera.x/App->win->GetScale()), (-App->render->camera.y / App->win->GetScale()) + 30, { 0,0,101,161 }, false, true);
+		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		{
+			iPoint test;
+			App->input->GetMousePosition(test.x, test.y);
+			test.x -= App->render->camera.x / App->win->GetScale();
+			test.y -= App->render->camera.y / App->win->GetScale();
+			AddEntity(test.x, test.y, EntityType::BOAT, 1, 1);
+		}
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
-	{
-		iPoint test;
-		App->input->GetMousePosition(test.x, test.y);
-		test.x -= App->render->camera.x / App->win->GetScale();
-		test.y -= App->render->camera.y / App->win->GetScale();
-		AddEntity(test.x, test.y, EntityType::BOAT, 1, 2);
-	}
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+		{
+			iPoint test;
+			App->input->GetMousePosition(test.x, test.y);
+			test.x -= App->render->camera.x / App->win->GetScale();
+			test.y -= App->render->camera.y / App->win->GetScale();
+			AddEntity(test.x, test.y, EntityType::BOAT, 1, 2);
+		}
 
-	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
-	{
-		AddEntity(0, 0, EntityType::BOATHOUSE, 0, 1);
-	}
+		if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+		{
+			AddEntity(0, 0, EntityType::BOATHOUSE, 0, 1);
+		}
 
-	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
-	{
-		AddEntity(0, 0, EntityType::BOATHOUSE, 0, 2);
-	}
+		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+		{
+			AddEntity(0, 0, EntityType::BOATHOUSE, 0, 2);
+		}
 
-	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
-	{
-		for (vector<j1Entity*>::iterator entity = entities.begin(); entity != entities.end(); entity++)
-			if((*entity)->selected)
-				(*entity)->CleanUp();
-	}
+		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
+		{
+			for (vector<j1Entity*>::iterator entity = entities.begin(); entity != entities.end(); entity++)
+				if ((*entity)->selected)
+					(*entity)->CleanUp();
+		}
 
-	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
-	{
-		DeleteAll();
+		if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+		{
+			DeleteAll();
+		}
 	}
 	//*///////////////////////////////////////////////////////////////////////////////////////////////////
 	return true;

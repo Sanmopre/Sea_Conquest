@@ -5,6 +5,8 @@
 #include "j1Entities.h"
 #include <vector>
 
+struct SDL_Texture;
+
 class j1EntityManager : public j1Module
 {
 public:
@@ -32,6 +34,8 @@ private:
 
 	std::vector<j1Entity*> buffer;
 	void QuickDeleteEntity(std::vector<j1Entity*>::iterator itr);
+
+	SDL_Texture* gainzmode;
 };
 
 #endif // __j1EntityManager_H__

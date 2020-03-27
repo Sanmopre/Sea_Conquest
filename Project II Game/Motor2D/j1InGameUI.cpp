@@ -266,7 +266,7 @@ void j1InGameUI::Deactivate_Boat_Menu()
 void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 {
 	if (entity != nullptr) {
-
+	
 		Activate_Manager();
 		switch (entity->type)
 		{
@@ -303,7 +303,7 @@ void j1InGameUI::Activate_Manager()
 		selected_offset = 0;
 	}
 	manager.image->enabled = true;
-    manager.entity_type_Image->enabled = true;
+    manager.entity_type_Image->enabled = true; //<------------ BLACK SQUARE BUG CAUSE
 }
 
 void j1InGameUI::Deactivate_Manager()
