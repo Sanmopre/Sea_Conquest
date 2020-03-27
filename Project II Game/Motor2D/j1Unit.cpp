@@ -89,13 +89,13 @@ void j1Unit::NextStep()
 	}
 }
 
-void  j1Unit::SetDestination()
+void  j1Unit::SetDestination(NodeType terrain)
 {
 	iPoint m;
 	App->input->GetMousePosition(m.x, m.y);
 	m.x -= App->render->camera.x / App->win->GetScale();
 	m.y -= App->render->camera.y / App->win->GetScale();
-	GoTo({ (float)m.x, (float)m.y }, WATER);
+	GoTo({ (float)m.x, (float)m.y }, terrain);
 }
 
 void j1Unit::SelectAnimation()

@@ -122,6 +122,6 @@ void j1Boat::Damage(int damage, j1Entity* target)
 		target->health -= damage;
 		if (target->health < 0)
 			target->health = 0;
-		//App->pmanager->createSystem(PARTICLE_TYPES::FIRE, target->position, 1);
+		//App->pmanager->createSystem(PARTICLE_TYPES::FIRE, target->position);
 	}
 }

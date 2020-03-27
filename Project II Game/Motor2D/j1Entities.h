@@ -31,8 +31,9 @@ enum class Orientation
 enum class EntityType
 {
 	BOAT,
-	BOATHOUSE,
 	HARVESTER,
+	BOATHOUSE,
+	STORAGE,
 	RESOURCE,
 	NONE
 };
@@ -62,6 +63,11 @@ struct EntityRequest
 
 struct Storage
 {
+	int Total()
+	{
+		return wood + cotton + metal;
+	}
+
 	int wood;
 	int cotton;
 	int metal;
@@ -147,7 +153,7 @@ protected:
 	void GoTo(fPoint destination, NodeType terrain);
 	void Move(float dt);
 	void NextStep();
-	void SetDestination();
+	void SetDestination(NodeType terrain = NodeType::WATER);
 	void SelectAnimation();
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -189,6 +195,30 @@ private:
 	timed_var firerate;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class j1Harvester : public j1Unit
+{
+public:
+	j1Harvester(float x = 0, float y = 0, int level = 1, int team = 0);
+	~j1Harvester();
+
+	void Update(float);
+	void CleanUp();
+
+	void SetAutomatic();
+
+private:
+
+	void Harvest(int power, j1Entity* target);
+
+	bool automatic;
+	bool automating;
+	fPoint harvest_destination;
+	fPoint deposit_destination;
+
+	timed_var harvestrate;
+	int power;
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1BoatHouse : public j1Structure
 {
 public:
@@ -205,20 +235,4 @@ public:
 	Color color;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class j1Harvester : public j1Unit
-{
-public:
-	j1Harvester(float x = 0, float y = 0, int level = 1, int team = 0);
-	~j1Harvester();
-
-	void Update(float);
-	void CleanUp();
-
-private:
-
-	void Harvest(int power, j1Entity* target);
-
-	timed_var harvestrate;
-	int power;
-};
 #endif // __j1Entities_H__

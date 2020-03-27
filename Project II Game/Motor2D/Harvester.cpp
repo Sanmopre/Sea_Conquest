@@ -5,6 +5,7 @@
 #include "j1EntityManager.h"
 #include "j1ParticleManager.h"
 #include "j1InGameUI.h"
+#include "j1Window.h"
 
 #include <vector>
 
@@ -25,6 +26,10 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	health = max_health;
 	storage = { 0, 0, 0, 500 };
 	target = nullptr;
+
+	automatic = false;
+	automating = false;
+
 	for (std::vector<Animation>::iterator i = App->entitymanager->allAnimations.begin(); i != App->entitymanager->allAnimations.end(); i++)
 	{
 		if (strcmp("entity_eight_north", i->name) == 0)
@@ -70,8 +75,17 @@ void j1Harvester::Update(float dt)
 		{
 			if (team == 1)
 			{
-				if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
-					SetDestination();
+				if(!automating)
+					if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+					{
+						SetDestination(NodeType::ALL);
+						automatic = false;
+					}
+
+				if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+				{
+					SetAutomatic();
+				}
 
 				if (this == App->InGameUI->selected)
 					Trading();
@@ -79,6 +93,66 @@ void j1Harvester::Update(float dt)
 
 			ShowHPbar(10, 5);
 		}
+
+		if (automating && harvest_destination == position)
+			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+				if (FindTarget(range, EntityType::STORAGE) != nullptr)
+				{
+					iPoint m;
+					App->input->GetMousePosition(m.x, m.y);
+					m.x -= App->render->camera.x / App->win->GetScale();
+					m.y -= App->render->camera.y / App->win->GetScale();
+					deposit_destination = { (float)m.x, (float)m.y };
+					automating = false;
+					automatic = true;
+				}
+				else
+				{
+					automating = false;
+					harvest_destination = {};
+				}
+		else if (automating && deposit_destination == position)
+			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+				if (FindTarget(range, EntityType::RESOURCE) != nullptr)
+				{
+					iPoint m;
+					App->input->GetMousePosition(m.x, m.y);
+					m.x -= App->render->camera.x / App->win->GetScale();
+					m.y -= App->render->camera.y / App->win->GetScale();
+					harvest_destination = { (float)m.x, (float)m.y };
+					automating = false;
+					automatic = true;
+				}
+				else
+				{
+					automating = false;
+					deposit_destination = {};
+				}
+
+		if (automatic)
+		{
+			if (harvest_destination == position)
+			{
+				if (storage.Total() == storage.maxweight || target->storage.Total() == 0)
+					GoTo(deposit_destination, NodeType::ALL);
+				else
+				{
+					target = FindTarget(range, EntityType::RESOURCE);
+				}
+			}
+			else if (deposit_destination == position)
+			{
+				if (storage.Total() == 0)
+					GoTo(harvest_destination, NodeType::ALL);
+				else
+				{
+					target = FindTarget(range, EntityType::STORAGE);
+				}
+			}
+		}
+		else
+			if (storage.Total() != storage.maxweight)
+				target = FindTarget(range, EntityType::RESOURCE);
 
 		if (destination != position)
 			Move(dt);
@@ -88,17 +162,22 @@ void j1Harvester::Update(float dt)
 
 			if (target != nullptr)
 			{
-				harvestrate.counter += dt;
-				if (harvestrate.counter >= harvestrate.iterations)
+				if (target->type == EntityType::RESOURCE)
 				{
-					Harvest(power, target);
-					harvestrate.counter = 0;
+					harvestrate.counter += dt;
+					if (harvestrate.counter >= harvestrate.iterations)
+					{
+						Harvest(power, target);
+						harvestrate.counter = 0;
+					}
+				}
+				else if (target->type == EntityType::STORAGE)
+				{
+					//TRANFER RESOURCES
 				}
 			}
 		}
-
-		if (storage.wood + storage.cotton + storage.metal != storage.maxweight)
-			target = FindTarget(range, EntityType::RESOURCE);
+		
 		SelectAnimation();
 	}
 
@@ -113,6 +192,22 @@ void j1Harvester::CleanUp()
 	path.erase(path.begin(), path.end());
 	path.shrink_to_fit();
 	to_delete = true;
+}
+
+void j1Harvester::SetAutomatic()
+{
+	if (!automatic)
+	{
+		automating = true;
+		//if (FindTarget(range, EntityType::RESOURCE) != nullptr)
+			harvest_destination = position;
+		//else if (FindTarget(range, EntityType::STORAGE) != nullptr)
+		//	deposit_destination = position;
+		//else
+		//	automating = false;
+	}
+	else
+		automatic = false;
 }
 
 void j1Harvester::Harvest(int power, j1Entity* target)
