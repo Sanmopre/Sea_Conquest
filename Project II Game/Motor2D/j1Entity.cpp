@@ -11,13 +11,13 @@ j1Entity::~j1Entity()
 	tradeable_list.shrink_to_fit();
 }
 
-void  j1Entity::ShowHPbar(int extra_width, int height)
+void  j1Entity::ShowHPbar(int extra_width, int height, int distance)
 {
 	if (!showing_hpbar)
 	{
 		showing_hpbar = true;
 
-		SDL_Rect Brect = { GetRenderPositionX() - extra_width, GetRenderPositionY() - 20, rect.w + extra_width * 2, height };
+		SDL_Rect Brect = { GetRenderPositionX() - extra_width, GetRenderPositionY() - distance, rect.w + extra_width * 2, height };
 		Color Bcolor(96u, 96u, 96u);
 
 		float max_w = Brect.w;

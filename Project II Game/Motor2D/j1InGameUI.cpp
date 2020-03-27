@@ -12,15 +12,11 @@
 #include <vector>
 #include <iostream>
 
-
-
-
 j1InGameUI::j1InGameUI() : j1Module()
 {
 
 	name.create("InGameUI");
 }
-
 
 j1InGameUI::~j1InGameUI()
 {
@@ -32,7 +28,6 @@ bool j1InGameUI::Awake(pugi::xml_node& config)
 
 	return true;
 }
-
 
 bool j1InGameUI::Start()
 {
@@ -62,7 +57,6 @@ bool j1InGameUI::PreUpdate()
 
 	return true;
 }
-
 
 bool j1InGameUI::Update(float dt)
 {
@@ -147,9 +141,6 @@ void j1InGameUI::Add_UI()
 	basics.Resources = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,0 }, { 0,0 }, true, true, { 0, 0,400,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::RESOURCES_IMAGE);
 }
 
-
-
-
 void j1InGameUI::Activate_Menu()
 {
 	menu.Resume_button->enabled = !menu.Resume_button->enabled;
@@ -222,7 +213,6 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 
 bool j1InGameUI::PostUpdate()
 {
-
 	clicking_ui = false;
 
 	bool ret = true;
@@ -230,9 +220,7 @@ bool j1InGameUI::PostUpdate()
 		return false;
 	}
 	return ret;
-
 }
-
 
 void j1InGameUI::Activate_Building_Menu()
 {
@@ -259,7 +247,6 @@ void j1InGameUI::Deactivate_Boat_Menu()
 	boat.entity_name_boat->enabled = false;
 	boat.entity_type_Image->enabled = false;
 }
-
 
 void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 {
@@ -397,7 +384,6 @@ void j1InGameUI::Deactivate_All_UI()
 	basics.Resources->enabled = false;
 	menu.Menu_button->enabled = false;
 }
-
 
 void j1InGameUI::Activate_Necessary_UI() {
 	basics.Image->enabled = true;

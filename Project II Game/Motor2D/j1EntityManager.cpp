@@ -89,6 +89,24 @@ bool j1EntityManager::Update(float dt)
 			AddEntity(0, 0, EntityType::BOATHOUSE, 0, 2);
 		}
 
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+		{
+			iPoint test;
+			App->input->GetMousePosition(test.x, test.y);
+			test.x -= App->render->camera.x / App->win->GetScale();
+			test.y -= App->render->camera.y / App->win->GetScale();
+			AddEntity(test.x, test.y, EntityType::HARVESTER, 1, 1);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		{
+			iPoint test;
+			App->input->GetMousePosition(test.x, test.y);
+			test.x -= App->render->camera.x / App->win->GetScale();
+			test.y -= App->render->camera.y / App->win->GetScale();
+			AddEntity(test.x, test.y, EntityType::RESOURCE, 1);
+		}
+
 		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
 		{
 			for (vector<j1Entity*>::iterator entity = entities.begin(); entity != entities.end(); entity++)
@@ -114,6 +132,12 @@ j1Entity* j1EntityManager::AddEntity(float x, float y, EntityType type, int leve
 		break;
 	case EntityType::BOATHOUSE:
 		buffer.push_back(new j1BoatHouse(team));
+		break;
+	case EntityType::HARVESTER:
+		buffer.push_back(new j1Harvester(x, y, level, team));
+		break;
+	case EntityType::RESOURCE:
+		buffer.push_back(new j1Resource(x, y, level));
 		break;
 	}	
 

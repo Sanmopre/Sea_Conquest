@@ -33,11 +33,7 @@ enum class EntityType
 	BOAT,
 	BOATHOUSE,
 	HARVESTER,
-	WOOD_RESOURCE,
-	COTTON_RESOURCE,
-	METAL_RESOURCE,
-	EVEN2_RESOURCE,
-	EVEN3_RESOURCE,
+	RESOURCE,
 	NONE
 };
 
@@ -112,7 +108,7 @@ public:
 
 protected:
 
-	void  ShowHPbar(int extra_width, int height);
+	void  ShowHPbar(int extra_width, int height, int distance = 20);
 	void Trading();
 	j1Entity* FindTarget(int range, EntityType type);
 
@@ -130,9 +126,12 @@ public:
 	~j1Unit();
 
 	float speed;
+	int range;
 	Orientation orientation;
 	fPoint destination;
 	vector<fPoint> path;
+
+	j1Entity* target;
 
 protected:
 
@@ -145,8 +144,11 @@ protected:
 	Animation west;
 	Animation north_west;
 
-	fPoint past_frame_dest;
 	void GoTo(fPoint destination, NodeType terrain);
+	void Move(float dt);
+	void NextStep();
+	void SetDestination();
+	void SelectAnimation();
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1Structure : public j1Entity
@@ -165,7 +167,7 @@ class j1Resource : public j1Entity
 {
 public:
 
-	j1Resource(float x = 0, float y = 0, int level = 1, EntityType type = EntityType::EVEN3_RESOURCE);
+	j1Resource(float x = 0, float y = 0, int level = 1);
 
 	void Update(float dt);
 	void CleanUp();
@@ -180,15 +182,8 @@ public:
 	void Update(float);
 	void CleanUp();
 
-	int range;
-	j1Entity* target;
-
 private:
 
-	void Move(float dt);
-	void NextStep();
-	void SetDestination();
-	void SelectAnimation();
 	void Damage(int damage, j1Entity* target);
 
 	timed_var firerate;
@@ -210,9 +205,20 @@ public:
 	Color color;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class j1Island : public j1Resource
+class j1Harvester : public j1Unit
 {
 public:
+	j1Harvester(float x = 0, float y = 0, int level = 1, int team = 0);
+	~j1Harvester();
 
+	void Update(float);
+	void CleanUp();
+
+private:
+
+	void Harvest(int power, j1Entity* target);
+
+	timed_var harvestrate;
+	int power;
 };
 #endif // __j1Entities_H__

@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="FadeToColor.cpp" />
+    <ClCompile Include="Harvester.cpp" />
     <ClCompile Include="j1Boat.cpp" />
     <ClCompile Include="j1BoatHouse.cpp" />
     <ClCompile Include="j1Collision.cpp" />

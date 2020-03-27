@@ -1,13 +1,12 @@
 #include "j1Entities.h"
 
 #include "j1Render.h"
-#include "j1Window.h"
 #include "j1Input.h"
 #include "j1EntityManager.h"
-#include <vector>
-#include "j1Map.h"
 #include "j1ParticleManager.h"
 #include "j1InGameUI.h"
+
+#include <vector>
 
 j1Boat::j1Boat(float x, float y, int level, int team)
 {
@@ -116,86 +115,6 @@ void j1Boat::CleanUp()
 	to_delete = true;
 }
 
-void  j1Boat::Move(float dt)
-{
-	orientation = Orientation::NONE;
-
-	if (position.x < destination.x)
-	{
-		orientation = Orientation::EAST;
-		position.x += speed * dt;
-
-		if (position.x > destination.x)
-			position.x = destination.x;
-	}
-	if (position.x > destination.x)
-	{
-		orientation = Orientation::WEST;
-		position.x -= speed * dt;
-
-		if (position.x < destination.x)
-			position.x = destination.x;
-	}
-	if (position.y < destination.y)
-	{
-		if (orientation == Orientation::NONE)
-		{
-			orientation = Orientation::SOUTH;
-			position.y += speed * dt;
-		}
-		else
-		{
-			if (orientation == Orientation::EAST)
-				orientation = Orientation::SOUTH_EAST;
-			else// if (orientation == Orientation::WEST)
-				orientation = Orientation::SOUTH_WEST;
-
-			position.y += speed / 2 * dt;
-		}
-
-		if (position.y > destination.y)
-			position.y = destination.y;
-	}
-	if (position.y > destination.y)
-	{
-		if (orientation == Orientation::NONE)
-		{
-			orientation = Orientation::NORTH;
-			position.y -= speed * dt;
-		}
-		else
-		{
-			if (orientation == Orientation::EAST)
-				orientation = Orientation::NORTH_EAST;
-			else// if (orientation == Orientation::WEST)
-				orientation = Orientation::NORTH_WEST;
-
-			position.y -= speed / 2 * dt;
-		}
-
-		if (position.y < destination.y)
-			position.y = destination.y;
-	}	
-}
-
-void j1Boat::NextStep()
-{
-	if (path.size() != 0)
-	{
-		path.erase(path.begin());
-		destination = *path.begin();
-	}
-}
-
-void  j1Boat::SetDestination()
-{
-	iPoint m;
-	App->input->GetMousePosition(m.x, m.y);
-	m.x -= App->render->camera.x / App->win->GetScale();
-	m.y -= App->render->camera.y / App->win->GetScale();
-	GoTo({ (float)m.x, (float)m.y }, WATER);
-}
-
 void j1Boat::Damage(int damage, j1Entity* target)
 {
 	if (target->health != 0.0f)
@@ -204,50 +123,5 @@ void j1Boat::Damage(int damage, j1Entity* target)
 		if (target->health < 0)
 			target->health = 0;
 		//App->pmanager->createSystem(PARTICLE_TYPES::FIRE, target->position, 1);
-	}
-}
-
-void j1Boat::SelectAnimation()
-{
-	switch (orientation)
-	{
-	case Orientation::NORTH:
-		rect = north.GetCurrentFrame();
-		break;
-
-	case Orientation::NORTH_EAST:
-		rect = north_east.GetCurrentFrame();
-
-		break;
-
-	case Orientation::EAST:
-		rect = east.GetCurrentFrame();
-
-		break;
-
-	case Orientation::SOUTH_EAST:
-		rect = south_east.GetCurrentFrame();
-
-		break;
-
-	case Orientation::SOUTH:
-		rect = south.GetCurrentFrame();
-
-		break;
-
-	case Orientation::SOUTH_WEST:
-		rect = south_west.GetCurrentFrame();
-
-		break;
-
-	case Orientation::WEST:
-		rect = west.GetCurrentFrame();
-
-		break;
-
-	case Orientation::NORTH_WEST:
-		rect = north_west.GetCurrentFrame();
-
-		break;
 	}
 }
