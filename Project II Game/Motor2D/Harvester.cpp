@@ -102,8 +102,8 @@ void j1Harvester::Update(float dt)
 		SelectAnimation();
 	}
 
-	//App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
-	App->render->AddBlitEvent(1, nullptr, 0, 0, { GetRenderPositionX() , GetRenderPositionY(), rect.w, rect.h }, false, false, 255);
+	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+	
 	if (health == 0)
 		CleanUp();
 }
