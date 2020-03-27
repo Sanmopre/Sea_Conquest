@@ -32,7 +32,7 @@
   <tile id="22" terrain="1,1,1,1"/>
   <tile id="23" terrain="1,1,1,1"/>
  </tileset>
- <tileset firstgid="25" name="pipo-boat" tilewidth="32" tileheight="32" tilecount="24" columns="6">
+ <tileset firstgid="25" name="boat" tilewidth="32" tileheight="32" tilecount="24" columns="6">
   <properties>
    <property name="level" type="int" value="1"/>
    <property name="name" value="boat"/>
@@ -95,12 +95,19 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="49" name="pipo-ship" tilewidth="32" tileheight="32" tilecount="24" columns="6">
+ <tileset firstgid="49" name="galleon" tilewidth="32" tileheight="32" tilecount="24" columns="6">
   <properties>
    <property name="level" value="2"/>
    <property name="name" value="galleon"/>
   </properties>
   <image source="../textures/Pipoya Vehicle &amp; Ship Sprites/8-directional/pipo-ship.png" width="192" height="128"/>
+ </tileset>
+ <tileset firstgid="73" name="harvester" tilewidth="32" tileheight="32" tilecount="24" columns="6">
+  <properties>
+   <property name="level" type="int" value="1"/>
+   <property name="name" value="harvester"/>
+  </properties>
+  <image source="../textures/Pipoya Vehicle &amp; Ship Sprites/8-directional/pipo-drilltank_b.png" width="192" height="128"/>
  </tileset>
  <layer id="1" name="Capa de Patrones 1" width="150" height="150">
   <data>

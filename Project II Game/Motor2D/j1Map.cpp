@@ -399,7 +399,11 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 				texInfo.type = EntityType::BOAT;
 				texInfo.level = 2;
 			}
-			
+			if (strcmp(name.c_str(), "harvester") == 0)
+			{
+				texInfo.type = EntityType::HARVESTER;
+				texInfo.level = 1;
+			}
 		}
 	}
 	LOG("Tileset with texture %d %s with texture %d", level, name.c_str(), texture);
