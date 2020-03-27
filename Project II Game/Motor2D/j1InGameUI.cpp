@@ -75,8 +75,7 @@ bool j1InGameUI::Update(float dt)
 	}
 	
 	//UPDATE RESOURCES
-	
-	sprintf_s(text_type_0, 10, "%7d", type_0);
+	sprintf_s(text_type_0, 10, "%7d", menu.Scroll->Value);
 	sprintf_s(text_type_1, 10, "%7d", type_1);
 	sprintf_s(text_type_2, 10, "%7d", type_2);
 	if (App->scenemanager->In_Main_Menu == false) {
@@ -84,14 +83,14 @@ bool j1InGameUI::Update(float dt)
 		App->fonts->BlitText(140, 5, 1, text_type_1);
 		App->fonts->BlitText(280, 5, 1, text_type_2);
 	}
-	//MENU FROM ESC
 
+	//MENU FROM ESC
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 		Activate_Menu();
 		App->game_pause = !App->game_pause;
 	}
 
-	++type_0*dt;
+
 	++type_1*dt;
 	++type_2*dt;
 	return true;

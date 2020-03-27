@@ -52,18 +52,16 @@ bool j1ScrollBar::Update(float dt)
 		
 	}
 
-	//DRAW FUNCTION
-	if(enabled == true)
-	App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
-
-	ScrollLimits();
-	Value = -((float(-Button->inside_position.x) / (float(-this->rect.w) + float(Button->rect.w))) * 128);
+	
+	Value = -((float(-Button->inside_position.x) / (float(-this->rect.w) + float(Button->rect.w)))*100);
 	return true;
 }
 
 bool j1ScrollBar::PostUpdate()
 {
-
+	ScrollLimits();
+	if(enabled == true)
+	App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 	return true;
 }
 
@@ -75,7 +73,8 @@ bool j1ScrollBar::CleanUp()
 }
 
 
-void j1ScrollBar::ScrollLimits() {
+void j1ScrollBar::ScrollLimits() 
+{
 
 	if (Button->inside_position.x > 0)
 	{
@@ -91,5 +90,4 @@ void j1ScrollBar::ScrollLimits() {
 		Button->map_position.x = Button->parent->map_position.x - Button->inside_position.x;
 
 	}
-
 }
