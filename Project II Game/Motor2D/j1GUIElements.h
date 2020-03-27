@@ -89,6 +89,8 @@ public:
 
 	SDL_Rect rect = { 0,0,0,0 };
 
+	int Value;
+
 	SDL_Texture* texture = nullptr;
 	SDL_Texture* texture_hover = nullptr;
 };
@@ -193,7 +195,6 @@ public:
 	j1Element* Button = nullptr;
 	SCROLL_TYPE Type = SCROLL_TYPE::SCROLL_NONE;
 
-	float Value;
 };
 
 #endif // __j1GUIELEMENT_H__
