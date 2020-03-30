@@ -19,7 +19,7 @@ j1ScrollBar::~j1ScrollBar() {
 
 bool j1ScrollBar::Start()
 {
-	Button = App->gui->AddElement(GUItype::GUI_BUTTON, this, map_position, inside_position, true, true, { 0, 0, 10 , 25 }, nullptr, this->listener, true, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	Button = App->gui->AddElement(GUItype::GUI_BUTTON, this, map_position, inside_position, true, true, { 0, 0, 25 , 25 }, nullptr, this->listener, true, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
 	Button->map_position.y = map_position.y - Button->rect.h / 2 + this->rect.h / 2;
 	Value = 0;
 
@@ -51,7 +51,8 @@ bool j1ScrollBar::Update(float dt)
 		}
 		
 	}
-
+	if (enabled == true)
+		App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 	
 	Value = -((float(-Button->inside_position.x) / (float(-this->rect.w) + float(Button->rect.w)))*100);
 	return true;
@@ -60,8 +61,6 @@ bool j1ScrollBar::Update(float dt)
 bool j1ScrollBar::PostUpdate()
 {
 	ScrollLimits();
-	if(enabled == true)
-	App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 	return true;
 }
 

@@ -34,11 +34,29 @@ struct Building_Menu {
 	j1Element* entity_type_Image;
 	j1Element* entity_name_boathouse;
 	j1Element* Boat_Building_Button;
+	j1Element* Trade;
 };
 
 struct Boat_Menu {
 	j1Element* entity_type_Image;
 	j1Element* entity_name_boat;
+	j1Element* Trade;
+};
+
+struct Trading_Menu_Selected {
+	j1Element* Scroll;
+	j1Element* Scroll_1;
+	j1Element* Scroll_2;
+	j1Element* back;
+};
+
+struct Trader_Menu {
+	j1Element* image;
+	j1Element* button_next;
+	j1Element* buton_prev;
+	j1Element* Scroll;
+	j1Element* Scroll_1;
+	j1Element* Scroll_2;
 };
 
 struct SDL_Texture;
@@ -63,6 +81,13 @@ public:
 	void Activate_Necessary_UI();
 	void Activate_Menu();
 
+
+	//TRADING OPTIONS
+	void Activate_Trading();
+	void Deactivate_Trading();
+
+	void Activate_Trader();
+	void Deactivate_Trader();
 
 
 	//BOAT_BUILDING
@@ -110,6 +135,8 @@ private:
 	Game_Menu menu;
 	Unit_Manager_UI manager;
 	In_Game_Basics basics;
+	Trading_Menu_Selected trading;
+	Trader_Menu trader;
 
 	//ENtities
 	Building_Menu building;
@@ -121,7 +148,7 @@ private:
 
 	void GetSelectedEntity();
 
-	
+	bool in_trading = false;
 	int font_name = -1;
 	bool quit = false;
 };

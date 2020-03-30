@@ -65,6 +65,7 @@ bool j1InGameUI::Update(float dt)
 		Manage_Entity_UI(selected);
 	}
 	else {
+		in_trading = false;
 		Manage_Entity_UI(nullptr);
 	}
 	
@@ -114,7 +115,7 @@ void j1InGameUI::Add_UI()
 
 
 	///////////////////////////////
-	menu.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 60, 550 }, { 0,0 }, false, false, { 0, 0, 400, 10 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	menu.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 0 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
 	///////////////////////////////
 	
 	
@@ -129,16 +130,25 @@ void j1InGameUI::Add_UI()
 	//BOAT_MENU
 	boat.entity_name_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 245,555 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT ", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	boat.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 205,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BOAT_IMAGE);
+	boat.Trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 195,645 }, { 0,0 }, true, true, { 0,0,30,30 }, nullptr, this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
+
 
 	//BOAT_BUILDER_MENU
 	building.Boat_Building_Button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 195,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "10", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BOAT_IMAGE);
 	building.entity_name_boathouse = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 245,555 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT HOUSE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	building.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 205,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUILDING_IMAGE);
-
+	building.Trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 195,645 }, { 0,0 }, true, true, { 0,0,30,30 }, nullptr, this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
 
 	//UI BASICS ALWAYS ACTIVE
 	basics.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,520 }, { 0,0 }, true, true, { 0, 0,1280,200 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MAIN_IMAGE);
 	basics.Resources = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,0 }, { 0,0 }, true, true, { 0, 0,400,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::RESOURCES_IMAGE);
+
+
+	//TRADING_MENU
+	trading.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 550 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	trading.Scroll_1 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 580 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	trading.Scroll_2 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 610 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	trading.back = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 195,645 }, { 0,0 }, true, true, { 0,0,30,30 }, nullptr, this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
 }
 
 void j1InGameUI::Activate_Menu()
@@ -150,6 +160,22 @@ void j1InGameUI::Activate_Menu()
 	menu.Save->enabled = !menu.Save->enabled;
 	menu.Image->enabled = !menu.Image->enabled;
 	menu.Scroll->enabled = !menu.Scroll->enabled;
+}
+
+void j1InGameUI::Activate_Trading()
+{
+	trading.Scroll->enabled = true;
+	trading.Scroll_1->enabled = true;
+	trading.Scroll_2->enabled = true;
+	trading.back->enabled = true;
+}
+
+void j1InGameUI::Deactivate_Trading()
+{
+	trading.Scroll->enabled = false;
+	trading.Scroll_1->enabled = false;
+	trading.Scroll_2->enabled = false;
+	trading.back->enabled = false;
 }
 
 void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
@@ -199,6 +225,20 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			}
 
 		}
+		if (element == boat.Trade) {
+			in_trading = true;
+			Deactivate_Boat_Menu();
+			Activate_Trading();
+		}
+		if (element == building.Trade) {
+			in_trading = true;
+			Deactivate_Building_Menu();
+			Activate_Trading();
+		}
+		if (element == trading.back) {
+			in_trading = false;
+			Deactivate_Trading();
+		}
 		if (element == manager.buton_prev) {
 
 			if (selected_total != 0)
@@ -227,6 +267,8 @@ void j1InGameUI::Activate_Building_Menu()
 	building.Boat_Building_Button->enabled = true;
 	building.entity_name_boathouse->enabled = true;
 	building.entity_type_Image->enabled = true;
+	building.Trade->enabled = true;
+
 }
 
 void j1InGameUI::Deactivate_Building_Menu() 
@@ -234,18 +276,21 @@ void j1InGameUI::Deactivate_Building_Menu()
 	building.Boat_Building_Button->enabled = false;
 	building.entity_name_boathouse->enabled = false;
 	building.entity_type_Image->enabled = false;
+	building.Trade->enabled = false;
 }
 
 void j1InGameUI::Activate_Boat_Menu()
 {
 	boat.entity_name_boat->enabled = true;
 	boat.entity_type_Image->enabled = true;
+	boat.Trade->enabled = true;
 }
 
 void j1InGameUI::Deactivate_Boat_Menu()
 {
 	boat.entity_name_boat->enabled = false;
 	boat.entity_type_Image->enabled = false;
+	boat.Trade->enabled = false;
 }
 
 void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
@@ -256,10 +301,12 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 		switch (entity->type)
 		{
 		case EntityType::BOATHOUSE:
+			if (in_trading != true)
 			Activate_Building_Menu();
 			Deactivate_Boat_Menu();
 			break;
 		case EntityType::BOAT:
+			if(in_trading != true)
 			Activate_Boat_Menu();
 			Deactivate_Building_Menu();
 			break;
@@ -272,7 +319,8 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 	else {
 		Deactivate_Manager();
 		Deactivate_Boat_Menu();
-		Deactivate_Building_Menu();
+		Deactivate_Building_Menu(); 
+		Deactivate_Trading();
 	}
 }
 

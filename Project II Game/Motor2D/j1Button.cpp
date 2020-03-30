@@ -23,6 +23,9 @@ bool j1Button::Start()
 		texture_hover = App->gui->Load_Texture(TEXTURE::BUTON_HOVER);
 	}
 
+	if (textureType == TEXTURE::TRADE)
+		texture = App->gui->Load_Texture(TEXTURE::TRADE);
+
 	if (textureType == TEXTURE::OPTIONS)
 		texture = App->gui->Load_Texture(TEXTURE::OPTIONS);
 
