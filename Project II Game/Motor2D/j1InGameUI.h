@@ -43,6 +43,12 @@ struct Boat_Menu {
 	j1Element* Trade;
 };
 
+struct Harvester_Menu {
+	j1Element* entity_type_Image;
+	j1Element* entity_name_Harvester;
+	j1Element* Trade;
+};
+
 struct Trading_Menu_Selected {
 	j1Element* Scroll;
 	j1Element* Scroll_1;
@@ -98,6 +104,10 @@ public:
 	void Activate_Boat_Menu();
 	void Deactivate_Boat_Menu();
 
+	//HARVESTER
+	void Activate_Harvester_Menu();
+	void Deactivate_Harvester_Menu();
+
 
 
 	void Manage_Entity_UI(j1Entity* entity);
@@ -137,6 +147,7 @@ private:
 	In_Game_Basics basics;
 	Trading_Menu_Selected trading;
 	Trader_Menu trader;
+	Harvester_Menu harvester;
 
 	//ENtities
 	Building_Menu building;

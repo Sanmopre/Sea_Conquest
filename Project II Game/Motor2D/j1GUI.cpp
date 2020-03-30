@@ -135,6 +135,9 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::TRADE:
 		texture_load = App->tex->Load("textures/trade.png");
 		break;
+	case TEXTURE::HARVESTER:
+		texture_load = App->tex->Load("textures/harvester.png");
+		break;
 	}
 
 	return texture_load;

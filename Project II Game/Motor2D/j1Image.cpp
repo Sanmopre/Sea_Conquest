@@ -35,6 +35,9 @@ bool j1Image::Start()
 	if (textureType == TEXTURE::BUILDING_IMAGE)
 		texture = App->gui->Load_Texture(TEXTURE::BUILDING_IMAGE);
 
+	if (textureType == TEXTURE::HARVESTER)
+		texture = App->gui->Load_Texture(TEXTURE::HARVESTER);
+
 	return true;
 }
 
