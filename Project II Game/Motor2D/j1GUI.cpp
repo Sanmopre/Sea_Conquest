@@ -138,6 +138,9 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::HARVESTER:
 		texture_load = App->tex->Load("textures/harvester.png");
 		break;
+	case TEXTURE::BOTON_SCROLL:
+		texture_load = App->tex->Load("textures/boton_scroll.png");
+		break;
 	}
 
 	return texture_load;

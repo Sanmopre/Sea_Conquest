@@ -43,6 +43,7 @@ enum class TEXTURE
 	BOAT_IMAGE,
 	TRADE,
 	HARVESTER,
+	BOTON_SCROLL,
 	NONE
 };
 
