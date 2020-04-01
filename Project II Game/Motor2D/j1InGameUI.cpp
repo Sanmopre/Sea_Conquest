@@ -70,7 +70,8 @@ bool j1InGameUI::Update(float dt)
 	}
 	
 	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
-	
+		menu.Scroll->Button->inside_position.x = -118;
+		menu.Scroll->Button->map_position.x = 190 + 118;
 	}
 
 	//UPDATE RESOURCES

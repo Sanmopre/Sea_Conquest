@@ -108,6 +108,8 @@ bool j1Button::Update(float dt)
 		}
 		else if (textureType == TEXTURE::BOTON_SCROLL) {
 
+			//LIMITING THE SCROLL BAR BUTTON VISUALY
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			if (inside_position.x > 0) {
 				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x + inside_position.x, map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 			}
@@ -116,7 +118,7 @@ bool j1Button::Update(float dt)
 			}
 			else 
 				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x , map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
-		
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		
 		}
