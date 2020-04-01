@@ -69,6 +69,10 @@ bool j1InGameUI::Update(float dt)
 		Manage_Entity_UI(nullptr);
 	}
 	
+	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
+	
+	}
+
 	//UPDATE RESOURCES
 	sprintf_s(text_type_0, 10, "%7d", menu.Scroll->Value);
 	sprintf_s(text_type_1, 10, "%7d", type_1);
@@ -86,8 +90,6 @@ bool j1InGameUI::Update(float dt)
 	}
 
 
-	++type_1*dt;
-	++type_2*dt;
 	return true;
 
 
@@ -115,7 +117,7 @@ void j1InGameUI::Add_UI()
 
 
 	///////////////////////////////
-	menu.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 0 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	menu.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 70 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
 	///////////////////////////////
 	
 	

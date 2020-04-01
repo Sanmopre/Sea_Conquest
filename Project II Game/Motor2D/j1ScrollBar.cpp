@@ -79,7 +79,7 @@ void j1ScrollBar::ScrollLimits()
 	{
 		Button->inside_position.x = 0;
 
-		Button->map_position.x = Button->parent->map_position.x - Button->inside_position.x;
+		Button->map_position.x = Button->parent->map_position.x + Button->inside_position.x;
 
 	}
 	else if (Button->inside_position.x < (-this->rect.w + Button->rect.w))

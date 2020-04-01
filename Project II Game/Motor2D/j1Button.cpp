@@ -106,7 +106,21 @@ bool j1Button::Update(float dt)
 				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x , map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 			}
 		}
-		else {
+		else if (textureType == TEXTURE::BOTON_SCROLL) {
+
+			if (inside_position.x > 0) {
+				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x + inside_position.x, map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
+			}
+			else if (inside_position.x < -260) {
+				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x + inside_position.x + 260, map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
+			}
+			else 
+				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x , map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
+		
+		
+		
+		}
+		else{
 			App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 
 		}
