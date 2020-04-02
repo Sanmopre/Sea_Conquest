@@ -70,8 +70,11 @@ bool j1InGameUI::Update(float dt)
 	}
 	
 	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
-		menu.Scroll->Button->inside_position.x = -118;
-		menu.Scroll->Button->map_position.x = 190 + 118;
+
+
+		Update_Bar(menu.Scroll, 350, 500);
+
+
 	}
 
 	//UPDATE RESOURCES
@@ -352,6 +355,15 @@ void j1InGameUI::Deactivate_Harvester_Menu()
 	harvester.entity_name_Harvester->enabled = false;
 	harvester.entity_type_Image->enabled = false;
 	harvester.Trade->enabled = false;
+}
+
+void j1InGameUI::Update_Bar(j1Element* scroll, float resource, float total_resource)
+{
+	float percentage = 0;
+	percentage = resource / total_resource;
+
+	scroll->Button->inside_position.x = -(235 * percentage);
+	scroll->Button->map_position.x = 190 + (235 * percentage);
 }
 
 void j1InGameUI::Manage_Entity_UI(j1Entity* entity)

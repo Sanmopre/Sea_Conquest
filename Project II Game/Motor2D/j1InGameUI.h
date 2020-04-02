@@ -108,7 +108,7 @@ public:
 	void Activate_Harvester_Menu();
 	void Deactivate_Harvester_Menu();
 
-
+	void Update_Bar(j1Element* scroll, float resource, float total_resource);
 
 	void Manage_Entity_UI(j1Entity* entity);
 
