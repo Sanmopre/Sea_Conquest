@@ -57,13 +57,16 @@ bool j1MainMenuUI::Update(float dt)
 }
 
 
+
+
 //UI FUNCTIONS
 void j1MainMenuUI::Add_UI()
 {
 	//MENU
-	menu.start = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510,140 }, { 50,25 }, true, true, { 0,0,200,65 }, "START", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.audio_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510, 240}, { 30,25 }, true, true, { 0,0,200,65 }, "AUDIO OPT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.quit = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510,340 }, { 50,25 }, true, true, { 0,0,200,65 }, "QUIT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.start = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510,140 }, { 50,25 }, true, false, { 0,0,200,65 }, "START", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.audio_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510, 240}, { 30,25 }, true, false, { 0,0,200,65 }, "AUDIO OPT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.quit = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510,440 }, { 50,25 }, true, false, { 0,0,200,65 }, "QUIT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.fullscreen = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510,340 }, { 50,25 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 }
 
 
@@ -74,6 +77,7 @@ void j1MainMenuUI::Activate_Menu()
 	menu.start->enabled = true;
 	menu.audio_button->enabled = true;
 	menu.quit->enabled = true;
+	menu.fullscreen->enabled = true;
 }
 
 void j1MainMenuUI::Deactivate_Menu()
@@ -81,6 +85,7 @@ void j1MainMenuUI::Deactivate_Menu()
 	menu.start->enabled = false;
 	menu.audio_button->enabled = false;
 	menu.quit->enabled = false;
+	menu.fullscreen->enabled = false;
 }
 
 void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
@@ -100,12 +105,21 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		
 		}
 
+		if (element == menu.fullscreen)
+		{
+			App->win->Fullscreen();
+		}
+
 		if (element == menu.quit) 
 		{
-			quit = true;
+			quit = false;
 		}
 		
 	}
 	}
 }
 
+bool j1MainMenuUI::PostUpdate()
+{
+	return quit;
+}

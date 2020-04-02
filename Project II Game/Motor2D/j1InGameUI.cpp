@@ -69,6 +69,11 @@ bool j1InGameUI::Update(float dt)
 		Manage_Entity_UI(nullptr);
 	}
 	
+	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
+		menu.Scroll->Button->inside_position.x = -118;
+		menu.Scroll->Button->map_position.x = 190 + 118;
+	}
+
 	//UPDATE RESOURCES
 	sprintf_s(text_type_0, 10, "%7d", menu.Scroll->Value);
 	sprintf_s(text_type_1, 10, "%7d", type_1);
@@ -86,8 +91,6 @@ bool j1InGameUI::Update(float dt)
 	}
 
 
-	++type_1*dt;
-	++type_2*dt;
 	return true;
 
 
@@ -115,7 +118,7 @@ void j1InGameUI::Add_UI()
 
 
 	///////////////////////////////
-	menu.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 0 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	menu.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 70 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
 	///////////////////////////////
 	
 	
@@ -151,10 +154,18 @@ void j1InGameUI::Add_UI()
 
 
 	//TRADING_MENU
-	trading.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 550 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
-	trading.Scroll_1 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 580 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
-	trading.Scroll_2 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 610 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	trading.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 560 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	trading.Scroll_1 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 590 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	trading.Scroll_2 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 620 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
 	trading.back = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 195,645 }, { 0,0 }, true, true, { 0,0,30,30 }, nullptr, this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
+
+	//TRADER 
+	trader.image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW + 80,525 }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MANAGER_IMAGE);
+	trader.buton_prev = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 430 ,585 }, { 0,0 }, true, false, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NEXT);
+	trader.button_next = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 40,585 }, { 0,0 }, true,false, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::PREV);
+	trader.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { MiddleScreenW + 130, 560 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	trader.Scroll_1 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { MiddleScreenW + 130, 590 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	trader.Scroll_2 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { MiddleScreenW + 130, 620 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
 }
 
 void j1InGameUI::Activate_Menu()
@@ -182,6 +193,27 @@ void j1InGameUI::Deactivate_Trading()
 	trading.Scroll_1->enabled = false;
 	trading.Scroll_2->enabled = false;
 	trading.back->enabled = false;
+}
+
+void j1InGameUI::Activate_Trader()
+{
+	trader.buton_prev->enabled = true;
+	trader.button_next->enabled = true;
+	trader.image->enabled = true;
+	trader.Scroll->enabled = true;
+	trader.Scroll_1->enabled = true;
+	trader.Scroll_2->enabled = true;
+		
+}
+
+void j1InGameUI::Deactivate_Trader()
+{
+	trader.buton_prev->enabled = false;
+	trader.button_next->enabled = false;
+	trader.image->enabled = false;
+	trader.Scroll->enabled = false;
+	trader.Scroll_1->enabled = false;
+	trader.Scroll_2->enabled = false;
 }
 
 void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
@@ -235,20 +267,24 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			in_trading = true;
 			Deactivate_Boat_Menu();
 			Activate_Trading();
+			Activate_Trader();
 		}
 		if (element == building.Trade) {
 			in_trading = true;
 			Deactivate_Building_Menu();
 			Activate_Trading();
+			
 		}
 		if (element == harvester.Trade) {
 			in_trading = true;
 			Deactivate_Harvester_Menu();
 			Activate_Trading();
+			
 		}
 		if (element == trading.back) {
 			in_trading = false;
 			Deactivate_Trading();
+			Deactivate_Trader();
 		}
 		if (element == manager.buton_prev) {
 
@@ -356,6 +392,7 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 		Deactivate_Building_Menu(); 
 		Deactivate_Harvester_Menu();
 		Deactivate_Trading();
+		Deactivate_Trader();
 	}
 }
 

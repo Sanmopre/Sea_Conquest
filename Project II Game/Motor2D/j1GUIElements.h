@@ -43,6 +43,7 @@ enum class TEXTURE
 	BOAT_IMAGE,
 	TRADE,
 	HARVESTER,
+	BOTON_SCROLL,
 	NONE
 };
 
@@ -75,6 +76,8 @@ public:
 	TEXTURE textureType = TEXTURE::NONE;
 	fPoint map_position = { 0,0 };
 	fPoint inside_position = { 0,0 };
+
+	j1Element* Button = nullptr;
 
 	SDL_Color color = { 255,255,255 };
 	char* text = nullptr;
@@ -194,7 +197,6 @@ public:
 
 	void ScrollLimits();
 
-	j1Element* Button = nullptr;
 	SCROLL_TYPE Type = SCROLL_TYPE::SCROLL_NONE;
 
 };

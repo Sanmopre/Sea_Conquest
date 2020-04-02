@@ -19,7 +19,7 @@ j1ScrollBar::~j1ScrollBar() {
 
 bool j1ScrollBar::Start()
 {
-	Button = App->gui->AddElement(GUItype::GUI_BUTTON, this, map_position, inside_position, true, true, { 0, 0, 25 , 25 }, nullptr, this->listener, true, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
+	Button = App->gui->AddElement(GUItype::GUI_BUTTON, this, map_position, inside_position, true, true, { 0, 0, 25 , 25 }, nullptr, this->listener, true, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BOTON_SCROLL);
 	Button->map_position.y = map_position.y - Button->rect.h / 2 + this->rect.h / 2;
 	Value = 0;
 
@@ -79,7 +79,7 @@ void j1ScrollBar::ScrollLimits()
 	{
 		Button->inside_position.x = 0;
 
-		Button->map_position.x = Button->parent->map_position.x - Button->inside_position.x;
+		Button->map_position.x = Button->parent->map_position.x + Button->inside_position.x;
 
 	}
 	else if (Button->inside_position.x < (-this->rect.w + Button->rect.w))

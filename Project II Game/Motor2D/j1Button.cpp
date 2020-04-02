@@ -40,7 +40,9 @@ bool j1Button::Start()
 
 	if (textureType == TEXTURE::SCROLL)
 		texture = App->gui->Load_Texture(TEXTURE::SCROLL);
-
+	
+	if (textureType == TEXTURE::BOTON_SCROLL)
+		texture = App->gui->Load_Texture(TEXTURE::BOTON_SCROLL);
 
 	if (text != nullptr)
 		label = App->gui->AddElement(GUItype::GUI_LABEL, this, map_position, inside_position, true, true, { 0,0,0,0 }, text);
@@ -104,7 +106,23 @@ bool j1Button::Update(float dt)
 				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x , map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 			}
 		}
-		else {
+		else if (textureType == TEXTURE::BOTON_SCROLL) {
+
+			//LIMITING THE SCROLL BAR BUTTON VISUALY
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			if (inside_position.x > 0) {
+				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x + inside_position.x, map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
+			}
+			else if (inside_position.x < -235) {
+				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x + inside_position.x + 235, map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
+			}
+			else 
+				App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x , map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		}
+		else{
 			App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 
 		}

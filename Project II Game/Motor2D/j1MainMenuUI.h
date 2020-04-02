@@ -9,6 +9,7 @@ struct Main_Menu {
 	j1Element* start;
 	j1Element* quit;
 	j1Element* audio_button;
+	j1Element* fullscreen;
 	j1Element* music_label;
 	j1Element* music;
 	j1Element* fx_label;
@@ -26,6 +27,7 @@ public:
 	bool Start();
 	bool PreUpdate();
 	bool Update(float dt);
+	bool PostUpdate();
 
 	void Add_UI();
 	void Activate_Menu();
@@ -34,10 +36,9 @@ public:
 	void GUI_Event_Manager(GUI_Event type, j1Element* element);
 
 	bool  clicking_ui = false;
-	bool  quit = false;
 
 private:
-
+	bool quit = true;
 	Main_Menu menu;
 };
 
