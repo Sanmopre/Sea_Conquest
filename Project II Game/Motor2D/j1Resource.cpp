@@ -11,10 +11,10 @@ j1Resource::j1Resource(float x, float y, int level)
 	max_health = 1000;
 	health = max_health;
 
-	storage.maxweight = 1000 * level;
-	storage.wood = storage.maxweight;
-	storage.cotton = 0;
-	storage.metal = 0;
+	load.maxweight = 1000 * level;
+	load.wood = load.maxweight;
+	load.cotton = 0;
+	load.metal = 0;
 
 	rect.w = 10;
 	rect.h = 10;

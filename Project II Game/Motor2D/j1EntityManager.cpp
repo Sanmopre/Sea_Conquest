@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Window.h"
+#include "j1Map.h"
 
 using namespace std;
 
@@ -80,13 +81,18 @@ bool j1EntityManager::Update(float dt)
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
-		{
+		{	
 			AddEntity(0, 0, EntityType::BOATHOUSE, 0, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
 		{
-			AddEntity(0, 0, EntityType::BOATHOUSE, 0, 2);
+			iPoint test;
+			App->input->GetMousePosition(test.x, test.y);
+			test.x -= App->render->camera.x / App->win->GetScale();
+			test.y -= App->render->camera.y / App->win->GetScale();
+
+			AddEntity(test.x, test.y, EntityType::BOATHOUSE, 0, 2);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
@@ -96,6 +102,11 @@ bool j1EntityManager::Update(float dt)
 			test.x -= App->render->camera.x / App->win->GetScale();
 			test.y -= App->render->camera.y / App->win->GetScale();
 			AddEntity(test.x, test.y, EntityType::HARVESTER, 1, 1);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		{
+			AddEntity(0, 0, EntityType::STORAGE, 0, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
@@ -131,7 +142,10 @@ j1Entity* j1EntityManager::AddEntity(float x, float y, EntityType type, int leve
 		buffer.push_back(new j1Boat(x, y, level, team));
 		break;
 	case EntityType::BOATHOUSE:
-		buffer.push_back(new j1BoatHouse(team));
+		buffer.push_back(new j1BoatHouse(x, y, team));
+		break;
+	case EntityType::STORAGE:
+		buffer.push_back(new j1Storage(x, y, team));
 		break;
 	case EntityType::HARVESTER:
 		buffer.push_back(new j1Harvester(x, y, level, team));

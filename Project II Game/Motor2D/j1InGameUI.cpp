@@ -232,9 +232,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
 				if ((*entity)->selected)
 				{
-					(*entity)->storage.cotton += 10;
-					(*entity)->storage.wood += 15;
-					(*entity)->storage.metal += 5;
+					(*entity)->load.cotton += 10;
+					(*entity)->load.wood += 15;
+					(*entity)->load.metal += 5;
 				}
 
 		if (element == menu.Exit_button) {
