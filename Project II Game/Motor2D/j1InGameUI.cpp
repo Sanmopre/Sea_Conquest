@@ -63,12 +63,13 @@ bool j1InGameUI::Update(float dt)
 	GetSelectedEntity();
 	if (App->scenemanager->In_Main_Menu == false && selected_total != 0) {
 		Manage_Entity_UI(selected);
+		Update_Resources(selected);
 	}
 	else {
 		in_trading = false;
 		Manage_Entity_UI(nullptr);
 	}
-	
+
 	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
 
 
@@ -232,9 +233,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
 				if ((*entity)->selected)
 				{
-					(*entity)->load.cotton += 10;
-					(*entity)->load.wood += 15;
-					(*entity)->load.metal += 5;
+					(*entity)->load.cotton += 5;
+					(*entity)->load.wood += 8;
+					(*entity)->load.metal += 10;
 				}
 
 		if (element == menu.Exit_button) {
@@ -364,6 +365,13 @@ void j1InGameUI::Update_Bar(j1Element* scroll, float resource, float total_resou
 
 	scroll->Button->inside_position.x = -(235 * percentage);
 	scroll->Button->map_position.x = 190 + (235 * percentage);
+}
+
+void j1InGameUI::Update_Resources(j1Entity* entity)
+{
+		Update_Bar(trading.Scroll, entity->load.cotton, entity->load.maxweight);
+		Update_Bar(trading.Scroll_1, entity->load.wood, entity->load.maxweight);
+		Update_Bar(trading.Scroll_2, entity->load.metal, entity->load.maxweight);
 }
 
 void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
