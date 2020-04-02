@@ -24,7 +24,7 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	harvestrate = { 2 };
 	max_health = 50;
 	health = max_health;
-	storage = { 0, 0, 0, 500 };
+	load = { 0, 0, 0, 30 };
 	target = nullptr;
 
 	automatic = false;
@@ -93,10 +93,9 @@ void j1Harvester::Update(float dt)
 
 			ShowHPbar(10, 5);
 		}
-
-		if (automating && harvest_destination == position)
+		if(automating)
 			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
-				if (FindTarget(range, EntityType::STORAGE) != nullptr)
+				if (harvest_destination == position)
 				{
 					iPoint m;
 					App->input->GetMousePosition(m.x, m.y);
@@ -106,14 +105,7 @@ void j1Harvester::Update(float dt)
 					automating = false;
 					automatic = true;
 				}
-				else
-				{
-					automating = false;
-					harvest_destination = {};
-				}
-		else if (automating && deposit_destination == position)
-			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
-				if (FindTarget(range, EntityType::RESOURCE) != nullptr)
+				else if (deposit_destination == position)
 				{
 					iPoint m;
 					App->input->GetMousePosition(m.x, m.y);
@@ -123,36 +115,32 @@ void j1Harvester::Update(float dt)
 					automating = false;
 					automatic = true;
 				}
-				else
-				{
-					automating = false;
-					deposit_destination = {};
-				}
 
 		if (automatic)
 		{
 			if (harvest_destination == position)
 			{
-				if (storage.Total() == storage.maxweight || target->storage.Total() == 0)
+				LOG("Total: %d, Max: %d", load.Total(), load.maxweight);
+				if (load.Total() == load.maxweight || target->load.Total() == 0)
 					GoTo(deposit_destination, NodeType::ALL);
 				else
 				{
-					target = FindTarget(range, EntityType::RESOURCE);
+					target = FindTarget(range, EntityType::RESOURCE, -1);
 				}
 			}
 			else if (deposit_destination == position)
 			{
-				if (storage.Total() == 0)
+				if (load.Total() == 0)
 					GoTo(harvest_destination, NodeType::ALL);
 				else
 				{
-					target = FindTarget(range, EntityType::STORAGE);
+					target = FindTarget(range, EntityType::STORAGE, team);
 				}
 			}
 		}
 		else
-			if (storage.Total() != storage.maxweight)
-				target = FindTarget(range, EntityType::RESOURCE);
+			if (load.Total() != load.maxweight)
+				target = FindTarget(range, EntityType::RESOURCE, -1);
 
 		if (destination != position)
 			Move(dt);
@@ -199,12 +187,12 @@ void j1Harvester::SetAutomatic()
 	if (!automatic)
 	{
 		automating = true;
-		//if (FindTarget(range, EntityType::RESOURCE) != nullptr)
+		if (FindTarget(range, EntityType::RESOURCE, -1) != nullptr)
 			harvest_destination = position;
-		//else if (FindTarget(range, EntityType::STORAGE) != nullptr)
-		//	deposit_destination = position;
-		//else
-		//	automating = false;
+		else if (FindTarget(range, EntityType::STORAGE, team) != nullptr)
+			deposit_destination = position;
+		else
+			automating = false;
 	}
 	else
 		automatic = false;
@@ -212,64 +200,64 @@ void j1Harvester::SetAutomatic()
 
 void j1Harvester::Harvest(int power, j1Entity* target)
 {
-	if (target->storage.wood != 0)
+	if (target->load.wood != 0)
 	{
-		if (target->storage.wood < power)
+		if (target->load.wood < power)
 		{
-			int left = target->storage.wood;
-			target->storage.wood -= left;
-			storage.wood += left;
+			int left = target->load.wood;
+			target->load.wood -= left;
+			load.wood += left;
 		}
 		else
 		{
-			target->storage.wood -= power;
-			storage.wood += power;
+			target->load.wood -= power;
+			load.wood += power;
 		}
-		if (storage.wood > storage.maxweight)
+		if (load.wood > load.maxweight)
 		{
-			int left = storage.wood - storage.maxweight;
-			storage.wood -= left;
-			target->storage.wood += left;
+			int left = load.wood - load.maxweight;
+			load.wood -= left;
+			target->load.wood += left;
 		}
 	}
-	else if (target->storage.cotton != 0)
+	else if (target->load.cotton != 0)
 	{
-		if (target->storage.cotton < power)
+		if (target->load.cotton < power)
 		{
-			int left = target->storage.cotton;
-			target->storage.cotton -= left;
-			storage.cotton += left;
+			int left = target->load.cotton;
+			target->load.cotton -= left;
+			load.cotton += left;
 		}
 		else
 		{
-			target->storage.cotton -= power;
-			storage.cotton += power;
+			target->load.cotton -= power;
+			load.cotton += power;
 		}
-		if (storage.cotton > storage.maxweight)
+		if (load.cotton > load.maxweight)
 		{
-			int left = storage.cotton - storage.maxweight;
-			storage.cotton -= left;
-			target->storage.cotton += left;
+			int left = load.cotton - load.maxweight;
+			load.cotton -= left;
+			target->load.cotton += left;
 		}
 	}
-	else if (target->storage.metal != 0)
+	else if (target->load.metal != 0)
 	{
-		if (target->storage.metal < power)
+		if (target->load.metal < power)
 		{
-			int left = target->storage.metal;
-			target->storage.metal -= left;
-			storage.metal += left;
+			int left = target->load.metal;
+			target->load.metal -= left;
+			load.metal += left;
 		}
 		else
 		{
-			target->storage.metal -= power;
-			storage.metal += power;
+			target->load.metal -= power;
+			load.metal += power;
 		}
-		if (storage.metal > storage.maxweight)
+		if (load.metal > load.maxweight)
 		{
-			int left = storage.metal - storage.maxweight;
-			storage.metal -= left;
-			target->storage.metal += left;
+			int left = load.metal - load.maxweight;
+			load.metal -= left;
+			target->load.metal += left;
 		}
 	}
 }

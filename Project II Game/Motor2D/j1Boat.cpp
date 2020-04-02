@@ -22,7 +22,7 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	firerate = { 1 };
 	max_health = 100;
 	health = max_health;
-	storage = { 0, 0, 0, 200 };
+	load = { 0, 0, 0, 200 };
 	target = nullptr;
 	
 	for (std::vector<Animation>::iterator i = App->entitymanager->allAnimations.begin(); i != App->entitymanager->allAnimations.end(); i++)
@@ -99,7 +99,7 @@ void j1Boat::Update(float dt)
 			}
 		}
 
-		target = FindTarget(range, EntityType::NONE);
+		target = FindTarget(range, EntityType::NONE, -1);
 	}
 
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);

@@ -61,7 +61,7 @@ struct EntityRequest
 	int team;
 };
 
-struct Storage
+struct Load
 {
 	int Total()
 	{
@@ -87,8 +87,6 @@ public:
 
 	bool to_delete;
 
-
-
 	int team;
 
 	int health;
@@ -98,7 +96,7 @@ public:
 	bool selected;
 	int level;
 
-	Storage storage;
+	Load load;
 	j1Entity* trading_entity;
 	int trading_entity_offset = 0;
 	int trading_offset_modifier;
@@ -116,7 +114,7 @@ protected:
 
 	void  ShowHPbar(int extra_width, int height, int distance = 20);
 	void Trading();
-	j1Entity* FindTarget(int range, EntityType type);
+	j1Entity* FindTarget(int range, EntityType type, int team);
 
 	bool showing_hpbar;
 	int trading_range;
@@ -173,7 +171,7 @@ class j1Resource : public j1Entity
 {
 public:
 
-	j1Resource(float x = 0, float y = 0, int level = 1);
+	j1Resource(float x, float y, int level = 1);
 
 	void Update(float dt);
 	void CleanUp();
@@ -182,7 +180,7 @@ public:
 class j1Boat : public j1Unit
 {
 public:
-	j1Boat(float x = 0, float y = 0, int level = 1, int team = 0);
+	j1Boat(float x = 0, float y = 0, int level = 1, int team = 1);
 	~j1Boat();
 
 	void Update(float);
@@ -198,7 +196,7 @@ private:
 class j1Harvester : public j1Unit
 {
 public:
-	j1Harvester(float x = 0, float y = 0, int level = 1, int team = 0);
+	j1Harvester(float x, float y, int level = 1, int team = 1);
 	~j1Harvester();
 
 	void Update(float);
@@ -222,7 +220,7 @@ private:
 class j1BoatHouse : public j1Structure
 {
 public:
-	j1BoatHouse(int team = 0, iPoint tile = {0, 0});
+	j1BoatHouse(float x, float y, int team = 1);
 	~j1BoatHouse();
 
 	void Update(float);
@@ -233,6 +231,18 @@ public:
 	std::vector<EntityRequest> unitqueue;
 	timed_var building_time;
 	Color color;
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class j1Storage : public j1Structure
+{
+public:
+	j1Storage(float x, float y, int team = 1);
+	~j1Storage();
+
+	void Update(float);
+	void CleanUp();
+
+	int range;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #endif // __j1Entities_H__

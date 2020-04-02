@@ -6,16 +6,25 @@
 #include "j1EntityManager.h"
 #include "j1Map.h"
 
-j1BoatHouse::j1BoatHouse(int team, iPoint tile)
+j1BoatHouse::j1BoatHouse(float x, float y, int team)
 {
 	type = EntityType::BOATHOUSE;
-	position = App->input->GetMouseWorldPosition();
+	
+	if (team != 1)
+	{
+		placed = true;
+		tile = App->map->WorldToMap(x, y);
+		position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
+	}
+	else
+		position = { x,y };
+	
 	level = 1;
 	this->team = team;
 	max_health = 500;
 	health = max_health;
 	rect = { (int)position.x, (int)position.y, 40, 40 };
-	storage = { 0, 0, 0, 1000 };
+	load = { 0, 0, 0, 1000 };
 }
 
 j1BoatHouse::~j1BoatHouse()

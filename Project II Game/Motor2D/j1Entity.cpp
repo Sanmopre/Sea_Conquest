@@ -34,24 +34,24 @@ void  j1Entity::ShowHPbar(int extra_width, int height, int distance)
 		Brect.y += 10;
 
 		width = max_w;
-		width /= storage.maxweight;
-		width *= storage.wood;
+		width /= load.maxweight;
+		width *= load.wood;
 		Brect.w = width;
 		Bcolor.SetColor(120u, 72u, 0u);
 		App->render->AddBlitEvent(2, nullptr, 0, 0, Brect, false, false, Bcolor.r, Bcolor.g, Bcolor.b, Bcolor.a); // wood bar
 
 		Brect.x += Brect.w;
 		width = max_w;
-		width /= storage.maxweight;
-		width *= storage.cotton;
+		width /= load.maxweight;
+		width *= load.cotton;
 		Brect.w = width;
 		Bcolor.SetColor(240u, 240u, 240u);
 		App->render->AddBlitEvent(2, nullptr, 0, 0, Brect, false, false, Bcolor.r, Bcolor.g, Bcolor.b, Bcolor.a); // cotton bar
 
 		Brect.x += Brect.w;
 		width = max_w;
-		width /= storage.maxweight;
-		width *= storage.metal;
+		width /= load.maxweight;
+		width *= load.metal;
 		Brect.w = width;
 		Bcolor.SetColor(107u, 120u, 119u);
 		App->render->AddBlitEvent(2, nullptr, 0, 0, Brect, false, false, Bcolor.r, Bcolor.g, Bcolor.b, Bcolor.a); // metal bar
@@ -139,7 +139,7 @@ void j1Entity::Trading()
 	}
 }
 
-j1Entity* j1Entity::FindTarget(int range, EntityType type)
+j1Entity* j1Entity::FindTarget(int range, EntityType type, int team)//ADD CENTER SEARCH POSITION
 {
 	j1Entity* ret = nullptr;
 
@@ -147,7 +147,7 @@ j1Entity* j1Entity::FindTarget(int range, EntityType type)
 	float distance = 0.0f;
 
 	for (std::vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
-		if (*e != this && (*e)->team != team)
+		if (*e != this && ((team >= 0 && (*e)->team == team) || (team < 0 && (*e)->team != this->team)))
 			if(type == EntityType::NONE || (*e)->type == type)
 				if (position.x + range > (*e)->position.x &&
 					position.x - range < (*e)->position.x &&

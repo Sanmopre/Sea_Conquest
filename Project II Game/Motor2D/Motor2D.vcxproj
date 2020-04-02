@@ -124,6 +124,7 @@
     <ClCompile Include="random.cpp" />
     <ClCompile Include="Squares.cpp" />
     <ClCompile Include="j1Unit.cpp" />
+    <ClCompile Include="j1Storage.cpp" />
     <ClCompile Include="Wipe.cpp" />
     <ClCompile Include="Zoom.cpp" />
   </ItemGroup>
