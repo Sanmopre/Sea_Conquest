@@ -53,7 +53,7 @@ bool j1SceneManager::PreUpdate()
 bool j1SceneManager::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN){
-		App->transitions->FadingToColor(White, 1.0f, 1);
+		App->transitions->FadingToColor(White, 1.0f, 1;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
@@ -65,10 +65,10 @@ bool j1SceneManager::Update(float dt)
 	App->transitions->FadingToColor(White, 1.0f, //scene);
 	App->transitions->Wiping(Black, 0.5f, //scene);
 	App->transitions->LinesAppearing(Black, 1.0f, //scene);
-	App->transitions->SquaresAppearing(1, Black, //scene);
-	App->transitions->SquaresAppearing(2, Black, //scene);
-	App->transitions->SquaresAppearing(3, Black, //scene);
-	App->transitions->SquaresAppearing(4, Black, //scene);
+	App->transitions->SquaresAppearing(1, Black, 1.0f, //scene);
+	App->transitions->SquaresAppearing(2, Black, 1.0f, //scene);
+	App->transitions->SquaresAppearing(3, Black, 1.0f, //scene);
+	App->transitions->SquaresAppearing(4, Black, 1.0f, //scene);
 	*/
 
 	if (In_Main_Menu == true) {
