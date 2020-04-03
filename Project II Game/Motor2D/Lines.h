@@ -7,7 +7,7 @@ class Lines : public j1Transitions {
 
 public:
 
-	Lines(j1Color color, float time);
+	Lines(j1Color color, float time, int scene);
 	~Lines();
 
 	void Start();
@@ -23,6 +23,8 @@ private:
 	float initial_x_right;
 	float initial_x_left;
 	int height = 0;
+
+	int scene;
 
 	j1Color color;
 

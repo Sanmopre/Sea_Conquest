@@ -17,12 +17,10 @@ public:
 	virtual bool PostUpdate();
 	virtual bool CleanUp();
 
-	void MovingToMouse(iPoint mouse_position, float time = 2.0f);
-	void ZoomToMouse(iPoint mouse_position, bool repeat = false, float zoom = 3.0f, float time = 2.0f);
-	void FadingToColor(j1Color color = Black, float time = 1.0f);
-	void Wiping(j1Color color = Black, float time = 2.0f);
-	void LinesAppearing(j1Color color = Black, float time = 2.0f);
-	void SquaresAppearing(int transition = 1, j1Color color = Black, float time = 2.0f);
+	void FadingToColor(j1Color color, float time, int scene);
+	void Wiping(j1Color color, float time, int scene);
+	void LinesAppearing(j1Color color, float time, int scene);
+	void SquaresAppearing(int transition, j1Color color, float time, int scene);
 
 	void CleanTransitions(j1Transitions* ended_transition);
 
@@ -33,7 +31,6 @@ public:
 private:
 
 	std::list<j1Transitions*> transitions_list;
-	SDL_Rect screen;
 
 };
 

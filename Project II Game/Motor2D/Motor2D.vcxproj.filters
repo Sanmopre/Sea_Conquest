@@ -100,16 +100,10 @@
     <ClCompile Include="Lines.cpp">
       <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClCompile>
-    <ClCompile Include="MoveToMouse.cpp">
-      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
-    </ClCompile>
     <ClCompile Include="Squares.cpp">
       <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClCompile>
     <ClCompile Include="Wipe.cpp">
-      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="Zoom.cpp">
       <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClCompile>
     <ClCompile Include="j1TransitionManager.cpp">
@@ -255,16 +249,10 @@
     <ClInclude Include="Lines.h">
       <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClInclude>
-    <ClInclude Include="MoveToMouse.h">
-      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
-    </ClInclude>
     <ClInclude Include="Squares.h">
       <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClInclude>
     <ClInclude Include="Wipe.h">
-      <Filter>Desenvolupament  ========\Transitions\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Zoom.h">
       <Filter>Desenvolupament  ========\Transitions\Types</Filter>
     </ClInclude>
     <ClInclude Include="j1TransitionManager.h">
