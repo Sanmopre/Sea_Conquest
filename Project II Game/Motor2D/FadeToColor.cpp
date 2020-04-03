@@ -1,5 +1,6 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
+#include "j1SceneManager.h"
 #include "j1TransitionManager.h"
 #include "j1Transitions.h"
 #include "j1Render.h"
@@ -10,9 +11,11 @@
 
 // Similar code to FadeToBlack, but now we can control the color easily
 
-FadeToColor::FadeToColor(j1Color color, float time) : j1Transitions(time) {
+FadeToColor::FadeToColor(j1Color color, float time, int scene) : j1Transitions(time) {
 
 	this->color = color;
+
+	this->scene = scene;
 
 	uint w, h;
 	App->win->GetWindowSize(w, h);
@@ -34,16 +37,19 @@ void FadeToColor::Start() {
 
 void FadeToColor::Change() {
 
+	j1Transitions::Change();
+
 	FillScreen(255.0f);
 		
 	// Scene changes
-	if (App->scene->active)
-		App->scene->ChangeScene();
+	
+	if (scene == 1)
+		App->scenemanager->ChangeScene(1);
 
-	else
-		App->scene2->ChangeScene();
+	if (scene == 2)
+		App->scenemanager->ChangeScene(2);
 
-	j1Transitions::Change();
+	
 }
 
 void FadeToColor::Exit() {

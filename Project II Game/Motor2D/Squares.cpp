@@ -2,6 +2,7 @@
 #include "Squares.h"
 #include "j1Scene.h"
 #include "j1Scene2.h"
+#include "j1SceneManager.h"
 #include "j1App.h"
 #include "j1Window.h"
 #include "p2Log.h"
@@ -9,9 +10,11 @@
 #include <random>
 #include <algorithm>
 
-Squares::Squares(int transition, j1Color color, float time) : j1Transitions(time) {
+Squares::Squares(int transition, j1Color color, float time, int scene) : j1Transitions(time) {
 	this->color = color;
 	this->transition = transition;
+
+	this->scene = scene;
 
 	App->win->GetWindowSize(w, h);
 	screen = { -(int)w, 0, (int)w, (int)h };
@@ -63,11 +66,11 @@ void Squares::Change() {
 	SDL_SetRenderDrawColor(App->render->renderer, color.r, color.g, color.b, 255);
 	SDL_RenderFillRect(App->render->renderer, &screen);
 
-	if (App->scene->active)
-		App->scene->ChangeScene();
+	if (scene == 1)
+		App->scenemanager->ChangeScene(1);
 
-	else
-		App->scene2->ChangeScene();
+	if (scene == 2)
+		App->scenemanager->ChangeScene(2);
 }
 
 void Squares::Exit() {

@@ -9,7 +9,7 @@ class Squares : public j1Transitions {
 
 public:
 
-	Squares(int transition, j1Color color, float time);
+	Squares(int transition, j1Color color, float time, int scene);
 	~Squares();
 
 	void Start();
@@ -30,6 +30,8 @@ private:
 	SDL_Rect screen;
 	int square_w, square_h;
 	j1Color color;
+
+	int scene;
 
 
 };
