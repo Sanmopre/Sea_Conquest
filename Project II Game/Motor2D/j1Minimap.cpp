@@ -1,16 +1,12 @@
 #include "j1Minimap.h"
-
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Input.h"
-
 #include "j1Map.h"
 
-
 #include "p2Log.h"
-
 #include <list>
 
 j1Minimap::j1Minimap()
@@ -22,10 +18,6 @@ j1Minimap::~j1Minimap() {}
 
 bool j1Minimap::Awake(pugi::xml_node & config)
 {
-	//TODO 1: Get the size of the minimap and its position from the config file
-	//You can change the values on the file to adapt the minimap to the one you want
-	//The size must be an integer and it ranges from 1 to tile_height
-	//Both are alredy declared on the minimap class
 	size = config.attribute("size").as_int();
 	position.x= config.attribute("position.x").as_int();
 	position.y= config.attribute("position.y").as_int();
@@ -48,11 +40,8 @@ bool j1Minimap::Update(float dt)
 	{
 		int map_x, map_y;
 		
-		//If we are clicking on the minimap translate the minimap coordinates to map coordinates
 		if (MinimapCoords(map_x, map_y))
 		{
-			//TODO 9: Assign the the center of the camera to the translated map coordinates
-			//Remember the camera parameters are negative
 			App->render->camera.x = -map_x + App->win->width / 2;
 			App->render->camera.y = -map_y + App->win->height / 2;
 		}
@@ -109,17 +98,10 @@ bool j1Minimap::MinimapCoords(int& map_x, int& map_y)
 	//if we click inside the minimap
 	if (mouse_x >= position.x && mouse_x <= minimap_width +position.x	&&	mouse_y >= position.y && mouse_y <= minimap_height+position.y) 
 	{
-
-		
-		if (App->map->data.type == MAPTYPE_ORTHOGONAL) {
-			map_x = ((mouse_x - position.x) / minimap_scale);
-			map_y = ((mouse_y - position.y) / minimap_scale);
-		}
-		else if (App->map->data.type == MAPTYPE_ISOMETRIC) {
+		 if (App->map->data.type == MAPTYPE_ISOMETRIC) {
 			map_x = ((mouse_x - position.x - minimap_width / 2) / minimap_scale);
 			map_y = ((mouse_y - position.y) / minimap_scale);
 		}
-
 	}
 
 	else
@@ -176,13 +158,7 @@ void j1Minimap::MinimapBorders()
 	int isotile_x_offset = App->map->data.tile_width / 2 * minimap_scale;
 	int isotile_y_offset = App->map->data.tile_height / 2 * minimap_scale;
 
-	if (App->map->data.type == MAPTYPE_ORTHOGONAL) {
-		App->render->DrawLine(position.x , position.y, position.x + minimap_width, position.y, 0, 0, 255, 255, false);
-		App->render->DrawLine(position.x + minimap_width, position.y, minimap_width + position.x, minimap_height + position.y, 0, 0, 255, 255, false);
-		App->render->DrawLine(position.x,minimap_height + position.y, minimap_width + position.x, minimap_height + position.y, 0, 0, 255, 255, false);
-		App->render->DrawLine(position.x, position.y, position.x, position.y + minimap_height, 0, 0, 255, 255, false);
-	}
-	else if (App->map->data.type == MAPTYPE_ISOMETRIC){
+ if (App->map->data.type == MAPTYPE_ISOMETRIC){
 		App->render->DrawLine(isotile_x_offset + position.x, minimap_height / 2 + position.y + isotile_y_offset, minimap_width / 2 + isotile_x_offset + position.x, isotile_y_offset + position.y, 255, 255, 255, 255, false);
 		App->render->DrawLine(minimap_width + isotile_x_offset + position.x, minimap_height / 2 + isotile_y_offset + position.y, minimap_width / 2 + isotile_x_offset + position.x, isotile_y_offset + position.y, 255, 255, 255, 255, false);
 		App->render->DrawLine(minimap_width + isotile_x_offset + position.x, minimap_height / 2 + isotile_y_offset + position.y, minimap_width / 2 + isotile_x_offset + position.x, minimap_height + isotile_y_offset + position.y, 255, 255, 255, 255, false);
@@ -190,8 +166,6 @@ void j1Minimap::MinimapBorders()
 	}
 
 }
-
-
 
 void j1Minimap::Scale() {
 	if (size < (App->map->data.tile_height / 2)) {
