@@ -154,6 +154,9 @@
     <ClCompile Include="j1Storage.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="j1Minimap.cpp">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -293,6 +296,9 @@
     </ClInclude>
     <ClInclude Include="j1MainMenuUI.h">
       <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Minimap.h">
+      <Filter>Desenvolupament  ========\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
