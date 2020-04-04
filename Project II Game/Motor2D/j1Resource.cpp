@@ -11,8 +11,8 @@ j1Resource::j1Resource(float x, float y, int level)
 	max_health = 1000;
 	health = max_health;
 
-	load.maxweight = 1000 * level;
-	load.wood = load.maxweight;
+	load.maxweight = 100000 * level;
+	load.wood = load.maxweight / WOOD_MASS;
 	load.cotton = 0;
 	load.metal = 0;
 

@@ -104,7 +104,7 @@ bool j1EntityManager::Update(float dt)
 			AddEntity(test.x, test.y, EntityType::HARVESTER, 1, 1);
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		{
 			AddEntity(0, 0, EntityType::STORAGE, 0, 1);
 		}

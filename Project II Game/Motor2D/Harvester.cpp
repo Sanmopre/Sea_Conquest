@@ -20,11 +20,12 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	this->team = team;
 	speed = 30;
 	range = 50;
-	power = 15;
+	power = 30;
 	harvestrate = { 2 };
+	transferrate = { 0.5 };
 	max_health = 50;
 	health = max_health;
-	load = { 0, 0, 0, 30 };
+	load = { 0, 0, 0, 500 };
 	target = nullptr;
 
 	automatic = false;
@@ -93,6 +94,7 @@ void j1Harvester::Update(float dt)
 
 			ShowHPbar(10, 5);
 		}
+
 		if(automating)
 			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
 				if (harvest_destination == position)
@@ -101,9 +103,17 @@ void j1Harvester::Update(float dt)
 					App->input->GetMousePosition(m.x, m.y);
 					m.x -= App->render->camera.x / App->win->GetScale();
 					m.y -= App->render->camera.y / App->win->GetScale();
-					deposit_destination = { (float)m.x, (float)m.y };
-					automating = false;
-					automatic = true;
+					if (FindTarget((float)m.x, (float)m.y, range, EntityType::STORAGE, team) != nullptr)
+					{
+						deposit_destination = { (float)m.x, (float)m.y };
+						automating = false;
+						automatic = true;
+					}
+					else
+					{
+						harvest_destination = {};
+						automating = false;
+					}
 				}
 				else if (deposit_destination == position)
 				{
@@ -111,42 +121,61 @@ void j1Harvester::Update(float dt)
 					App->input->GetMousePosition(m.x, m.y);
 					m.x -= App->render->camera.x / App->win->GetScale();
 					m.y -= App->render->camera.y / App->win->GetScale();
-					harvest_destination = { (float)m.x, (float)m.y };
-					automating = false;
-					automatic = true;
+					if (FindTarget((float)m.x, (float)m.y, range, EntityType::RESOURCE, -1) != nullptr)
+					{
+						harvest_destination = { (float)m.x, (float)m.y };
+						automating = false;
+						automatic = true;
+					}
+					else
+					{
+						deposit_destination = {};
+						automating = false;
+					}
 				}
 
 		if (automatic)
 		{
 			if (harvest_destination == position)
 			{
-				LOG("Total: %d, Max: %d", load.Total(), load.maxweight);
-				if (load.Total() == load.maxweight || target->load.Total() == 0)
-					GoTo(deposit_destination, NodeType::ALL);
-				else
+				target = FindTarget(position.x, position.y, range, EntityType::RESOURCE, -1);
+
+				if (load.Weight() == load.maxweight || target->load.Total() == 0)
 				{
-					target = FindTarget(range, EntityType::RESOURCE, -1);
+					GoTo(deposit_destination, NodeType::ALL);
+					if (target->load.Total() == 0)
+						automatic = false;
+					
 				}
 			}
 			else if (deposit_destination == position)
 			{
-				if (load.Total() == 0)
-					GoTo(harvest_destination, NodeType::ALL);
-				else
+				target = FindTarget(position.x, position.y, range, EntityType::STORAGE, team);
+
+				if (load.Total() == 0 || target->load.Total() == target->load.maxweight)
 				{
-					target = FindTarget(range, EntityType::STORAGE, team);
+					GoTo(harvest_destination, NodeType::ALL);
+					if (target->load.Total() == target->load.maxweight)
+						automatic = false;
 				}
 			}
 		}
-		else
-			if (load.Total() != load.maxweight)
-				target = FindTarget(range, EntityType::RESOURCE, -1);
 
 		if (destination != position)
 			Move(dt);
 		else
 		{
 			NextStep();
+
+			if (!automatic)
+			{
+				if (load.Total() != load.maxweight)
+					target = FindTarget(position.x, position.y, range, EntityType::RESOURCE, -1);
+				if (target == nullptr)
+				{
+					target = FindTarget(position.x, position.y, range, EntityType::STORAGE, team);
+				}
+			}
 
 			if (target != nullptr)
 			{
@@ -161,7 +190,17 @@ void j1Harvester::Update(float dt)
 				}
 				else if (target->type == EntityType::STORAGE)
 				{
-					//TRANFER RESOURCES
+					transferrate.counter += dt;
+					if (transferrate.counter >= transferrate.iterations)
+					{
+						if (load.wood != 0)
+							target->load.Transfer(WOOD, &load.wood, 20);
+						else if (load.cotton != 0)
+							target->load.Transfer(COTTON, &load.cotton, 20);
+						else if (load.metal != 0)
+							target->load.Transfer(METAL, &load.metal, 20);
+						transferrate.counter = 0;
+					}
 				}
 			}
 		}
@@ -187,9 +226,9 @@ void j1Harvester::SetAutomatic()
 	if (!automatic)
 	{
 		automating = true;
-		if (FindTarget(range, EntityType::RESOURCE, -1) != nullptr)
+		if (FindTarget(position.x, position.y, range, EntityType::RESOURCE, -1) != nullptr)
 			harvest_destination = position;
-		else if (FindTarget(range, EntityType::STORAGE, team) != nullptr)
+		else if (FindTarget(position.x, position.y, range, EntityType::STORAGE, team) != nullptr)
 			deposit_destination = position;
 		else
 			automating = false;
@@ -202,62 +241,14 @@ void j1Harvester::Harvest(int power, j1Entity* target)
 {
 	if (target->load.wood != 0)
 	{
-		if (target->load.wood < power)
-		{
-			int left = target->load.wood;
-			target->load.wood -= left;
-			load.wood += left;
-		}
-		else
-		{
-			target->load.wood -= power;
-			load.wood += power;
-		}
-		if (load.wood > load.maxweight)
-		{
-			int left = load.wood - load.maxweight;
-			load.wood -= left;
-			target->load.wood += left;
-		}
+		load.Transfer(WOOD, &target->load.wood, power);
 	}
 	else if (target->load.cotton != 0)
 	{
-		if (target->load.cotton < power)
-		{
-			int left = target->load.cotton;
-			target->load.cotton -= left;
-			load.cotton += left;
-		}
-		else
-		{
-			target->load.cotton -= power;
-			load.cotton += power;
-		}
-		if (load.cotton > load.maxweight)
-		{
-			int left = load.cotton - load.maxweight;
-			load.cotton -= left;
-			target->load.cotton += left;
-		}
+		load.Transfer(COTTON, &target->load.cotton, power);
 	}
 	else if (target->load.metal != 0)
 	{
-		if (target->load.metal < power)
-		{
-			int left = target->load.metal;
-			target->load.metal -= left;
-			load.metal += left;
-		}
-		else
-		{
-			target->load.metal -= power;
-			load.metal += power;
-		}
-		if (load.metal > load.maxweight)
-		{
-			int left = load.metal - load.maxweight;
-			load.metal -= left;
-			target->load.metal += left;
-		}
+		load.Transfer(METAL, &target->load.metal, power);
 	}
 }

@@ -13,6 +13,10 @@
 #include "j1Timer.h"
 #include "j1Pathfinding.h"
 
+#define WOOD_MASS 4
+#define COTTON_MASS 1
+#define METAL_MASS 10
+
 struct SDL_Texture;
 
 enum class Orientation
@@ -61,11 +65,74 @@ struct EntityRequest
 	int team;
 };
 
+enum Material
+{
+	WOOD,
+	COTTON,
+	METAL
+};
+
 struct Load
 {
 	int Total()
 	{
 		return wood + cotton + metal;
+	}
+
+	int Weight()
+	{
+		return WOOD_MASS*wood + COTTON_MASS*cotton + METAL_MASS*metal;
+	}
+	int WoodWeight()
+	{
+		return WOOD_MASS * wood;
+	}
+	int CottonWeight()
+	{
+		return COTTON_MASS * cotton;
+	}
+	int MetalWeight()
+	{
+		return METAL_MASS * metal;
+	}
+
+	void Transfer(Material material, int* sender_amount, int transfer_amount)
+	{
+		
+		int* mat;
+		int mass;
+		switch (material)
+		{
+		case WOOD:
+			mat = &wood;
+			mass = WOOD_MASS;
+			break;
+		case COTTON:
+			mat = &cotton;
+			mass = COTTON_MASS;
+			break;
+		case METAL:
+			mat = &metal;
+			mass = METAL_MASS;
+			break;
+		}
+
+		if (*sender_amount >= transfer_amount)
+		{
+			*mat += transfer_amount;
+			*sender_amount -= transfer_amount;
+		}
+		else
+		{
+			*mat += (transfer_amount - *sender_amount);
+			*sender_amount = 0;
+		}
+		if (Weight() > maxweight)
+		{
+			int rest = (Weight() - maxweight)/mass;
+			*sender_amount += rest;
+			*mat -= rest;
+		}
 	}
 
 	int wood;
@@ -114,7 +181,7 @@ protected:
 
 	void  ShowHPbar(int extra_width, int height, int distance = 20);
 	void Trading();
-	j1Entity* FindTarget(int range, EntityType type, int team);
+	j1Entity* FindTarget(float x, float y, int range, EntityType type, int team);
 
 	bool showing_hpbar;
 	int trading_range;
@@ -214,6 +281,7 @@ private:
 	fPoint deposit_destination;
 
 	timed_var harvestrate;
+	timed_var transferrate;
 	int power;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

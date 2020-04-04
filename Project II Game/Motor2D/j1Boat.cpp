@@ -99,7 +99,7 @@ void j1Boat::Update(float dt)
 			}
 		}
 
-		target = FindTarget(range, EntityType::NONE, -1);
+		target = FindTarget(position.x, position.y, range, EntityType::NONE, -1);
 	}
 
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
