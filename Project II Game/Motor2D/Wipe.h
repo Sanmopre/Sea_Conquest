@@ -7,7 +7,7 @@ class Wipe : public j1Transitions {
 
 public:
 
-	Wipe(j1Color color, float time);
+	Wipe(j1Color color, float time, int scene);
 	~Wipe();
 
 	void Start();
@@ -24,5 +24,6 @@ private:
 	float initial_width;
 	float final_width;
 	float width;
+	int scene;
 	
 };

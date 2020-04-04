@@ -6,7 +6,7 @@
 class FadeToColor : public j1Transitions {
 public:
 
-	FadeToColor(j1Color color = Black, float time = 2.0f);
+	FadeToColor(j1Color color, float time, int scene);
 	~FadeToColor();
 
 	void Start();
@@ -21,4 +21,6 @@ private:
 	SDL_Rect screen;
 
 	bool changing_scene = false;
+
+	int scene;
 };

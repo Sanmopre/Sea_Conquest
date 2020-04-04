@@ -95,6 +95,7 @@ public:
 	SDL_Rect rect = { 0,0,0,0 };
 
 	int Value;
+	float Float_Value;
 
 	SDL_Texture* texture = nullptr;
 	SDL_Texture* texture_hover = nullptr;

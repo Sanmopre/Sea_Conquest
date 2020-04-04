@@ -36,7 +36,7 @@ float j1Transitions::Interpolation(float start, float end, float percentage) {
 	return start + percentage * (end - start);
 }
 
-void j1Transitions::PostUpdate() 
+void j1Transitions::PostUpdate()
 {
 	// Switching the state of the transition
 	switch (state)
@@ -95,6 +95,6 @@ void j1Transitions::Exit() {
 
 		// Transition is over
 		App->transitions->transition = false;
-		App->transitions->CleanTransitions(this);
+		//App->transitions->CleanTransitions(this);
 	}
 }

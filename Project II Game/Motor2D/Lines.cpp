@@ -2,11 +2,14 @@
 #include "Lines.h"
 #include "j1Scene.h"
 #include "j1Scene2.h"
+#include "j1SceneManager.h"
 #include "j1App.h"
 #include "j1Window.h"
 
-Lines::Lines(j1Color color, float time) : j1Transitions(time) {
+Lines::Lines(j1Color color, float time, int scene) : j1Transitions(time) {
 	this->color = color;
+
+	this->scene = scene;
 
 	App->win->GetWindowSize(w, h);
 	screen = { -(int)w, 0, (int)w, (int)h };
@@ -65,11 +68,12 @@ void Lines::Change() {
 	SDL_SetRenderDrawColor(App->render->renderer, color.r, color.g, color.b, 255);
 	SDL_RenderFillRect(App->render->renderer, &screen);
 
-	if (App->scene->active)
-		App->scene->ChangeScene();
+	if (scene == 1)
+		App->scenemanager->ChangeScene(1);
 
-	else
-		App->scene2->ChangeScene();
+	if (scene == 2)
+		App->scenemanager->ChangeScene(2);
+
 }
 
 void Lines::Exit() {
