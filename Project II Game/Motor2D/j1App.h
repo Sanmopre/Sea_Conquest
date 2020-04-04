@@ -26,6 +26,7 @@ class j1InGameUI;
 class j1TransitionManager;
 class j1SceneManager;
 class j1MainMenuUI;
+class j1Minimap;
 
 class j1App 
 {
@@ -109,6 +110,7 @@ public:
 	j1TransitionManager*	transitions = NULL;
 	j1SceneManager*			scenemanager = NULL;
 	j1MainMenuUI*			mainmenu = NULL;
+	j1Minimap*				minimap = NULL;
 private:
 
 	p2List<j1Module*>	modules;

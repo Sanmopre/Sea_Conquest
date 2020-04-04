@@ -18,9 +18,9 @@ j1Minimap::~j1Minimap() {}
 
 bool j1Minimap::Awake(pugi::xml_node & config)
 {
-	size = config.attribute("size").as_int();
-	position.x= config.attribute("position.x").as_int();
-	position.y= config.attribute("position.y").as_int();
+	size = config.attribute("size").as_int(1);
+	position.x= config.attribute("position.x").as_int(50);
+	position.y= config.attribute("position.y").as_int(50);
 
 	return true;
 }
@@ -112,12 +112,14 @@ bool j1Minimap::MinimapCoords(int& map_x, int& map_y)
 
 void j1Minimap::DrawMinimap()
 {
-	/*
-	std::list<MapLayer*>::const_iterator item = App->map->data.layers.cbegin();
+	
+	p2List_item<MapLayer*>* item = App->map->data.layers.start;
 
-	for (; item != App->map->data.layers.end(); item = next(item))
+	for (; item != NULL; item = item->next)
 	{
-		MapLayer* layer = *item;
+		MapLayer* layer = item->data;
+		if (layer->properties.Get("Nodraw") != 0)
+			continue;
 
 		for (int y = 0; y < App->map->data.height; ++y)
 		{
@@ -126,22 +128,20 @@ void j1Minimap::DrawMinimap()
 				int tile_id = layer->Get(x, y);
 				if (tile_id > 0)
 				{
-					TileSet* tileset = App->map->GetTilesetFromTileId(tile_id);///
+					TileSet* tileset = App->map->GetTilesetFromTileId(tile_id);
 
 					SDL_Rect r = tileset->GetTileRect(tile_id);
-					iPoint pos = App->map->MapToWorld(pos.x, pos.y);
-					
-				
+					iPoint pos = App->map->MapToWorld<iPoint>(x, y);
+
 					pos.x *= minimap_scale;
 					pos.y *= minimap_scale;
 
-				
-					if (App->map->data.type == MAPTYPE_ISOMETRIC)
-						App->render->AddBlitEvent(5,tileset->texture, pos.x + minimap_width / 2, pos.y, r, false, App->render->renderer, minimap_scale);
+					App->render->AddBlitEvent(4, tileset->texture, pos.x, pos.y, r);
+
 				}
 			}
 		}
-	}*/
+	}
 }
 
 void j1Minimap::DrawCamera()
