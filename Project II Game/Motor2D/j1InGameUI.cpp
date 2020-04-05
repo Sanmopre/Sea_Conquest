@@ -72,16 +72,9 @@ bool j1InGameUI::Update(float dt)
 		Manage_Entity_UI(nullptr);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
-
-
-		Update_Bar(menu.Scroll, 350, 500);
-
-
-	}
 
 	//UPDATE RESOURCES
-	sprintf_s(text_type_0, 10, "%7d", menu.Scroll->Value);
+	sprintf_s(text_type_0, 10, "%7d", type_0);
 	sprintf_s(text_type_1, 10, "%7d", type_1);
 	sprintf_s(text_type_2, 10, "%7d", type_2);
 	if (App->scenemanager->In_Main_Menu == false) {
@@ -120,14 +113,6 @@ void j1InGameUI::Add_UI()
 	menu.Save = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +90 }, { 60,30 }, true, false, { 0,0,200,65 }, "QUIT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.Load = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +165}, { 35,30 }, true, false, { 0,0,200,65 }, "MAIN MENU", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 50,0 }, { 0,0 }, true, false, { 0, 0,350,500 },"", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::IMAGE);
-
-
-
-	///////////////////////////////
-	menu.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 190, 70 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
-	///////////////////////////////
-	
-	
 
 
 	//ENTITY_MANAGER_UI
@@ -182,7 +167,6 @@ void j1InGameUI::Activate_Menu()
 	menu.Load->enabled = !menu.Load->enabled;
 	menu.Save->enabled = !menu.Save->enabled;
 	menu.Image->enabled = !menu.Image->enabled;
-	menu.Scroll->enabled = !menu.Scroll->enabled;
 }
 
 void j1InGameUI::Activate_Trading()
@@ -519,7 +503,6 @@ void j1InGameUI::Deactivate_All_UI()
 	menu.Load->enabled = false;
 	menu.Save->enabled = false;
 	menu.Image->enabled = false;
-	menu.Scroll->enabled = false;
 
 	basics.Image->enabled = false;
 	basics.Resources->enabled = false;
