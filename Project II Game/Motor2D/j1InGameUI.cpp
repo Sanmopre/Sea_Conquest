@@ -9,6 +9,8 @@
 #include "j1EntityManager.h"
 #include "j1Entities.h"
 #include "j1SceneManager.h"
+#include "j1MainMenuUI.h"
+#include "j1TransitionManager.h"
 #include <vector>
 #include <iostream>
 
@@ -246,7 +248,7 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			quit = true;
 		}
 		if (element == menu.Load) {
-			App->scenemanager->ChangeScene(2);
+			App->transitions->LinesAppearing(Black, 0.75f, 2);
 		}
 
 		if (element == menu.Resume_button) {
@@ -509,7 +511,6 @@ void j1InGameUI::Deactivate_All_UI()
 	Deactivate_Manager();
 	Deactivate_Boat_Menu();
 	Deactivate_Building_Menu();
-
 
 
 	menu.Resume_button->enabled = false;

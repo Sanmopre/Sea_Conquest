@@ -53,12 +53,14 @@ bool j1SceneManager::PreUpdate()
 bool j1SceneManager::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN){
-		App->transitions->FadingToColor(White, 1.0f, 1);
+		App->transitions->LinesAppearing(Black, 0.75f, 1);
+		App->mainmenu->Deactivate_Audio_Options();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
 		App->entitymanager->DeleteAll();
-		App->transitions->FadingToColor(White, 1.0f, 2);
+		App->transitions->LinesAppearing(Black, 0.75f, 2);
+		App->mainmenu->Deactivate_Audio_Options();
 	}
 
 	/*

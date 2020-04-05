@@ -38,6 +38,9 @@ bool j1Image::Start()
 	if (textureType == TEXTURE::HARVESTER)
 		texture = App->gui->Load_Texture(TEXTURE::HARVESTER);
 
+	if(textureType == TEXTURE::AUDIO_IMAGE)
+		texture = App->gui->Load_Texture(TEXTURE::AUDIO_IMAGE);
+
 	return true;
 }
 
@@ -53,6 +56,8 @@ bool j1Image::Update(float dt) {
 	if (enabled) {
 		if (textureType == TEXTURE::MAIN_IMAGE)
 		App->render->AddBlitEvent(2, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false,true, 0, 0, 0, 0, true);
+		if(textureType == TEXTURE::AUDIO_IMAGE)
+		App->render->AddBlitEvent(2, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0, 0, 0, 0, true);
 		else
 		App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0, 0, 0, 0, true);
 	}

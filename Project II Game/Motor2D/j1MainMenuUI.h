@@ -14,6 +14,7 @@ struct Main_Menu {
 	j1Element* music;
 	j1Element* fx_label;
 	j1Element* fx;
+	j1Element* audio_image;
 };
 
 
@@ -32,6 +33,8 @@ public:
 	void Add_UI();
 	void Activate_Menu();
 	void Deactivate_Menu();
+	void Activate_Audio_Options();
+	void Deactivate_Audio_Options();
 
 	void GUI_Event_Manager(GUI_Event type, j1Element* element);
 
@@ -39,6 +42,7 @@ public:
 
 private:
 	bool quit = true;
+	bool audioopt = false;
 	Main_Menu menu;
 };
 

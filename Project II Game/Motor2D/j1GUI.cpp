@@ -141,6 +141,9 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::BOTON_SCROLL:
 		texture_load = App->tex->Load("textures/boton_scroll.png");
 		break;
+	case TEXTURE::AUDIO_IMAGE:
+		texture_load = App->tex->Load("textures/audio_image.png");
+		break;
 	}
 
 	return texture_load;
