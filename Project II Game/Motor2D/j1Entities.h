@@ -164,7 +164,7 @@ public:
 	int level;
 
 	Load load;
-	j1Entity* trading_entity;
+	j1Entity* trading_entity = nullptr;
 	int trading_entity_offset = 0;
 	int trading_offset_modifier;
 	int trading_total;

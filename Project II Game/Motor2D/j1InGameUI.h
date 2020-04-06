@@ -113,6 +113,9 @@ public:
 	void Update_Resources(j1Entity* entity);
 	void Update_Resources_Trader(j1Entity* entity);
 
+	//TRADING FUNCTION
+	void Trading_Manager(j1Entity* entity);
+
 	void Manage_Entity_UI(j1Entity* entity);
 
 
