@@ -24,6 +24,7 @@
 #include "j1SceneManager.h"
 #include "j1MainMenuUI.h"
 #include "j1Minimap.h"
+#include "j1Font.h"
 #include <thread>
 
 // Constructor
@@ -49,6 +50,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scenemanager = new j1SceneManager();
 	mainmenu = new j1MainMenuUI();
 	minimap = new j1Minimap();
+	font = new j1Font();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -58,6 +60,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(fonts);
+	AddModule(font);
 	
 	AddModule(scene);
 	AddModule(scene2);

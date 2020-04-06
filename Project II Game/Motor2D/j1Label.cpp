@@ -5,6 +5,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Input.h"
+#include "j1Font.h"
 #include "j1Window.h"
 
 j1Label::j1Label()
@@ -18,6 +19,7 @@ j1Label::~j1Label() {
 
 bool j1Label::Start()
 {
+	texture = App->font->Print(text);
 	font_name = App->fonts->Load("textures/NameTile.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
 	return true;
 }
@@ -32,8 +34,10 @@ bool j1Label::PreUpdate()
 bool j1Label::Update(float dt)
 {
 
+	SDL_Rect rect_font = { 0,0,0,0 };
+	SDL_QueryTexture(texture, NULL, NULL, &rect_font.w, &rect_font.h);
 	if (enabled)
-		App->fonts->BlitText(map_position.x + inside_position.x, map_position.y + inside_position.y , 1, text);
+		App->render->AddBlitEvent(4, texture, map_position.x + inside_position.x - App->render->camera.x, map_position.y + inside_position.y - App->render->camera.y, rect_font, false, true, 0, 0, 0, 0, true);
 
 
 	return true;
