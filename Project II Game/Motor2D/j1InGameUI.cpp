@@ -66,6 +66,8 @@ bool j1InGameUI::Update(float dt)
 	if (App->scenemanager->In_Main_Menu == false && selected_total != 0) {
 		Manage_Entity_UI(selected);
 		Update_Resources(selected);
+		if(selected->trading_entity != nullptr)
+		Update_Resources_Trader(selected->trading_entity);
 	}
 	else {
 		in_trading = false;
@@ -276,6 +278,12 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			Deactivate_Trading();
 			Deactivate_Trader();
 		}
+		if (element == trader.button_next) {
+			selected->trading_offset_modifier++;
+		}
+		if (element == trader.buton_prev) {
+			selected->trading_offset_modifier--;
+		}
 		if (element == manager.buton_prev) {
 
 			if (selected_total != 0)
@@ -353,11 +361,27 @@ void j1InGameUI::Update_Bar(j1Element* scroll, float resource, float total_resou
 	scroll->Button->map_position.x = 190 + (235 * percentage);
 }
 
+void j1InGameUI::Update_Bar_Trader(j1Element* scroll, float resource, float total_resource)
+{
+	float percentage = 0;
+	percentage = resource / total_resource;
+
+	scroll->Button->inside_position.x = -(235 * percentage);
+	scroll->Button->map_position.x = MiddleScreenW + 130 + (235 * percentage);
+}
+
 void j1InGameUI::Update_Resources(j1Entity* entity)
 {
 		Update_Bar(trading.Scroll, entity->load.cotton, entity->load.maxweight);
 		Update_Bar(trading.Scroll_1, entity->load.wood, entity->load.maxweight);
 		Update_Bar(trading.Scroll_2, entity->load.metal, entity->load.maxweight);
+}
+
+void j1InGameUI::Update_Resources_Trader(j1Entity* entity)
+{
+		Update_Bar_Trader(trader.Scroll, entity->load.cotton, entity->load.maxweight);
+		Update_Bar_Trader(trader.Scroll_1, entity->load.wood, entity->load.maxweight);
+		Update_Bar_Trader(trader.Scroll_2, entity->load.metal, entity->load.maxweight);
 }
 
 void j1InGameUI::Manage_Entity_UI(j1Entity* entity)

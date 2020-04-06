@@ -107,8 +107,11 @@ public:
 	void Activate_Harvester_Menu();
 	void Deactivate_Harvester_Menu();
 
+	//BAR UPDATES
 	void Update_Bar(j1Element* scroll, float resource, float total_resource);
+	void Update_Bar_Trader(j1Element* scroll, float resource, float total_resource);
 	void Update_Resources(j1Entity* entity);
+	void Update_Resources_Trader(j1Entity* entity);
 
 	void Manage_Entity_UI(j1Entity* entity);
 
