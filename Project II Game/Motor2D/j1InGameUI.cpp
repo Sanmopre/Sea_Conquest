@@ -389,10 +389,9 @@ void j1InGameUI::Update_Resources_Trader(j1Entity* entity)
 
 void j1InGameUI::Trading_Manager(j1Entity* entity)
 {
-	
-	//if (trading.Scroll->Value > 0) {
-	//	entity->load.Transfer(Material::COTTON, &entity->trading_entity->load.cotton, -(100 - trading.Scroll->Value) / 100 * entity->load.maxweight);
-//	}
+	//int value
+		//entity->load.Transfer(Material::COTTON, &entity->trading_entity->load.cotton, trading.Scroll->Value/100 *);
+
 }
 
 void j1InGameUI::Manage_Entity_UI(j1Entity* entity)

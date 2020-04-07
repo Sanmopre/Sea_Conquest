@@ -40,6 +40,9 @@ bool j1Button::Start()
 
 	if (textureType == TEXTURE::SCROLL)
 		texture = App->gui->Load_Texture(TEXTURE::SCROLL);
+
+	if (textureType == TEXTURE::LINK)
+		texture = App->gui->Load_Texture(TEXTURE::LINK);
 	
 	if (textureType == TEXTURE::BOTON_SCROLL)
 		texture = App->gui->Load_Texture(TEXTURE::BOTON_SCROLL);

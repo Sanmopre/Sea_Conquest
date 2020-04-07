@@ -144,6 +144,10 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::AUDIO_IMAGE:
 		texture_load = App->tex->Load("textures/audio_image.png");
 		break;
+	case TEXTURE::LINK:
+		texture_load = App->tex->Load("textures/link.png");
+		break;
+		
 	}
 
 	return texture_load;

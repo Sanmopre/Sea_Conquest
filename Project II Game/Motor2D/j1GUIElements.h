@@ -45,6 +45,7 @@ enum class TEXTURE
 	HARVESTER,
 	BOTON_SCROLL,
 	AUDIO_IMAGE,
+	LINK,
 	NONE
 };
 

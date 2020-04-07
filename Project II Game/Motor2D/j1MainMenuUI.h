@@ -15,6 +15,7 @@ struct Main_Menu {
 	j1Element* fx_label;
 	j1Element* fx;
 	j1Element* audio_image;
+	j1Element* link;
 };
 
 

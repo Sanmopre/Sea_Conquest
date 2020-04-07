@@ -68,7 +68,7 @@ void j1MainMenuUI::Add_UI()
 	menu.audio_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510, 240}, { 30,25 }, true, false, { 0,0,200,65 }, "AUDIO OPT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.quit = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510,440 }, { 50,25 }, true, false, { 0,0,200,65 }, "QUIT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.fullscreen = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510,340 }, { 50,25 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	
+	menu.link = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 1220,660 }, { 0,0 }, true, false, { 0,0,60,60 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::LINK);
 	//AUDIO OPTIONS
 	menu.music = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 830, 230 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
 	menu.music_label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 850,200 }, { 0,0 }, true, false, { 0,0,40,40 }, "MUSIC", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
@@ -86,6 +86,7 @@ void j1MainMenuUI::Activate_Menu()
 	menu.audio_button->enabled = true;
 	menu.quit->enabled = true;
 	menu.fullscreen->enabled = true;
+	menu.link->enabled = true;
 }
 
 void j1MainMenuUI::Deactivate_Menu()
@@ -94,6 +95,7 @@ void j1MainMenuUI::Deactivate_Menu()
 	menu.audio_button->enabled = false;
 	menu.quit->enabled = false;
 	menu.fullscreen->enabled = false;
+	menu.link->enabled = false;
 }
 
 void j1MainMenuUI::Activate_Audio_Options()
@@ -146,6 +148,10 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		{
 			Deactivate_Audio_Options();
 			quit = false;
+		}
+		if (element == menu.link)
+		{
+			ShellExecuteA(NULL, "open", "https://www.youtube.com/watch?v=dQw4w9WgXcQ", NULL, NULL, SW_SHOWNORMAL);
 		}
 		
 	}
