@@ -23,7 +23,7 @@ public:
 	void		changeIndex(int newIndex);
 	int			getIndex();
 
-	ParticleSystem* createSystem(PARTICLE_TYPES type, fPoint location);
+	ParticleSystem* createSystem(PARTICLE_TYPES type, p2Point<float> location, float timer);
 	void		deleteSystem(ParticleSystem* system_);
 	void		deleteAllSystems();
 

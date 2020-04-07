@@ -22,7 +22,29 @@ bool j1ParticleManager::Start()
 
 bool j1ParticleManager::Update(float dt)
 {
+
 	int counter = 0;
+
+	while (counter != systems.size())
+	{
+		vector<ParticleSystem*>::iterator system = systems.begin();
+
+		system += counter;
+		for (; system != systems.end(); system++)
+		{
+			if ((*system)->timeFinished == true)
+			{
+				deleteSystem((*system));
+				break;
+			}
+			else
+				(*system)->Update(dt);
+
+			counter++;
+		}
+	}
+
+	counter = 0;
 
 	while (counter != particlePool.size())
 	{
@@ -31,8 +53,8 @@ bool j1ParticleManager::Update(float dt)
 		particle += counter;
 		for (; particle != particlePool.end(); particle++)
 		{
-			if(particle->active)
-			particle->Update();
+			if (particle->active)
+				particle->Update();
 
 			counter++;
 		}
@@ -57,9 +79,9 @@ void j1ParticleManager::deleteAllParticles()
 }
 ///////////////////ParticleSystems methods
 
-ParticleSystem* j1ParticleManager::createSystem(PARTICLE_TYPES type, fPoint location)
+ParticleSystem* j1ParticleManager::createSystem(PARTICLE_TYPES type, p2Point<float> location, float timer)
 {
-	ParticleSystem* newSystem = new ParticleSystem(type, location, Index);
+	ParticleSystem* newSystem = new ParticleSystem(type, location, Index, timer);
 	systems.push_back(newSystem);
 	return newSystem;
 }

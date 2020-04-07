@@ -15,16 +15,16 @@ void Particle::Update()
 {
 	if (active)
 	{
-		pVelocity	+= pAcceleration;
+		pVelocity += pAcceleration;
 
-		pLocation	+= pVelocity;
+		pLocation += pVelocity;
 
-		pRect.x		= pLocation.x;
-		pRect.y		= pLocation.y;
+		pRect.x = pLocation.x;
+		pRect.y = pLocation.y;
 
 		Draw();
 
-		remainingLifetime -= 2;
+		remainingLifetime -= pLifetimeSubstraction;
 
 		if (remainingLifetime < 0)
 		{
@@ -36,13 +36,24 @@ void Particle::Update()
 
 void Particle::loadProperties(ParticleProps properties)
 {	
-	pLocation			= properties.Location;
-	pVelocity			= {((float)(Random::Randomize() - 0.5)), ((float)(Random::Randomize()) * (-1))};
-	pAcceleration		= properties.Acceleration;
-	lifespan			= properties.lifetime;
-	pRect				= properties.rect; 
-	remainingLifetime	= lifespan;
-	Props				= properties;
+	pLocation				= properties.Location;
+	pVelocity				= properties.Velocity;
+	pAcceleration			= properties.Acceleration;
+	lifespan				= properties.lifetime;
+	pRect					= properties.rect; 
+	pType					= properties.type;
+	remainingLifetime		= lifespan;
+	pLifetimeSubstraction	= properties.lifetimeSubstraction;
+	Props					= properties;
+
+	if (pType == PARTICLE_TYPES::CLOUD)
+	{
+		pLocation = { (pLocation.x + (float)(50 * (Random::Randomize() - 0.5))), (pLocation.y + (float)(50 * (Random::Randomize() - 0.5))) };
+		pRect.h = pRect.w = pRect.w + (100 * (Random::Randomize() - 0.5));
+	}
+
+	if (pType == PARTICLE_TYPES::TEST)
+		pVelocity = { ((float)(Random::Randomize() - 0.5)), ((float)(Random::Randomize()) * (-1)) };
 }
 
 void Particle::switchParticleState()
@@ -59,6 +70,9 @@ void Particle::switchParticleState()
 
 bool Particle::Draw()
 {
+	if (pType == PARTICLE_TYPES::CLOUD)
+		App->render->AddBlitEvent(2, nullptr, pLocation.x, pLocation.y, pRect, false, 0.0f, 90, 180, 252, remainingLifetime);
+	
 	App->render->AddBlitEvent(3, nullptr, pLocation.x, pLocation.y, pRect, false, 0.0f, 255, 0, 0, remainingLifetime);
 	
 	return true;

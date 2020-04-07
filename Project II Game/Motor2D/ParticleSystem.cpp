@@ -4,10 +4,22 @@
 
 #include "random.h"
 
-ParticleSystem::ParticleSystem(PARTICLE_TYPES _type, p2Point<float> location, int index)
+ParticleSystem::ParticleSystem(PARTICLE_TYPES _type, p2Point<float> location, int index, float _timer)
 {
 	systemProps.Location = location;
 	systemType = _type;
+	timer = _timer;
+	countDown = 0;
+
+	if (systemType == PARTICLE_TYPES::CLOUD)
+	{
+		numberOfParticles = 3;
+	}
+	else
+	{
+		numberOfParticles = 20;
+	}
+
 	loadSystem();
 	activateSystem(index);
 }
@@ -17,11 +29,38 @@ ParticleSystem::~ParticleSystem()
 	deactivateAllParticles();
 }
 
+void ParticleSystem::Update(float dt)
+{
+	if (timer != 0)
+	{
+		countDown += dt;
+
+		if (countDown >= timer)
+		{
+			timeFinished = true;
+		}
+	}
+}
+
 void ParticleSystem::loadSystem() //this must depend on system type; right now, though, they are just hardcoded values. 
 {
-	systemProps.lifetime = 255;
-	systemProps.Acceleration = { 0, 0.01 };
-	systemProps.rect = { 0, 0, 10, 10 };
+	systemProps.type = systemType;
+
+	if (systemProps.type == PARTICLE_TYPES::CLOUD)
+	{
+		systemProps.Velocity = { -1, 0 };
+		systemProps.lifetime = 40;
+		systemProps.Acceleration = { 0, 0 };
+		systemProps.rect = { 0, 0, 100, 100 };
+		systemProps.lifetimeSubstraction = 0;
+	}
+	else
+	{
+		systemProps.lifetime = 255;
+		systemProps.Acceleration = { 0, 0.01 };
+		systemProps.rect = { 0, 0, 10, 10 };
+		systemProps.lifetimeSubstraction = 3;
+	}
 }
 
 bool ParticleSystem::activateSystem(int index) 

@@ -2,24 +2,13 @@
 #include "p2Point.h"
 #include "Particle.h"
 
-enum class PARTICLE_TYPES
-{ 
-	NONE,
-	TEST,
-	SMOKE,
-	FIRE,
-	EXPLOSION,
-	WIND,
-	CLOUD,
-	WAVE
-};
 class ParticleSystem
 {
 public:
-	ParticleSystem(PARTICLE_TYPES type, p2Point<float>, int index);
+	ParticleSystem(PARTICLE_TYPES type, p2Point<float>, int index, float timer);
 	~ParticleSystem();
 
-	//void Update(float dt);
+	void Update(float dt);
 
 	void loadSystem(); //maybe we should load each effect properties from an xml
 	bool activateSystem(int index);
@@ -27,10 +16,13 @@ public:
 	void deactivateAllParticles();
 	void changePosition(iPoint location);
 
+	float timer;
+	float countDown;
+	bool timeFinished;
 	ParticleProps systemProps;
 
 private:
 	PARTICLE_TYPES systemType;
 	Particle* referencesArray[20];
-	const int numberOfParticles = 20;
+	int numberOfParticles;
 };

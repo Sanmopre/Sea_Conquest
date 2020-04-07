@@ -10,13 +10,27 @@
 
 using namespace std;
 
+enum class PARTICLE_TYPES
+{
+	NONE,
+	TEST,
+	SMOKE,
+	FIRE,
+	EXPLOSION,
+	WIND,
+	CLOUD,
+	WAVE
+};
+
 struct ParticleProps
 {
-	p2Point<float>	Location		= {0,0};
-	p2Point<float>	Velocity		= {0,0};
-	p2Point<float>	Acceleration	= {0,0};
-	SDL_Rect		rect			= {0,0,20,20};
-	int				lifetime		= 255;
+	p2Point<float>	Location				= {0,0};
+	p2Point<float>	Velocity				= {0,0};
+	p2Point<float>	Acceleration			= {0,0};
+	SDL_Rect		rect					= {0,0,20,20};
+	PARTICLE_TYPES	type					= PARTICLE_TYPES::TEST;
+	int				lifetime				= 255;
+	int				lifetimeSubstraction	= 0;
 };
 
 class Particle
@@ -34,9 +48,11 @@ public:
 	p2Point<float>	pLocation;
 	p2Point<float>	pVelocity;
 	p2Point<float>	pAcceleration;
+	PARTICLE_TYPES	pType;
 
 	int				lifespan;
 	int				remainingLifetime;
+	int				pLifetimeSubstraction;
 	bool			active;
 	ParticleProps	Props;	
 };
