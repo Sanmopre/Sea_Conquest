@@ -8,8 +8,6 @@ public:
 	ParticleSystem(PARTICLE_TYPES type, p2Point<float>, int index, float timer);
 	~ParticleSystem();
 
-	void Update(float dt);
-
 	void loadSystem(); //maybe we should load each effect properties from an xml
 	bool activateSystem(int index);
 	void deactivateParticle(Particle* particle);

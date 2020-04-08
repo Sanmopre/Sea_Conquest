@@ -11,27 +11,33 @@ Particle::Particle()
 	active			= false;
 }
 
-void Particle::Update()
+void Particle::Update(float dt)
 {
-	if (active)
+	pVelocity += pAcceleration;
+	pLocation += pVelocity;
+
+	pRect.x = pLocation.x;
+	pRect.y = pLocation.y;
+
+	remainingLifetime -= pLifetimeSubstraction;
+
+	if (pTimer != 0 && timeFinished == false)
 	{
-		pVelocity += pAcceleration;
+		pCount += dt;
 
-		pLocation += pVelocity;
-
-		pRect.x = pLocation.x;
-		pRect.y = pLocation.y;
-
-		Draw();
-
-		remainingLifetime -= pLifetimeSubstraction;
-
-		if (remainingLifetime < 0)
+		if (pCount >= pTimer)
 		{
-			loadProperties(Props);
-			remainingLifetime = lifespan;
+			timeFinished = true;
 		}
 	}
+
+	if (remainingLifetime < 0)
+	{
+		loadProperties(Props);
+		remainingLifetime = lifespan;
+	}
+
+	Draw();
 }
 
 void Particle::loadProperties(ParticleProps properties)
@@ -71,9 +77,9 @@ void Particle::switchParticleState()
 bool Particle::Draw()
 {
 	if (pType == PARTICLE_TYPES::CLOUD)
-		App->render->AddBlitEvent(2, nullptr, pLocation.x, pLocation.y, pRect, false, 0.0f, 90, 180, 252, remainingLifetime);
-	
-	App->render->AddBlitEvent(3, nullptr, pLocation.x, pLocation.y, pRect, false, 0.0f, 255, 0, 0, remainingLifetime);
+		App->render->AddBlitEvent(2, nullptr, pLocation.x, pLocation.y, pRect, false, 0.0f, 8, 219, 240, remainingLifetime);
+	else 
+		App->render->AddBlitEvent(3, nullptr, pLocation.x, pLocation.y, pRect, false, 0.0f, 255, 0, 0, remainingLifetime);
 	
 	return true;
 } 

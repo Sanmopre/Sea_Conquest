@@ -1,7 +1,10 @@
 #include "j1ParticleManager.h"
 #include "Particle.h"
 #include "ParticleSystem.h"
+#include "j1Input.h"
 #include "p2Log.h"
+#include "j1App.h"
+#include "j1Render.h"
 
 j1ParticleManager::j1ParticleManager()
 {
@@ -22,29 +25,7 @@ bool j1ParticleManager::Start()
 
 bool j1ParticleManager::Update(float dt)
 {
-
 	int counter = 0;
-
-	while (counter != systems.size())
-	{
-		vector<ParticleSystem*>::iterator system = systems.begin();
-
-		system += counter;
-		for (; system != systems.end(); system++)
-		{
-			if ((*system)->timeFinished == true)
-			{
-				deleteSystem((*system));
-				break;
-			}
-			else
-				(*system)->Update(dt);
-
-			counter++;
-		}
-	}
-
-	counter = 0;
 
 	while (counter != particlePool.size())
 	{
@@ -53,13 +34,24 @@ bool j1ParticleManager::Update(float dt)
 		particle += counter;
 		for (; particle != particlePool.end(); particle++)
 		{
+			if (particle->timeFinished == true)
+				particle->active = false;
+
 			if (particle->active)
-				particle->Update();
+				particle->Update(dt);
 
 			counter++;
 		}
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		iPoint pos = { 1, 1 };
+		App->render->ScreenToWorld(pos.x, pos.y);
+
+		fPoint fpos = { (float)pos.x,  (float)pos.y };
+			App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, fpos, 2);
+	}
 	return true;
 }
 
@@ -139,4 +131,6 @@ void j1ParticleManager::changeIndex(int newIndex)
 {
 	Index = newIndex;
 }
+
+
 

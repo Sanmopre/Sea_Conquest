@@ -9,7 +9,6 @@ ParticleSystem::ParticleSystem(PARTICLE_TYPES _type, p2Point<float> location, in
 	systemProps.Location = location;
 	systemType = _type;
 	timer = _timer;
-	countDown = 0;
 
 	if (systemType == PARTICLE_TYPES::CLOUD)
 	{
@@ -29,22 +28,11 @@ ParticleSystem::~ParticleSystem()
 	deactivateAllParticles();
 }
 
-void ParticleSystem::Update(float dt)
-{
-	if (timer != 0)
-	{
-		countDown += dt;
 
-		if (countDown >= timer)
-		{
-			timeFinished = true;
-		}
-	}
-}
-
-void ParticleSystem::loadSystem() //this must depend on system type; right now, though, they are just hardcoded values. 
+void ParticleSystem::loadSystem()
 {
 	systemProps.type = systemType;
+	systemProps.timer = timer;
 
 	if (systemProps.type == PARTICLE_TYPES::CLOUD)
 	{
@@ -63,7 +51,7 @@ void ParticleSystem::loadSystem() //this must depend on system type; right now, 
 	}
 }
 
-bool ParticleSystem::activateSystem(int index) 
+bool ParticleSystem::activateSystem(int index)
 {
 	Particle* pReference = nullptr;
 	int counter = 0;
@@ -73,10 +61,10 @@ bool ParticleSystem::activateSystem(int index)
 	{
 		if (App->pmanager->particlePool[newIndex].active == true)
 		{
-			App->pmanager->updateIndex();
+			App->pmanager->updateIndex(); //make it return false if we ran out of particles
 			newIndex = App->pmanager->getIndex();
 		}
-		
+
 		pReference = &(App->pmanager->particlePool[newIndex]);
 		pReference->loadProperties(systemProps);
 		pReference->switchParticleState();
