@@ -118,7 +118,7 @@ vector<Node*> j1PathFinding::GetNeighbours(iPoint node)
 		{
 			if (x == 0 && y == 0)
 				continue;
-			else if ((node.x + x) >= 0 && (node.x + x) < map_size && (node.y + y) >= 0 && (node.y + y) < map_size)
+			else if ((node.x + x) >= 0 && (node.x + x) < App->map->map_size && (node.y + y) >= 0 && (node.y + y) < App->map->map_size)
 			{
 				ret.push_back(&*PointToNode((node.x + x), (node.y + y), &NodeMap));
 			}
@@ -129,9 +129,9 @@ vector<Node*> j1PathFinding::GetNeighbours(iPoint node)
 vector<Node>::iterator j1PathFinding::PointToNode(int x, int y, vector<Node>* _grid)
 {
 	vector<Node>::iterator ret;
-	if (x >= map_size || y >= map_size || x < 0 || y < 0)
+	if (x >= App->map->map_size || y >= App->map->map_size || x < 0 || y < 0)
 		return ret;
-	return _grid->begin() + (map_size * y + x);
+	return _grid->begin() + (App->map->map_size * y + x);
 }
 
 int j1PathFinding::DistanceTo(Node* A, Node* B)

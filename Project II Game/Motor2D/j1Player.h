@@ -36,6 +36,8 @@ private:
 	SDL_Rect selector;
 	SDL_Rect texture_rect{ 0,0,300,300 };
 
+	int max_w_group;
+
 	SDL_Texture* Tex_Player;
 
 	iPoint mouse_position; 

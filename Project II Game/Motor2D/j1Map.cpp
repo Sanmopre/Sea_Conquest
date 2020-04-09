@@ -57,8 +57,8 @@ void j1Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld<iPoint>(x, y);
 
-					App->render->AddBlitEvent(0,tileset->texture, pos.x, pos.y, r);//todo 
-					//App->render->AddBlitEvent(0, nullptr, 0, 0, { pos.x - 2, pos.y - 2, 4,4 }, false, false, 255, 0, 0, 200);
+					App->render->AddBlitEvent(0,tileset->texture, pos.x - r.w / 2, pos.y - r.h / 2, r);
+					//App->render->AddBlitEvent(0, nullptr, 0, 0, { pos.x, pos.y, 4,4 }, false, false, 0, 255, 0, 200);
 				}
 			}
 		}
@@ -291,7 +291,7 @@ bool j1Map::LoadMap()
 	else
 	{
 		data.width = map.attribute("width").as_int();
-		App->pathfinding->map_size = data.width;
+		map_size = data.width;
 		data.height = map.attribute("height").as_int();
 		data.tile_width = map.attribute("tilewidth").as_int();
 		data.tile_height = map.attribute("tileheight").as_int();

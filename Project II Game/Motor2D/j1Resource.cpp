@@ -4,6 +4,7 @@
 j1Resource::j1Resource(float x, float y, int level)
 {
 	this->type = EntityType::RESOURCE;
+	main_type = EntityType::RESOURCE;
 	position.x = x;
 	position.y = y;
 	this->level = level;

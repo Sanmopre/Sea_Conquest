@@ -4,6 +4,12 @@
 #include "j1Window.h"
 #include "j1Input.h"
 
+j1Unit::j1Unit() 
+{ 
+	main_type = EntityType::UNIT;
+	orientation = Orientation::NORTH; 
+}
+
 j1Unit::~j1Unit()
 {
 	path.erase(path.begin(), path.end());

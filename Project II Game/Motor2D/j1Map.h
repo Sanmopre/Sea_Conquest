@@ -166,6 +166,7 @@ private:
 public:
 
 	MapData data;
+	int map_size;
 
 private:
 

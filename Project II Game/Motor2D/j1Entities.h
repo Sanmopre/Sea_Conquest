@@ -38,6 +38,8 @@ enum class EntityType
 	HARVESTER,
 	BOATHOUSE,
 	STORAGE,
+	UNIT,
+	STRUCTURE,
 	RESOURCE,
 	NONE
 };
@@ -99,7 +101,7 @@ struct Load
 	void Transfer(Material material, int* sender_amount, int transfer_amount)
 	{
 		
-		int* mat;
+		int* mat = nullptr;
 		int mass;
 		switch (material)
 		{
@@ -160,6 +162,8 @@ public:
 	int max_health;
 	fPoint position;
 	EntityType type;
+	EntityType main_type;
+	NodeType terrain;
 	bool selected;
 	int level;
 
@@ -175,6 +179,7 @@ public:
 	int GetRenderPositionX();
 	int GetRenderPositionY();
 
+	virtual void GoTo(fPoint destination, NodeType terrain) {}
 	virtual void BuildUnit(EntityType type, int level) {}
 
 protected:
@@ -193,7 +198,7 @@ class j1Unit : public j1Entity
 {
 public:
 
-	j1Unit() { orientation = Orientation::NORTH; }
+	j1Unit();
 	~j1Unit();
 
 	float speed;
@@ -226,7 +231,7 @@ class j1Structure : public j1Entity
 {
 public:
 
-	j1Structure() { placed = false; }
+	j1Structure();
 
 	iPoint tile;
 	bool placed;

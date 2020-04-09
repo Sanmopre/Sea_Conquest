@@ -15,7 +15,7 @@
 
 #include "j1EntityManager.h"
 
-
+using namespace std;
 
 j1Player::j1Player() : j1Module()
 {
@@ -49,6 +49,7 @@ bool j1Player::Start()
 	LOG("Player Started");
 	Tex_Player = App->tex->Load("textures/test2.png");
 	App->win->GetWindowSize( win_width,win_height);
+	max_w_group = 7;
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
 }
@@ -85,6 +86,52 @@ bool j1Player::Update(float dt)
 		Zoom();
 		Camera_Limit();
 	}
+
+	if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+	{
+		iPoint m;
+		App->input->GetMousePosition(m.x, m.y);
+		m.x -= App->render->camera.x / App->win->GetScale();
+		m.y -= App->render->camera.y / App->win->GetScale();
+		if (App->entitymanager->selected_n > 1)
+		{
+			int n = 0, x = 0, y = 0;
+			int w_group = 0;
+			iPoint w, h;
+			for (vector<j1Entity*>::iterator i = App->entitymanager->entities.begin(); i != App->entitymanager->entities.end(); i++)
+			{
+				if ((*i)->selected && (*i)->main_type == EntityType::UNIT)
+				{
+					if (n == 0)
+					{
+						//direction detector
+						w = { 30,0 };
+						h = { 0,30 };
+					}
+					if (w_group == max_w_group - 1)
+					{
+						x = 0;
+						y += h.y;
+						w_group = 0;
+					}
+					(*i)->GoTo({ (float)m.x + x, (float)m.y + y}, (*i)->terrain);
+					if (n % 2 == 0)
+					{
+						x *= -1;
+						x += w.x;
+					}
+					else
+						x *= -1;
+					n++;
+					w_group++;
+				}
+				if (n == App->entitymanager->selected_n)
+					break;
+			}
+		}
+
+	}
+
 	//This functions should always be last//
 	Mouse_Cursor();
 	if (App->scenemanager->In_Main_Menu == false) {

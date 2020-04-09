@@ -30,6 +30,7 @@ bool j1EntityManager::Start()
 
 bool j1EntityManager::Update(float dt)
 {
+	int n = 0;
 	int counter = 0;
 	while (counter != entities.size())
 	{
@@ -43,12 +44,16 @@ bool j1EntityManager::Update(float dt)
 				break;
 			}
 			else
+			{
 				(*entity)->Update(dt);
+				if ((*entity)->selected)
+					n++;
+			}
 
 			counter++;
 		}
 	}
-
+	selected_n = n;
 	if (buffer.size() != 0)
 	{
 		for (vector<j1Entity*>::iterator bufferentity = buffer.begin(); bufferentity != buffer.end(); bufferentity++)

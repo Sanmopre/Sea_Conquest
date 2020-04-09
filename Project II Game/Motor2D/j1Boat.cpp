@@ -11,6 +11,7 @@
 j1Boat::j1Boat(float x, float y, int level, int team)
 {
 	type = EntityType::BOAT;
+	terrain = NodeType::WATER;
 	position.x = x;
 	position.y = y;
 	destination = position;
@@ -72,7 +73,7 @@ void j1Boat::Update(float dt)
 		{
 			if (team == 1)
 			{
-				if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+				if (App->entitymanager->selected_n == 1 && App->input->GetMouseButtonDown(3) == KEY_DOWN)
 					SetDestination();
 
 				if(this == App->InGameUI->selected)
@@ -122,6 +123,6 @@ void j1Boat::Damage(int damage, j1Entity* target)
 		target->health -= damage;
 		if (target->health < 0)
 			target->health = 0;
-		//App->pmanager->createSystem(PARTICLE_TYPES::FIRE, target->position);
+		//App->pmanager->createSystem(PARTICLE_TYPES::FIRE, target->position, 0.001f);
 	}
 }

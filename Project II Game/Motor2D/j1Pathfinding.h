@@ -50,8 +50,6 @@ public:
 	bool Start();
 	bool CleanUp();
 
-	int map_size;
-
 	vector<Node> NodeMap;
 
 	vector<fPoint> PathTo(fPoint start_pos, fPoint end_pos, NodeType terrain);

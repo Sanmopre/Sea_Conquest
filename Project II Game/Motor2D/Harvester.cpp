@@ -79,7 +79,8 @@ void j1Harvester::Update(float dt)
 				if(!automating)
 					if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
 					{
-						SetDestination(NodeType::ALL);
+						if (App->entitymanager->selected_n == 1)
+							SetDestination(NodeType::ALL);
 						automatic = false;
 					}
 

@@ -30,6 +30,8 @@ public:
 	std::vector<Animation> allAnimations;
 	std::vector<TextureInfo> allTextures;
 
+	int selected_n;
+
 private:
 
 	std::vector<j1Entity*> buffer;

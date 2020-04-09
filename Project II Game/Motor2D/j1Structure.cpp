@@ -3,6 +3,12 @@
 #include "j1Input.h"
 #include "j1Map.h"
 
+j1Structure::j1Structure()
+{ 
+	main_type = EntityType::STRUCTURE;
+	placed = false; 
+}
+
 void j1Structure::NotPlacedBehaviour()
 {
 	if (!placed)
