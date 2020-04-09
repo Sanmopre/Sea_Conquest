@@ -50,7 +50,7 @@ bool j1ParticleManager::Update(float dt)
 		App->render->ScreenToWorld(pos.x, pos.y);
 
 		fPoint fpos = { (float)pos.x,  (float)pos.y };
-			App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, fpos, 2);
+			App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, fpos, 2);
 	}
 	return true;
 }
