@@ -70,7 +70,7 @@ bool j1InGameUI::Update(float dt)
 			Update_Resources_Trader(selected->trading_entity);
 		}	
 		Manage_Entity_UI(selected);		
-		Update_Resources(selected);
+	    Update_Resources(selected);
 	}
 	else {
 		in_trading = false;
@@ -91,7 +91,6 @@ bool j1InGameUI::Update(float dt)
 	//MENU FROM ESC
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 		Activate_Menu();
-		App->game_pause = !App->game_pause;
 	}
 
 
@@ -172,6 +171,7 @@ void j1InGameUI::Activate_Menu()
 	menu.Load->enabled = !menu.Load->enabled;
 	menu.Save->enabled = !menu.Save->enabled;
 	menu.Image->enabled = !menu.Image->enabled;
+	App->game_pause = !App->game_pause;
 }
 
 void j1InGameUI::Activate_Trading()
