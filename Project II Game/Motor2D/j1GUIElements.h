@@ -24,7 +24,8 @@ enum class GUItype
 enum class SCROLL_TYPE
 {
 	SCROLL_NONE,
-	SCROLL_MUSIC
+	SCROLL_MUSIC,
+	SCROLL_RESOURCES
 };
 
 enum class TEXTURE
