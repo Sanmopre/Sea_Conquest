@@ -10,13 +10,16 @@ public:
 
 	void loadSystem(); //maybe we should load each effect properties from an xml
 	bool activateSystem(int index);
+	void Update(float dt);
 	void deactivateParticle(Particle* particle);
 	void deactivateAllParticles();
 	void changePosition(iPoint location);
 
 	float timer;
 	float countDown;
-	bool timeFinished;
+	bool timeActive;
+	bool toDelete;
+
 	ParticleProps systemProps;
 
 private:

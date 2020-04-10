@@ -1,6 +1,10 @@
 #include "random.h"
-#include <random>
 
+float Random::Randomize()
+{
+	std::random_device rd;  //Will be used to obtain a seed for the random number engine
+	std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+	std::uniform_real_distribution<> dis(0.0, 1.0);
 
-std::mt19937 Random::s_RandomEngine;
-std::uniform_int_distribution<std::mt19937::result_type> Random::s_Distribution;
+	return dis(gen);
+}

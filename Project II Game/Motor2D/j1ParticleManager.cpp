@@ -5,11 +5,17 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Render.h"
+#include "random.h"
+#include "j1Window.h"
+
+#define CLOUD_MAX_TIME 5
 
 j1ParticleManager::j1ParticleManager()
 {
 	particlePool.resize(1500);	// Allocate dynamicaly a lot of particles for later use
 	Index = 0;
+	CloudsActive = false;
+	CloudTimer = CLOUD_MAX_TIME;
 }
 
 j1ParticleManager::~j1ParticleManager()
@@ -25,6 +31,8 @@ bool j1ParticleManager::Start()
 
 bool j1ParticleManager::Update(float dt)
 {
+////////////////////PARTICLES UPDATE
+
 	int counter = 0;
 
 	while (counter != particlePool.size())
@@ -34,9 +42,6 @@ bool j1ParticleManager::Update(float dt)
 		particle += counter;
 		for (; particle != particlePool.end(); particle++)
 		{
-			if (particle->timeFinished == true)
-				particle->active = false;
-
 			if (particle->active)
 				particle->Update(dt);
 
@@ -44,14 +49,78 @@ bool j1ParticleManager::Update(float dt)
 		}
 	}
 
+////////////////////PARTICLE SYSTEMS UPDATE
+
+	counter = 0; 
+
+	while (counter != systems.size())
+	{
+		vector<ParticleSystem*>::iterator system = systems.begin();
+
+		system += counter;
+		for (; system != systems.end(); system++)
+		{
+			if ((*system)->toDelete == true)
+			{
+				quickDeleteSystem(system);
+				break;
+			}
+			else
+				(*system)->Update(dt);
+
+			counter++;
+		}
+	}
+
+//////////////////////DEBUG ("O" TO ACTIVATE/DEACTIVATE CLOUDS & "P" TO START AN EXPLOSION AT THE MOUSE COORDS)
+
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+	{
+		if (CloudsActive == false)
+			CloudsActive = true;
+		else
+		{
+			CloudsActive = false;
+			CloudTimer = CLOUD_MAX_TIME;
+		}
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
-		iPoint pos = { 1, 1 };
-		App->render->ScreenToWorld(pos.x, pos.y);
-
-		fPoint fpos = { (float)pos.x,  (float)pos.y };
-			App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, fpos, 2);
+		iPoint test;
+		App->input->GetMousePosition(test.x, test.y);
+		test.x -= App->render->camera.x / App->win->GetScale();
+		test.y -= App->render->camera.y / App->win->GetScale();
+		App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, { (float)test.x, (float)test.y }, 2);
 	}
+
+///////////////////////CLOUDS SPAWN PARAMETERS
+
+	if(CloudsActive == true)
+	{
+		CloudTimer -= dt;
+	
+		if (CloudTimer <= 0)
+		{
+			cloudVariableY = (1500 * (2 * (Random::Randomize() - 0.5)));
+	
+			if (cloudVariableY < 0)
+				cloudVariableX = -cloudVariableY;
+			else
+				cloudVariableX = cloudVariableY;
+	
+			iPoint pos = { 3230 - cloudVariableX, 1630 + cloudVariableY };
+			App->render->ScreenToWorld(pos.x, pos.y);
+	
+			fPoint fpos = { (float)pos.x,  (float)pos.y };
+			App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, fpos, 40);
+			//LOG("CLOUD CREATED AT  X:%.2f Y:%.2f", fpos.x, fpos.y);
+	
+			CloudTimer = CLOUD_MAX_TIME;
+		}
+
+	}
+
 	return true;
 }
 
@@ -69,6 +138,7 @@ void j1ParticleManager::deleteAllParticles()
 		particlePool.shrink_to_fit();
 	}
 }
+
 ///////////////////ParticleSystems methods
 
 ParticleSystem* j1ParticleManager::createSystem(PARTICLE_TYPES type, p2Point<float> location, float timer)
@@ -92,6 +162,15 @@ void j1ParticleManager::deleteSystem(ParticleSystem* system_)
 			}
 		}
 }
+
+void j1ParticleManager::quickDeleteSystem(std::vector<ParticleSystem*>::iterator& entity)
+{
+	delete (*entity);
+	systems.erase(entity, entity + 1);
+	if (systems.size() <= systems.capacity() / 2)
+		systems.shrink_to_fit();
+}
+
 
 void j1ParticleManager::deleteAllSystems()
 {
