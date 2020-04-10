@@ -32,6 +32,12 @@ bool j1Button::Start()
 	if (textureType == TEXTURE::BOAT_IMAGE)
 		texture = App->gui->Load_Texture(TEXTURE::BOAT_IMAGE);
 
+	if (textureType == TEXTURE::TRADER_DERECHA)
+		texture = App->gui->Load_Texture(TEXTURE::TRADER_DERECHA);
+
+	if (textureType == TEXTURE::TRADER_IZQUIERDA)
+		texture = App->gui->Load_Texture(TEXTURE::TRADER_IZQUIERDA);
+
 	if (textureType == TEXTURE::NEXT)
 		texture = App->gui->Load_Texture(TEXTURE::NEXT);
 

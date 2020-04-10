@@ -147,6 +147,12 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::LINK:
 		texture_load = App->tex->Load("textures/link.png");
 		break;
+	case TEXTURE::TRADER_DERECHA:
+		texture_load = App->tex->Load("textures/derecha.png");
+		break;
+	case TEXTURE::TRADER_IZQUIERDA:
+		texture_load = App->tex->Load("textures/izquierda.png");
+		break;
 		
 	}
 
