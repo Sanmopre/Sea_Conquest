@@ -137,14 +137,27 @@ private:
 	float width;
 	
 
-	//resources
+	//RESOURCES 
+	int max;
 	int type_0;
 	int type_1;
 	int type_2;
 
+
+	int trader_max;
+	int trader_type_0;
+	int trader_type_1;
+	int trader_type_2;
+
+	char text_max[10];
 	char text_type_0[10];
 	char text_type_1[10];
 	char text_type_2[10];
+
+	char trader_max_text[10];
+	char trader_text_type_0[10];
+	char trader_text_type_1[10];
+	char trader_text_type_2[10];
 
 
 	//menu ui

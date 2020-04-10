@@ -19,7 +19,12 @@ j1ScrollBar::~j1ScrollBar() {
 
 bool j1ScrollBar::Start()
 {
+	if(Type == SCROLL_TYPE::SCROLL_RESOURCES)
+	Button = App->gui->AddElement(GUItype::GUI_BUTTON, this, map_position, inside_position, true, true, { 0, 0, 25 , 25 }, nullptr, this->listener, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BOTON_SCROLL);
+	else
 	Button = App->gui->AddElement(GUItype::GUI_BUTTON, this, map_position, inside_position, true, true, { 0, 0, 25 , 25 }, nullptr, this->listener, true, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BOTON_SCROLL);
+	
+	
 	Button->map_position.y = map_position.y - Button->rect.h / 2 + this->rect.h / 2;
 	Value = 0;
 

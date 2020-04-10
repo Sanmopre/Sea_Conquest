@@ -25,15 +25,22 @@ public:
 
 	ParticleSystem* createSystem(PARTICLE_TYPES type, p2Point<float> location, float timer);
 	void		deleteSystem(ParticleSystem* system_);
+	void		quickDeleteSystem(std::vector<ParticleSystem*>::iterator& entity);
 	void		deleteAllSystems();
 
 	void		deleteAllParticles();
+
 
 	std::vector<Particle> particlePool;
 	std::vector<ParticleSystem*> systems;
 
 private:
+
 	int	 Index;
+	bool CloudsActive;
+	float CloudTimer;
+	int cloudVariableY;
+	int cloudVariableX;
 };
 
 #endif // __PARTICLESYSTEM_H__

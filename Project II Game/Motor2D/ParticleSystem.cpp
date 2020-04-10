@@ -9,6 +9,12 @@ ParticleSystem::ParticleSystem(PARTICLE_TYPES _type, p2Point<float> location, in
 	systemProps.Location = location;
 	systemType = _type;
 	timer = _timer;
+	toDelete = false;
+
+	if (_timer == 0)
+		timeActive = false;
+	else
+		timeActive = true;
 
 	if (systemType == PARTICLE_TYPES::CLOUD)
 	{
@@ -32,14 +38,13 @@ ParticleSystem::~ParticleSystem()
 void ParticleSystem::loadSystem()
 {
 	systemProps.type = systemType;
-	systemProps.timer = timer;
 
 	if (systemProps.type == PARTICLE_TYPES::CLOUD)
 	{
-		systemProps.Velocity = { -1, 0 };
+		systemProps.Velocity = { -0.5, 0 };
 		systemProps.lifetime = 40;
 		systemProps.Acceleration = { 0, 0 };
-		systemProps.rect = { 0, 0, 100, 100 };
+		systemProps.rect = { 0, 0, 200, 200 };
 		systemProps.lifetimeSubstraction = 0;
 	}
 	else
@@ -78,6 +83,19 @@ bool ParticleSystem::activateSystem(int index)
 	App->pmanager->changeIndex(index + counter);
 
 	return true;
+}
+
+void ParticleSystem::Update(float dt)
+{
+	if (timeActive == true)
+	{
+		timer -= dt;
+
+		if (timer <= 0)
+		{
+			toDelete = true;
+		}
+	}
 }
 
 void ParticleSystem::deactivateParticle(Particle* particle)

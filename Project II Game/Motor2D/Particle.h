@@ -31,7 +31,6 @@ struct ParticleProps
 	PARTICLE_TYPES	type = PARTICLE_TYPES::TEST;
 	int				lifetime = 255;
 	int				lifetimeSubstraction = 0;
-	float			timer = 0;
 };
 
 class Particle
@@ -55,12 +54,7 @@ public:
 	int				remainingLifetime;
 	int				pLifetimeSubstraction;
 	bool			active;
-	float			pTimer;
-	float			pCount;
-	bool			timeFinished;
 	ParticleProps	Props;
-
-	int debug = 0;
 };
 
 #endif
