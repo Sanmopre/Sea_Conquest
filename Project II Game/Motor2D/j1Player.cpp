@@ -16,6 +16,9 @@
 
 #include "j1EntityManager.h"
 
+#define X_DISTANCE 30
+#define Y_DISTANCE 30
+
 using namespace std;
 
 j1Player::j1Player() : j1Module()
@@ -96,31 +99,42 @@ bool j1Player::Update(float dt)
 		m.y -= App->render->camera.y / App->win->GetScale();
 		if (App->entitymanager->selected_n > 1)
 		{
-			int n = 0, x = 0, y = 0;
+			int n = 0;
 			int w_group = 0;
-			iPoint w, h;
+			fPoint x = { 0,0 };
+			fPoint y = { 0,0 };
+			fPoint w, h;
 			for (vector<j1Entity*>::iterator i = App->entitymanager->entities.begin(); i != App->entitymanager->entities.end(); i++)
 			{
 				if ((*i)->selected && (*i)->main_type == EntityType::UNIT)
 				{
 					if (n == 0)
 					{
-						
+						//direction detector
+						fPoint v = { (*i)->position.x - m.x , (*i)->position.y - m.y };
+						float m = v.y / v.x;
+						h.x = Y_DISTANCE / sqrt(m * m + 1);
+						h.y = m * h.x;
+
+						v = { -v.y, v.x };
+						m = v.y / v.x;
+						w.x = X_DISTANCE / sqrt(m * m + 1);
+						w.y = m * w.x;
 					}
 					if (w_group == max_w_group - 1)
 					{
-						x = 0;
-						y += h.y;
+						x.SetToZero();
+						y += h;
 						w_group = 0;
 					}
-					(*i)->GoTo({ (float)m.x + x, (float)m.y + y}, (*i)->terrain);
+					(*i)->GoTo({ (float)m.x + x.x + y.x, (float)m.y + x.y + y.y}, (*i)->terrain);
 					if (n % 2 == 0)
 					{
-						x *= -1;
-						x += w.x;
+						x.Negate();
+						x += w;
 					}
 					else
-						x *= -1;
+						x.Negate();
 					n++;
 					w_group++;
 				}
