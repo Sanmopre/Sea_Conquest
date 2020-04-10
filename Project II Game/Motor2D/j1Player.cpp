@@ -1,6 +1,7 @@
 #include "p2Defs.h"
 #include "j1App.h"
 #include "p2Log.h"
+#include <math.h>
 #include "j1Textures.h"
 #include "j1Input.h"
 #include "j1Audio.h"
@@ -104,9 +105,7 @@ bool j1Player::Update(float dt)
 				{
 					if (n == 0)
 					{
-						//direction detector
-						w = { 30,0 };
-						h = { 0,30 };
+						
 					}
 					if (w_group == max_w_group - 1)
 					{
