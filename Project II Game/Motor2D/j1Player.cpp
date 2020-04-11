@@ -116,6 +116,9 @@ bool j1Player::Update(float dt)
 						h.x = Y_DISTANCE / sqrt(m * m + 1);
 						h.y = m * h.x;
 
+						if (v.y < 0)
+							h.Negate();
+
 						v = { -v.y, v.x };
 						m = v.y / v.x;
 						w.x = X_DISTANCE / sqrt(m * m + 1);
