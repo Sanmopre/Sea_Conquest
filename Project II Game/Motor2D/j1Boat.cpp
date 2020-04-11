@@ -4,6 +4,7 @@
 #include "j1Input.h"
 #include "j1EntityManager.h"
 #include "j1ParticleManager.h"
+#include "ParticleSystem.h"
 #include "j1InGameUI.h"
 
 #include <vector>
@@ -25,6 +26,13 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	health = max_health;
 	load = { 0, 0, 0, 200 };
 	target = nullptr;
+
+	//PARTICLES TEST
+	Smoke = false;
+	Fire = false;
+	SmokeSystem = nullptr;
+	FireSystem = nullptr;
+	//
 	
 	for (std::vector<Animation>::iterator i = App->entitymanager->allAnimations.begin(); i != App->entitymanager->allAnimations.end(); i++)
 	{
@@ -101,6 +109,42 @@ void j1Boat::Update(float dt)
 		}
 
 		target = FindTarget(position.x, position.y, range, EntityType::NONE, -1);
+
+		//PARTICLES
+		if (health < 0)
+			health = 0;
+
+		if (health != 0.0f)
+		{
+			if (health < max_health * 0.5 && Smoke == false)
+			{
+				SmokeSystem = App->pmanager->createSystem(PARTICLE_TYPES::SMOKE, position, 0);
+				Smoke = true;
+			}
+
+			if (health < max_health * 0.2 && Fire == false)
+			{
+				FireSystem = App->pmanager->createSystem(PARTICLE_TYPES::FIRE, position, 0);
+				Fire = true;
+			}
+
+			if (Smoke == true)
+				SmokeSystem->changePosition(position);
+
+			if (Fire == true)
+				FireSystem->changePosition(position);
+		}
+		if (health == 0)
+		{
+			if(Smoke == true)
+			SmokeSystem->toDelete = true;
+
+			if(Fire == true)
+			FireSystem->toDelete = true;
+
+			App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, position, 0.9);
+		}
+		//
 	}
 
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
@@ -118,16 +162,10 @@ void j1Boat::CleanUp()
 
 void j1Boat::Damage(int damage, j1Entity* target)
 {
-	if (target->health != 0.0f)
+	if (target->health != 0)
 	{
 		target->health -= damage;
 
-		if (target->health < 0)
-			target->health = 0;
-
-		//App->pmanager->createSystem(PARTICLE_TYPES::FIRE, target->position, 0.5f);
-
-		if (target->health == 0)
-			App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, target->position, 0.7f);
+		//App->pmanager->createSystem(PARTICLE_TYPES::FIRE, target->position, 0.001f);
 	}
 }

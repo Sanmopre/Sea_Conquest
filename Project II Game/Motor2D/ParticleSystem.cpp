@@ -20,6 +20,10 @@ ParticleSystem::ParticleSystem(PARTICLE_TYPES _type, p2Point<float> location, in
 	{
 		numberOfParticles = 3;
 	}
+	else if (systemType == PARTICLE_TYPES::SMOKE || systemType == PARTICLE_TYPES::FIRE)
+	{
+		numberOfParticles = 6;
+	}
 	else
 	{
 		numberOfParticles = 20;
@@ -47,11 +51,25 @@ void ParticleSystem::loadSystem()
 		systemProps.rect = { 0, 0, 200, 200 };
 		systemProps.lifetimeSubstraction = 0;
 	}
+	else if (systemProps.type == PARTICLE_TYPES::SMOKE)
+	{
+		systemProps.lifetime = 255;
+		systemProps.Acceleration = { 0, (-0.003f) };
+		systemProps.rect = { 0, 0, 5, 5 };
+		systemProps.lifetimeSubstraction = 1.7;
+	}
+	else if (systemProps.type == PARTICLE_TYPES::FIRE)
+	{
+		systemProps.lifetime = 255;
+		systemProps.Acceleration = { 0, (-0.003f) };
+		systemProps.rect = { 0, 0, 5, 5 };
+		systemProps.lifetimeSubstraction = 1.5;
+	}
 	else
 	{
 		systemProps.lifetime = 255;
 		systemProps.Acceleration = { 0, 0.01 };
-		systemProps.rect = { 0, 0, 10, 10 };
+		systemProps.rect = { 0, 0, 7, 7 };
 		systemProps.lifetimeSubstraction = 3;
 	}
 }
@@ -113,13 +131,12 @@ void ParticleSystem::deactivateAllParticles()
 	}
 }
 
-void ParticleSystem::changePosition(iPoint location)
+void ParticleSystem::changePosition(fPoint location)
 {
 	Particle* particle = nullptr;
 	for (int i = 0; i < numberOfParticles; i++)
 	{
 		particle = *(referencesArray + i);
-		particle->Props.Location.x = (float)location.x;
-		particle->Props.Location.y = (float)location.y;
+		particle->Props.Location = location;
 	}
 }

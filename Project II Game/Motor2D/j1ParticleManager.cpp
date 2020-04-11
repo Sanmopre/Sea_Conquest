@@ -56,7 +56,7 @@ bool j1ParticleManager::Update(float dt)
 	while (counter != systems.size())
 	{
 		vector<ParticleSystem*>::iterator system = systems.begin();
-
+		
 		system += counter;
 		for (; system != systems.end(); system++)
 		{
@@ -91,7 +91,7 @@ bool j1ParticleManager::Update(float dt)
 		App->input->GetMousePosition(test.x, test.y);
 		test.x -= App->render->camera.x / App->win->GetScale();
 		test.y -= App->render->camera.y / App->win->GetScale();
-		App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, { (float)test.x, (float)test.y }, 2);
+		App->pmanager->createSystem(PARTICLE_TYPES::FIRE, { (float)test.x, (float)test.y }, 10);
 	}
 
 ///////////////////////CLOUDS SPAWN PARAMETERS
@@ -163,10 +163,10 @@ void j1ParticleManager::deleteSystem(ParticleSystem* system_)
 		}
 }
 
-void j1ParticleManager::quickDeleteSystem(std::vector<ParticleSystem*>::iterator& entity)
+void j1ParticleManager::quickDeleteSystem(std::vector<ParticleSystem*>::iterator& system)
 {
-	delete (*entity);
-	systems.erase(entity, entity + 1);
+	delete (*system);
+	systems.erase(system, system + 1);
 	if (systems.size() <= systems.capacity() / 2)
 		systems.shrink_to_fit();
 }
