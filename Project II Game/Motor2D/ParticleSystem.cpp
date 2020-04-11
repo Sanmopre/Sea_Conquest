@@ -45,7 +45,7 @@ void ParticleSystem::loadSystem()
 
 	if (systemProps.type == PARTICLE_TYPES::CLOUD)
 	{
-		systemProps.Velocity = { -0.7, 0 };
+		systemProps.Velocity = { -0.5, 0 };
 		systemProps.lifetime = 40;
 		systemProps.Acceleration = { 0, 0 };
 		systemProps.rect = { 0, 0, 200, 200 };
@@ -54,16 +54,16 @@ void ParticleSystem::loadSystem()
 	else if (systemProps.type == PARTICLE_TYPES::SMOKE)
 	{
 		systemProps.lifetime = 255;
-		systemProps.Acceleration = { 0, (-0.01f) };
+		systemProps.Acceleration = { 0, (-0.003f) };
 		systemProps.rect = { 0, 0, 5, 5 };
-		systemProps.lifetimeSubstraction = 1.4;
+		systemProps.lifetimeSubstraction = 1.7;
 	}
 	else if (systemProps.type == PARTICLE_TYPES::FIRE)
 	{
 		systemProps.lifetime = 255;
-		systemProps.Acceleration = { 0, (-0.01f) };
+		systemProps.Acceleration = { 0, (-0.003f) };
 		systemProps.rect = { 0, 0, 5, 5 };
-		systemProps.lifetimeSubstraction = 2;
+		systemProps.lifetimeSubstraction = 1.5;
 	}
 	else
 	{

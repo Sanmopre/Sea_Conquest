@@ -54,7 +54,7 @@ void Particle::loadProperties(ParticleProps properties)
 		pVelocity = { ((float)(Random::Randomize() - 0.5)), ((float)(Random::Randomize()) * (-1)) };
 
 	if (pType == PARTICLE_TYPES::SMOKE || pType == PARTICLE_TYPES::FIRE)
-		pVelocity = { (float)(Random::Randomize() - 0.5), (float)(Random::Randomize() - 0.5) };
+		pVelocity = { ((float)(Random::Randomize() - 0.5))/2, (float)(Random::Randomize() - 0.5)/2 };
 }
 
 void Particle::switchParticleState()
@@ -73,7 +73,7 @@ bool Particle::Draw()
 {
 	if (pType == PARTICLE_TYPES::CLOUD)
 	{
-		App->render->AddBlitEvent(2, nullptr, pLocation.x, pLocation.y, pRect, false, 0.0f, 216, 237, 244, remainingLifetime);
+		App->render->AddBlitEvent(2, nullptr, pLocation.x, pLocation.y, pRect, false, 0.0f, 216, 237, 244, remainingLifetime, true);
 	}
 	else if (pType == PARTICLE_TYPES::SMOKE)
 	{
