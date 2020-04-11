@@ -13,11 +13,13 @@
 #include "j1Timer.h"
 #include "j1Pathfinding.h"
 
+
 #define WOOD_MASS 4
 #define COTTON_MASS 1
 #define METAL_MASS 10
 
 struct SDL_Texture;
+struct ParticleSystem;
 
 enum class Orientation
 {
@@ -208,6 +210,13 @@ public:
 	vector<fPoint> path;
 
 	j1Entity* target;
+
+	//PARTICLES
+	bool Smoke;
+	bool Fire;
+
+	ParticleSystem* SmokeSystem;
+	ParticleSystem* FireSystem;
 
 protected:
 

@@ -13,7 +13,7 @@ public:
 	void Update(float dt);
 	void deactivateParticle(Particle* particle);
 	void deactivateAllParticles();
-	void changePosition(iPoint location);
+	void changePosition(fPoint location);
 
 	float timer;
 	float countDown;
