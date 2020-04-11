@@ -32,6 +32,12 @@ bool j1Button::Start()
 	if (textureType == TEXTURE::BOAT_IMAGE)
 		texture = App->gui->Load_Texture(TEXTURE::BOAT_IMAGE);
 
+	if (textureType == TEXTURE::TRADER_DERECHA)
+		texture = App->gui->Load_Texture(TEXTURE::TRADER_DERECHA);
+
+	if (textureType == TEXTURE::TRADER_IZQUIERDA)
+		texture = App->gui->Load_Texture(TEXTURE::TRADER_IZQUIERDA);
+
 	if (textureType == TEXTURE::NEXT)
 		texture = App->gui->Load_Texture(TEXTURE::NEXT);
 
@@ -46,6 +52,15 @@ bool j1Button::Start()
 	
 	if (textureType == TEXTURE::BOTON_SCROLL)
 		texture = App->gui->Load_Texture(TEXTURE::BOTON_SCROLL);
+	
+	if (textureType == TEXTURE::COTTON)
+		texture = App->gui->Load_Texture(TEXTURE::COTTON);
+
+	if (textureType == TEXTURE::WOOD)
+		texture = App->gui->Load_Texture(TEXTURE::WOOD);
+
+	if (textureType == TEXTURE::METAL)
+		texture = App->gui->Load_Texture(TEXTURE::METAL);
 
 	if (text != nullptr)
 		label = App->gui->AddElement(GUItype::GUI_LABEL, this, map_position, inside_position, true, true, { 0,0,0,0 }, text);

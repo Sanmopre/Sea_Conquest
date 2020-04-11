@@ -62,6 +62,12 @@ struct Trader_Menu {
 	j1Element* Scroll;
 	j1Element* Scroll_1;
 	j1Element* Scroll_2;
+	j1Element* button_trade_1;
+	j1Element* button_trade_2;
+	j1Element* button_trade_3;
+	j1Element* button_trade_4;
+	j1Element* button_trade_5;
+	j1Element* button_trade_6;
 };
 
 struct SDL_Texture;
@@ -134,6 +140,8 @@ private:
 	//positions
 	float MiddleScreenW;
 	float MiddleScreenH;
+	int tradepos_x = 0;
+	int tradepos_y = 0;
 	float width;
 	
 
