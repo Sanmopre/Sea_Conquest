@@ -2,6 +2,7 @@
 #define __j1INGAMEUI_H__
 
 #include "j1Module.h"
+#include "j1Entities.h"
 #include "SDL/include/SDL_rect.h"
 #include <vector>
 
@@ -114,8 +115,8 @@ public:
 	void Deactivate_Harvester_Menu();
 
 	//BAR UPDATES
-	void Update_Bar(j1Element* scroll, float resource, float total_resource);
-	void Update_Bar_Trader(j1Element* scroll, float resource, float total_resource);
+	void Update_Bar(j1Element* scroll, float resource, float total_resource, Material material);
+	void Update_Bar_Trader(j1Element* scroll, float resource, float total_resource, Material material);
 	void Update_Resources(j1Entity* entity);
 	void Update_Resources_Trader(j1Entity* entity);
 
