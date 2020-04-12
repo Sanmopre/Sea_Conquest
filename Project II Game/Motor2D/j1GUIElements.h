@@ -75,6 +75,7 @@ public:
 
 	bool OnAbove();
 	virtual void OnClick();
+	virtual void OnLeftClick();
 	virtual void OnRelease();
 	virtual void Dragging();
 	void Draw();

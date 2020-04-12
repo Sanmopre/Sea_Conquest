@@ -87,6 +87,9 @@ bool j1Button::Update(float dt)
 			if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 				OnClick();
 
+			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+				OnLeftClick();
+
 			if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
 			{
 				if (X_drag || Y_drag)

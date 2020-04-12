@@ -254,8 +254,8 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 				if ((*entity)->selected)
 				{
 					(*entity)->load.cotton += 0;
-					(*entity)->load.wood += 0;
-					(*entity)->load.metal += 10;
+					(*entity)->load.wood += 10;
+					(*entity)->load.metal += 0;
 				}
 
 		if (element == menu.Exit_button) {
@@ -343,6 +343,26 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			selected->trading_entity->load.Transfer(Material::METAL, &selected->load.metal, 5);
 		}
 	}
+	break;
+	case GUI_Event::EVENT_LEFTCLICK:
+		if (element == trader.button_trade_1) {
+			selected->load.Transfer(Material::COTTON, &selected->trading_entity->load.cotton, selected->trading_entity->load.cotton);
+		}
+		if (element == trader.button_trade_2) {
+			selected->load.Transfer(Material::WOOD, &selected->trading_entity->load.wood, selected->trading_entity->load.wood);
+		}
+		if (element == trader.button_trade_3) {
+			selected->load.Transfer(Material::METAL, &selected->trading_entity->load.metal, selected->trading_entity->load.metal);
+		}
+		if (element == trader.button_trade_4) {
+			selected->trading_entity->load.Transfer(Material::COTTON, &selected->load.cotton, selected->load.cotton);
+		}
+		if (element == trader.button_trade_5) {
+			selected->trading_entity->load.Transfer(Material::WOOD, &selected->load.wood, selected->load.wood);
+		}
+		if (element == trader.button_trade_6) {
+			selected->trading_entity->load.Transfer(Material::METAL, &selected->load.metal, selected->load.metal);
+		}
 	}
 }
 
