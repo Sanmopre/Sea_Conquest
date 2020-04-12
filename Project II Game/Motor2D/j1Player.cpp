@@ -276,5 +276,15 @@ void j1Player::Zoom()
 
 void j1Player::Camera_Limit()
 {
+	//TOP CAMERA LIMITS
+	if (App->render->camera.x/2 < App->render->camera.y)
+		App->render->camera.y = (App->render->camera.x / 2);
+	if (-App->render->camera.x/ 2 + 500 < App->render->camera.y)
+		App->render->camera.y = -(App->render->camera.x / 2) + 500;
+//	if (-App->render->camera.x/2 >  App->render->camera.y - 3000)
+	//	App->render->camera.y = -(App->render->camera.x / 2) - 3000;
+	if (App->render->camera.x / 2 < App->render->camera.y - 3000)
+		App->render->camera.y = (App->render->camera.x / 2) - 3000;
 
+	//BOTTON CAMERA LIMITS
 }
