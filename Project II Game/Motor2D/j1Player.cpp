@@ -279,12 +279,16 @@ void j1Player::Camera_Limit()
 	//TOP CAMERA LIMITS
 	if (App->render->camera.x/2 < App->render->camera.y)
 		App->render->camera.y = (App->render->camera.x / 2);
-	if (-App->render->camera.x/ 2 + 500 < App->render->camera.y)
-		App->render->camera.y = -(App->render->camera.x / 2) + 500;
-//	if (-App->render->camera.x/2 >  App->render->camera.y - 3000)
-	//	App->render->camera.y = -(App->render->camera.x / 2) - 3000;
-	if (App->render->camera.x / 2 < App->render->camera.y - 3000)
-		App->render->camera.y = (App->render->camera.x / 2) - 3000;
+	if (-App->render->camera.x/ 2 + 300< App->render->camera.y)
+		App->render->camera.y = -(App->render->camera.x / 2)+300 ;
 
 	//BOTTON CAMERA LIMITS
+	if (App->render->camera.x/2 - 6400 > App->render->camera.y)
+		App->render->camera.y = (App->render->camera.x / 2) - 6400;
+	if (App->render->camera.x >= 6700)
+		App->render->camera.x = 6700;
+	if (App->render->camera.x < -11700 - 2 * App->render->camera.y) 
+		App->render->camera.y = -App->render->camera.x/2 - 5850;
+	if (App->render->camera.x < -5850)
+		App->render->camera.x = -5850;
 }
