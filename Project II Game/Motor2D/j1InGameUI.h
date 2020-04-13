@@ -147,16 +147,9 @@ private:
 	
 
 	//RESOURCES 
-	int max;
-	int type_0;
-	int type_1;
-	int type_2;
-
-
-	int trader_max;
-	int trader_type_0;
-	int trader_type_1;
-	int trader_type_2;
+	int type_0 = 0;
+	int type_1 = 0;
+	int type_2 = 0;
 
 	char text_max[10];
 	char text_type_0[10];
@@ -188,6 +181,7 @@ private:
 	void GetSelectedEntity();
 
 	bool in_trading = false;
+	bool in_trader = false;
 	int font_name = -1;
 	bool quit = false;
 };
