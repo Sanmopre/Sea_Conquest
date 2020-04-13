@@ -82,9 +82,9 @@ bool ParticleSystem::activateSystem(int index)
 
 	while (counter < numberOfParticles)
 	{
-		if (App->pmanager->particlePool[newIndex].active == true)
+		if (App->pmanager->particlePool[newIndex].active == true || newIndex >= 1499)
 		{
-			App->pmanager->updateIndex(); //make it return false if we ran out of particles
+			if(App->pmanager->updateIndex()) 
 			newIndex = App->pmanager->getIndex();
 		}
 
@@ -92,13 +92,13 @@ bool ParticleSystem::activateSystem(int index)
 		pReference->loadProperties(systemProps);
 		pReference->switchParticleState();
 
-		*(referencesArray + counter) = pReference;
+		*(referencesArray + counter) = pReference; //asigno la referencia de la particula cargada al lugar que le corresponde de 
 
 		newIndex++;
 		counter++;
 	}
 
-	App->pmanager->changeIndex(index + counter);
+	App->pmanager->updateIndex();
 
 	return true;
 }

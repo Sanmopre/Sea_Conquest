@@ -19,6 +19,7 @@ j1ParticleManager::j1ParticleManager()
 	CloudTimer = CLOUD_MAX_TIME;
 	cloudVariableX = 0;
 	cloudVariableY = 0; 
+	smokeTexture = nullptr;
 }
 
 j1ParticleManager::~j1ParticleManager()
@@ -95,7 +96,7 @@ bool j1ParticleManager::Update(float dt)
 		App->input->GetMousePosition(test.x, test.y);
 		test.x -= App->render->camera.x / App->win->GetScale();
 		test.y -= App->render->camera.y / App->win->GetScale();
-		App->pmanager->createSystem(PARTICLE_TYPES::FIRE, { (float)test.x, (float)test.y }, 10);
+		App->pmanager->createSystem(PARTICLE_TYPES::FIRE, { (float)test.x, (float)test.y }, 0);
 	}
 
 ///////////////////////CLOUDS SPAWN PARAMETERS
@@ -187,22 +188,29 @@ void j1ParticleManager::deleteAllSystems()
 }
 
 ////////////////////Index Methods
-void j1ParticleManager::updateIndex()
+bool j1ParticleManager::updateIndex()
 {
-	int counter = 0;
+	bool ret = true;
+	int newIndex = Index;
 
-	for (int newIndex = Index; particlePool[newIndex].active != false; newIndex++)
+	for (int counter = 0; particlePool[newIndex].active != false; counter++)
 	{
-		counter++;
+		newIndex++;
 
 		if (newIndex == 1499) //in case we arrive to the particle number 1499(the last one), we go back to the beggining to check if there are any particles free.
 			newIndex = 0;
 
 		if (counter == 1500)
+		{
 			LOG("The unexpected happened. We ran out of particles");
+			ret = false;
+			break;
+		}
 	}
 
-	Index += counter;
+	Index = newIndex;
+	LOG("New Index: %d", Index);
+	return ret;
 }
 
 int j1ParticleManager::getIndex()
