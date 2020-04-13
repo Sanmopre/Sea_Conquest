@@ -116,6 +116,9 @@ bool j1Player::Update(float dt)
 						h.x = Y_DISTANCE / sqrt(m * m + 1);
 						h.y = m * h.x;
 
+						if (v.y < 0)
+							h.Negate();
+
 						v = { -v.y, v.x };
 						m = v.y / v.x;
 						w.x = X_DISTANCE / sqrt(m * m + 1);
@@ -228,7 +231,7 @@ void j1Player::Mouse_Cursor()
 {
 	mouse_position.x -= App->render->camera.x / App->win->GetScale();
 	mouse_position.y -= App->render->camera.y / App->win->GetScale();
-	App->render->AddBlitEvent(5,Tex_Player, mouse_position.x, mouse_position.y, texture_rect);
+	App->render->AddBlitEvent(7,Tex_Player, mouse_position.x, mouse_position.y, texture_rect);
 }
 
 void j1Player::Drag_Mouse()
@@ -273,5 +276,19 @@ void j1Player::Zoom()
 
 void j1Player::Camera_Limit()
 {
+	//TOP CAMERA LIMITS
+	if (App->render->camera.x/2 < App->render->camera.y)
+		App->render->camera.y = (App->render->camera.x / 2);
+	if (-App->render->camera.x/ 2 + 300< App->render->camera.y)
+		App->render->camera.y = -(App->render->camera.x / 2)+300 ;
 
+	//BOTTON CAMERA LIMITS
+	if (App->render->camera.x/2 - 6400 > App->render->camera.y)
+		App->render->camera.y = (App->render->camera.x / 2) - 6400;
+	if (App->render->camera.x >= 6700)
+		App->render->camera.x = 6700;
+	if (App->render->camera.x < -11700 - 2 * App->render->camera.y) 
+		App->render->camera.y = -App->render->camera.x/2 - 5850;
+	if (App->render->camera.x < -5850)
+		App->render->camera.x = -5850;
 }

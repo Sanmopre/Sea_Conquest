@@ -59,6 +59,15 @@ void j1Element::OnClick()
 	}
 }
 
+void j1Element::OnLeftClick()
+{
+	if (listener != nullptr)
+	{
+		this->listener->GUI_Event_Manager(GUI_Event::EVENT_LEFTCLICK, this);
+	}
+
+}
+
 
 void j1Element::OnRelease()
 {

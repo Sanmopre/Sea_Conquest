@@ -253,9 +253,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
 				if ((*entity)->selected)
 				{
-					(*entity)->load.cotton += 10;
+					(*entity)->load.cotton += 0;
 					(*entity)->load.wood += 10;
-					(*entity)->load.metal += 10;
+					(*entity)->load.metal += 0;
 				}
 
 		if (element == menu.Exit_button) {
@@ -343,6 +343,26 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			selected->trading_entity->load.Transfer(Material::METAL, &selected->load.metal, 5);
 		}
 	}
+	break;
+	case GUI_Event::EVENT_LEFTCLICK:
+		if (element == trader.button_trade_1) {
+			selected->load.Transfer(Material::COTTON, &selected->trading_entity->load.cotton, selected->trading_entity->load.cotton);
+		}
+		if (element == trader.button_trade_2) {
+			selected->load.Transfer(Material::WOOD, &selected->trading_entity->load.wood, selected->trading_entity->load.wood);
+		}
+		if (element == trader.button_trade_3) {
+			selected->load.Transfer(Material::METAL, &selected->trading_entity->load.metal, selected->trading_entity->load.metal);
+		}
+		if (element == trader.button_trade_4) {
+			selected->trading_entity->load.Transfer(Material::COTTON, &selected->load.cotton, selected->load.cotton);
+		}
+		if (element == trader.button_trade_5) {
+			selected->trading_entity->load.Transfer(Material::WOOD, &selected->load.wood, selected->load.wood);
+		}
+		if (element == trader.button_trade_6) {
+			selected->trading_entity->load.Transfer(Material::METAL, &selected->load.metal, selected->load.metal);
+		}
 	}
 }
 
@@ -402,36 +422,56 @@ void j1InGameUI::Deactivate_Harvester_Menu()
 	harvester.Trade->enabled = false;
 }
 
-void j1InGameUI::Update_Bar(j1Element* scroll, float resource, float total_resource)
+void j1InGameUI::Update_Bar(j1Element* scroll, float resource, float total_resource, Material material)
 {
 	float percentage = 0;
 	percentage = resource / total_resource;
 
 	scroll->Button->inside_position.x = -(235 * percentage);
-	scroll->Button->map_position.x = 110 + (235 * percentage);
+	switch (material) {
+	case Material::COTTON:
+		scroll->Button->map_position.x = 110 + (235 * percentage);
+		break;
+	case Material::WOOD:
+		scroll->Button->map_position.x = 110 + (235 * percentage) * 4;
+		break;
+	case Material::METAL:
+		scroll->Button->map_position.x = 110 + (235 * percentage) * 10;
+		break;
+	}
 }
 
-void j1InGameUI::Update_Bar_Trader(j1Element* scroll, float resource, float total_resource)
+void j1InGameUI::Update_Bar_Trader(j1Element* scroll, float resource, float total_resource, Material material)
 {
 	float percentage = 0;
 	percentage = resource / total_resource;
 
 	scroll->Button->inside_position.x = -(235 * percentage);
-	scroll->Button->map_position.x = MiddleScreenW + 130 + (235 * percentage);
+	switch (material) {
+	case Material::COTTON:
+		scroll->Button->map_position.x = MiddleScreenW + 130 + (235 * percentage);
+		break;
+	case Material::WOOD:
+		scroll->Button->map_position.x = MiddleScreenW + 130 + (235 * percentage) * 4;
+		break;
+	case Material::METAL:
+		scroll->Button->map_position.x = MiddleScreenW + 130 + (235 * percentage) * 10;
+		break;
+	}
 }
 
 void j1InGameUI::Update_Resources(j1Entity* entity)
 {
-		Update_Bar(trading.Scroll, entity->load.cotton, entity->load.maxweight);
-		Update_Bar(trading.Scroll_1, entity->load.wood, entity->load.maxweight);
-		Update_Bar(trading.Scroll_2, entity->load.metal, entity->load.maxweight);
+		Update_Bar(trading.Scroll, entity->load.cotton, entity->load.maxweight, Material::COTTON);
+		Update_Bar(trading.Scroll_1, entity->load.wood, entity->load.maxweight, Material::WOOD);
+		Update_Bar(trading.Scroll_2, entity->load.metal, entity->load.maxweight, Material::METAL);
 }
 
 void j1InGameUI::Update_Resources_Trader(j1Entity* entity)
 {
-		Update_Bar_Trader(trader.Scroll, entity->load.cotton, entity->load.maxweight);
-		Update_Bar_Trader(trader.Scroll_1, entity->load.wood, entity->load.maxweight);
-		Update_Bar_Trader(trader.Scroll_2, entity->load.metal, entity->load.maxweight);
+		Update_Bar_Trader(trader.Scroll, entity->load.cotton, entity->load.maxweight, Material::COTTON);
+		Update_Bar_Trader(trader.Scroll_1, entity->load.wood, entity->load.maxweight, Material::WOOD);
+		Update_Bar_Trader(trader.Scroll_2, entity->load.metal, entity->load.maxweight, Material::METAL);
 }
 
 void j1InGameUI::Trading_Manager(j1Entity* entity)

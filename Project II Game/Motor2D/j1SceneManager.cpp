@@ -38,7 +38,8 @@ bool j1SceneManager::Start()
 {
 	//LOAD THE START OF BOTH SCENES
 	//App->map->Load("mapa men.tmx") == true;
-	App->map->Load("Map_v01.tmx") == true;
+	//App->map->Load("Map_v01.tmx") == true;
+	App->map->Load("Mapa definitivo.tmx") == true;
 	App->scene2->main_texture = App->tex->Load("textures/Main_Screen.png");
 	return true;
 }

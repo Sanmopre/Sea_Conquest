@@ -102,40 +102,45 @@ struct Load
 
 	void Transfer(Material material, int* sender_amount, int transfer_amount)
 	{
-		
-		int* mat = nullptr;
-		int mass;
-		switch (material)
+		if (*sender_amount > 0)
 		{
-		case WOOD:
-			mat = &wood;
-			mass = WOOD_MASS;
-			break;
-		case COTTON:
-			mat = &cotton;
-			mass = COTTON_MASS;
-			break;
-		case METAL:
-			mat = &metal;
-			mass = METAL_MASS;
-			break;
-		}
+			int* mat = nullptr;
+			int mass;
+			switch (material)
+			{
+			case WOOD:
+				mat = &wood;
+				mass = WOOD_MASS;
+				break;
+			case COTTON:
+				mat = &cotton;
+				mass = COTTON_MASS;
+				break;
+			case METAL:
+				mat = &metal;
+				mass = METAL_MASS;
+				break;
+			}
 
-		if (*sender_amount >= transfer_amount)
-		{
-			*mat += transfer_amount;
-			*sender_amount -= transfer_amount;
-		}
-		else
-		{
-			*mat += (transfer_amount - *sender_amount);
-			*sender_amount = 0;
-		}
-		if (Weight() > maxweight)
-		{
-			int rest = (Weight() - maxweight)/mass;
-			*sender_amount += rest;
-			*mat -= rest;
+			if (*sender_amount >= transfer_amount)
+			{
+				*mat += transfer_amount;
+				*sender_amount -= transfer_amount;
+			}
+			else
+			{
+				int t = (transfer_amount - *sender_amount);
+				if (t < 0)
+					t = 0;
+				*mat += t;
+				*sender_amount = 0;
+			}
+			if (Weight() > maxweight)
+			{
+				int rest = (Weight() - maxweight) / mass;
+				*sender_amount += rest;
+				*mat -= rest;
+			}
 		}
 	}
 
