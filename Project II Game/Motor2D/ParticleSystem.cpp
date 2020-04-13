@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Textures.h"
 #include "random.h"
+#include "j1Render.h"
 
 ParticleSystem::ParticleSystem(PARTICLE_TYPES _type, p2Point<float> location, int index, float _timer)
 {
@@ -54,7 +55,7 @@ void ParticleSystem::loadSystem()
 	{
 		systemProps.lifetime = 255;
 		systemProps.Acceleration = { 0, (-0.003f) };
-		systemProps.rect = { 0, 0, 5, 5 };
+		systemProps.rect = { 0, 0, 7, 7 };
 		systemProps.lifetimeSubstraction = 1.7;
 		systemProps.tex = App->pmanager->smokeTexture;
 	}

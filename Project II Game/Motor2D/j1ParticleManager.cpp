@@ -30,7 +30,8 @@ j1ParticleManager::~j1ParticleManager()
 
 bool j1ParticleManager::Start()
 {
-	smokeTexture = App->tex->Load("textures/4k_smoke_texture.png");
+	smokeTexture = App->tex->Load("textures/Smoke_Texture_7x7px.png");
+
 	return true;
 }
 
