@@ -1,7 +1,7 @@
 #include "ParticleSystem.h"
 #include "j1ParticleManager.h"
 #include "j1App.h"
-
+#include "j1Textures.h"
 #include "random.h"
 
 ParticleSystem::ParticleSystem(PARTICLE_TYPES _type, p2Point<float> location, int index, float _timer)
@@ -38,7 +38,6 @@ ParticleSystem::~ParticleSystem()
 	deactivateAllParticles();
 }
 
-
 void ParticleSystem::loadSystem()
 {
 	systemProps.type = systemType;
@@ -57,6 +56,7 @@ void ParticleSystem::loadSystem()
 		systemProps.Acceleration = { 0, (-0.003f) };
 		systemProps.rect = { 0, 0, 5, 5 };
 		systemProps.lifetimeSubstraction = 1.7;
+		systemProps.tex = App->pmanager->smokeTexture;
 	}
 	else if (systemProps.type == PARTICLE_TYPES::FIRE)
 	{

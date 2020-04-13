@@ -4,12 +4,14 @@
 #include "j1Render.h"
 #include "random.h"
 #include "p2Log.h"
+#include "j1Textures.h"
 
 using namespace std;
 
 Particle::Particle()
 {
 	active = false;
+	pTexture = nullptr;
 }
 
 void Particle::Update(float dt)
@@ -38,6 +40,7 @@ void Particle::loadProperties(ParticleProps properties)
 	pVelocity = properties.Velocity;
 	lifespan = properties.lifetime;
 	pRect = properties.rect;
+	pTexture = properties.tex;
 	pType = properties.type;
 	remainingLifetime = lifespan;
 	pLifetimeSubstraction = properties.lifetimeSubstraction;
@@ -77,7 +80,7 @@ bool Particle::Draw()
 	}
 	else if (pType == PARTICLE_TYPES::SMOKE)
 	{
-		App->render->AddBlitEvent(2, nullptr, pLocation.x, pLocation.y, pRect, false, 0.0f, 150, 150, 150, remainingLifetime);
+		App->render->AddBlitEvent(2, pTexture, pLocation.x, pLocation.y, pRect, false, false);
 	}
 	else if (pType == PARTICLE_TYPES::FIRE)
 	{

@@ -6,6 +6,7 @@
 #include "Particle.h"
 #include "ParticleSystem.h"
 
+class SDL_Texture;
 enum class PARTICLE_TYPES;
 
 class j1ParticleManager : public j1Module 
@@ -33,6 +34,7 @@ public:
 
 	std::vector<Particle> particlePool;
 	std::vector<ParticleSystem*> systems;
+	SDL_Texture* smokeTexture;
 
 private:
 
@@ -41,6 +43,7 @@ private:
 	float CloudTimer;
 	int cloudVariableY;
 	int cloudVariableX;
+	
 };
 
 #endif // __PARTICLESYSTEM_H__

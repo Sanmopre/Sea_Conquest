@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "random.h"
 #include "j1Window.h"
+#include "j1Textures.h"
 
 #define CLOUD_MAX_TIME 5
 
@@ -16,6 +17,8 @@ j1ParticleManager::j1ParticleManager()
 	Index = 0;
 	CloudsActive = false;
 	CloudTimer = CLOUD_MAX_TIME;
+	cloudVariableX = 0;
+	cloudVariableY = 0; 
 }
 
 j1ParticleManager::~j1ParticleManager()
@@ -26,6 +29,7 @@ j1ParticleManager::~j1ParticleManager()
 
 bool j1ParticleManager::Start()
 {
+	smokeTexture = App->tex->Load("textures/4k_smoke_texture.png");
 	return true;
 }
 
@@ -194,7 +198,7 @@ void j1ParticleManager::updateIndex()
 		if (newIndex == 1499) //in case we arrive to the particle number 1499(the last one), we go back to the beggining to check if there are any particles free.
 			newIndex = 0;
 
-		if (counter = 1500)
+		if (counter == 1500)
 			LOG("The unexpected happened. We ran out of particles");
 	}
 

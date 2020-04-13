@@ -8,6 +8,7 @@
 #include <vector>
 #include "p2Point.h"
 
+class SDL_Texture;
 using namespace std;
 
 enum class PARTICLE_TYPES
@@ -28,6 +29,7 @@ struct ParticleProps
 	p2Point<float>	Velocity = { 0,0 };
 	p2Point<float>	Acceleration = { 0,0 };
 	SDL_Rect		rect = { 0,0,20,20 };
+	SDL_Texture*	tex = nullptr;
 	PARTICLE_TYPES	type = PARTICLE_TYPES::TEST;
 	int				lifetime = 255;
 	int				lifetimeSubstraction = 0;
@@ -49,6 +51,7 @@ public:
 	p2Point<float>	pVelocity;
 	p2Point<float>	pAcceleration;
 	PARTICLE_TYPES	pType;
+	SDL_Texture*	pTexture;
 
 	int				lifespan;
 	int				remainingLifetime;
