@@ -106,7 +106,7 @@ bool j1Player::Update(float dt)
 			fPoint w, h;
 			for (vector<j1Entity*>::iterator i = App->entitymanager->entities.begin(); i != App->entitymanager->entities.end(); i++)
 			{
-				if ((*i)->selected && (*i)->main_type == EntityType::UNIT)
+				if ((*i)->selected && (*i)->main_type == EntityType::UNIT && (*i)->team == 1)
 				{
 					if (n == 0)
 					{

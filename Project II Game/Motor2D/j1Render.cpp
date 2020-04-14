@@ -166,8 +166,9 @@ void j1Render::BlitAll()
 			int event_y = e->second.y;
 			const SDL_Rect* event_rect = &e->second.section;
 			bool event_flip = e->second.fliped;
+			int event_alpha = e->second.a;
 
-			Blit(event_texture, event_x, event_y, event_rect, event_flip, event_ui);
+			Blit(event_texture, event_x, event_y, event_rect, event_flip, event_ui, 1.0f, event_alpha);
 		}
 		else
 		{
@@ -186,7 +187,7 @@ void j1Render::BlitAll()
 	}
 }
 
-bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool fliped, bool ui, float speed, double angle, int pivot_x, int pivot_y) const
+bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, bool fliped, bool ui, float speed, int alpha, double angle, int pivot_x, int pivot_y) const
 {
 	bool ret = true;
 	float scale = App->win->GetScale();

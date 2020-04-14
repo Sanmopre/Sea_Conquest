@@ -13,6 +13,7 @@
 #include "j1GUI.h"
 #include "j1Transitions.h"
 #include "j1TransitionManager.h"
+#include "j1EntityManager.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -37,7 +38,11 @@ bool j1Scene::Start()
 {
 
 	//App->map->Load("mapa men.tmx") == true;
-
+	App->render->camera.x = -(-5050) * App->win->GetScale();
+	App->render->camera.y = -(2850) * App->win->GetScale();
+	App->entitymanager->AddEntity(-4500.0f, 3100.0f, EntityType::TOWNHALL);
+	App->entitymanager->AddEntity(-4470.0f, 3150.0f, EntityType::STORAGE);
+	App->entitymanager->AddEntity(-4590.0f, 3470.0f, EntityType::RESOURCE);
 	debug_tex = App->tex->Load("maps/path2.png");
 	return true;
 }

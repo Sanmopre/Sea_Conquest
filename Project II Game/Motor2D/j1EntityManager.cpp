@@ -146,14 +146,17 @@ j1Entity* j1EntityManager::AddEntity(float x, float y, EntityType type, int leve
 	case EntityType::BOAT:
 		buffer.push_back(new j1Boat(x, y, level, team));
 		break;
+	case EntityType::HARVESTER:
+		buffer.push_back(new j1Harvester(x, y, level, team));
+		break;
 	case EntityType::BOATHOUSE:
 		buffer.push_back(new j1BoatHouse(x, y, team));
 		break;
 	case EntityType::STORAGE:
 		buffer.push_back(new j1Storage(x, y, team));
 		break;
-	case EntityType::HARVESTER:
-		buffer.push_back(new j1Harvester(x, y, level, team));
+	case EntityType::TOWNHALL:
+		buffer.push_back(new j1TownHall(x, y, team));
 		break;
 	case EntityType::RESOURCE:
 		buffer.push_back(new j1Resource(x, y, level));

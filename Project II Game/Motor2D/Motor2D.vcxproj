@@ -113,6 +113,7 @@
     <ClCompile Include="j1Scene.cpp" />
     <ClCompile Include="j1Structure.cpp" />
     <ClCompile Include="j1Timer.cpp" />
+    <ClCompile Include="j1TownHall.cpp" />
     <ClCompile Include="j1TransitionManager.cpp" />
     <ClCompile Include="j1Transitions.cpp" />
     <ClCompile Include="Lines.cpp" />
