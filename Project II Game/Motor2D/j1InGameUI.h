@@ -79,6 +79,7 @@ struct Trader_Menu {
 struct Storage_Menu {
 	j1Element* entity_type_Image;
 	j1Element* entity_name_Storage;
+	j1Element* Harvester_builder_button;
 	j1Element* Trade;
 };
 

@@ -62,6 +62,9 @@ bool j1Button::Start()
 	if (textureType == TEXTURE::METAL)
 		texture = App->gui->Load_Texture(TEXTURE::METAL);
 
+	if (textureType == TEXTURE::HARVESTER)
+		texture = App->gui->Load_Texture(TEXTURE::HARVESTER);
+
 
 	if (text != nullptr)
 		label = App->gui->AddElement(GUItype::GUI_LABEL, this, map_position, inside_position, true, true, { 0,0,0,0 }, text);

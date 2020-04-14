@@ -182,12 +182,13 @@ void j1InGameUI::Add_UI()
 	townhall.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TOWNHALL);
 
 	//BOAT_BUILDER_MENU
-	building.Boat_Building_Button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 110,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "10", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BOAT_IMAGE);
+	building.Boat_Building_Button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 110,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "20", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BOAT_IMAGE);
 	building.entity_name_boathouse = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT HOUSE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	building.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUILDING_IMAGE);
 	building.Trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 120,655 }, { 0,0 }, true, true, { 0,0,30,30 }, nullptr, this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
 
 	//STORAGE_MENU
+	storage.Harvester_builder_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 110,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "15", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::HARVESTER);
 	storage.entity_name_Storage = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, false, { 0,0,40,40 }, "STORAGE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	storage.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::STORAGE);
 	storage.Trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 120,655 }, { 0,0 }, true, false, { 0,0,30,30 }, nullptr, this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
@@ -353,6 +354,7 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 
 		if (element == storage.Trade) {
 			in_trading = true;
+			Deactivate_Storage_Menu();
 			Activate_Trading();
 
 		}
@@ -491,6 +493,7 @@ void j1InGameUI::Activate_Storage_Menu()
 	storage.entity_name_Storage->enabled = true;
 	storage.entity_type_Image->enabled = true;
 	storage.Trade->enabled = true;
+	storage.Harvester_builder_button->enabled = true;
 }
 
 void j1InGameUI::Deactivate_Storage_Menu()
@@ -498,6 +501,7 @@ void j1InGameUI::Deactivate_Storage_Menu()
 	storage.entity_name_Storage->enabled = false;
 	storage.entity_type_Image->enabled = false;
 	storage.Trade->enabled = false;
+	storage.Harvester_builder_button->enabled = false;
 }
 
 void j1InGameUI::Update_Bar(j1Element* scroll, float resource, float total_resource, Material material)
