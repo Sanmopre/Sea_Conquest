@@ -125,6 +125,7 @@
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="random.cpp" />
+    <ClCompile Include="j1LogoScene.cpp" />
     <ClCompile Include="Squares.cpp" />
     <ClCompile Include="j1Unit.cpp" />
     <ClCompile Include="j1Storage.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="animation.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="FadeToColor.h" />
+    <ClInclude Include="j1LogoScene.h" />
     <ClInclude Include="j1Color.h" />
     <ClInclude Include="j1Entities.h" />
     <ClInclude Include="j1Collision.h" />
