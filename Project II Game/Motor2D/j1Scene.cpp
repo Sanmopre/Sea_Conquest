@@ -38,12 +38,9 @@ bool j1Scene::Start()
 {
 
 	//App->map->Load("mapa men.tmx") == true;
-	App->render->camera.x = -(-5050) * App->win->GetScale();
-	App->render->camera.y = -(2850) * App->win->GetScale();
-	App->entitymanager->AddEntity(-4500.0f, 3100.0f, EntityType::TOWNHALL);
-	App->entitymanager->AddEntity(-4470.0f, 3150.0f, EntityType::STORAGE);
-	App->entitymanager->AddEntity(-4590.0f, 3470.0f, EntityType::RESOURCE);
+
 	debug_tex = App->tex->Load("maps/path2.png");
+
 	return true;
 }
 
@@ -56,6 +53,15 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	if (start)
+	{
+		App->render->camera.x = -(-5050) * App->win->GetScale();
+		App->render->camera.y = -(2850) * App->win->GetScale();
+		App->entitymanager->AddEntity(-4500.0f, 3100.0f, EntityType::TOWNHALL, 1, 1);
+		App->entitymanager->AddEntity(-4470.0f, 3150.0f, EntityType::STORAGE, 1, 1);
+		App->entitymanager->AddEntity(-4610.0f, 3270.0f, EntityType::RESOURCE, 1);
+		start = false;
+	}
 	App->map->Draw();
 
 	return true;

@@ -62,10 +62,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fonts);
 	AddModule(font);
 	
-	AddModule(scene);
-	AddModule(scene2);
 	AddModule(map);
 	AddModule(map_2);
+	AddModule(scene);
+	AddModule(scene2);
 
 	AddModule(player);	
 	AddModule(mainmenu);

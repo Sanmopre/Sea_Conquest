@@ -146,7 +146,6 @@ void j1Harvester::Update(float dt)
 					GoTo(deposit_destination, NodeType::ALL);
 					if (target->load.Total() == 0)
 						automatic = false;
-					
 				}
 			}
 			else if (deposit_destination == position)

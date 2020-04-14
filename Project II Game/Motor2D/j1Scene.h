@@ -35,9 +35,13 @@ public:
 
 	void ChangeScene();
 
+	bool start = true;
+
 private:
 	SDL_Texture* debug_tex;
 	bool firsttime = true;
+	
+
 
 
 };

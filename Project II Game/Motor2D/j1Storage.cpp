@@ -2,10 +2,11 @@
 #include "j1Render.h"
 
 #include "j1Map.h"
+#include "j1Scene.h"
 
 j1Storage::j1Storage(float x, float y, int team)
 {
-	if (team != 1)
+	if (team != 1 || App->scene->start)
 	{
 		placed = true;
 		tile = App->map->WorldToMap(x, y);
