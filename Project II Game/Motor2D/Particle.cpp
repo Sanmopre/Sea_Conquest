@@ -29,7 +29,6 @@ void Particle::Update(float dt)
 		loadProperties(Props);
 		remainingLifetime = lifespan;
 	}
-
 	Draw();
 }
 
@@ -80,7 +79,7 @@ bool Particle::Draw()
 	}
 	else if (pType == PARTICLE_TYPES::SMOKE)
 	{
-		App->render->AddBlitEvent(2, pTexture, pLocation.x, pLocation.y, pRect, false, false);
+		App->render->AddBlitEvent(5, pTexture, pLocation.x, pLocation.y, {0, 0, pRect.w, pRect.h}, false, 0.0f, 0, 0, 0, remainingLifetime);
 	}
 	else if (pType == PARTICLE_TYPES::FIRE)
 	{

@@ -20,7 +20,7 @@ public:
 	bool		Update(float dt);
 	bool		CleanUp();
 
-	void		updateIndex();
+	bool		updateIndex();
 	void		changeIndex(int newIndex);
 	int			getIndex();
 
