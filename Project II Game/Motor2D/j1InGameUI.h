@@ -43,6 +43,11 @@ struct Boat_Menu {
 	j1Element* Trade;
 };
 
+struct Townhall_Menu {
+	j1Element* entity_type_Image;
+	j1Element* entity_name_townhall;
+};
+
 struct Harvester_Menu {
 	j1Element* entity_type_Image;
 	j1Element* entity_name_Harvester;
@@ -69,6 +74,12 @@ struct Trader_Menu {
 	j1Element* button_trade_4;
 	j1Element* button_trade_5;
 	j1Element* button_trade_6;
+};
+
+struct Storage_Menu {
+	j1Element* entity_type_Image;
+	j1Element* entity_name_Storage;
+	j1Element* Trade;
 };
 
 struct SDL_Texture;
@@ -113,6 +124,14 @@ public:
 	//HARVESTER
 	void Activate_Harvester_Menu();
 	void Deactivate_Harvester_Menu();
+
+	//TOWNHALL
+	void Activate_Townhall_Menu();
+	void Deactivate_Townhall_Menu();
+
+	//STORAGE
+	void Activate_Storage_Menu();
+	void Deactivate_Storage_Menu();
 
 	//BAR UPDATES
 	void Update_Bar(j1Element* scroll, float resource, float total_resource, Material material);
@@ -169,6 +188,8 @@ private:
 	Trading_Menu_Selected trading;
 	Trader_Menu trader;
 	Harvester_Menu harvester;
+	Townhall_Menu townhall;
+	Storage_Menu storage;
 
 	//ENtities
 	Building_Menu building;

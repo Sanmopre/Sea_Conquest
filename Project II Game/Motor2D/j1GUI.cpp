@@ -162,7 +162,12 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::METAL:
 		texture_load = App->tex->Load("textures/metal.png");
 		break;
-		
+	case TEXTURE::TOWNHALL:
+		texture_load = App->tex->Load("textures/townhall.png");
+		break;
+	case TEXTURE::STORAGE:
+		texture_load = App->tex->Load("textures/storage.png");
+		break;
 	}
 
 	return texture_load;

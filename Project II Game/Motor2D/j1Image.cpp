@@ -41,6 +41,12 @@ bool j1Image::Start()
 	if(textureType == TEXTURE::AUDIO_IMAGE)
 		texture = App->gui->Load_Texture(TEXTURE::AUDIO_IMAGE);
 
+	if (textureType == TEXTURE::TOWNHALL)
+		texture = App->gui->Load_Texture(TEXTURE::TOWNHALL);
+
+	if (textureType == TEXTURE::STORAGE)
+		texture = App->gui->Load_Texture(TEXTURE::STORAGE);
+
 	return true;
 }
 

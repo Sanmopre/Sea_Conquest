@@ -55,6 +55,8 @@ enum class TEXTURE
 	COTTON,
 	WOOD,
 	METAL,
+	TOWNHALL,
+	STORAGE,
 	NONE
 };
 

@@ -177,12 +177,21 @@ void j1InGameUI::Add_UI()
 	harvester.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::HARVESTER);
 	harvester.Trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 120,655 }, { 0,0 }, true, true, { 0,0,30,30 }, nullptr, this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
 
+	//TOWNHALL
+	townhall.entity_name_townhall = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, true, { 0,0,40,40 }, "TOWNHALL", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	townhall.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TOWNHALL);
 
 	//BOAT_BUILDER_MENU
 	building.Boat_Building_Button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 110,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "10", this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BOAT_IMAGE);
 	building.entity_name_boathouse = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT HOUSE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	building.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUILDING_IMAGE);
 	building.Trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 120,655 }, { 0,0 }, true, true, { 0,0,30,30 }, nullptr, this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
+
+	//STORAGE_MENU
+	storage.entity_name_Storage = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, false, { 0,0,40,40 }, "STORAGE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	storage.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::STORAGE);
+	storage.Trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 120,655 }, { 0,0 }, true, false, { 0,0,30,30 }, nullptr, this, true, true, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
+
 
 	//UI BASICS ALWAYS ACTIVE
 	basics.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,520 }, { 0,0 }, true, true, { 0, 0,1280,200 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MAIN_IMAGE);
@@ -231,6 +240,7 @@ void j1InGameUI::Activate_Trading()
 	trading.Scroll_1->enabled = true;
 	trading.Scroll_2->enabled = true;
 	trading.back->enabled = true;
+
 }
 
 void j1InGameUI::Deactivate_Trading()
@@ -256,6 +266,7 @@ void j1InGameUI::Activate_Trader()
 	trader.button_trade_5->enabled = true;
 	trader.button_trade_6->enabled = true;
 	in_trader = true;
+
 }
 
 void j1InGameUI::Deactivate_Trader()
@@ -338,8 +349,14 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			in_trading = true;
 			Deactivate_Harvester_Menu();
 			Activate_Trading();
-			
 		}
+
+		if (element == storage.Trade) {
+			in_trading = true;
+			Activate_Trading();
+
+		}
+
 		if (element == trading.back) {
 			in_trading = false;
 			Deactivate_Trading();
@@ -457,6 +474,32 @@ void j1InGameUI::Deactivate_Harvester_Menu()
 	harvester.Trade->enabled = false;
 }
 
+void j1InGameUI::Activate_Townhall_Menu()
+{
+	townhall.entity_name_townhall->enabled = true;
+	townhall.entity_type_Image->enabled = true;
+}
+
+void j1InGameUI::Deactivate_Townhall_Menu()
+{
+	townhall.entity_name_townhall->enabled = false;
+	townhall.entity_type_Image->enabled = false;
+}
+
+void j1InGameUI::Activate_Storage_Menu()
+{
+	storage.entity_name_Storage->enabled = true;
+	storage.entity_type_Image->enabled = true;
+	storage.Trade->enabled = true;
+}
+
+void j1InGameUI::Deactivate_Storage_Menu()
+{
+	storage.entity_name_Storage->enabled = false;
+	storage.entity_type_Image->enabled = false;
+	storage.Trade->enabled = false;
+}
+
 void j1InGameUI::Update_Bar(j1Element* scroll, float resource, float total_resource, Material material)
 {
 	float percentage = 0;
@@ -521,28 +564,58 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 		Activate_Manager();
 		switch (entity->type)
 		{
+
 		case EntityType::BOATHOUSE:
 			if (in_trading != true)
 			Activate_Building_Menu();
 			Deactivate_Boat_Menu();
 			Deactivate_Harvester_Menu();
+			Deactivate_Storage_Menu();
+			Deactivate_Townhall_Menu();
 			break;
+
 		case EntityType::BOAT:
 			if(in_trading != true)
 			Activate_Boat_Menu();
 			Deactivate_Building_Menu();
 			Deactivate_Harvester_Menu();
+			Deactivate_Storage_Menu();
+			Deactivate_Townhall_Menu();
 			break;
+
 		case EntityType::HARVESTER:
 			if (in_trading != true)
 			Activate_Harvester_Menu();
 			Deactivate_Building_Menu();
 			Deactivate_Boat_Menu();
+			Deactivate_Storage_Menu();
+			Deactivate_Townhall_Menu();
 			break;
-		case EntityType::NONE:
-			Activate_Building_Menu();
+
+		case EntityType::STORAGE:
+			if (in_trading != true)
+			Activate_Storage_Menu();
+			Deactivate_Townhall_Menu();
+			Deactivate_Building_Menu();
+			Deactivate_Boat_Menu();
+			Deactivate_Harvester_Menu();	
+			break;
+
+		case EntityType::TOWNHALL:
+			if (in_trading != true)
+			Activate_Townhall_Menu();
+			Deactivate_Storage_Menu();
+			Deactivate_Building_Menu();
 			Deactivate_Boat_Menu();
 			Deactivate_Harvester_Menu();
+			break;
+		
+		case EntityType::NONE:
+			Deactivate_Building_Menu();
+			Deactivate_Boat_Menu();
+			Deactivate_Harvester_Menu();
+			Deactivate_Storage_Menu();
+			Deactivate_Townhall_Menu();
 			break;
 		}
 	}
@@ -553,6 +626,8 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 		Deactivate_Harvester_Menu();
 		Deactivate_Trading();
 		Deactivate_Trader();
+		Deactivate_Townhall_Menu();
+		Deactivate_Storage_Menu();
 	}
 }
 
