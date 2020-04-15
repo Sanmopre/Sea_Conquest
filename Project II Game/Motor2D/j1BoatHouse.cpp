@@ -5,6 +5,7 @@
 
 #include "j1EntityManager.h"
 #include "j1Map.h"
+#include "j1InGameUI.h"
 
 j1BoatHouse::j1BoatHouse(float x, float y, int team)
 {
@@ -54,6 +55,9 @@ void j1BoatHouse::Update(float dt)
 			BuildUnit(EntityType::BOAT, 1);
 		
 		ShowHPbar(10, 5);
+
+		if (this == App->InGameUI->selected)
+			Trading();
 	}
 	else
 		if (team == 1)

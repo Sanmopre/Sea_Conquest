@@ -3,6 +3,7 @@
 
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1InGameUI.h"
 
 j1Storage::j1Storage(float x, float y, int team)
 {
@@ -19,7 +20,7 @@ j1Storage::j1Storage(float x, float y, int team)
 	this->team = team;
 	load = { 0,0,0,2000 };
 	int range = 100;
-
+	trading_range = 200;
 	max_health = 250;
 	health = max_health;
 	
@@ -40,7 +41,12 @@ void j1Storage::Update(float)
 
 	if(team == 1)
 		if (selected)
+		{
 			ShowHPbar(10, 5);
+
+			if (this == App->InGameUI->selected)
+				Trading();
+		}
 
 	App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, false, 100, 0, 255);
 }
