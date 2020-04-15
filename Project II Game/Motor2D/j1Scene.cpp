@@ -14,6 +14,7 @@
 #include "j1Transitions.h"
 #include "j1TransitionManager.h"
 #include "j1EntityManager.h"
+#include "j1InGameUI.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -66,8 +67,10 @@ bool j1Scene::Update(float dt)
 	switch (state)
 	{
 	case WIN:
+		App->InGameUI->Activate_Win_Menu();
 		break;
 	case LOSE:
+		App->InGameUI->Activate_Defeat_Menu();
 		break;
 	}
 

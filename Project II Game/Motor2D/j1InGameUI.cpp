@@ -132,7 +132,7 @@ bool j1InGameUI::Update(float dt)
 	//MENU FROM ESC
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 	//	Activate_Win_Menu();
-		Activate_Defeat_Menu();
+	//	Activate_Defeat_Menu();
 		Activate_Menu();
 	}
 
