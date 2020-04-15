@@ -57,6 +57,7 @@ enum class TEXTURE
 	METAL,
 	TOWNHALL,
 	STORAGE,
+	COST,
 	NONE
 };
 
