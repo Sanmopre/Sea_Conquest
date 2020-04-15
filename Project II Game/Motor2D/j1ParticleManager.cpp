@@ -9,7 +9,7 @@
 #include "j1Window.h"
 #include "j1Textures.h"
 
-#define CLOUD_MAX_TIME 5
+#define CLOUD_MAX_TIME 3
 
 j1ParticleManager::j1ParticleManager()
 {
@@ -31,6 +31,9 @@ j1ParticleManager::~j1ParticleManager()
 bool j1ParticleManager::Start()
 {
 	smokeTexture = App->tex->Load("textures/Smoke_Texture_7x7px.png");
+	cloudTexture = App->tex->Load("textures/Cloud_Texture_2_270x270px.png");
+	fireTexture = App->tex->Load("textures/Fire_Texture_7x7px.png");
+	explosionTexture = App->tex->Load("textures/Explosion_Texture_2_7x7px.png");
 
 	return true;
 }
@@ -97,7 +100,9 @@ bool j1ParticleManager::Update(float dt)
 		App->input->GetMousePosition(test.x, test.y);
 		test.x -= App->render->camera.x / App->win->GetScale();
 		test.y -= App->render->camera.y / App->win->GetScale();
-		App->pmanager->createSystem(PARTICLE_TYPES::FIRE, { (float)test.x, (float)test.y }, 0);
+
+		App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, { (float)test.x, (float)test.y }, 0);
+		LOG("CLOUD CREATED AT  X:%.2f Y:%.2f", (float)test.x, (float)test.y);
 	}
 
 ///////////////////////CLOUDS SPAWN PARAMETERS
@@ -108,19 +113,19 @@ bool j1ParticleManager::Update(float dt)
 	
 		if (CloudTimer <= 0)
 		{
-			cloudVariableY = (1500 * (2 * (Random::Randomize() - 0.5)));
+			cloudVariableY = (3000 * (2 * (Random::Randomize() - 0.5)));
 	
 			if (cloudVariableY < 0)
 				cloudVariableX = -cloudVariableY;
 			else
 				cloudVariableX = cloudVariableY;
 	
-			iPoint pos = { 3230 - cloudVariableX, 1630 + cloudVariableY };
+			iPoint pos = { 3250 - cloudVariableX, 3200 + cloudVariableY };
 			App->render->ScreenToWorld(pos.x, pos.y);
 	
 			fPoint fpos = { (float)pos.x,  (float)pos.y };
-			App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, fpos, 40);
-			//LOG("CLOUD CREATED AT  X:%.2f Y:%.2f", fpos.x, fpos.y);
+			App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, fpos, 250);
+			LOG("CLOUD CREATED AT  X:%.2f Y:%.2f", fpos.x, fpos.y);
 	
 			CloudTimer = CLOUD_MAX_TIME;
 		}
