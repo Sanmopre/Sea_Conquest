@@ -113,19 +113,19 @@ bool j1ParticleManager::Update(float dt)
 	
 		if (CloudTimer <= 0)
 		{
-			cloudVariableY = (3000 * (2 * (Random::Randomize() - 0.5)));
+			cloudVariableY = (3200 * (2 * (Random::Randomize() - 0.5)));
 	
 			if (cloudVariableY < 0)
 				cloudVariableX = -cloudVariableY;
 			else
 				cloudVariableX = cloudVariableY;
 	
-			iPoint pos = { 3250 - cloudVariableX, 3200 + cloudVariableY };
+			iPoint pos = { 6300 - cloudVariableX, 3200 + cloudVariableY };
 			App->render->ScreenToWorld(pos.x, pos.y);
-	
+
 			fPoint fpos = { (float)pos.x,  (float)pos.y };
 			App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, fpos, 250);
-			LOG("CLOUD CREATED AT  X:%.2f Y:%.2f", fpos.x, fpos.y);
+			//LOG("CLOUD CREATED AT  X:%.2f Y:%.2f", fpos.x, fpos.y);
 	
 			CloudTimer = CLOUD_MAX_TIME;
 		}
