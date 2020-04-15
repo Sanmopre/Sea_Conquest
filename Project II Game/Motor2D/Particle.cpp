@@ -50,10 +50,10 @@ void Particle::loadProperties(ParticleProps properties)
 	
 
 	if (pType == PARTICLE_TYPES::EXPLOSION)
-		pVelocity = { (float)(1.3 * (Random::Randomize() - 0.5)), (float)(1.3 * (Random::Randomize()) * (-1)) };
+		pVelocity = { (float)((Random::Randomize() - 0.5)), (float)((Random::Randomize()) * (-1)) };
 
 	if (pType == PARTICLE_TYPES::SMOKE || pType == PARTICLE_TYPES::FIRE)
-		pVelocity = { ((float)(Random::Randomize() - 0.5))/2, (float)(Random::Randomize() - 0.5)/2 };
+		pVelocity = { (float)(0.3*(Random::Randomize() - 0.5)), (float)(0.3 * (Random::Randomize() - 0.5)) };
 }
 
 void Particle::switchParticleState()

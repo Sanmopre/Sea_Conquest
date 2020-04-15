@@ -31,8 +31,8 @@ struct ParticleProps
 	SDL_Rect		rect = { 0,0,20,20 };
 	SDL_Texture*	tex = nullptr;
 	PARTICLE_TYPES	type = PARTICLE_TYPES::TEST;
-	int				lifetime = 255;
-	int				lifetimeSubstraction = 0;
+	float			lifetime = 255;
+	float			lifetimeSubstraction = 0;
 };
 
 class Particle
@@ -53,9 +53,9 @@ public:
 	PARTICLE_TYPES	pType;
 	SDL_Texture*	pTexture;
 
-	int				lifespan;
-	int				remainingLifetime;
-	int				pLifetimeSubstraction;
+	float			lifespan;
+	float			remainingLifetime;
+	float			pLifetimeSubstraction;
 	bool			active;
 	ParticleProps	Props;
 };
