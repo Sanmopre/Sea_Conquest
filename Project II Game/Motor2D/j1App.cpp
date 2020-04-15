@@ -11,6 +11,7 @@
 #include "j1Audio.h"
 #include "j1Scene.h"
 #include "j1Scene2.h"
+#include "j1LogoScene.h"
 #include "j1Map.h"
 #include "j1Pathfinding.h"
 #include "j1App.h"

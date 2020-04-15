@@ -6,6 +6,7 @@
 #include "j1Window.h"
 #include "j1Scene.h"
 #include "j1Scene2.h"
+#include "j1LogoScene.h"
 #include "j1Transitions.h"
 #include "j1EntityManager.h"
 #include "j1Render.h"
@@ -64,6 +65,11 @@ bool j1SceneManager::Update(float dt)
 		App->mainmenu->Deactivate_Audio_Options();
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
+		App->transitions->LinesAppearing(Black, 0.75f, 3);
+		App->mainmenu->Deactivate_Audio_Options();
+	}
+
 	/*
 	App->transitions->FadingToColor(White, 1.0f, //scene);
 	App->transitions->Wiping(Black, 0.5f, //scene);
@@ -115,6 +121,12 @@ int j1SceneManager::ChangeScene(int scene)
 
 		In_Main_Menu = true;
 		return 2;
+		break;
+	case 3:
+
+		App->scene3->ChangeScene();
+		
+		return 3;
 		break;
 	}
 	return 0;
