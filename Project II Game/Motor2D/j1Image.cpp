@@ -47,6 +47,10 @@ bool j1Image::Start()
 	if (textureType == TEXTURE::STORAGE)
 		texture = App->gui->Load_Texture(TEXTURE::STORAGE);
 
+	if (textureType == TEXTURE::COST)
+		texture = App->gui->Load_Texture(TEXTURE::COST);
+
+
 	return true;
 }
 

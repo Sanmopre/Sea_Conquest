@@ -51,6 +51,8 @@ struct Townhall_Menu {
 struct Harvester_Menu {
 	j1Element* entity_type_Image;
 	j1Element* entity_name_Harvester;
+	j1Element* boathouse;
+	j1Element* Storage;
 	j1Element* Trade;
 };
 
@@ -95,6 +97,10 @@ struct Defeat {
 	j1Element* Back_button;
 };
 
+struct Cost {
+	j1Element* Image;
+};
+
 struct SDL_Texture;
 class j1Entity;
 
@@ -117,6 +123,9 @@ public:
 	void Activate_Necessary_UI();
 	void Activate_Menu();
 
+	//COST
+	void Activate_Cost_Menu();
+	void Deactivate_Cost_Menu();
 
 	//TRADING OPTIONS
 	void Activate_Trading();
@@ -201,6 +210,16 @@ private:
 	char trader_text_type_1[10];
 	char trader_text_type_2[10];
 
+	//COST
+	int wood = 0;
+	int cotton = 0;
+	int metal = 0;
+
+	char wood_t[10];
+	char cotton_t[10];
+	char metal_t[10];
+
+	bool in_hover = false;
 
 	//menu ui
 	Game_Menu menu;
@@ -213,6 +232,7 @@ private:
 	Storage_Menu storage;
 	Win win;
 	Defeat defeat;
+	Cost cost;
 
 	//ENtities
 	Building_Menu building;

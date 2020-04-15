@@ -17,7 +17,7 @@
 
 j1LogoScene::j1LogoScene() : j1Module()
 {
-	name.create("scene2");
+	name.create("Logoscene");
 }
 
 // Destructor
