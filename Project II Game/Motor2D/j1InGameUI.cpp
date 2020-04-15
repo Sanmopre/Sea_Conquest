@@ -131,6 +131,8 @@ bool j1InGameUI::Update(float dt)
 
 	//MENU FROM ESC
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+	//	Activate_Win_Menu();
+		Activate_Defeat_Menu();
 		Activate_Menu();
 	}
 
@@ -220,6 +222,15 @@ void j1InGameUI::Add_UI()
 	trader.button_trade_5 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 480 + 32,545 + 35}, { 0,0 }, true, false, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADER_DERECHA);
 	trader.button_trade_6 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 480 + 32,545 + 70}, { 0,0 }, true, false, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADER_DERECHA);
 		
+	//WIN
+	win.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {600 - 150,225  }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MANAGER_IMAGE);
+	win.Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, {750 - 150, 280 }, { 0,0 }, true, false, { 0,0,40,40 }, "VICTORY!!", this, false, false, SCROLL_TYPE::SCROLL_NONE,true);
+	win.Back_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, {680 - 150,315 }, { 65,30 }, true, false, { 0,0,200,65 }, "MAIN MENU", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+
+	//DEFEAT
+	defeat.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 600 - 150,225 }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MANAGER_IMAGE);
+	defeat.Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 750 - 150, 280 }, { 0,0 }, true, false, { 0,0,40,40 }, "DEFEAT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	defeat.Back_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 680 - 150,315 }, { 65,30 }, true, false, { 0,0,200,65 }, "MAIN MENU", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 
 
 }
@@ -313,6 +324,14 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			quit = true;
 		}
 		if (element == menu.Load) {
+			App->transitions->LinesAppearing(Black, 0.75f, 2);
+		}
+
+		if (element == win.Back_button) {
+			App->transitions->LinesAppearing(Black, 0.75f, 2);
+		}
+
+		if (element == defeat.Back_button) {
 			App->transitions->LinesAppearing(Black, 0.75f, 2);
 		}
 
@@ -502,6 +521,35 @@ void j1InGameUI::Deactivate_Storage_Menu()
 	storage.entity_type_Image->enabled = false;
 	storage.Trade->enabled = false;
 	storage.Harvester_builder_button->enabled = false;
+}
+
+void j1InGameUI::Activate_Win_Menu()
+{
+	win.Label->enabled = true;
+	win.Back_button->enabled = true;
+	win.Image->enabled = true;
+}
+
+void j1InGameUI::Deactivate_Win_Menu()
+{
+	win.Label->enabled = false;
+	win.Back_button->enabled = false;
+	win.Image->enabled = false;
+}
+
+void j1InGameUI::Activate_Defeat_Menu()
+{
+	defeat.Back_button->enabled = true;
+	defeat.Image->enabled = true;
+	defeat.Label->enabled = true;
+
+}
+
+void j1InGameUI::Deactivate_Defeat_Menu()
+{
+	defeat.Back_button->enabled = false;
+	defeat.Image->enabled = false;
+	defeat.Label->enabled = false;
 }
 
 void j1InGameUI::Update_Bar(j1Element* scroll, float resource, float total_resource, Material material)
@@ -728,7 +776,8 @@ void j1InGameUI::Deactivate_All_UI()
 	Deactivate_Manager();
 	Deactivate_Boat_Menu();
 	Deactivate_Building_Menu();
-
+	Deactivate_Defeat_Menu();
+	Deactivate_Win_Menu();
 
 	menu.Resume_button->enabled = false;
 	menu.Return_button->enabled = false;

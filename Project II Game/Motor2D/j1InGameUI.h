@@ -83,6 +83,18 @@ struct Storage_Menu {
 	j1Element* Trade;
 };
 
+struct Win {
+	j1Element* Label;
+	j1Element* Image;
+	j1Element* Back_button;
+};
+
+struct Defeat {
+	j1Element* Label;
+	j1Element* Image;
+	j1Element* Back_button;
+};
+
 struct SDL_Texture;
 class j1Entity;
 
@@ -133,6 +145,14 @@ public:
 	//STORAGE
 	void Activate_Storage_Menu();
 	void Deactivate_Storage_Menu();
+
+	//WIN
+	void Activate_Win_Menu();
+	void Deactivate_Win_Menu();
+
+	//DEFEAT
+	void Activate_Defeat_Menu();
+	void Deactivate_Defeat_Menu();
 
 	//BAR UPDATES
 	void Update_Bar(j1Element* scroll, float resource, float total_resource, Material material);
@@ -191,6 +211,8 @@ private:
 	Harvester_Menu harvester;
 	Townhall_Menu townhall;
 	Storage_Menu storage;
+	Win win;
+	Defeat defeat;
 
 	//ENtities
 	Building_Menu building;
