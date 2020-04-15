@@ -130,6 +130,7 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			App->transitions->LinesAppearing(Black, 0.75f, 1);
 			App->scene->start = true;
 			Deactivate_Audio_Options();
+			App->game_pause = false;
 		}
 			
 		if (element == menu.audio_button) 
