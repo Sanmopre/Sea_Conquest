@@ -5,6 +5,12 @@
 
 struct SDL_Texture;
 
+enum MatchState
+{
+	WIN,
+	ONGOING,
+	LOSE
+};
 
 class j1Scene : public j1Module
 {
@@ -36,6 +42,8 @@ public:
 	void ChangeScene();
 
 	bool start = true;
+
+	MatchState state;
 
 private:
 	SDL_Texture* debug_tex;

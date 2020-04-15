@@ -4,6 +4,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1InGameUI.h"
+#include "j1Input.h"
 
 j1Storage::j1Storage(float x, float y, int team)
 {
@@ -33,7 +34,7 @@ j1Storage::~j1Storage()
 
 }
 
-void j1Storage::Update(float)
+void j1Storage::Update(float dt)
 {
 	showing_hpbar = false;
 
@@ -44,9 +45,14 @@ void j1Storage::Update(float)
 		{
 			ShowHPbar(10, 5);
 
+			if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+				BuildUnit(EntityType::HARVESTER, 1);
+
 			if (this == App->InGameUI->selected)
 				Trading();
 		}
+
+	BuildProcces(dt);
 
 	App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, false, 100, 0, 255);
 }

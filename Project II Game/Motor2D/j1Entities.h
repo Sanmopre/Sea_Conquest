@@ -247,11 +247,19 @@ class j1Structure : public j1Entity
 public:
 
 	j1Structure();
+	~j1Structure();
 
 	iPoint tile;
 	bool placed;
 
 	void NotPlacedBehaviour();
+	void BuildUnit(EntityType type, int level);
+
+protected:
+	void BuildProcces(float dt);
+
+	std::vector<EntityRequest> unitqueue;
+	timed_var building_time;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1Resource : public j1Entity
@@ -314,10 +322,6 @@ public:
 	void Update(float);
 	void CleanUp();
 
-	void BuildUnit(EntityType type, int level);
-
-	std::vector<EntityRequest> unitqueue;
-	timed_var building_time;
 	Color color;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

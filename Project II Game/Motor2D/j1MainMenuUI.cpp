@@ -13,7 +13,7 @@
 #include <vector>
 #include <iostream>
 
-
+#include "j1Scene.h"
 
 
 j1MainMenuUI::j1MainMenuUI() : j1Module()
@@ -128,6 +128,7 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == menu.start) 
 		{
 			App->transitions->LinesAppearing(Black, 0.75f, 1);
+			App->scene->start = true;
 			Deactivate_Audio_Options();
 		}
 			

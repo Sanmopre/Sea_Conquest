@@ -5,6 +5,8 @@
 #include "j1Render.h"
 #include "j1Input.h"
 
+#include "j1Map.h"
+
 #define VSYNC true
 
 using namespace std;
@@ -181,6 +183,7 @@ void j1Render::BlitAll()
 			DrawQuad(event_rect, event_r, event_g, event_b, event_a, event_ui);
 		}
 	}
+
 	if (blit_queue.size() != 0)
 	{
 		blit_queue.erase(blit_queue.begin(), blit_queue.end());

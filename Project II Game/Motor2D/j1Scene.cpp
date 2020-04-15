@@ -38,7 +38,6 @@ bool j1Scene::Start()
 {
 
 	//App->map->Load("mapa men.tmx") == true;
-
 	debug_tex = App->tex->Load("maps/path2.png");
 
 	return true;
@@ -55,6 +54,7 @@ bool j1Scene::Update(float dt)
 {
 	if (start)
 	{
+		state = ONGOING;
 		App->render->camera.x = -(-5050) * App->win->GetScale();
 		App->render->camera.y = -(2850) * App->win->GetScale();
 		App->entitymanager->AddEntity(-4500.0f, 3100.0f, EntityType::TOWNHALL, 1, 1);
@@ -62,6 +62,15 @@ bool j1Scene::Update(float dt)
 		App->entitymanager->AddEntity(-4610.0f, 3270.0f, EntityType::RESOURCE, 1);
 		start = false;
 	}
+
+	switch (state)
+	{
+	case WIN:
+		break;
+	case LOSE:
+		break;
+	}
+
 	App->map->Draw();
 
 	return true;

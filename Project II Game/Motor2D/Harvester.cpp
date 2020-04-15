@@ -141,23 +141,25 @@ void j1Harvester::Update(float dt)
 			{
 				target = FindTarget(position.x, position.y, range, EntityType::RESOURCE, -1);
 
-				if (load.Weight() == load.maxweight || target->load.Total() == 0)
-				{
-					GoTo(deposit_destination, NodeType::ALL);
-					if (target->load.Total() == 0)
-						automatic = false;
-				}
+				if(target != nullptr)
+					if (load.Weight() == load.maxweight || target->load.Total() == 0)
+					{
+						GoTo(deposit_destination, NodeType::ALL);
+						if (target->load.Total() == 0)
+							automatic = false;
+					}
 			}
 			else if (deposit_destination == position)
 			{
 				target = FindTarget(position.x, position.y, range, EntityType::STORAGE, team);
 
-				if (load.Total() == 0 || target->load.Total() == target->load.maxweight)
-				{
-					GoTo(harvest_destination, NodeType::ALL);
-					if (target->load.Total() == target->load.maxweight)
-						automatic = false;
-				}
+				if (target != nullptr)
+					if (load.Total() == 0 || target->load.Total() == target->load.maxweight)
+					{
+						GoTo(harvest_destination, NodeType::ALL);
+						if (target->load.Total() == target->load.maxweight)
+							automatic = false;
+					}
 			}
 		}
 

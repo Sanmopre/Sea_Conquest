@@ -65,35 +65,7 @@ void j1BoatHouse::Update(float dt)
 		else if (team == 2)
 			color.Red();
 
-	if (unitqueue.size() != 0)
-	{
-		if (unitqueue.begin()->type == EntityType::BOAT)
-			building_time.iterations = 5;
-
-		building_time.counter += dt;
-		if (building_time.counter >= building_time.iterations)
-		{
-			for (std::vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
-			{
-				bool changed = true;
-				while (changed)
-				{
-					changed = false;
-					if ((*e)->position.x == unitqueue.begin()->x && (*e)->position.y == unitqueue.begin()->y)
-					{
-						unitqueue.begin()->x += 20;
-						unitqueue.begin()->y += 20;
-						changed = true;
-					}
-				}
-			}
-			App->entitymanager->AddEntity(unitqueue.begin()->x, unitqueue.begin()->y, unitqueue.begin()->type, unitqueue.begin()->level, unitqueue.begin()->team);
-			unitqueue.erase(unitqueue.begin());
-			if (unitqueue.size() <= unitqueue.capacity() / 2)
-				unitqueue.shrink_to_fit();
-			building_time.counter = 0;
-		}
-	}
+	BuildProcces(dt);
 
 	App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, false, color.r, color.g, color.b, color.a);
 
@@ -101,15 +73,9 @@ void j1BoatHouse::Update(float dt)
 		CleanUp();
 }
 
-void j1BoatHouse::BuildUnit(EntityType type, int level)
-{
-	EntityRequest unit(position.x + 50, position.y + 20, type, level, team);
-	unitqueue.push_back(unit);
-}
+
 
 void j1BoatHouse::CleanUp()
 {
-	unitqueue.erase(unitqueue.begin(), unitqueue.end());
-	unitqueue.shrink_to_fit();
 	to_delete = true;
 }

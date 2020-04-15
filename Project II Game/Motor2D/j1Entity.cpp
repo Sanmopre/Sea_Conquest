@@ -60,6 +60,7 @@ void  j1Entity::ShowHPbar(int extra_width, int height, int distance)
 
 void j1Entity::Trading()
 {
+	trading_entity = nullptr;
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
 		trading_offset_modifier = -1;
 
@@ -68,7 +69,7 @@ void j1Entity::Trading()
 
 	for (std::vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
 	{
-		if (*e != this && team == (*e)->team)
+		if (*e != this && team == (*e)->team && (*e)->type != EntityType::TOWNHALL)
 			if (position.x + trading_range > (*e)->position.x &&
 				position.x - trading_range < (*e)->position.x &&
 				position.y + trading_range >(*e)->position.y &&

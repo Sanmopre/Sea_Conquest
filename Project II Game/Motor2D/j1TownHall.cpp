@@ -2,6 +2,7 @@
 #include "j1Render.h"
 
 #include "j1Map.h"
+#include "j1Scene.h"
 
 j1TownHall::j1TownHall(float x, float y, int team)
 {
@@ -27,6 +28,11 @@ j1TownHall::~j1TownHall()
 
 void j1TownHall::Update(float)
 {
+	if (health == 0)
+		if (team == 1)
+			App->scene->state = LOSE;
+		else if (team == 2)
+			App->scene->state = WIN;
 	showing_hpbar = false;
 
 	if (selected)
