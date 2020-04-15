@@ -46,14 +46,11 @@ void Particle::loadProperties(ParticleProps properties)
 	Props = properties;
 
 	if (pType == PARTICLE_TYPES::CLOUD)
-	{
-		pLocation = { (pLocation.x + (float)(50 * (Random::Randomize() - 0.5))), (pLocation.y + (float)(50 * (Random::Randomize() - 0.5))) };
-		pRect.w = pRect.w + (170 * (Random::Randomize() - 0.5));
-		pRect.h = pRect.w;
-	}
+		pLocation = { (pLocation.x + (float)(100 * (Random::Randomize() - 0.5))), (pLocation.y + (float)(100 * (Random::Randomize() - 0.5))) };
+	
 
 	if (pType == PARTICLE_TYPES::EXPLOSION)
-		pVelocity = { ((float)(Random::Randomize() - 0.5)), ((float)(Random::Randomize()) * (-1)) };
+		pVelocity = { (float)(1.3 * (Random::Randomize() - 0.5)), (float)(1.3 * (Random::Randomize()) * (-1)) };
 
 	if (pType == PARTICLE_TYPES::SMOKE || pType == PARTICLE_TYPES::FIRE)
 		pVelocity = { ((float)(Random::Randomize() - 0.5))/2, (float)(Random::Randomize() - 0.5)/2 };
@@ -73,18 +70,9 @@ void Particle::switchParticleState()
 
 bool Particle::Draw()
 {
-	if (pType == PARTICLE_TYPES::CLOUD)
-	{
-		App->render->AddBlitEvent(2, nullptr, pLocation.x, pLocation.y, pRect, false, 0.0f, 216, 237, 244, remainingLifetime, true);
-	}
-	else if (pType == PARTICLE_TYPES::SMOKE)
-	{
-		App->render->AddBlitEvent(5, pTexture, pLocation.x, pLocation.y, {0, 0, pRect.w, pRect.h}, false, 0.0f, 0, 0, 0, remainingLifetime);
-	}
-	else if (pType == PARTICLE_TYPES::FIRE)
-	{
-		App->render->AddBlitEvent(2, nullptr, pLocation.x, pLocation.y, pRect, false, 0.0f, 255, 20, 0, remainingLifetime);
-	}
+	if (pTexture != nullptr)
+		App->render->AddBlitEvent(2, pTexture, pLocation.x, pLocation.y, { 0, 0, pRect.w, pRect.h }, false, 0.0f, 0, 0, 0, remainingLifetime);
+	
 	else
 		App->render->AddBlitEvent(2, nullptr, pLocation.x, pLocation.y, pRect, false, 0.0f, 255, 130, 0, remainingLifetime);
 

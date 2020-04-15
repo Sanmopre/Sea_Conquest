@@ -219,6 +219,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	{
 		rect.w *= scale;
 		rect.h *= scale;
+		SDL_SetTextureAlphaMod(texture, alpha);
 	}
 
 	SDL_Point* p = NULL;
