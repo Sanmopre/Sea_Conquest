@@ -10,6 +10,7 @@
 #include "Lines.h"
 #include "Squares.h"
 #include "j1Input.h"
+#include "j1EntityManager.h"
 
 j1TransitionManager::j1TransitionManager()
 {}

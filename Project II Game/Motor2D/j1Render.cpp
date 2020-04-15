@@ -5,8 +5,6 @@
 #include "j1Render.h"
 #include "j1Input.h"
 
-#include "j1Map.h"
-
 #define VSYNC true
 
 using namespace std;

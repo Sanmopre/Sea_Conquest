@@ -61,6 +61,8 @@ bool j1Scene::Update(float dt)
 		App->entitymanager->AddEntity(-4500.0f, 3100.0f, EntityType::TOWNHALL, 1, 1);
 		App->entitymanager->AddEntity(-4470.0f, 3150.0f, EntityType::STORAGE, 1, 1);
 		App->entitymanager->AddEntity(-4610.0f, 3270.0f, EntityType::RESOURCE, 1);
+
+		App->entitymanager->AddEntity(-4000.0f, 3100.0f, EntityType::TOWNHALL, 1, 2);
 		start = false;
 	}
 
@@ -91,7 +93,18 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
+	App->entitymanager->DeleteAll();
 
+	switch (state)
+	{
+	case WIN:
+		App->InGameUI->Deactivate_Win_Menu();
+		break;
+	case LOSE:
+		App->InGameUI->Deactivate_Defeat_Menu();
+		break;
+	}
+		
 	return true;
 }
 
