@@ -52,6 +52,7 @@ struct TextureInfo
 	int level;
 	EntityType type;
 	SDL_Texture* texture;
+	int team;
 };
 
 struct EntityRequest
@@ -195,11 +196,13 @@ protected:
 	void  ShowHPbar(int extra_width, int height, int distance = 20);
 	void Trading();
 	j1Entity* FindTarget(float x, float y, int range, EntityType type, int team);
-
+	
 	bool showing_hpbar;
 	int trading_range;
 
 	std::vector<j1Entity*> tradeable_list;
+
+	SDL_Texture* LoadTexture(j1Entity* entity, std::vector<TextureInfo>& textureBuffer);
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1Unit : public j1Entity

@@ -1,6 +1,7 @@
 #include "j1Entities.h"
 #include "j1Render.h"
 
+#include "j1EntityManager.h"
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1InGameUI.h"
@@ -17,7 +18,8 @@ j1Storage::j1Storage(float x, float y, int team)
 	else
 		position = { x,y };
 
-	rect = { (int)position.x, (int)position.y, 30, 30 };
+	//rect = { (int)position.x, (int)position.y, 30, 30 };
+	rect = { 0, 0, 64, 64 };
 	this->team = team;
 	load = { 0,0,0,2000 };
 	int range = 100;
@@ -27,6 +29,8 @@ j1Storage::j1Storage(float x, float y, int team)
 	
 	type = EntityType::STORAGE;
 	level = 1;
+
+	texture = LoadTexture(this, App->entitymanager->allTextures);
 }
 
 j1Storage::~j1Storage()
@@ -54,7 +58,8 @@ void j1Storage::Update(float dt)
 
 	BuildProcces(dt);
 
-	App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, false, 100, 0, 255);
+	//App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, false, 100, 0, 255);
+	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 }
 
 void j1Storage::CleanUp()

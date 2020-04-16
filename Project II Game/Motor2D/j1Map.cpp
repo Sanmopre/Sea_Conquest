@@ -376,7 +376,6 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 	LOG("UEP, mirant aver si hi ha animacions!, %d columns", columns);
 	pugi::xml_node image = tileset_node.child("image");
 	SDL_Texture* texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
-
 	TextureInfo texInfo;
 	texInfo.texture = texture;
 	pugi::xml_node properties = tileset_node.child("properties");
@@ -404,12 +403,24 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 				texInfo.type = EntityType::HARVESTER;
 				texInfo.level = 1;
 			}
+			if (strcmp(name.c_str(), "buildings_ally") == 0)
+			{
+				texInfo.type = EntityType::STRUCTURE;
+				texInfo.level = 1;
+				texInfo.team = 1;
+			}
+			if (strcmp(name.c_str(), "buildings_enemy") == 0)
+			{
+				texInfo.type = EntityType::STRUCTURE;
+				texInfo.level = 1;
+				texInfo.team = 2;
+			}
 		}
 	}
 	LOG("Tileset with texture %d %s with texture %d", level, name.c_str(), texture);
 	App->entitymanager->addTexture(texInfo);
-	if (texInfo.type == EntityType::BOAT && texInfo.level == 1)
-	{
+	//if (texInfo.type == EntityType::BOAT && texInfo.level == 1)
+	//{
 		for (pugi::xml_node tile = tileset_node.child("tile"); tile != NULL; tile = tile.next_sibling("tile"))
 		{
 			if (tile != NULL && !tile.attribute("type").empty())
@@ -453,7 +464,7 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 				}
 				App->entitymanager->allAnimations.push_back(animation);
 			}
-		}
+		//}
 	}
 	return ret;
 }
