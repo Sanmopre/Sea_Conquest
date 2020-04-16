@@ -165,6 +165,25 @@ bool j1InGameUI::Update(float dt)
 	in_hover = false;
 	////////////////////////////////////////////////////
 
+
+
+
+	//MANAGE GODMODE UI
+	if (App->scenemanager->In_Main_Menu == false) {
+		if(App->godmode == true){
+			godmode.Godmode_Label->enabled = true;
+			godmode.Image->enabled = true;
+		}
+		else {
+		godmode.Godmode_Label->enabled = false;
+			godmode.Image->enabled = false;
+		}
+	}
+	else {
+		godmode.Godmode_Label->enabled = false;
+		godmode.Image->enabled = false;
+	}
+	
 	return true;
 
 
@@ -266,6 +285,10 @@ void j1InGameUI::Add_UI()
 
 	//COST
 	cost.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 95,475 }, { 0,0 }, true, true, { 0, 0,300,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::COST);
+
+	//GODMODE
+	godmode.Godmode_Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 25, 78 }, { 0,0 }, true, true, { 0,0,40,40 }, "GOD MODE ACTIVATED!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	godmode.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 10,63 }, { 0,0 }, true, false, { 0, 0,145,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::GODMODE);
 }
 
 void j1InGameUI::Activate_Menu()
@@ -390,6 +413,11 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == building.Boat_Building_Button) {
 			selected->BuildUnit(EntityType::BOAT, 1);
 		}
+
+		if (element == storage.Harvester_builder_button) {
+			selected->BuildUnit(EntityType::HARVESTER, 1);
+		}
+
 		if (element == manager.button_next) {
 
 			if (selected_total != 0)

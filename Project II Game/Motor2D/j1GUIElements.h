@@ -58,6 +58,7 @@ enum class TEXTURE
 	TOWNHALL,
 	STORAGE,
 	COST,
+	GODMODE,
 	NONE
 };
 

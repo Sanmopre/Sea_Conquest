@@ -171,6 +171,9 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::COST:
 		texture_load = App->tex->Load("textures/cost.png");
 		break;
+	case TEXTURE::GODMODE:
+		texture_load = App->tex->Load("textures/godmode.png");
+		break;
 	}
 
 	return texture_load;

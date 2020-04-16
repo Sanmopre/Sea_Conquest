@@ -37,7 +37,6 @@ private:
 	std::vector<j1Entity*> buffer;
 	void QuickDeleteEntity(std::vector<j1Entity*>::iterator itr);
 
-	SDL_Texture* gainzmode;
 };
 
 #endif // __j1EntityManager_H__
