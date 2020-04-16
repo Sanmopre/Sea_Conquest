@@ -35,18 +35,18 @@ void  j1Entity::ShowHPbar(int extra_width, int height, int distance)
 
 		width = max_w;
 		width /= load.maxweight;
-		width *= load.WoodWeight();
-		Brect.w = width;
-		Bcolor.SetColor(120u, 72u, 0u);
-		App->render->AddBlitEvent(2, nullptr, 0, 0, Brect, false, false, Bcolor.r, Bcolor.g, Bcolor.b, Bcolor.a); // wood bar
-
-		Brect.x += Brect.w;
-		width = max_w;
-		width /= load.maxweight;
 		width *= load.CottonWeight();
 		Brect.w = width;
 		Bcolor.SetColor(240u, 240u, 240u);
 		App->render->AddBlitEvent(2, nullptr, 0, 0, Brect, false, false, Bcolor.r, Bcolor.g, Bcolor.b, Bcolor.a); // cotton bar
+
+		Brect.x += Brect.w;
+		width = max_w;
+		width /= load.maxweight;
+		width *= load.WoodWeight();
+		Brect.w = width;
+		Bcolor.SetColor(120u, 72u, 0u);
+		App->render->AddBlitEvent(2, nullptr, 0, 0, Brect, false, false, Bcolor.r, Bcolor.g, Bcolor.b, Bcolor.a); // wood bar
 
 		Brect.x += Brect.w;
 		width = max_w;

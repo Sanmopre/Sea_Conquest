@@ -117,12 +117,19 @@ bool j1Player::Update(float dt)
 						h.y = m * h.x;
 
 						if (v.y < 0)
-							h.Negate();
+							h.y *= -1;
+						if (v.x < 0)
+							h.x *= -1;
 
 						v = { -v.y, v.x };
 						m = v.y / v.x;
 						w.x = X_DISTANCE / sqrt(m * m + 1);
 						w.y = m * w.x;
+
+						if (v.y < 0)
+							w.y *= -1;
+						if (v.x < 0)
+							w.x *= -1;
 					}
 					if (w_group == max_w_group - 1)
 					{

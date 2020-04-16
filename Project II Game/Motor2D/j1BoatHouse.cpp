@@ -10,6 +10,7 @@
 j1BoatHouse::j1BoatHouse(float x, float y, int team)
 {
 	type = EntityType::BOATHOUSE;
+	main_type = EntityType::STRUCTURE;
 	
 	if (team != 1)
 	{

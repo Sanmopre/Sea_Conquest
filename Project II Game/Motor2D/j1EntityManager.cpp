@@ -158,8 +158,14 @@ j1Entity* j1EntityManager::AddEntity(float x, float y, EntityType type, int leve
 	case EntityType::TOWNHALL:
 		buffer.push_back(new j1TownHall(x, y, team));
 		break;
-	case EntityType::RESOURCE:
-		buffer.push_back(new j1Resource(x, y, level));
+	case EntityType::ALL_COTTON:
+		buffer.push_back(new j1Resource(x, y, level, type));
+		break;
+	case EntityType::ALL_WOOD:
+		buffer.push_back(new j1Resource(x, y, level, type));
+		break;
+	case EntityType::ALL_METAL:
+		buffer.push_back(new j1Resource(x, y, level, type));
 		break;
 	}	
 

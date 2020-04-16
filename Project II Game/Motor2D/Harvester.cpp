@@ -12,6 +12,7 @@
 j1Harvester::j1Harvester(float x, float y, int level, int team)
 {
 	type = EntityType::HARVESTER;
+	terrain = NodeType::WATER;//GROUND;
 	position.x = x;
 	position.y = y;
 	destination = position;
@@ -122,7 +123,7 @@ void j1Harvester::Update(float dt)
 					App->input->GetMousePosition(m.x, m.y);
 					m.x -= App->render->camera.x / App->win->GetScale();
 					m.y -= App->render->camera.y / App->win->GetScale();
-					if (FindTarget((float)m.x, (float)m.y, range, EntityType::RESOURCE, -1) != nullptr)
+					if (SearchResources((float)m.x, (float)m.y) != nullptr)
 					{
 						harvest_destination = { (float)m.x, (float)m.y };
 						automating = false;
@@ -139,7 +140,7 @@ void j1Harvester::Update(float dt)
 		{
 			if (harvest_destination == position)
 			{
-				target = FindTarget(position.x, position.y, range, EntityType::RESOURCE, -1);
+				target = SearchResources(position.x, position.y);
 
 				if(target != nullptr)
 					if (load.Weight() == load.maxweight || target->load.Total() == 0)
@@ -172,7 +173,7 @@ void j1Harvester::Update(float dt)
 			if (!automatic)
 			{
 				if (load.Total() != load.maxweight)
-					target = FindTarget(position.x, position.y, range, EntityType::RESOURCE, -1);
+					target = SearchResources(position.x, position.y);
 				if (target == nullptr)
 				{
 					target = FindTarget(position.x, position.y, range, EntityType::STORAGE, team);
@@ -181,7 +182,7 @@ void j1Harvester::Update(float dt)
 
 			if (target != nullptr)
 			{
-				if (target->type == EntityType::RESOURCE)
+				if (target->main_type == EntityType::RESOURCE)
 				{
 					harvestrate.counter += dt;
 					if (harvestrate.counter >= harvestrate.iterations)
@@ -228,7 +229,7 @@ void j1Harvester::SetAutomatic()
 	if (!automatic)
 	{
 		automating = true;
-		if (FindTarget(position.x, position.y, range, EntityType::RESOURCE, -1) != nullptr)
+		if (SearchResources(position.x, position.y) != nullptr)
 			harvest_destination = position;
 		else if (FindTarget(position.x, position.y, range, EntityType::STORAGE, team) != nullptr)
 			deposit_destination = position;
@@ -253,4 +254,35 @@ void j1Harvester::Harvest(int power, j1Entity* target)
 	{
 		load.Transfer(METAL, &target->load.metal, power);
 	}
+}
+
+j1Entity* j1Harvester::SearchResources(float x, float y)
+{
+	j1Entity* ret = nullptr;
+
+	float targetdistance = range;
+	float distance = 0.0f;
+
+	for (std::vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
+		if (*e != this && (*e)->main_type == EntityType::RESOURCE && (*e)->load.Total() > 0)
+				if (x + range > (*e)->position.x &&
+					x - range < (*e)->position.x &&
+					y + range >(*e)->position.y &&
+					y - range < (*e)->position.y)
+				{
+					distance = sqrtf((x - (*e)->position.x) * (x - (*e)->position.x) + (y - (*e)->position.y) * (y - (*e)->position.y));
+
+					if (distance < range && distance < targetdistance)
+					{
+						ret = *e;
+						targetdistance = distance;
+					}
+
+					ShowHPbar(10, 5);
+				}
+
+	if (distance == 0.0f)
+		ret = nullptr;
+
+	return ret;
 }

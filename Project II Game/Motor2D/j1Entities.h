@@ -41,6 +41,9 @@ enum class EntityType
 	BOATHOUSE,
 	STORAGE,
 	TOWNHALL,
+	ALL_COTTON,
+	ALL_WOOD,
+	ALL_METAL,
 	UNIT,
 	STRUCTURE,
 	RESOURCE,
@@ -266,7 +269,9 @@ class j1Resource : public j1Entity
 {
 public:
 
-	j1Resource(float x, float y, int level = 1);
+	j1Resource(float x, float y, int level = 1, EntityType type = EntityType::ALL_WOOD);
+
+	Color color;
 
 	void Update(float dt);
 	void CleanUp();
@@ -302,6 +307,7 @@ public:
 private:
 
 	void Harvest(int power, j1Entity* target);
+	j1Entity* SearchResources(float x, float y);
 
 	bool automatic;
 	bool automating;
