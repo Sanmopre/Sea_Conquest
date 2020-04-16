@@ -6,6 +6,7 @@
 #include "p2Point.h"
 #include "p2Log.h"
 #include "j1Module.h"
+#include "j1Pathfinding.h"
 #include <vector>
 // ----------------------------------------------------
 struct Animation;
@@ -78,7 +79,7 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
-
+	NodeType			terrain;
 };
 
 enum MapTypes

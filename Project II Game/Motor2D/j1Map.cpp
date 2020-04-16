@@ -8,7 +8,6 @@
 #include "animation.h"
 #include "j1EntityManager.h"
 #include "j1Entities.h"
-#include "j1Pathfinding.h"
 
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -67,6 +66,38 @@ void j1Map::Draw()
 
 void j1Map::CreateNodeMap()
 {
+	/*if (map_loaded == false)
+		return;
+
+	p2List_item<MapLayer*>* item = data.layers.start;
+
+	for (; item != NULL; item = item->next)
+	{
+		MapLayer* layer = item->data;
+
+		if (layer->properties.Get("Nodraw") != 0)
+			continue;
+
+		for (int y = 0; y < data.height; ++y)
+		{
+			for (int x = 0; x < data.width; ++x)
+			{
+				int tile_id = layer->Get(x, y);
+				if (tile_id > 0)
+				{
+					TileSet* tileset = GetTilesetFromTileId(tile_id);
+
+					SDL_Rect r = tileset->GetTileRect(tile_id);
+					iPoint pos = MapToWorld<iPoint>(x, y);
+
+					NodeType terrain = tileset->terrain;
+
+					Node n(pos.x, pos.y, terrain);
+					App->pathfinding->NodeMap.push_back(n);
+				}
+			}
+		}
+	}*/
 	for (int y = 0; y < data.height; ++y)
 		for (int x = 0; x < data.width; ++x)
 		{
@@ -416,16 +447,29 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 				texInfo.team = 2;
 			}
 		}
+		/*///////////////////////////////////////MAIKEL
+
+		if (strcmp(property.attribute("name").as_string(), "terrain") == 0)
+		{
+			name = property.attribute("value").as_string();
+			if (strcmp(name.c_str(), "GROUND") == 0)
+			{
+				set->terrain = NodeType::GROUND;
+			}
+			if (strcmp(name.c_str(), "WATER") == 0)
+			{
+				set->terrain = NodeType::WATER;
+			}
+		}*/
 	}
 	LOG("Tileset with texture %d %s with texture %d", level, name.c_str(), texture);
 	App->entitymanager->addTexture(texInfo);
-	//if (texInfo.type == EntityType::BOAT && texInfo.level == 1)
-	//{
+
 		for (pugi::xml_node tile = tileset_node.child("tile"); tile != NULL; tile = tile.next_sibling("tile"))
 		{
 			if (tile != NULL && !tile.attribute("type").empty())
 			{
-				uint aniId = tile.attribute("id").as_uint();
+				//uint aniId = tile.attribute("id").as_uint();
 				pugi::xml_node animationNode = tile.child("animation");
 				Animation animation;
 				const char* typestring = tile.attribute("type").as_string();
@@ -445,10 +489,6 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 					animation.name = "entity_eight_west";
 				else if (strcmp(typestring, "animation_eight_northwest") == 0)
 					animation.name = "entity_eight_northwest";
-				//else
-				//{
-				//	texInfo.type = EntityType::NONE;
-				//}
 
 				LOG("UEP, found an animating tile! Type: %s", animation.name);
 				int nFrames = 0;
@@ -464,7 +504,6 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 				}
 				App->entitymanager->allAnimations.push_back(animation);
 			}
-		//}
 	}
 	return ret;
 }
