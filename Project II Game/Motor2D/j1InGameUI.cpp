@@ -390,6 +390,11 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == building.Boat_Building_Button) {
 			selected->BuildUnit(EntityType::BOAT, 1);
 		}
+
+		if (element == storage.Harvester_builder_button) {
+			selected->BuildUnit(EntityType::HARVESTER, 1);
+		}
+
 		if (element == manager.button_next) {
 
 			if (selected_total != 0)
