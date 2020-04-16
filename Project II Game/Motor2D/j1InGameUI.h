@@ -104,6 +104,13 @@ struct Cost {
 	j1Element* Image;
 };
 
+struct GodMode {
+	j1Element* Godmode_Label;
+	j1Element* Image;
+};
+
+
+
 struct SDL_Texture;
 class j1Entity;
 
@@ -244,6 +251,7 @@ private:
 	Defeat defeat;
 	Cost cost;
 	Resources resources;
+	GodMode godmode;
 
 	//ENtities
 	Building_Menu building;
