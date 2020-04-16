@@ -11,7 +11,7 @@ j1BoatHouse::j1BoatHouse(float x, float y, int team)
 {
 	type = EntityType::BOATHOUSE;
 	main_type = EntityType::STRUCTURE;
-	
+
 	if (team != 1)
 	{
 		placed = true;
@@ -25,8 +25,10 @@ j1BoatHouse::j1BoatHouse(float x, float y, int team)
 	this->team = team;
 	max_health = 500;
 	health = max_health;
-	rect = { (int)position.x, (int)position.y, 40, 40 };
+	//rect = { (int)position.x, (int)position.y, 40, 40 };
+	rect = { 128, 0, 64, 64 };
 	load = { 0, 0, 0, 1000 };
+	texture = LoadTexture(this, App->entitymanager->allTextures);
 }
 
 j1BoatHouse::~j1BoatHouse()
@@ -37,8 +39,8 @@ j1BoatHouse::~j1BoatHouse()
 void j1BoatHouse::Update(float dt)
 {
 	showing_hpbar = false;
-	rect.x = position.x;
-	rect.y = position.y;
+	//rect.x = position.x;
+	//rect.y = position.y;
 
 	NotPlacedBehaviour();
 
@@ -68,7 +70,7 @@ void j1BoatHouse::Update(float dt)
 
 	BuildProcces(dt);
 
-	App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, false, color.r, color.g, color.b, color.a);
+	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 
 	if (health == 0)
 		CleanUp();

@@ -148,3 +148,31 @@ void j1Unit::SelectAnimation()
 		break;
 	}
 }
+
+SDL_Texture* j1Entity::LoadTexture(j1Entity* entity, std::vector<TextureInfo>& textureBuffer)
+{
+	SDL_Texture* ret = nullptr;
+	if (entity->main_type == EntityType::STRUCTURE)
+	{
+		for (std::vector<TextureInfo>::iterator e = textureBuffer.begin(); e != textureBuffer.end(); e++)
+		{
+			if (entity->main_type == e->type && entity->team == e->team)
+			{
+				ret = e->texture;
+				break;
+			}
+		}
+	}
+	else if (entity->main_type == EntityType::UNIT)
+	{
+		for (std::vector<TextureInfo>::iterator e = textureBuffer.begin(); e != textureBuffer.end(); e++)
+		{
+			if (entity->type == e->type && entity->level == e->level)
+			{
+				ret = e->texture;
+				break;
+			}
+		}
+	}
+	return ret;
+}

@@ -26,7 +26,6 @@ struct Unit_Manager_UI {
 
 struct In_Game_Basics {
 	j1Element* Image;
-	j1Element* Resources;
 };
 
 
@@ -97,6 +96,10 @@ struct Defeat {
 	j1Element* Back_button;
 };
 
+struct Resources {
+	j1Element* Resources;
+};
+
 struct Cost {
 	j1Element* Image;
 };
@@ -134,6 +137,9 @@ public:
 	void Activate_Trader();
 	void Deactivate_Trader();
 
+	//ACIVATE RESOURCES 
+	void Activate_Resource_Menu();
+	void Deactivate_Resource_Menu();
 
 	//BOAT_BUILDING
 	void Activate_Building_Menu();
@@ -200,6 +206,10 @@ private:
 	int type_1 = 0;
 	int type_2 = 0;
 
+	char wood_resource[10];
+	char cotton_resource[10];
+	char metal_resource[10];
+
 	char text_max[10];
 	char text_type_0[10];
 	char text_type_1[10];
@@ -233,6 +243,7 @@ private:
 	Win win;
 	Defeat defeat;
 	Cost cost;
+	Resources resources;
 
 	//ENtities
 	Building_Menu building;

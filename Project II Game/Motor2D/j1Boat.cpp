@@ -54,12 +54,7 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 			this->north_west = i->GetAnimation();
 	}
 
-	for (std::vector<TextureInfo>::iterator e = App->entitymanager->allTextures.begin(); e != App->entitymanager->allTextures.end(); e++)
-		if (this->type == e->type && this->level == e->level)
-		{
-			this->texture = e->texture; 
-			break;
-		}
+	texture = LoadTexture((j1Entity*)this, App->entitymanager->allTextures);
 
 	rect = north.GetCurrentFrame();
 }
@@ -144,7 +139,7 @@ void j1Boat::Update(float dt)
 
 			App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, position, 0.9);
 		}
-		//
+		
 	}
 
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);

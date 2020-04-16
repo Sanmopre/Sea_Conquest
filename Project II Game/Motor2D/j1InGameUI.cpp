@@ -49,7 +49,6 @@ bool j1InGameUI::Start()
 	selected_total = 0;
 
 	//CREATES UI
-
 	Add_UI();
 
 	return true;
@@ -77,20 +76,24 @@ bool j1InGameUI::Update(float dt)
 		}
 		Manage_Entity_UI(selected);		
 	    Update_Resources(selected);
+		Activate_Resource_Menu();
 	}
 	else {
 		in_trading = false;
 		Deactivate_Trader();
 		Manage_Entity_UI(nullptr);
+		Deactivate_Resource_Menu();
 	}
 
 
 	//UPDATE RESOURCES
-	//MAIN_RESOURCES
-	sprintf_s(text_type_0, 10, "%7d", type_0);
-	sprintf_s(text_type_1, 10, "%7d", type_1);
-	sprintf_s(text_type_2, 10, "%7d", type_2);
+	if (selected != nullptr) {
+		sprintf_s(cotton_resource, 10, "%7d", selected->load.cotton);
+		sprintf_s(wood_resource, 10, "%7d", selected->load.wood);
+		sprintf_s(metal_resource, 10, "%7d", selected->load.metal);
 
+
+	}
 
 	//COST_UPDATE
 	if (in_hover == true) {
@@ -118,10 +121,12 @@ bool j1InGameUI::Update(float dt)
 	//PRINT RESOURCES
 	if (App->scenemanager->In_Main_Menu == false) {
 
-		App->fonts->BlitText(10, 5, 1, text_type_0);
-		App->fonts->BlitText(140, 5, 1, text_type_1);
-		App->fonts->BlitText(280, 5, 1, text_type_2);
-		
+		if (selected_total != 0) {
+			App->fonts->BlitText(10, 10, 1, cotton_resource);
+			App->fonts->BlitText(120, 10, 1, wood_resource);
+			App->fonts->BlitText(240, 10, 1, metal_resource);
+		}
+
 		if (in_trading == true) {
 			App->fonts->BlitText( 75, 658, 1, text_max);
 			App->fonts->BlitText(255, 558, 1, text_type_0);
@@ -223,7 +228,9 @@ void j1InGameUI::Add_UI()
 
 	//UI BASICS ALWAYS ACTIVE
 	basics.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,520 }, { 0,0 }, true, true, { 0, 0,1280,200 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MAIN_IMAGE);
-	basics.Resources = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,0 }, { 0,0 }, true, true, { 0, 0,400,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::RESOURCES_IMAGE);
+	
+	//RESOURCES 
+	resources.Resources = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,0 }, { 0,0 }, true, true, { 0, 0,400,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::RESOURCES_IMAGE);
 
 
 	//TRADING_MENU
@@ -515,6 +522,16 @@ bool j1InGameUI::PostUpdate()
 		return false;
 	}
 	return ret;
+}
+
+void j1InGameUI::Activate_Resource_Menu()
+{
+	resources.Resources->enabled = true;
+}
+
+void j1InGameUI::Deactivate_Resource_Menu()
+{
+	resources.Resources->enabled = false;
 }
 
 void j1InGameUI::Activate_Building_Menu()
@@ -849,6 +866,7 @@ void j1InGameUI::Deactivate_All_UI()
 	Deactivate_Building_Menu();
 	Deactivate_Defeat_Menu();
 	Deactivate_Win_Menu();
+	Deactivate_Resource_Menu();
 
 	menu.Resume_button->enabled = false;
 	menu.Return_button->enabled = false;
@@ -858,13 +876,10 @@ void j1InGameUI::Deactivate_All_UI()
 	menu.Image->enabled = false;
 
 	basics.Image->enabled = false;
-	basics.Resources->enabled = false;
 	menu.Menu_button->enabled = false;
 }
 
 void j1InGameUI::Activate_Necessary_UI() {
 	basics.Image->enabled = true;
-	basics.Resources->enabled = true;
 	menu.Menu_button->enabled = true;
-
 }
