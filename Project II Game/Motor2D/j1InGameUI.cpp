@@ -169,15 +169,20 @@ bool j1InGameUI::Update(float dt)
 
 
 	//MANAGE GODMODE UI
-	if (App->godmode == true) {
-		godmode.Godmode_Label->enabled = true;
-		godmode.Image->enabled = true;
+	if (App->scenemanager->In_Main_Menu == false) {
+		if(App->godmode == true){
+			godmode.Godmode_Label->enabled = true;
+			godmode.Image->enabled = true;
+		}
+		else {
+		godmode.Godmode_Label->enabled = false;
+			godmode.Image->enabled = false;
+		}
 	}
 	else {
 		godmode.Godmode_Label->enabled = false;
 		godmode.Image->enabled = false;
 	}
-	
 	
 	return true;
 
