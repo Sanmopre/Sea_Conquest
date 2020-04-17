@@ -472,6 +472,18 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			}
 
 		}
+
+		if (element == harvester.boathouse) {
+			if (Cost_Function(selected, 0, 40, 40))
+				selected->BuildStructure(EntityType::BOATHOUSE);
+		}
+
+		if (element == harvester.Storage) {
+			if (Cost_Function(selected, 0, 50, 10))
+				selected->BuildStructure(EntityType::STORAGE);
+		}
+
+
 		if (element == trader.button_trade_1) {
 			selected->load.Transfer(Material::COTTON, &selected->trading_entity->load.cotton, 5 );
 		}
