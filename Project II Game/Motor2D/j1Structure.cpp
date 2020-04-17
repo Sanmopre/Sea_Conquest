@@ -3,11 +3,24 @@
 #include "j1Input.h"
 #include "j1Map.h"
 #include "j1EntityManager.h"
+#include "j1InGameUI.h"
+#include "j1Scene.h"
 
 j1Structure::j1Structure()
 { 
 	main_type = EntityType::STRUCTURE;
-	placed = false;
+	placed = true;
+
+	if (App->scene->start)
+		built_state = NOT_BUILDING;
+	else
+	{
+		built_state = BUILDING;
+		health = 1;
+	}
+		
+
+	other_rect = {192, 0, 63, 63}; //////////////
 }
 
 
@@ -15,6 +28,42 @@ j1Structure::~j1Structure()
 {
 	unitqueue.erase(unitqueue.begin(), unitqueue.end());
 	unitqueue.shrink_to_fit();
+}
+
+void j1Structure::Primitive_Update(float dt) 
+{
+	showing_hpbar = false;
+
+	if (built_state == BUILDING)
+	{
+		ShowHPbar(10, 5);
+	}
+	else
+	{
+		NotPlacedBehaviour();
+
+		if (App->InGameUI->selected != nullptr)
+			if (this == App->InGameUI->selected->trading_entity)
+				ShowHPbar(10, 5);
+
+		if (selected)
+		{
+			ShowHPbar(10, 5);
+
+			if (this == App->InGameUI->selected)
+				Trading();
+
+			if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+				placed = false;
+		}
+
+		BuildProcces(dt);
+	}
+
+		if (built_state == BUILDING || built_state == ON_HOLD)
+			rect = other_rect;
+		else
+			rect = built_rect;
 }
 
 void j1Structure::NotPlacedBehaviour()

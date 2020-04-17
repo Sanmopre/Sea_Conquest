@@ -103,7 +103,7 @@ void j1Map::CreateNodeMap()
 		{
 			Node n(x, y, WATER);
 			App->pathfinding->NodeMap.push_back(n);
-		}	
+		}
 }
 
 int Properties::Get(const char* value, int default_value) const

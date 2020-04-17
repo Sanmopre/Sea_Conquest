@@ -3,6 +3,8 @@
 
 #include "j1Window.h"
 #include "j1Input.h"
+#include "j1InGameUI.h"
+#include "j1EntityManager.h"
 
 j1Unit::j1Unit() 
 { 
@@ -14,6 +16,26 @@ j1Unit::~j1Unit()
 {
 	path.erase(path.begin(), path.end());
 	path.shrink_to_fit();
+}
+
+void j1Unit::Primitive_Update(float dt)
+{
+	showing_hpbar = false;
+
+	SelectAnimation();
+
+	if (App->InGameUI->selected != nullptr)
+		if (this == App->InGameUI->selected->trading_entity)
+			ShowHPbar(10, 5);
+
+	if (selected)
+	{
+		if (team == 1)
+			if (this == App->InGameUI->selected)
+				Trading();
+		
+		ShowHPbar(10, 5);
+	}
 }
 
 void j1Unit::GoTo(fPoint destination, NodeType terrain)

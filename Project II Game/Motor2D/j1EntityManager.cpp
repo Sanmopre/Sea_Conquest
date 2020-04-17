@@ -44,6 +44,7 @@ bool j1EntityManager::Update(float dt)
 			}
 			else
 			{
+				(*entity)->Primitive_Update(dt);
 				(*entity)->Update(dt);
 				if ((*entity)->selected)
 					n++;
@@ -85,7 +86,12 @@ bool j1EntityManager::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 		{	
-			AddEntity(0, 0, EntityType::BOATHOUSE, 0, 1);
+			iPoint test;
+			App->input->GetMousePosition(test.x, test.y);
+			test.x -= App->render->camera.x / App->win->GetScale();
+			test.y -= App->render->camera.y / App->win->GetScale();
+
+			AddEntity(test.x, test.y, EntityType::BOATHOUSE, 0, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
@@ -109,7 +115,12 @@ bool j1EntityManager::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		{
-			AddEntity(0, 0, EntityType::STORAGE, 0, 1);
+			iPoint test;
+			App->input->GetMousePosition(test.x, test.y);
+			test.x -= App->render->camera.x / App->win->GetScale();
+			test.y -= App->render->camera.y / App->win->GetScale();
+
+			AddEntity(test.x, test.y, EntityType::STORAGE, 0, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)

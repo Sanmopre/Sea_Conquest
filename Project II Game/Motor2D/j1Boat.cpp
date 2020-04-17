@@ -5,7 +5,6 @@
 #include "j1EntityManager.h"
 #include "j1ParticleManager.h"
 #include "ParticleSystem.h"
-#include "j1InGameUI.h"
 
 #include <vector>
 
@@ -67,23 +66,14 @@ j1Boat::~j1Boat()
 void j1Boat::Update(float dt)
 {
 	if (dt != 0.0f)
-	{
-		showing_hpbar = false;
-
-		SelectAnimation();
-		
+	{	
 		if (selected)
 		{
 			if (team == 1)
 			{
 				if (App->entitymanager->selected_n == 1 && App->input->GetMouseButtonDown(3) == KEY_DOWN)
 					SetDestination();
-
-				if(this == App->InGameUI->selected)
-					Trading();
 			}
-
-			ShowHPbar(10, 5);
 		}
 
 		if (destination != position)
@@ -105,47 +95,33 @@ void j1Boat::Update(float dt)
 
 		target = FindTarget(position.x, position.y, range, EntityType::NONE, -1);
 
-		//PARTICLES
-		if (health < 0)
-			health = 0;
-
-		if (health != 0.0f)
+		if (health != 0)
 		{
-			if (health < max_health * 0.5 && Smoke == false)
+			if (health < max_health / 2 && !Smoke)
 			{
 				SmokeSystem = App->pmanager->createSystem(PARTICLE_TYPES::SMOKE, position, 0);
 				Smoke = true;
 			}
-
-			if (health < max_health * 0.2 && Fire == false)
+			if (health < max_health / 5 && !Fire)
 			{
 				FireSystem = App->pmanager->createSystem(PARTICLE_TYPES::FIRE, position, 0);
 				Fire = true;
 			}
 
-			if (Smoke == true)
+			if (Smoke)
 				SmokeSystem->changePosition(position);
-
-			if (Fire == true)
+			if (Fire)
 				FireSystem->changePosition(position);
-		}
-		if (health == 0)
-		{
-			if(Smoke == true)
-			SmokeSystem->toDelete = true;
-
-			if(Fire == true)
-			FireSystem->toDelete = true;
-
-			App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, position, 0.9);
-		}
-		
+		}	
 	}
 
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 
 	if (health == 0)
+	{
 		CleanUp();
+		App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, position, 0.9);
+	}
 }
 
 void j1Boat::CleanUp()
@@ -164,7 +140,8 @@ void j1Boat::Damage(int damage, j1Entity* target)
 	if (target->health != 0)
 	{
 		target->health -= damage;
+		if (target->health < 0)
+			target->health = 0;
 		// boat_attack.wav
-		//App->pmanager->createSystem(PARTICLE_TYPES::FIRE, target->position, 0.001f);
 	}
 }

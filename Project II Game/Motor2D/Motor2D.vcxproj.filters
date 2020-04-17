@@ -82,15 +82,6 @@
     <ClCompile Include="j1Button.cpp">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClCompile>
-    <ClCompile Include="j1Boat.cpp">
-      <Filter>Desenvolupament  ========\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="j1BoatHouse.cpp">
-      <Filter>Desenvolupament  ========\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Structure.cpp">
-      <Filter>Desenvolupament  ========\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="j1Entity.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
@@ -133,17 +124,8 @@
     <ClCompile Include="j1SceneManager.cpp">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="j1Resource.cpp">
-      <Filter>Desenvolupament  ========\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="j1MainMenuUI.cpp">
       <Filter>Desenvolupament  ========\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Harvester.cpp">
-      <Filter>Desenvolupament  ========\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Storage.cpp">
-      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
     <ClCompile Include="j1Minimap.cpp">
       <Filter>Desenvolupament  ========\UI</Filter>
@@ -151,14 +133,32 @@
     <ClCompile Include="j1Font.cpp">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClCompile>
-    <ClCompile Include="j1Unit.cpp">
-      <Filter>Desenvolupament  ========\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="j1TownHall.cpp">
-      <Filter>Desenvolupament  ========\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="j1LogoScene.cpp">
       <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Harvester.cpp">
+      <Filter>Desenvolupament  ========\Entities\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Boat.cpp">
+      <Filter>Desenvolupament  ========\Entities\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="j1BoatHouse.cpp">
+      <Filter>Desenvolupament  ========\Entities\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Storage.cpp">
+      <Filter>Desenvolupament  ========\Entities\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="j1TownHall.cpp">
+      <Filter>Desenvolupament  ========\Entities\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Resource.cpp">
+      <Filter>Desenvolupament  ========\Entities\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Structure.cpp">
+      <Filter>Desenvolupament  ========\Entities\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Unit.cpp">
+      <Filter>Desenvolupament  ========\Entities\Primitives</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -337,6 +337,15 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Particles">
       <UniqueIdentifier>{eb3d0453-429b-4711-b95a-b00b2fb6c59a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Entities\Units">
+      <UniqueIdentifier>{47e3d045-06ef-4cd7-94fa-c13a7ceb4532}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Entities\Structures">
+      <UniqueIdentifier>{196e050e-7f7c-4c44-8124-40b11a5def75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Entities\Primitives">
+      <UniqueIdentifier>{0562497d-be69-454e-8476-f10502741705}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

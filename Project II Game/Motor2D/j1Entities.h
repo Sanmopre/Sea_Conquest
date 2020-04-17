@@ -50,6 +50,14 @@ enum class EntityType
 	NONE
 };
 
+enum BuildState
+{
+	TO_BUILD,
+	BUILDING,
+	ON_HOLD,
+	NOT_BUILDING
+};
+
 struct TextureInfo
 {
 	int level;
@@ -163,6 +171,7 @@ public:
 	j1Entity() { selected = false; to_delete = false; }
 	~j1Entity();
 
+	virtual void Primitive_Update(float dt) = 0;
 	virtual void Update(float dt) = 0;
 	virtual void CleanUp() = 0;
 
@@ -170,8 +179,8 @@ public:
 
 	int team;
 
-	int health;
-	int max_health;
+	float health;
+	float max_health;
 	fPoint position;
 	EntityType type;
 	EntityType main_type;
@@ -193,6 +202,8 @@ public:
 
 	virtual void GoTo(fPoint destination, NodeType terrain) {}
 	virtual void BuildUnit(EntityType type, int level) {}
+	virtual void ToPlace(bool to_place) {}
+	virtual void SetBuiltState(BuildState state) {}
 
 protected:
 
@@ -214,7 +225,7 @@ public:
 
 	j1Unit();
 	~j1Unit();
-
+	void Primitive_Update(float dt);
 	float speed;
 	int range;
 	Orientation orientation;
@@ -254,14 +265,23 @@ public:
 
 	j1Structure();
 	~j1Structure();
+	void Primitive_Update(float dt);
 
 	iPoint tile;
 	bool placed;
+	BuildState built_state;
 
 	void NotPlacedBehaviour();
 	void BuildUnit(EntityType type, int level);
 
+	void ToPlace(bool to_place) { placed = to_place; }
+	void SetBuiltState(BuildState state) { built_state = state; }
+
 protected:
+
+	SDL_Rect other_rect; //MIQUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEL
+	SDL_Rect built_rect; //REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
 	void BuildProcces(float dt);
 
 	std::vector<EntityRequest> unitqueue;
@@ -273,6 +293,7 @@ class j1Resource : public j1Entity
 public:
 
 	j1Resource(float x, float y, int level = 1, EntityType type = EntityType::ALL_WOOD);
+	void Primitive_Update(float dt) {}
 
 	Color color;
 
@@ -311,6 +332,9 @@ private:
 
 	void Harvest(int power, j1Entity* target);
 	j1Entity* SearchResources(float x, float y);
+
+	j1Entity* building;
+	BuildState state;
 
 	bool automatic;
 	bool automating;
