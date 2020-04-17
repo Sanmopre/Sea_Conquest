@@ -344,4 +344,9 @@
       <Filter>Desenvolupament  ========</Filter>
     </Xml>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Game\maps\Mapa definitivo.tmx">
+      <Filter>Desenvolupament  ========</Filter>
+    </None>
+  </ItemGroup>
 </Project>

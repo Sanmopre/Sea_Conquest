@@ -11,7 +11,6 @@ j1TownHall::j1TownHall(float x, float y, int team)
 	tile = App->map->WorldToMap(x, y);
 	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 
-	//rect = { (int)position.x, (int)position.y, 40, 40 };
 	rect = { 64, 0, 64, 64 };
 	this->team = team;
 	load = { 0,0,0, 100 };
@@ -41,7 +40,6 @@ void j1TownHall::Update(float)
 	if (selected)
 		ShowHPbar(10, 5);
 
-	//App->render->AddBlitEvent(1, nullptr, 0, 0, rect, false, false, 100, 100, 255);
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 }
 

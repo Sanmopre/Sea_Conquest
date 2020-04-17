@@ -7,7 +7,7 @@
 j1Structure::j1Structure()
 { 
 	main_type = EntityType::STRUCTURE;
-	placed = false; 
+	placed = false;
 }
 
 
@@ -25,9 +25,6 @@ void j1Structure::NotPlacedBehaviour()
 
 		iPoint placing_tile = App->map->WorldToMap(position.x, position.y);
 		position = App->map->MapToWorld<fPoint>(placing_tile.x, placing_tile.y);
-
-		//rect.x = position.x;
-		//rect.y = position.y;
 
 		if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 		{

@@ -152,6 +152,10 @@ void j1Boat::CleanUp()
 {
 	path.erase(path.begin(), path.end());
 	path.shrink_to_fit();
+	if(SmokeSystem != nullptr)
+		SmokeSystem->toDelete = true;
+	if (FireSystem != nullptr)
+		FireSystem->toDelete = true;
 	to_delete = true;
 }
 

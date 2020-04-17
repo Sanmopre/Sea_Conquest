@@ -23,7 +23,6 @@ j1EntityManager::~j1EntityManager()
 
 bool j1EntityManager::Start()
 {
-	gainzmode = App->tex->Load("textures/GAINZ MODE.png");
 	LOG("EntityManager Started");
 	return true;
 }
@@ -66,7 +65,6 @@ bool j1EntityManager::Update(float dt)
 	////////////////////////////////////ENTITIES_DEBUG///////////////////////////////////////////////////
 	if (App->godmode)
 	{
-		App->render->AddBlitEvent(20, gainzmode, (-App->render->camera.x/App->win->GetScale()), (-App->render->camera.y / App->win->GetScale()) + 30, { 0,0,101,161 }, false, true);
 		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		{
 			iPoint test;
