@@ -106,6 +106,7 @@ void j1Harvester::Update(float dt)
 
 		float distance = 0.0f;
 		Color c = {};
+		SDL_Rect r = {};
 		if (building != nullptr)
 		{
 			float x = building->position.x - position.x;
@@ -144,7 +145,7 @@ void j1Harvester::Update(float dt)
 				delete building;
 				building = nullptr;
 			}
-			SDL_Rect r = { building->GetRenderPositionX(), building->GetRenderPositionY(), building->rect.w, building->rect.h };
+			r = { building->GetRenderPositionX(), building->GetRenderPositionY(), building->rect.w, building->rect.h };
 			App->render->AddBlitEvent(3, nullptr, 0, 0, r, false, false, c.r, c.g, c.b, 50);
 			break;
 		case BUILDING:
