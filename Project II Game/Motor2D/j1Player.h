@@ -23,6 +23,8 @@ public:
 	//LOADING AND SAVING OPTIONS
 	bool Save(pugi::xml_node& data);
 	bool Load(pugi::xml_node& data);	
+
+	bool disable_click;
 	
 private:
 

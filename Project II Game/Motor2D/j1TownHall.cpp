@@ -7,11 +7,11 @@
 
 j1TownHall::j1TownHall(float x, float y, int team)
 {
-	placed = true;
 	tile = App->map->WorldToMap(x, y);
 	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 
 	rect = { 64, 0, 64, 64 };
+	built_rect = rect; /////////////////////
 	this->team = team;
 	load = { 0,0,0, 100 };
 
@@ -35,10 +35,6 @@ void j1TownHall::Update(float)
 			App->scene->state = LOSE;
 		else if (team == 2)
 			App->scene->state = WIN;
-	showing_hpbar = false;
-
-	if (selected)
-		ShowHPbar(10, 5);
 
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 }

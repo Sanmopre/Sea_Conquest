@@ -13,22 +13,16 @@ j1BoatHouse::j1BoatHouse(float x, float y, int team)
 	type = EntityType::BOATHOUSE;
 	main_type = EntityType::STRUCTURE;
 
-	if (team != 1 || App->scene->start)
-		placed = true;
+	tile = App->map->WorldToMap(x, y);
+	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 
-	if (!placed)
-	{
-		tile = App->map->WorldToMap(x, y);
-		position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
-	}
-	else
-		position = { x,y };
-	
 	level = 1;
 	this->team = team;
 	max_health = 500;
-	health = max_health;
+	if(built_state != BUILDING)
+		health = max_health;
 	rect = { 128, 0, 64, 64 };
+	built_rect = rect; /////////////////////
 	load = { 0, 0, 0, 1000 };
 	texture = LoadTexture(this, App->entitymanager->allTextures);
 }
@@ -40,35 +34,14 @@ j1BoatHouse::~j1BoatHouse()
 
 void j1BoatHouse::Update(float dt)
 {
-	showing_hpbar = false;
-
-	NotPlacedBehaviour();
-
 	if (selected)
 	{
-		if (team == 0)
-			color.SetColor(0u, 255u, 255u);
-		else if (team == 1)
-			color.SetColor(255u, 255u, 0u);
-
-		if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
-			placed = false;
-
-		if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
-			BuildUnit(EntityType::BOAT, 1);
-		
-		ShowHPbar(10, 5);
-
-		if (this == App->InGameUI->selected)
-			Trading();
+		if (App->godmode)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+				BuildUnit(EntityType::BOAT, 1);
+		}
 	}
-	else
-		if (team == 1)
-			color.Blue();
-		else if (team == 2)
-			color.Red();
-
-	BuildProcces(dt);
 
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 

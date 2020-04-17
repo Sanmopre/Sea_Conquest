@@ -10,24 +10,18 @@
 j1Storage::j1Storage(float x, float y, int team)
 {
 
-	if (team != 1 || App->scene->start)
-		placed = true;
-
-	if (!placed)
-	{
-		tile = App->map->WorldToMap(x, y);
-		position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
-	}
-	else
-		position = { x,y };
+	tile = App->map->WorldToMap(x, y);
+	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 
 	rect = { 0, 0, 64, 64 };
+	built_rect = rect; /////////////////////
 	this->team = team;
 	load = { 0,0,0,2000 };
 	int range = 100;
 	trading_range = 200;
 	max_health = 250;
-	health = max_health;
+	if (built_state != BUILDING)
+		health = max_health;
 	
 	type = EntityType::STORAGE;
 	level = 1;
@@ -42,23 +36,15 @@ j1Storage::~j1Storage()
 
 void j1Storage::Update(float dt)
 {
-	showing_hpbar = false;
-
-	NotPlacedBehaviour();
-
 	if(team == 1)
 		if (selected)
 		{
-			ShowHPbar(10, 5);
-
-			if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
-				BuildUnit(EntityType::HARVESTER, 1);
-
-			if (this == App->InGameUI->selected)
-				Trading();
+			if (App->godmode)
+			{
+				if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+					BuildUnit(EntityType::HARVESTER, 1);
+			}
 		}
-
-	BuildProcces(dt);
 
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 }

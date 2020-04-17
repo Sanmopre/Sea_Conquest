@@ -38,7 +38,7 @@ bool j1MainMenuUI::Start()
 {
 
 	Add_UI();
-
+	menu.music->Button->map_position.x = 830 + 186;
 	return true;
 }
 
@@ -52,9 +52,8 @@ bool j1MainMenuUI::PreUpdate()
 bool j1MainMenuUI::Update(float dt)
 {
 
+
 	return true;
-
-
 }
 
 
