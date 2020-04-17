@@ -16,7 +16,7 @@
 #include "j1Window.h"
 #include "j1MainMenuUI.h"
 #include "j1TransitionManager.h"
-
+#include "j1Audio.h"
 
 j1SceneManager::j1SceneManager() : j1Module()
 {
@@ -45,7 +45,6 @@ bool j1SceneManager::Start()
 	App->scene3->logo_texture = App->tex->Load("textures/logo.png");
 
 	logo.iterations = 3.0f;
-
 	return true;
 }
 
@@ -73,7 +72,6 @@ bool j1SceneManager::Update(float dt)
 		App->transitions->FadingToColor(White, 1.25f, 3);
 		App->mainmenu->Deactivate_Audio_Options();
 	}
-
 	/*
 	App->transitions->FadingToColor(White, 1.0f, //scene);
 	App->transitions->Wiping(Black, 0.5f, //scene);

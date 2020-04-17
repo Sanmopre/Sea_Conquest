@@ -30,9 +30,21 @@ public:
 	unsigned int LoadFx(const char* path);
 
 	// Play a previously loaded WAV
-	bool PlayFx(unsigned int fx, int repeat = 0);
+	bool PlayFx(unsigned int fx, int repeat = 0, int volume = 100);
 
-private:
+	unsigned int boat_attack;
+	unsigned int boat_destroy;
+	unsigned int boat_spawn;
+	unsigned int harvester_destroy;
+	unsigned int harvester_spawn;
+	unsigned int harvester_work;
+	unsigned int structure_build;
+	unsigned int structure_destroy;
+	unsigned int ui_open;
+	unsigned int ui_purchase;
+	unsigned int ui_wood_hit;
+
+private:		 
 
 	_Mix_Music*			music = NULL;
 	p2List<Mix_Chunk*>	fx;

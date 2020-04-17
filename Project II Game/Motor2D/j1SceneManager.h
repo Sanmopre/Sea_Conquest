@@ -32,8 +32,6 @@ public:
 	bool CleanUp();
 
 	int ChangeScene(int scene);
-
-
 public:
 	int current_scene = 0;
 	bool In_Main_Menu = false;

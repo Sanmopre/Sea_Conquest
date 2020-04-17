@@ -50,6 +50,17 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
+	boat_attack = App->audio->LoadFx("audio/fx/boat_attack.wav");
+	boat_destroy = App->audio->LoadFx("audio/fx/boat_destroy.wav");
+	boat_spawn = App->audio->LoadFx("audio/fx/boat_spawn.wav");
+	harvester_destroy = App->audio->LoadFx("audio/fx/harvester_destroy.wav");
+	harvester_spawn = App->audio->LoadFx("audio/fx/harvester_spawn.wav");
+	harvester_work = App->audio->LoadFx("audio/fx/harvester_work.wav");
+	structure_build = App->audio->LoadFx("audio/fx/structure_build.wav");
+	structure_destroy = App->audio->LoadFx("audio/fx/structure_destroy.wav");
+	ui_open = App->audio->LoadFx("audio/fx/ui_open.wav");
+	ui_purchase = App->audio->LoadFx("audio/fx/ui_purchase.wav");
+	ui_wood_hit = App->audio->LoadFx("audio/fx/ui_wood_hit.wav");
 	return ret;
 }
 
@@ -157,7 +168,7 @@ unsigned int j1Audio::LoadFx(const char* path)
 }
 
 // Play WAV
-bool j1Audio::PlayFx(unsigned int id, int repeat)
+bool j1Audio::PlayFx(unsigned int id, int repeat, int volume)
 {
 	bool ret = false;
 
@@ -166,7 +177,9 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 	if(id > 0 && id <= fx.count())
 	{
-		Mix_PlayChannel(-1, fx[id - 1], repeat);
+		Mix_Chunk* sentchunk = fx[id - 1];
+		Mix_VolumeChunk(sentchunk,volume);
+		Mix_PlayChannel(-1, sentchunk, repeat);
 	}
 
 	return ret;

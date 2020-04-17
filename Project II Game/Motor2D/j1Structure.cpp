@@ -8,11 +8,13 @@ j1Structure::j1Structure()
 { 
 	main_type = EntityType::STRUCTURE;
 	placed = false;
+	App->audio->PlayFx(App->audio->structure_build);
 }
 
 
 j1Structure::~j1Structure()
 {
+	App->audio->PlayFx(App->audio->structure_destroy);
 	unitqueue.erase(unitqueue.begin(), unitqueue.end());
 	unitqueue.shrink_to_fit();
 }
