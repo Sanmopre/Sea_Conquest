@@ -7,6 +7,7 @@
 #include "j1InGameUI.h"
 #include "j1Window.h"
 
+#include "j1Player.h"
 #include <vector>
 
 j1Harvester::j1Harvester(float x, float y, int level, int team)
@@ -21,7 +22,7 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	this->level = level;
 	trading_range = 50;
 	this->team = team;
-	speed = 300;
+	speed = 30;
 	range = 50;
 	power = 30;
 	harvestrate = { 2 };
@@ -77,7 +78,7 @@ void j1Harvester::Update(float dt)
 		{
 			if (team == 1)
 			{
-				if (!automating)
+				if (!automating && state != TO_BUILD)
 					if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
 					{
 						if (App->entitymanager->selected_n == 1)
@@ -89,53 +90,65 @@ void j1Harvester::Update(float dt)
 				{
 					SetAutomatic();
 				}
-
-				if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN && building == nullptr)
+				if (App->godmode)
 				{
-					building = new j1BoatHouse(0, 0, team);
-					building->SetBuiltState(TO_BUILD);
-					building->ToPlace(false);
-					state = TO_BUILD;
+					if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN && state == NOT_BUILDING)
+					{
+						BuildStructure(EntityType::BOATHOUSE);
+					}
+					if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN && state == NOT_BUILDING)
+					{
+						BuildStructure(EntityType::STORAGE);
+					}
 				}
-
 			}
 		}
 
-		//float distance = 0.0f;
-		//if (building != nullptr)
-		//{
-		//	float x = building->position.x - position.x;
-		//	float y = building->position.y - position.y;
-		//	distance = sqrtf(x * x + y * y);
-		//}
+		float distance = 0.0f;
+		Color c = {};
+		if (building != nullptr)
+		{
+			float x = building->position.x - position.x;
+			float y = building->position.y - position.y;
+			distance = sqrtf(x * x + y * y);
+		}
 
 		switch (state)
 		{
 		case TO_BUILD:
 			building->Primitive_Update(dt);
 			building->Update(dt);
-			if (App->input->GetMouseButtonDown(1) == KEY_DOWN /*&& distance < range*/)
+			c.Red();
+			App->player->disable_click = true;
+			if (distance < range)
 			{
-				state = BUILDING;
-				float x = building->position.x;
-				float y = building->position.y;
-				EntityType ty = building->type;
-				int l = building->level;
-				int t = building->team;
+				if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
+				{
+					state = BUILDING;
+					float x = building->position.x;
+					float y = building->position.y;
+					EntityType ty = building->type;
+					int l = building->level;
+					int t = building->team;
 
-				delete building;
+					delete building;
 
-				building = App->entitymanager->AddEntity(x, y, ty, l, t);
-				building->SetBuiltState(BUILDING);
+					building = App->entitymanager->AddEntity(x, y, ty, l, t);
+					building->SetBuiltState(BUILDING);
+				}
+				c.Green();
 			}
-			else if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
 			{
 				state = NOT_BUILDING;
 				delete building;
+				building = nullptr;
 			}
+			SDL_Rect r = { building->GetRenderPositionX(), building->GetRenderPositionY(), building->rect.w, building->rect.h };
+			App->render->AddBlitEvent(3, nullptr, 0, 0, r, false, false, c.r, c.g, c.b, 50);
 			break;
 		case BUILDING:
-		/*	if (distance < range)*/
+			if (distance < range)
 				if (building->health < building->max_health)
 					building->health += dt * 100 * level;
 				else
@@ -296,6 +309,23 @@ void j1Harvester::SetAutomatic()
 	}
 	else
 		automatic = false;
+}
+
+void j1Harvester::BuildStructure(EntityType type)
+{
+	switch (type)
+	{
+	case EntityType::BOATHOUSE:
+		building = new j1BoatHouse(0, 0, team);
+		break;
+	case EntityType::STORAGE:
+		building = new j1Storage(0, 0, team);
+		break;
+	}
+	
+	building->SetBuiltState(TO_BUILD);
+	building->ToPlace(false);
+	state = TO_BUILD;
 }
 
 void j1Harvester::Harvest(int power, j1Entity* target)

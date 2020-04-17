@@ -91,7 +91,8 @@ bool j1Player::Update(float dt)
 		Camera_Limit();
 	}
 
-	if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+
+	if (App->input->GetMouseButtonDown(3) == KEY_DOWN && !disable_click)
 	{
 		iPoint m;
 		App->input->GetMousePosition(m.x, m.y);
@@ -130,7 +131,7 @@ bool j1Player::Update(float dt)
 						y += h;
 						w_group = 0;
 					}
-					(*i)->GoTo({ (float)m.x + x.x + y.x, (float)m.y + x.y + y.y}, (*i)->terrain);
+					(*i)->GoTo({ (float)m.x + x.x + y.x, (float)m.y + x.y + y.y }, (*i)->terrain);
 					if (n % 2 == 0)
 					{
 						x.Negate();
@@ -147,14 +148,17 @@ bool j1Player::Update(float dt)
 		}
 
 	}
-
+	
 	//This functions should always be last//
 	Mouse_Cursor();
 	if (App->scenemanager->In_Main_Menu == false) {
-		if (App->InGameUI->clicking_ui == false)
+		if (App->InGameUI->clicking_ui == false && !disable_click)
 			if (dt != 0.0f)
 				Drag_Mouse();
 	}
+
+	disable_click = false;
+
 	return true;
 }
 

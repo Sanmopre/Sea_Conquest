@@ -36,8 +36,11 @@ void j1BoatHouse::Update(float dt)
 {
 	if (selected)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
-			BuildUnit(EntityType::BOAT, 1);
+		if (App->godmode)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+				BuildUnit(EntityType::BOAT, 1);
+		}
 	}
 
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);

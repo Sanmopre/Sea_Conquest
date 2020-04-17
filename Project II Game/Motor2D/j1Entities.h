@@ -202,6 +202,7 @@ public:
 
 	virtual void GoTo(fPoint destination, NodeType terrain) {}
 	virtual void BuildUnit(EntityType type, int level) {}
+	virtual void BuildStructure(EntityType type) {}
 	virtual void ToPlace(bool to_place) {}
 	virtual void SetBuiltState(BuildState state) {}
 
@@ -327,6 +328,8 @@ public:
 	void CleanUp();
 
 	void SetAutomatic();
+
+	void BuildStructure(EntityType type);
 
 private:
 

@@ -39,8 +39,11 @@ void j1Storage::Update(float dt)
 	if(team == 1)
 		if (selected)
 		{
-			if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
-				BuildUnit(EntityType::HARVESTER, 1);
+			if (App->godmode)
+			{
+				if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+					BuildUnit(EntityType::HARVESTER, 1);
+			}
 		}
 
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);

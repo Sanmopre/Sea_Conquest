@@ -53,8 +53,11 @@ void j1Structure::Primitive_Update(float dt)
 			if (this == App->InGameUI->selected)
 				Trading();
 
-			if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
-				placed = false;
+			if (App->godmode)
+			{
+				if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+					placed = false;
+			}
 		}
 
 		BuildProcces(dt);
@@ -74,14 +77,11 @@ void j1Structure::NotPlacedBehaviour()
 
 		iPoint placing_tile = App->map->WorldToMap(position.x, position.y);
 		position = App->map->MapToWorld<fPoint>(placing_tile.x, placing_tile.y);
-
-		if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
+		if (App->godmode)
 		{
-			placed = true;
-			tile = placing_tile;
+			if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
+				CleanUp();
 		}
-		if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
-			CleanUp();
 	}
 }
 
