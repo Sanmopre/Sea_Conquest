@@ -139,8 +139,8 @@ private:
 
 public:
 
-	uint32				framerate_cap = 60;
-	bool				fpscap = false;
+	uint32				framerate_cap = 144;
+	bool				fpscap = true;
 	uint64				frame_count = 0;
 	float dt = 0.1f;
 	uint32 getFpsCap() { return framerate_cap; };
