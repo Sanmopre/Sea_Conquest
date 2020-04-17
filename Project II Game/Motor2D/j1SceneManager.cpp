@@ -42,6 +42,10 @@ bool j1SceneManager::Start()
 	//App->map->Load("Map_v01.tmx") == true;
 	App->map->Load("Mapa definitivo.tmx") == true;
 	App->scene2->main_texture = App->tex->Load("textures/Main_Screen.png");
+	App->scene3->logo_texture = App->tex->Load("textures/logo.png");
+
+	logo.iterations = 3.0f;
+
 	return true;
 }
 
@@ -56,17 +60,17 @@ bool j1SceneManager::PreUpdate()
 bool j1SceneManager::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN){
-		App->transitions->LinesAppearing(Black, 0.75f, 1);
+		App->transitions->LinesAppearing(Black, 1.25f, 1);
 		App->mainmenu->Deactivate_Audio_Options();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
-		App->transitions->LinesAppearing(Black, 0.75f, 2);
+		App->transitions->LinesAppearing(Black, 1.25f, 2);
 		App->mainmenu->Deactivate_Audio_Options();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
-		App->transitions->LinesAppearing(Black, 0.75f, 3);
+		App->transitions->FadingToColor(White, 1.25f, 3);
 		App->mainmenu->Deactivate_Audio_Options();
 	}
 
@@ -83,13 +87,29 @@ bool j1SceneManager::Update(float dt)
 	if (In_Main_Menu == true) {
 		App->InGameUI->Deactivate_All_UI();
 		App->mainmenu->Activate_Menu();
+		App->godmode = false;
 	}
 	else {
 		App->InGameUI->Activate_Necessary_UI();
 		App->mainmenu->Deactivate_Menu();
 	}
 
-	
+	if (In_Logo_Scene == true) {
+		App->mainmenu->Deactivate_Menu();
+		App->InGameUI->Deactivate_All_UI();
+		App->godmode = false;
+	}
+
+
+	//LOGO_SCENE_TIMER
+	/*
+	if(finished_logo != true){
+	logo.counter += dt;
+	if (logo.counter >= logo.iterations) {
+		finished_logo = true;
+		App->transitions->FadingToColor(White, 1.0f, 2);
+	}
+	}*/
 	return true;
 }
 
@@ -107,25 +127,30 @@ int j1SceneManager::ChangeScene(int scene)
 	switch (scene)
 	{
 	case 1:
-		App->scene2->ChangeScene();
+		App->scene->active = true;
+		App->scene->ChangeScene();
 		In_Main_Menu = false;
+		In_Logo_Scene = false;
 		return 1;
 		break;
-	case 2:
-
-		App->scene->ChangeScene();
-		//Managing camera
+	case 2:		
+		App->scene2->active = true;
+		App->scene2->ChangeScene();
 		App->render->camera.x = 0;
 		App->render->camera.y = 0;
 		App->win->scale = 1;
-
+		In_Logo_Scene = false;
 		In_Main_Menu = true;
 		return 2;
 		break;
 	case 3:
-
+		App->scene3->active = true;
 		App->scene3->ChangeScene();
-		
+		App->render->camera.x = 0;
+		App->render->camera.y = 0;
+		App->win->scale = 1;
+		In_Logo_Scene = true;
+		In_Main_Menu = true;
 		return 3;
 		break;
 	}

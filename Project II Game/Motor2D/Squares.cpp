@@ -71,6 +71,9 @@ void Squares::Change() {
 
 	if (scene == 2)
 		App->scenemanager->ChangeScene(2);
+
+	if (scene == 3)
+		App->scenemanager->ChangeScene(3);
 }
 
 void Squares::Exit() {

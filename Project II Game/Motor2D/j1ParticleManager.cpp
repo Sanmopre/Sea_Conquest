@@ -15,7 +15,7 @@ j1ParticleManager::j1ParticleManager()
 {
 	particlePool.resize(1500);	// Allocate dynamicaly a lot of particles for later use
 	Index = 0;
-	CloudsActive = false;
+	CloudsActive = true;
 	CloudTimer = CLOUD_MAX_TIME;
 	cloudVariableX = 0;
 	cloudVariableY = 0; 
@@ -124,7 +124,7 @@ bool j1ParticleManager::Update(float dt)
 			App->render->ScreenToWorld(pos.x, pos.y);
 
 			fPoint fpos = { (float)pos.x,  (float)pos.y };
-			App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, fpos, 250);
+			App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, fpos, 300);
 			//LOG("CLOUD CREATED AT  X:%.2f Y:%.2f", fpos.x, fpos.y);
 	
 			CloudTimer = CLOUD_MAX_TIME;
@@ -215,7 +215,7 @@ bool j1ParticleManager::updateIndex()
 	}
 
 	Index = newIndex;
-	LOG("New Index: %d", Index);
+	//LOG("New Index: %d", Index);
 	return ret;
 }
 

@@ -7,6 +7,7 @@
 #include "j1Timer.h"
 #include "j1PerfTimer.h"
 
+
 // Modules
 class j1Window;
 class j1Input;
@@ -135,10 +136,11 @@ private:
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
 
+
 public:
 
-	uint32				framerate_cap = 60;
-	bool				fpscap = false;
+	uint32				framerate_cap = 144;
+	bool				fpscap = true;
 	uint64				frame_count = 0;
 	float dt = 0.1f;
 	uint32 getFpsCap() { return framerate_cap; };

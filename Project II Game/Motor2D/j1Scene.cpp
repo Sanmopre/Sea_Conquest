@@ -14,6 +14,7 @@
 #include "j1Transitions.h"
 #include "j1TransitionManager.h"
 #include "j1EntityManager.h"
+#include "j1LogoScene.h"
 #include "j1InGameUI.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -113,9 +114,8 @@ bool j1Scene::CleanUp()
 
 void j1Scene::ChangeScene()
 {
-	this->active = false;
-	CleanUp();
-
-	App->scene2->active = true;
-	App->scene2->Start();
+	this->active = true;
+	App->scene2->active = false;
+	App->scene3->active = false;
+	App->scene->Start();
 }
