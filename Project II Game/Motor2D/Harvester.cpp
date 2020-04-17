@@ -323,9 +323,12 @@ void j1Harvester::BuildStructure(EntityType type)
 		break;
 	}
 	
-	building->SetBuiltState(TO_BUILD);
-	building->ToPlace(false);
-	state = TO_BUILD;
+	if (building != nullptr)
+	{
+		building->SetBuiltState(TO_BUILD);
+		building->ToPlace(false);
+		state = TO_BUILD;
+	}
 }
 
 void j1Harvester::Harvest(int power, j1Entity* target)
