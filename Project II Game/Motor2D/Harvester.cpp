@@ -63,6 +63,7 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 		}
 
 	rect = north.GetCurrentFrame();
+	App->audio->PlayFx(App->audio->harvester_spawn);
 }
 
 j1Harvester::~j1Harvester()
@@ -72,8 +73,6 @@ j1Harvester::~j1Harvester()
 
 void j1Harvester::Update(float dt)
 {
-	j1Entity* a = new j1BoatHouse(0,0,1);
-	delete a;
 	if (dt != 0.0f)
 	{
 		if (selected)
@@ -304,10 +303,11 @@ void j1Harvester::Update(float dt)
 	}
 
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
-
-	if (health == 0)
+	
+	if (health == 0) {
 		CleanUp();
-
+		App->audio->PlayFx(App->audio->harvester_destroy);
+	}
 }
 
 void j1Harvester::CleanUp()
@@ -375,6 +375,7 @@ void j1Harvester::Harvest(int power, j1Entity* target)
 	{
 		load.Transfer(METAL, &target->load.metal, power);
 	}
+	App->audio->PlayFx(App->audio->harvester_work);
 }
 
 j1Entity* j1Harvester::SearchResources(float x, float y)

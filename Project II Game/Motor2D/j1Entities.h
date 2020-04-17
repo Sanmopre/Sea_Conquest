@@ -12,7 +12,7 @@
 #include "animation.h"
 #include "j1Timer.h"
 #include "j1Pathfinding.h"
-
+#include "j1Audio.h"
 
 #define WOOD_MASS 4
 #define COTTON_MASS 1

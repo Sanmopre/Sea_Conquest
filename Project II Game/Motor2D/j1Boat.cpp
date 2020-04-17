@@ -56,6 +56,7 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	texture = LoadTexture((j1Entity*)this, App->entitymanager->allTextures);
 
 	rect = north.GetCurrentFrame();
+	App->audio->PlayFx(App->audio->boat_spawn);
 }
 
 j1Boat::~j1Boat()
@@ -95,6 +96,14 @@ void j1Boat::Update(float dt)
 
 		target = FindTarget(position.x, position.y, range, EntityType::NONE, -1);
 
+		//PARTICLES
+		if (health < 0)
+		{
+			health = 0;
+			App->audio->PlayFx(App->audio->boat_destroy);
+		}
+
+		if (health != 0.0f)
 		if (health != 0)
 		{
 			if (health < max_health / 2 && !Smoke)
@@ -140,8 +149,9 @@ void j1Boat::Damage(int damage, j1Entity* target)
 	if (target->health != 0)
 	{
 		target->health -= damage;
+		App->audio->PlayFx(App->audio->boat_attack);
+		//App->pmanager->createSystem(PARTICLE_TYPES::FIRE, target->position, 0.001f);
 		if (target->health < 0)
 			target->health = 0;
-		// boat_attack.wav
 	}
 }

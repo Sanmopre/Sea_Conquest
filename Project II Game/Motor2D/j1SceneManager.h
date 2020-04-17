@@ -32,13 +32,12 @@ public:
 	bool CleanUp();
 
 	int ChangeScene(int scene);
-
-
 public:
 	int current_scene = 0;
 	bool In_Main_Menu = false;
 	bool In_Logo_Scene = false;
-private: 
+
+private:
 	bool finished_logo = false;
 	j1Transitions* transition = nullptr;
 	timed_var logo;
