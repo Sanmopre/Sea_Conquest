@@ -55,7 +55,8 @@ enum BuildState
 	TO_BUILD,
 	BUILDING,
 	ON_HOLD,
-	NOT_BUILDING
+	NOT_BUILDING,
+	NOTHING
 };
 
 struct TextureInfo
@@ -205,6 +206,7 @@ public:
 	virtual void BuildStructure(EntityType type) {}
 	virtual void ToPlace(bool to_place) {}
 	virtual void SetBuiltState(BuildState state) {}
+	virtual BuildState GetBuiltState() { return NOTHING; }
 
 protected:
 
@@ -277,6 +279,7 @@ public:
 
 	void ToPlace(bool to_place) { placed = to_place; }
 	void SetBuiltState(BuildState state) { built_state = state; }
+	BuildState GetBuiltState() { return built_state; }
 
 protected:
 
@@ -330,6 +333,7 @@ public:
 	void SetAutomatic();
 
 	void BuildStructure(EntityType type);
+	BuildState GetBuiltState() { return state; }
 
 private:
 

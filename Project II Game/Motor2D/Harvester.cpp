@@ -72,6 +72,8 @@ j1Harvester::~j1Harvester()
 
 void j1Harvester::Update(float dt)
 {
+	j1Entity* a = new j1BoatHouse(0,0,1);
+	delete a;
 	if (dt != 0.0f)
 	{
 		if (selected)
@@ -92,11 +94,11 @@ void j1Harvester::Update(float dt)
 				}
 				if (App->godmode)
 				{
-					if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN && state == NOT_BUILDING)
+					if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 					{
 						BuildStructure(EntityType::BOATHOUSE);
 					}
-					if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN && state == NOT_BUILDING)
+					if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
 					{
 						BuildStructure(EntityType::STORAGE);
 					}
@@ -105,50 +107,69 @@ void j1Harvester::Update(float dt)
 		}
 
 		float distance = 0.0f;
+		float x = 0.0f;
+		float y = 0.0f;
 		Color c = {};
 		SDL_Rect r = {};
-		if (building != nullptr)
-		{
-			float x = building->position.x - position.x;
-			float y = building->position.y - position.y;
-			distance = sqrtf(x * x + y * y);
-		}
 
 		switch (state)
 		{
 		case TO_BUILD:
-			building->Primitive_Update(dt);
-			building->Update(dt);
-			c.Red();
-			App->player->disable_click = true;
-			if (distance < range)
+			if (App->player->builder == this)
 			{
-				if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
+				App->player->building->Primitive_Update(dt);
+				App->player->building->Update(dt);
+				c.Red();
+
+				App->player->disable_click = true;
+
+				r = { App->player->building->GetRenderPositionX(), App->player->building->GetRenderPositionY(), App->player->building->rect.w, App->player->building->rect.h };
+
+				x = App->player->building->position.x - position.x;
+				y = App->player->building->position.y - position.y;
+				distance = sqrtf(x * x + y * y);
+
+				if (distance < range)
 				{
-					state = BUILDING;
-					float x = building->position.x;
-					float y = building->position.y;
-					EntityType ty = building->type;
-					int l = building->level;
-					int t = building->team;
+					if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
+					{
+						state = BUILDING;
+						float x = App->player->building->position.x;
+						float y = App->player->building->position.y;
+						EntityType ty = App->player->building->type;
+						int l = App->player->building->level;
+						int t = App->player->building->team;
 
-					delete building;
-
-					building = App->entitymanager->AddEntity(x, y, ty, l, t);
-					building->SetBuiltState(BUILDING);
+						App->player->builder = nullptr;
+						delete App->player->building;
+						App->player->building = nullptr;
+						
+						building = App->entitymanager->AddEntity(x, y, ty, l, t);
+						building->SetBuiltState(BUILDING);
+					}
+					c.Green();
 				}
-				c.Green();
+
+				App->render->AddBlitEvent(3, nullptr, 0, 0, r, false, false, c.r, c.g, c.b, 50);
+
+				if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+				{
+					state = NOT_BUILDING;
+					delete App->player->building;
+					App->player->building = nullptr;
+				}
 			}
-			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+			else
 			{
 				state = NOT_BUILDING;
-				delete building;
-				building = nullptr;
 			}
-			r = { building->GetRenderPositionX(), building->GetRenderPositionY(), building->rect.w, building->rect.h };
-			App->render->AddBlitEvent(3, nullptr, 0, 0, r, false, false, c.r, c.g, c.b, 50);
 			break;
 		case BUILDING:
+
+			x = building->position.x - position.x;
+			y = building->position.y - position.y;
+			distance = sqrtf(x * x + y * y);
+
 			if (distance < range)
 				if (building->health < building->max_health)
 					building->health += dt * 100 * level;
@@ -314,21 +335,29 @@ void j1Harvester::SetAutomatic()
 
 void j1Harvester::BuildStructure(EntityType type)
 {
-	switch (type)
+	if (App->InGameUI->selected == this && (App->player->building == nullptr || App->player->building->GetBuiltState() == TO_BUILD))
 	{
-	case EntityType::BOATHOUSE:
-		building = new j1BoatHouse(0, 0, team);
-		break;
-	case EntityType::STORAGE:
-		building = new j1Storage(0, 0, team);
-		break;
-	}
-	
-	if (building != nullptr)
-	{
-		building->SetBuiltState(TO_BUILD);
-		building->ToPlace(false);
-		state = TO_BUILD;
+		delete App->player->building;
+		App->player->building = nullptr;
+
+		App->player->builder = this;
+
+		switch (type)
+		{
+		case EntityType::BOATHOUSE:
+			App->player->building = new j1BoatHouse(0, 0, team);
+			break;
+		case EntityType::STORAGE:
+			App->player->building = new j1Storage(0, 0, team);
+			break;
+		}
+
+		if (App->player->building != nullptr)
+		{
+			App->player->building->SetBuiltState(TO_BUILD);
+			App->player->building->ToPlace(false);
+			state = TO_BUILD;
+		}
 	}
 }
 

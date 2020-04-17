@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "p2Point.h"
 #include "p2Log.h"
+#include "j1Entities.h"
 #include "SDL/include/SDL_rect.h"
 
 struct SDL_Texture;
@@ -25,6 +26,8 @@ public:
 	bool Load(pugi::xml_node& data);	
 
 	bool disable_click;
+	j1Entity* building;
+	j1Entity* builder;
 	
 private:
 
