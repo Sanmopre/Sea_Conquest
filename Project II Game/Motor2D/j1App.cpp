@@ -149,7 +149,6 @@ bool j1App::Start()
 {
 	bool ret = true;
 	////
-	scene2->active = false;
 	//App->scenemanager->ChangeScene(3);
 	////
 	p2List_item<j1Module*>* item;

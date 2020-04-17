@@ -2,6 +2,7 @@
 #define __j1SCENEMANAGER_H__
 
 #include "j1Module.h"
+#include "j1Timer.h"
 
 struct SDL_Texture;
 class j1Transitions;
@@ -38,9 +39,9 @@ public:
 	bool In_Main_Menu = false;
 	bool In_Logo_Scene = false;
 private: 
-
+	bool finished_logo = false;
 	j1Transitions* transition = nullptr;
-
+	timed_var logo;
 };
 
 #endif // __j1SCENEMANAGER_H__
