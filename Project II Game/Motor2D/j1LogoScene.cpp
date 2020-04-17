@@ -10,6 +10,7 @@
 #include "j1PathFinding.h"
 #include "j1Scene.h"
 #include "j1Scene2.h"
+#include "j1SceneManager.h"
 #include "j1LogoScene.h"
 #include "j1GUI.h"
 #include "j1Transitions.h"
@@ -50,6 +51,7 @@ bool j1LogoScene::PreUpdate()
 // Called each loop iteration
 bool j1LogoScene::Update(float dt)
 {
+	if(App->scenemanager->In_Logo_Scene == true)
 	App->render->AddBlitEvent(1, logo_texture, 0, 0, { 0,0,1280,720 }, false, true, 0u, 0u, 0u, 255, true);
 
 	return true;
@@ -71,7 +73,8 @@ bool j1LogoScene::CleanUp()
 
 void j1LogoScene::ChangeScene() {
 
-	this->active = false;
-	App->scene->active = true;
-	App->scene->Start();
+	this->active = true;
+	App->scene->active = false;
+	App->scene2->active = false;
+	App->scene3->Start();
 }

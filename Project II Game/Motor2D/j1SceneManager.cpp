@@ -42,6 +42,7 @@ bool j1SceneManager::Start()
 	//App->map->Load("Map_v01.tmx") == true;
 	App->map->Load("Mapa definitivo.tmx") == true;
 	App->scene2->main_texture = App->tex->Load("textures/Main_Screen.png");
+	App->scene3->logo_texture = App->tex->Load("textures/logo.png");
 	return true;
 }
 
@@ -89,7 +90,10 @@ bool j1SceneManager::Update(float dt)
 		App->mainmenu->Deactivate_Menu();
 	}
 
-	
+	if (In_Logo_Scene == true) {
+		App->mainmenu->Deactivate_Menu();
+		App->InGameUI->Deactivate_All_UI();
+	}
 	return true;
 }
 
@@ -107,25 +111,30 @@ int j1SceneManager::ChangeScene(int scene)
 	switch (scene)
 	{
 	case 1:
-		App->scene2->ChangeScene();
+		App->scene->active = true;
+		App->scene->ChangeScene();
 		In_Main_Menu = false;
+		In_Logo_Scene = false;
 		return 1;
 		break;
-	case 2:
-
-		App->scene->ChangeScene();
-		//Managing camera
+	case 2:		
+		App->scene2->active = true;
+		App->scene2->ChangeScene();
 		App->render->camera.x = 0;
 		App->render->camera.y = 0;
 		App->win->scale = 1;
-
+		In_Logo_Scene = false;
 		In_Main_Menu = true;
 		return 2;
 		break;
 	case 3:
-
+		App->scene3->active = true;
 		App->scene3->ChangeScene();
-		
+		App->render->camera.x = 0;
+		App->render->camera.y = 0;
+		App->win->scale = 1;
+		In_Logo_Scene = true;
+		In_Main_Menu = true;
 		return 3;
 		break;
 	}

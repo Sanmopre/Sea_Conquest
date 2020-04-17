@@ -10,6 +10,7 @@
 #include "j1PathFinding.h"
 #include "j1Scene.h"
 #include "j1Scene2.h"
+#include "j1LogoScene.h"
 #include "j1GUI.h"
 #include "j1Transitions.h"
 #include "j1TransitionManager.h"
@@ -70,7 +71,8 @@ bool j1Scene2::CleanUp()
 
 void j1Scene2::ChangeScene() {
 	
-	this->active = false;
-	App->scene->active = true;
-	App->scene->Start();
+	this->active = true;
+	App->scene->active = false;
+	App->scene3->active = false;
+	App->scene2->Start();
 }

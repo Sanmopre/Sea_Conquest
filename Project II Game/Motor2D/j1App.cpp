@@ -38,6 +38,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	scene = new j1Scene();
 	scene2 = new j1Scene2();
+	scene3 = new j1LogoScene();
 	InGameUI = new j1InGameUI();
 	map = new j1Map();
 	map_2 = new j1Map();
@@ -67,6 +68,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map_2);
 	AddModule(scene);
 	AddModule(scene2);
+	AddModule(scene3);
 
 	AddModule(player);	
 	AddModule(mainmenu);
@@ -148,6 +150,7 @@ bool j1App::Start()
 	bool ret = true;
 	////
 	scene2->active = false;
+	//App->scenemanager->ChangeScene(3);
 	////
 	p2List_item<j1Module*>* item;
 	item = modules.start;

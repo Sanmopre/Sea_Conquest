@@ -36,7 +36,7 @@ public:
 public:
 	int current_scene = 0;
 	bool In_Main_Menu = false;
-
+	bool In_Logo_Scene = false;
 private: 
 
 	j1Transitions* transition = nullptr;
