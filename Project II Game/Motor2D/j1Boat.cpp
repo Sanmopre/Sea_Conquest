@@ -160,7 +160,7 @@ void j1Boat::Damage(int damage, j1Entity* target)
 	if (target->health != 0)
 	{
 		target->health -= damage;
-
+		// boat_attack.wav
 		//App->pmanager->createSystem(PARTICLE_TYPES::FIRE, target->position, 0.001f);
 	}
 }
