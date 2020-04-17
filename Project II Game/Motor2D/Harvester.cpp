@@ -109,6 +109,7 @@ void j1Harvester::Update(float dt)
 		SDL_Rect r = {};
 		if (building != nullptr)
 		{
+
 			float x = building->position.x - position.x;
 			float y = building->position.y - position.y;
 			distance = sqrtf(x * x + y * y);

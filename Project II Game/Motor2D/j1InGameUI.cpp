@@ -379,9 +379,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
 				if ((*entity)->selected)
 				{
-					(*entity)->load.cotton += 0;
+					(*entity)->load.cotton += 10;
 					(*entity)->load.wood += 10;
-					(*entity)->load.metal += 0;
+					(*entity)->load.metal += 10;
 				}
 
 		if (element == menu.Exit_button) {
@@ -411,10 +411,12 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			Activate_Menu();
 		}
 		if (element == building.Boat_Building_Button) {
+			if (Cost_Function(selected, 20, 40, 0))
 			selected->BuildUnit(EntityType::BOAT, 1);
 		}
 
 		if (element == storage.Harvester_builder_button) {
+			if(Cost_Function(selected, 0, 0, 30))
 			selected->BuildUnit(EntityType::HARVESTER, 1);
 		}
 
@@ -723,6 +725,19 @@ void j1InGameUI::Update_Resources_Trader(j1Entity* entity)
 void j1InGameUI::Trading_Manager(j1Entity* entity)
 {
 		//selected->load.Transfer(Material::COTTON, &selected->trading_entity->load.cotton,10);
+}
+
+bool j1InGameUI::Cost_Function(j1Entity* entity, int cotton, int wood, int metal)
+{
+	if (entity->load.cotton >= cotton && entity->load.wood >= wood && entity->load.metal >= metal) 
+	{
+		entity->load.cotton = entity->load.cotton - cotton;
+		entity->load.wood = entity->load.wood - wood;
+		entity->load.metal = entity->load.metal - metal;
+		return true;
+	}
+	else
+	return false;
 }
 
 void j1InGameUI::Manage_Entity_UI(j1Entity* entity)

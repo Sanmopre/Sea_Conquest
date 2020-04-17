@@ -185,6 +185,9 @@ public:
 	//TRADING FUNCTION
 	void Trading_Manager(j1Entity* entity);
 
+	//COST
+	bool Cost_Function(j1Entity* entity, int cotton, int wood,int metal);
+
 	void Manage_Entity_UI(j1Entity* entity);
 
 
