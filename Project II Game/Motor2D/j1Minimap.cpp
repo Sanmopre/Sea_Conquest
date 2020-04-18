@@ -29,6 +29,7 @@ bool j1Minimap::Start()
 {
 	minimap_tex = App->tex->Load("textures/minimap.png");
 	minimap_camera = App->tex->Load("textures/minimap_camera.png");
+
 	return true;
 }
 
@@ -38,7 +39,7 @@ bool j1Minimap::Update(float dt)
 	if (App->scenemanager->In_Logo_Scene != true && App->scenemanager->In_Main_Menu != true) {		
 			MinimapToWorldCamera();
 			DrawCamera();
-		App->render->AddBlitEvent(5, minimap_tex, position.x - App->render->camera.x, position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
+	//	App->render->AddBlitEvent(5, minimap_tex, position.x - App->render->camera.x, position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 
 	}
 	
@@ -71,7 +72,7 @@ void j1Minimap::MinimapToWorldCamera()
 	int x, y = 0;
 	App->input->GetMousePosition(x,y);
 	if (x > position.x&& y > position.y) {
-		if (App->input->GetMouseButtonDown(1) == KEY_DOWN) {
+		if (App->input->GetMouseButtonDown(1) == KEY_REPEAT) {
 			clicking_map = true;
 			App->render->camera.x = - ((x - position.x) * 50 - 6400) + 640;
 			App->render->camera.y = - ((y - position.y) * 50 ) + 360;
