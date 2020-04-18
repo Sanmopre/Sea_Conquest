@@ -73,7 +73,7 @@ void j1Boat::Update(float dt)
 			if (team == 1)
 			{
 				if (App->entitymanager->selected_n == 1 && App->input->GetMouseButtonDown(3) == KEY_DOWN)
-					SetDestination();
+					SetDestination(terrain);
 			}
 		}
 

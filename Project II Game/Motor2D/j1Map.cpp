@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Render.h"
+#include "j1Window.h"
 #include "j1Textures.h"
 #include "j1Map.h"
 #include <math.h>
@@ -48,16 +49,22 @@ void j1Map::Draw()
 		{
 			for(int x = 0; x < data.width; ++x)
 			{
-				int tile_id = layer->Get(x, y);
-				if(tile_id > 0)
+				iPoint p = MapToWorld<iPoint>(x, y);
+				if (p.x > (-App->render->camera.x / App->win->GetScale()) - 100 && p.x < ((-App->render->camera.x + App->render->camera.w) / App->win->GetScale()) + 100 &&
+					p.y >(-App->render->camera.y / App->win->GetScale()) - 100 && p.y < ((-App->render->camera.y + App->render->camera.h) / App->win->GetScale()) + 100)
 				{
-					TileSet* tileset = GetTilesetFromTileId(tile_id);
+					int tile_id = layer->Get(x, y);
+					if (tile_id > 0)
+					{
+						TileSet* tileset = GetTilesetFromTileId(tile_id);
 
-					SDL_Rect r = tileset->GetTileRect(tile_id);
-					iPoint pos = MapToWorld<iPoint>(x, y);
+						SDL_Rect r = tileset->GetTileRect(tile_id);
+						iPoint pos = MapToWorld<iPoint>(x, y);
 
-					App->render->AddBlitEvent(0,tileset->texture, pos.x - r.w / 2, pos.y - r.h / 2, r);
-					//App->render->AddBlitEvent(0, nullptr, 0, 0, { pos.x, pos.y, 4,4 }, false, false, 0, 255, 0, 200);
+
+						App->render->AddBlitEvent(0, tileset->texture, pos.x - r.w / 2, pos.y - r.h / 2, r);
+						//App->render->AddBlitEvent(0, nullptr, 0, 0, { pos.x, pos.y, 4,4 }, false, false, 0, 255, 0, 200);
+					}
 				}
 			}
 		}

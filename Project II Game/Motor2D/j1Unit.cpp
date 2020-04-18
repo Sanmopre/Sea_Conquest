@@ -9,7 +9,7 @@
 j1Unit::j1Unit() 
 { 
 	main_type = EntityType::UNIT;
-	orientation = Orientation::NORTH; 
+	orientation = Orientation::NORTH_WEST; 
 }
 
 j1Unit::~j1Unit()

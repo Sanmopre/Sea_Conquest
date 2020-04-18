@@ -13,7 +13,7 @@
 j1Harvester::j1Harvester(float x, float y, int level, int team)
 {
 	type = EntityType::HARVESTER;
-	terrain = NodeType::WATER;//GROUND;
+	terrain = NodeType::GROUND;
 
 	state = NOT_BUILDING;
 	position.x = x;
@@ -83,7 +83,7 @@ void j1Harvester::Update(float dt)
 					if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
 					{
 						if (App->entitymanager->selected_n == 1)
-							SetDestination(NodeType::ALL);
+							SetDestination(terrain);
 						automatic = false;
 					}
 

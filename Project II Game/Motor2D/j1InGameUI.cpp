@@ -62,21 +62,24 @@ bool j1InGameUI::PreUpdate()
 
 bool j1InGameUI::Update(float dt)
 {
-	GetSelectedEntity();
+	//if (App->entitymanager->selected_n > 0)
+		GetSelectedEntity();
+	//else
+	//	selected = nullptr;
 	if (App->scenemanager->In_Main_Menu == false && selected_total != 0) {
-	
 		if (selected->trading_entity != nullptr) {
-			if(in_trading)
-			Activate_Trader();
+			if (in_trading)
+				Activate_Trader();
 			Trading_Manager(selected);
 			Update_Resources_Trader(selected->trading_entity);
 		}
 		else {
 			Deactivate_Trader();
 		}
-		Manage_Entity_UI(selected);		
-	    Update_Resources(selected);
+		Manage_Entity_UI(selected);
+		Update_Resources(selected);
 		Activate_Resource_Menu();
+
 	}
 	else {
 		in_trading = false;

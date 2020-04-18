@@ -67,7 +67,7 @@ bool j1Scene::Update(float dt)
 		App->entitymanager->AddEntity(-4810.0f, 3070.0f, EntityType::ALL_METAL, 1);
 		App->entitymanager->AddEntity(-4400.0f, 3200.0f, EntityType::BOATHOUSE, 1, 1);
 
-		App->entitymanager->AddEntity(-2888.0f, 3999.0f, EntityType::TOWNHALL, 1, 2);
+		App->entitymanager->AddEntity(-2924.0f, 3920.0f, EntityType::TOWNHALL, 1, 2);
 		App->entitymanager->AddEntity(-2688.0f, 3899.0f, EntityType::BOAT, 1, 2);
 		App->entitymanager->AddEntity(-2988.0f, 3874.0f, EntityType::BOAT, 1, 2);
 		App->entitymanager->AddEntity(-2888.0f, 3824.0f, EntityType::BOAT, 1, 2);
