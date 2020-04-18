@@ -11,6 +11,7 @@
 #include "j1Scene.h"
 #include "j1Window.h"
 #include "j1GUI.h"
+#include "j1Minimap.h"
 #include "j1InGameUI.h"
 #include "j1SceneManager.h"
 
@@ -152,7 +153,7 @@ bool j1Player::Update(float dt)
 	//This functions should always be last//
 	Mouse_Cursor();
 	if (App->scenemanager->In_Main_Menu == false) {
-		if (App->InGameUI->clicking_ui == false && !disable_click)
+		if (App->InGameUI->clicking_ui == false && !disable_click && App->minimap->clicking_map == false)
 			if (dt != 0.0f)
 				Drag_Mouse();
 	}

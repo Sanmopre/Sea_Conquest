@@ -25,17 +25,16 @@ public:
 	bool display;
 	iPoint position;
 
+	bool clicking_map = false;
+
 private:
 	void DrawCamera();
-	void DrawMinimap();
+	void MinimapToWorldCamera();
 
 private:
 	SDL_Texture* minimap_tex = nullptr;
 	SDL_Texture* minimap_camera = nullptr;
-	int size;
-	float minimap_scale;
-	int minimap_width;
-	int minimap_height;
+
 	SDL_Rect rect = {0,0,256,128};
 	SDL_Rect cameraminimap = {0,0,26,15};
 
