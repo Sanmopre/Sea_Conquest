@@ -36,9 +36,8 @@ public:
 	void Deactivate_Menu();
 	void Activate_Audio_Options();
 	void Deactivate_Audio_Options();
-
 	void GUI_Event_Manager(GUI_Event type, j1Element* element);
-
+	Main_Menu GetMenu();
 	bool  clicking_ui = false;
 
 private:

@@ -163,3 +163,8 @@ bool j1MainMenuUI::PostUpdate()
 {
 	return quit;
 }
+
+Main_Menu j1MainMenuUI::GetMenu()
+{
+	return menu;
+}

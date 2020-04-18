@@ -171,14 +171,15 @@ unsigned int j1Audio::LoadFx(const char* path)
 bool j1Audio::PlayFx(unsigned int id, int repeat, int volume)
 {
 	bool ret = false;
-
+	int vol = App->mainmenu->GetMenu().fx->Value;
 	if(!active)
 		return false;
-
+	if (volume > 0)
+		vol = volume;
 	if(id > 0 && id <= fx.count())
 	{
 		Mix_Chunk* sentchunk = fx[id - 1];
-		Mix_VolumeChunk(sentchunk,volume);
+		Mix_VolumeChunk(sentchunk,vol);
 		Mix_PlayChannel(-1, sentchunk, repeat);
 	}
 
