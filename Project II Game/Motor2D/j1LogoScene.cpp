@@ -74,7 +74,11 @@ bool j1LogoScene::CleanUp()
 void j1LogoScene::ChangeScene() {
 
 	this->active = true;
-	App->scene->active = false;
+	if (App->scene->active)
+	{
+		App->scene->CleanUp();
+		App->scene->active = false;
+	}
 	App->scene2->active = false;
 	App->scene3->Start();
 }
