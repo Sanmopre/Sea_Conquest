@@ -19,7 +19,7 @@ j1Minimap::~j1Minimap() {}
 
 bool j1Minimap::Awake(pugi::xml_node & config)
 {
-	position.x= config.attribute("position.x").as_int(1020);
+	position.x= config.attribute("position.x").as_int(1013);
 	position.y= config.attribute("position.y").as_int(560);
 
 	return true;
