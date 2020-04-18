@@ -12,6 +12,7 @@ j1BoatHouse::j1BoatHouse(float x, float y, int team)
 {
 	type = EntityType::BOATHOUSE;
 	main_type = EntityType::STRUCTURE;
+	terrain = NodeType::WATER;
 
 	tile = App->map->WorldToMap(x, y);
 	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);

@@ -58,9 +58,6 @@ bool j1Minimap::CleanUp()
 	return true;
 }
 
-
-
-
 void j1Minimap::DrawCamera()
 {
 	App->render->AddBlitEvent(6, minimap_camera, 128 + position.x - App->render->camera.x/App->win->scale - (App->render->camera.x / 50) / App->win->scale, position.y - App->render->camera.y / App->win->scale - (App->render->camera.y / 50) / App->win->scale, cameraminimap, false);
@@ -71,7 +68,7 @@ void j1Minimap::MinimapToWorldCamera()
 	int x, y = 0;
 	App->input->GetMousePosition(x,y);
 	if (x > position.x&& y > position.y) {
-		if (App->input->GetMouseButtonDown(1) == KEY_DOWN) {
+		if (App->input->GetMouseButtonDown(1) == KEY_REPEAT) {
 			clicking_map = true;
 			App->render->camera.x = - ((x - position.x) * 50 - 6400) + 640;
 			App->render->camera.y = - ((y - position.y) * 50 ) + 360;

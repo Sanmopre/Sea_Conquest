@@ -12,6 +12,7 @@ j1Storage::j1Storage(float x, float y, int team)
 
 	tile = App->map->WorldToMap(x, y);
 	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
+	terrain = NodeType::GROUND;
 
 	rect = { 0, 0, 64, 64 };
 	built_rect = rect; /////////////////////

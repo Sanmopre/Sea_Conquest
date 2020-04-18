@@ -12,16 +12,17 @@ bool j1PathFinding::Start()
 
 bool j1PathFinding::Update(float dt)
 {
-	//for (auto i = NodeMap.begin(); i != NodeMap.end(); i++)
-	//{
-	//	fPoint point = App->map->MapToWorld<fPoint>(i->tile.x, i->tile.y);
-	//	Color c = {};
-	//	if (i->type == NodeType::GROUND)
-	//		c.Red();
-	//	else if (i->type == NodeType::WATER)
-	//		c.Green();
-	//	App->render->AddBlitEvent(10, nullptr, 0, 0, { (int)point.x, (int)point.y, 5, 5 }, false, false, c.r, c.g, c.b, 255);
-	//}
+	/*
+	for (auto i = NodeMap.begin(); i != NodeMap.end(); i++)
+	{
+		fPoint point = App->map->MapToWorld<fPoint>(i->tile.x, i->tile.y);
+		Color c = {};
+		if (i->type == NodeType::GROUND)
+			c.Red();
+		else if (i->type == NodeType::WATER)
+			c.Green();
+		App->render->AddBlitEvent(10, nullptr, 0, 0, { (int)point.x, (int)point.y, 5, 5 }, false, false, c.r, c.g, c.b, 255);
+	}//*/
 	return true;
 }
 
@@ -131,7 +132,7 @@ vector<Node*> j1PathFinding::GetNeighbours(iPoint node)
 {
 	vector<Node*> ret;
 
-	for (int y = -1; y <= 1; y++)
+	for (int y = -1; y <= 1; y++) 
 		for (int x = -1; x <= 1; x++)
 		{
 			if (x == 0 && y == 0)
