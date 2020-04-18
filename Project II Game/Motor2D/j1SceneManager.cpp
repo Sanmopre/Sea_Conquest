@@ -100,14 +100,14 @@ bool j1SceneManager::Update(float dt)
 
 
 	//LOGO_SCENE_TIMER
-	/*
+	
 	if(finished_logo != true){
 	logo.counter += dt;
 	if (logo.counter >= logo.iterations) {
 		finished_logo = true;
 		App->transitions->FadingToColor(White, 1.0f, 2);
 	}
-	}*/
+	}
 	return true;
 }
 

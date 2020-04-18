@@ -2,6 +2,7 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
+#include "j1Player.h"
 #include "j1Textures.h"
 #include "j1Input.h"
 #include "j1Map.h"
@@ -36,7 +37,7 @@ bool j1Minimap::Start()
 
 bool j1Minimap::Update(float dt)
 {	
-	if (App->scenemanager->In_Logo_Scene != true && App->scenemanager->In_Main_Menu != true) {		
+	if (App->scenemanager->In_Logo_Scene != true && App->scenemanager->In_Main_Menu != true) {
 			MinimapToWorldCamera();
 	//	App->render->AddBlitEvent(5, minimap_tex, position.x - App->render->camera.x, position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 	}

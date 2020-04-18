@@ -39,6 +39,7 @@ bool j1MainMenuUI::Start()
 
 	Add_UI();
 	menu.music->Button->map_position.x = 830 + 186;
+	menu.fx->Button->map_position.x = 830 + 186;
 	return true;
 }
 
@@ -152,7 +153,7 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		}
 		if (element == menu.link)
 		{
-			ShellExecuteA(NULL, "open", "https://www.youtube.com/watch?v=dQw4w9WgXcQ", NULL, NULL, SW_SHOWNORMAL);
+			ShellExecuteA(NULL, "open", "https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II", NULL, NULL, SW_SHOWNORMAL);
 		}
 		
 	}

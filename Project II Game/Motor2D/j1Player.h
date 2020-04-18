@@ -26,6 +26,7 @@ public:
 	bool Load(pugi::xml_node& data);	
 
 	bool disable_click;
+	bool dragging = false;
 	j1Entity* building;
 	j1Entity* builder;
 	

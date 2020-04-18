@@ -168,6 +168,7 @@ bool j1Player::Update(float dt)
 	    App->minimap->DrawCamera();
 	}
 ///////////////////////////////
+	dragging = false;
 	return true;
 }
 
@@ -260,6 +261,7 @@ void j1Player::Drag_Mouse()
 	{
 		selector = { start_mouse_position.x, start_mouse_position.y, mouse_position.x - start_mouse_position.x, mouse_position.y - start_mouse_position.y };
 		App->render->AddBlitEvent(2, nullptr, 0,0, selector, false, false, 0u, 255u, 0u, 25u, true);
+		dragging = true;
 	}
 
 	if (App->input->GetMouseButtonDown(1) == KEY_UP)
