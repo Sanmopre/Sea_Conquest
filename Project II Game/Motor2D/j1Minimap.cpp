@@ -38,9 +38,7 @@ bool j1Minimap::Update(float dt)
 {	
 	if (App->scenemanager->In_Logo_Scene != true && App->scenemanager->In_Main_Menu != true) {		
 			MinimapToWorldCamera();
-			DrawCamera();
 	//	App->render->AddBlitEvent(5, minimap_tex, position.x - App->render->camera.x, position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
-
 	}
 	
 	return true;
