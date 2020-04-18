@@ -91,7 +91,6 @@ void j1Map::CreateNodeMap()
 					//for (auto it = map_nodetypes.begin(); it != map_nodetypes.end(); it++)
 					NodeType node = map_nodetypes.find(tile_id)->second;
 					NodeType terrain = node;
-					LOG("mi pana miguel tiene problemas");
 					Node n(x, y, terrain);
 					App->pathfinding->NodeMap.push_back(n);
 				}

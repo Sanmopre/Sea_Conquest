@@ -20,7 +20,7 @@ bool j1PathFinding::Update(float dt)
 	//		c.Red();
 	//	else if (i->type == NodeType::WATER)
 	//		c.Green();
-	//	App->render->AddBlitEvent(10, nullptr, 0, 0, { (int)point.x, (int)point.y, 10, 10 }, false, false, c.r, c.g, c.b, 255);
+	//	App->render->AddBlitEvent(10, nullptr, 0, 0, { (int)point.x, (int)point.y, 5, 5 }, false, false, c.r, c.g, c.b, 255);
 	//}
 	return true;
 }
@@ -32,93 +32,96 @@ vector<fPoint> j1PathFinding::PathTo(fPoint start_pos, fPoint end_pos, NodeType 
 	iPoint _start = App->map->WorldToMap((int)start_pos.x, (int)start_pos.y);
 	iPoint _end = App->map->WorldToMap((int)end_pos.x, (int)end_pos.y);
 
-	if (_start == _end)
+	if (PointToNode(_end.x, _end.y, &NodeMap)->type == terrain || terrain == NodeType::ALL)
 	{
-		ret.push_back(end_pos);
-		return ret;
-	}
-	else
-	{
-		Node* start = &*PointToNode(_start.x, _start.y, &NodeMap);
-		Node* end = &*PointToNode(_end.x, _end.y, &NodeMap);
-
-		if (start == nullptr || end == nullptr)
-			return ret;
-
-		vector<Node*> open;
-		vector<Node*> closed;
-
-		open.push_back(start);
-
-		Node* current = nullptr;
-		vector<Node*>::iterator current_itr;
-
-		while (open.size() != 0)
+		if (_start == _end)
 		{
-			current_itr = open.begin();
-			current = *current_itr;
-			for (vector<Node*>::iterator i = open.begin(); i != open.end(); i++)
-				if (current == nullptr || (*i)->GetFCost() < current->GetFCost() || (*i)->GetFCost() == current->GetFCost() && (*i)->h < current->h)
-				{
-					current = *i;
-					current_itr = i;
-				}
+			ret.push_back(end_pos);
+			return ret;
+		}
+		else
+		{
+			Node* start = &*PointToNode(_start.x, _start.y, &NodeMap);
+			Node* end = &*PointToNode(_end.x, _end.y, &NodeMap);
 
-			open.erase(current_itr);
-			open.shrink_to_fit();
-
-			closed.push_back(current);
-			current_itr = closed.end();
-
-			if (current == end)
-			{
-				ret = CreatePath(current, end_pos);
-
-				for (vector<Node*>::iterator n = open.begin(); n != open.end(); n++)
-					(*n)->Reset();
-				for (vector<Node*>::iterator n = closed.begin(); n != closed.end(); n++)
-					(*n)->Reset();
-				open.erase(open.begin(), open.end());
-				open.shrink_to_fit();
-				closed.erase(closed.begin(), closed.end());
-				closed.shrink_to_fit();
-
+			if (start == nullptr || end == nullptr)
 				return ret;
-			}
 
-			vector<Node*> neighbours = GetNeighbours(current->tile);
-			for (vector<Node*>::iterator i = neighbours.begin(); i != neighbours.end(); i++)
-				if ((*i)->type == terrain || terrain == ALL)
-				{
-					int g = current->g + DistanceTo(*i, current);
-					int h = DistanceTo(*i, end);
+			vector<Node*> open;
+			vector<Node*> closed;
 
-					bool push = true;
-					for (vector<Node*>::iterator n = closed.begin(); n != closed.end(); n++)
-						if (*i == *n)
-							if ((g + h) < (*n)->GetFCost())
-								continue;
-							else
-								push = false;
+			open.push_back(start);
 
-					for (vector<Node*>::iterator n = open.begin(); n != open.end(); n++)
-						if (*i == *n)
-							if ((g + h) < (*n)->GetFCost())
-								continue;
-							else
-								push = false;
+			Node* current = nullptr;
+			vector<Node*>::iterator current_itr;
 
-					if (push)
+			while (open.size() != 0)
+			{
+				current_itr = open.begin();
+				current = *current_itr;
+				for (vector<Node*>::iterator i = open.begin(); i != open.end(); i++)
+					if (current == nullptr || (*i)->GetFCost() < current->GetFCost() || (*i)->GetFCost() == current->GetFCost() && (*i)->h < current->h)
 					{
-						(*i)->g = g;
-						(*i)->h = h;
-						(*i)->parent = current;
-						open.push_back(*i);
+						current = *i;
+						current_itr = i;
 					}
 
+				open.erase(current_itr);
+				open.shrink_to_fit();
+
+				closed.push_back(current);
+				current_itr = closed.end();
+
+				if (current == end)
+				{
+					ret = CreatePath(current, end_pos);
+
+					for (vector<Node*>::iterator n = open.begin(); n != open.end(); n++)
+						(*n)->Reset();
+					for (vector<Node*>::iterator n = closed.begin(); n != closed.end(); n++)
+						(*n)->Reset();
+					open.erase(open.begin(), open.end());
+					open.shrink_to_fit();
+					closed.erase(closed.begin(), closed.end());
+					closed.shrink_to_fit();
+
+					return ret;
 				}
-			neighbours.erase(neighbours.begin(), neighbours.end());
-			neighbours.shrink_to_fit();
+
+				vector<Node*> neighbours = GetNeighbours(current->tile);
+				for (vector<Node*>::iterator i = neighbours.begin(); i != neighbours.end(); i++)
+					if ((*i)->type == terrain || terrain == ALL)
+					{
+						int g = current->g + DistanceTo(*i, current);
+						int h = DistanceTo(*i, end);
+
+						bool push = true;
+						for (vector<Node*>::iterator n = closed.begin(); n != closed.end(); n++)
+							if (*i == *n)
+								if ((g + h) < (*n)->GetFCost())
+									continue;
+								else
+									push = false;
+
+						for (vector<Node*>::iterator n = open.begin(); n != open.end(); n++)
+							if (*i == *n)
+								if ((g + h) < (*n)->GetFCost())
+									continue;
+								else
+									push = false;
+
+						if (push)
+						{
+							(*i)->g = g;
+							(*i)->h = h;
+							(*i)->parent = current;
+							open.push_back(*i);
+						}
+
+					}
+				neighbours.erase(neighbours.begin(), neighbours.end());
+				neighbours.shrink_to_fit();
+			}
 		}
 	}
 	return ret;

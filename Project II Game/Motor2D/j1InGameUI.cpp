@@ -91,8 +91,6 @@ bool j1InGameUI::Update(float dt)
 		sprintf_s(cotton_resource, 10, "%7d", selected->load.cotton);
 		sprintf_s(wood_resource, 10, "%7d", selected->load.wood);
 		sprintf_s(metal_resource, 10, "%7d", selected->load.metal);
-
-
 	}
 
 	//COST_UPDATE

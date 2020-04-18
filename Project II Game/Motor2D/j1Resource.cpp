@@ -13,7 +13,7 @@ j1Resource::j1Resource(float x, float y, int level,EntityType type)
 	health = max_health;
 
 
-	load.maxweight = 1000 * level;
+	load.maxweight = 5000 * level;
 
 	switch (type)
 	{
