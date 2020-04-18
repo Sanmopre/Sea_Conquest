@@ -73,7 +73,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);	
 	AddModule(mainmenu);
 	AddModule(InGameUI);
-	//AddModule(minimap);
+	AddModule(minimap);
 	AddModule(gui);
 
 	AddModule(transitions);

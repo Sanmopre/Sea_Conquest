@@ -2,6 +2,8 @@
 #define __j1AUDIO_H__
 
 #include "j1Module.h"
+#include "j1MainMenuUI.h"
+#include "j1GUIElements.h"
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
 
@@ -30,7 +32,7 @@ public:
 	unsigned int LoadFx(const char* path);
 
 	// Play a previously loaded WAV
-	bool PlayFx(unsigned int fx, int repeat = 0, int volume = 100);
+	bool PlayFx(unsigned int fx, int repeat = 0, int volume = -1);
 
 	unsigned int boat_attack;
 	unsigned int boat_destroy;
