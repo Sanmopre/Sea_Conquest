@@ -27,11 +27,10 @@ public:
 
 	bool clicking_map = false;
 
-private:
 	void DrawCamera();
 	void MinimapToWorldCamera();
 
-private:
+
 	SDL_Texture* minimap_tex = nullptr;
 	SDL_Texture* minimap_camera = nullptr;
 

@@ -19,7 +19,7 @@ j1Minimap::~j1Minimap() {}
 
 bool j1Minimap::Awake(pugi::xml_node & config)
 {
-	position.x= config.attribute("position.x").as_int(1020);
+	position.x= config.attribute("position.x").as_int(1013);
 	position.y= config.attribute("position.y").as_int(560);
 
 	return true;
@@ -29,6 +29,7 @@ bool j1Minimap::Start()
 {
 	minimap_tex = App->tex->Load("textures/minimap.png");
 	minimap_camera = App->tex->Load("textures/minimap_camera.png");
+
 	return true;
 }
 
@@ -37,9 +38,7 @@ bool j1Minimap::Update(float dt)
 {	
 	if (App->scenemanager->In_Logo_Scene != true && App->scenemanager->In_Main_Menu != true) {		
 			MinimapToWorldCamera();
-			DrawCamera();
-		App->render->AddBlitEvent(5, minimap_tex, position.x - App->render->camera.x, position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
-
+	//	App->render->AddBlitEvent(5, minimap_tex, position.x - App->render->camera.x, position.y - App->render->camera.y, rect, false, true, 0u, 0u, 0u, 255, true);
 	}
 	
 	return true;
