@@ -20,27 +20,24 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	void Scale();
-	void Descale();
 
 public:
 	bool display;
 	iPoint position;
 
 private:
-	void Load();
-	bool MinimapCoords(int& map_x, int& map_y);
 	void DrawCamera();
-	void MinimapBorders();
 	void DrawMinimap();
 
 private:
 	SDL_Texture* minimap_tex = nullptr;
+	SDL_Texture* minimap_camera = nullptr;
 	int size;
 	float minimap_scale;
 	int minimap_width;
 	int minimap_height;
-	SDL_Rect rect = {0,0,100,100};
+	SDL_Rect rect = {0,0,256,128};
+	SDL_Rect cameraminimap = {0,0,26,15};
 
 };
 

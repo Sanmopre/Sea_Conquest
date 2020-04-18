@@ -60,13 +60,21 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x = -(-5050) * App->win->GetScale();
 		App->render->camera.y = -(2850) * App->win->GetScale();
 		App->entitymanager->AddEntity(-4500.0f, 3100.0f, EntityType::TOWNHALL, 1, 1);
-		App->entitymanager->AddEntity(-4470.0f, 3150.0f, EntityType::STORAGE, 1, 1);
+		j1Entity* a = App->entitymanager->AddEntity(-4470.0f, 3150.0f, EntityType::STORAGE, 1, 1);
+		a->load.metal += 40;
 		App->entitymanager->AddEntity(-4610.0f, 3270.0f, EntityType::ALL_COTTON, 1);
 		App->entitymanager->AddEntity(-4710.0f, 3170.0f, EntityType::ALL_WOOD, 1);
 		App->entitymanager->AddEntity(-4810.0f, 3070.0f, EntityType::ALL_METAL, 1);
 		App->entitymanager->AddEntity(-4400.0f, 3200.0f, EntityType::BOATHOUSE, 1, 1);
 
-		App->entitymanager->AddEntity(-4000.0f, 3100.0f, EntityType::TOWNHALL, 1, 2);
+		App->entitymanager->AddEntity(-2888.0f, 3999.0f, EntityType::TOWNHALL, 1, 2);
+		App->entitymanager->AddEntity(-2688.0f, 3899.0f, EntityType::BOAT, 1, 2);
+		App->entitymanager->AddEntity(-2988.0f, 3874.0f, EntityType::BOAT, 1, 2);
+		App->entitymanager->AddEntity(-2888.0f, 3824.0f, EntityType::BOAT, 1, 2);
+
+		App->entitymanager->AddEntity(-3088.0f, 3999.0f, EntityType::BOAT, 1, 2);
+		App->entitymanager->AddEntity(-3088.0f, 4099.0f, EntityType::BOAT, 1, 2);
+		App->entitymanager->AddEntity(-3188.0f, 4199.0f, EntityType::BOAT, 1, 2);
 		start = false;
 	}
 

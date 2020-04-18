@@ -9,8 +9,7 @@
 j1Structure::j1Structure()
 { 
 	main_type = EntityType::STRUCTURE;
-	placed = false;
-	App->audio->PlayFx(App->audio->structure_build);
+	
 	placed = true;
 
 	if (App->scene->start)
@@ -19,6 +18,7 @@ j1Structure::j1Structure()
 	{
 		built_state = BUILDING;
 		health = 1;
+		App->audio->PlayFx(App->audio->structure_build);
 	}
 		
 

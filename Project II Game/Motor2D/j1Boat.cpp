@@ -150,7 +150,7 @@ void j1Boat::Damage(int damage, j1Entity* target)
 	{
 		target->health -= damage;
 		App->audio->PlayFx(App->audio->boat_attack);
-		//App->pmanager->createSystem(PARTICLE_TYPES::FIRE, target->position, 0.001f);
+
 		if (target->health < 0)
 			target->health = 0;
 	}

@@ -267,10 +267,10 @@ void j1Harvester::Update(float dt)
 			{
 				if (load.Total() != load.maxweight)
 					target = SearchResources(position.x, position.y);
-				if (target == nullptr)
-				{
-					target = FindTarget(position.x, position.y, range, EntityType::STORAGE, team);
-				}
+				//if (target == nullptr)
+				//{
+				//	target = FindTarget(position.x, position.y, range, EntityType::STORAGE, team);
+				//}
 			}
 
 			if (target != nullptr)
