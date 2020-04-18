@@ -8,6 +8,7 @@
 #include "j1Module.h"
 #include "j1Pathfinding.h"
 #include <vector>
+#include <map>
 // ----------------------------------------------------
 struct Animation;
 
@@ -171,6 +172,7 @@ public:
 
 private:
 
+	std::map<int, NodeType> map_nodetypes;
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;

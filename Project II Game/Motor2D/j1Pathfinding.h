@@ -49,7 +49,7 @@ public:
 
 	bool Start();
 	bool CleanUp();
-
+	bool Update(float dt);
 	vector<Node> NodeMap;
 
 	vector<fPoint> PathTo(fPoint start_pos, fPoint end_pos, NodeType terrain);

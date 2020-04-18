@@ -66,7 +66,7 @@ void j1Map::Draw()
 
 void j1Map::CreateNodeMap()
 {
-	/*if (map_loaded == false)
+	if (map_loaded == false)
 		return;
 
 	p2List_item<MapLayer*>* item = data.layers.start;
@@ -88,22 +88,23 @@ void j1Map::CreateNodeMap()
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
 
 					SDL_Rect r = tileset->GetTileRect(tile_id);
-					iPoint pos = MapToWorld<iPoint>(x, y);
-
-					NodeType terrain = tileset->terrain;
-
-					Node n(pos.x, pos.y, terrain);
+					//for (auto it = map_nodetypes.begin(); it != map_nodetypes.end(); it++)
+					NodeType node = map_nodetypes.find(tile_id)->second;
+					NodeType terrain = node;
+					LOG("mi pana miguel tiene problemas");
+					Node n(x, y, terrain);
 					App->pathfinding->NodeMap.push_back(n);
 				}
 			}
 		}
-	}*/
-	for (int y = 0; y < data.height; ++y)
-		for (int x = 0; x < data.width; ++x)
-		{
-			Node n(x, y, WATER);
-			App->pathfinding->NodeMap.push_back(n);
-		}
+	}
+	LOG("asodufhasd");
+	//for (int y = 0; y < data.height; ++y)
+	//	for (int x = 0; x < data.width; ++x)
+	//	{
+	//		Node n(x, y, WATER);
+	//		App->pathfinding->NodeMap.push_back(n);
+	//	}
 }
 
 int Properties::Get(const char* value, int default_value) const
@@ -300,11 +301,8 @@ bool j1Map::Load(const char* file_name)
 			item_layer = item_layer->next;
 		}
 	}
-
-	CreateNodeMap();
-
 	map_loaded = ret;
-
+	CreateNodeMap();
 	return ret;
 }
 
@@ -404,7 +402,6 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 {
 	bool ret = true;
 	uint columns = tileset_node.attribute("columns").as_uint();
-	LOG("UEP, mirant aver si hi ha animacions!, %d columns", columns);
 	pugi::xml_node image = tileset_node.child("image");
 	SDL_Texture* texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
 	TextureInfo texInfo;
@@ -447,20 +444,7 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 				texInfo.team = 2;
 			}
 		}
-		/*///////////////////////////////////////MAIKEL
-
-		if (strcmp(property.attribute("name").as_string(), "terrain") == 0)
-		{
-			name = property.attribute("value").as_string();
-			if (strcmp(name.c_str(), "GROUND") == 0)
-			{
-				set->terrain = NodeType::GROUND;
-			}
-			if (strcmp(name.c_str(), "WATER") == 0)
-			{
-				set->terrain = NodeType::WATER;
-			}
-		}*/
+		///////////////////////////////////////mi pana miguel espero que te vaya bien haciendolo
 	}
 	LOG("Tileset with texture %d %s with texture %d", level, name.c_str(), texture);
 	App->entitymanager->addTexture(texInfo);
@@ -489,8 +473,6 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 					animation.name = "entity_eight_west";
 				else if (strcmp(typestring, "animation_eight_northwest") == 0)
 					animation.name = "entity_eight_northwest";
-
-				LOG("UEP, found an animating tile! Type: %s", animation.name);
 				int nFrames = 0;
 				for (pugi::xml_node frame = animationNode.child("frame"); frame != NULL; frame = frame.next_sibling("frame"))
 				{
@@ -500,10 +482,29 @@ bool j1Map::LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set)
 					uint duration = frame.attribute("duration").as_uint();
 					animation.speed = duration;
 					nFrames++;
-					LOG("	 Uep! Parseao frame %d, %d %d %d %d %d ms ", nFrames, rect.x, rect.y, rect.w, rect.h, duration);
 				}
 				App->entitymanager->allAnimations.push_back(animation);
 			}
+			
+			if (tile != NULL)
+			{
+				pugi::xml_node property = tile.child("properties").first_child();
+				int ide = tile.attribute("id").as_int();
+				if (!property.empty())
+				{
+					name = property.attribute("value").as_string();
+					if (strcmp(name.c_str(), "GROUND") == 0)
+					{
+						map_nodetypes[ide] = NodeType::GROUND;
+					}
+					else if (strcmp(name.c_str(), "WATER") == 0)
+					{
+						map_nodetypes[ide] = NodeType::WATER;
+					}
+					else
+						map_nodetypes[ide] = NodeType::ALL;
+				}
+			}	
 	}
 	return ret;
 }

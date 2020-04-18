@@ -4,9 +4,24 @@
 #include "j1Render.h"
 #include "j1Map.h"
 #include "p2Log.h"
-
+#include "Color.h"
 bool j1PathFinding::Start()
 {
+	return true;
+}
+
+bool j1PathFinding::Update(float dt)
+{
+	//for (auto i = NodeMap.begin(); i != NodeMap.end(); i++)
+	//{
+	//	fPoint point = App->map->MapToWorld<fPoint>(i->tile.x, i->tile.y);
+	//	Color c = {};
+	//	if (i->type == NodeType::GROUND)
+	//		c.Red();
+	//	else if (i->type == NodeType::WATER)
+	//		c.Green();
+	//	App->render->AddBlitEvent(10, nullptr, 0, 0, { (int)point.x, (int)point.y, 10, 10 }, false, false, c.r, c.g, c.b, 255);
+	//}
 	return true;
 }
 
