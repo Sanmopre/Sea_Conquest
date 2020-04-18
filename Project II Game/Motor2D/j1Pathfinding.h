@@ -58,6 +58,9 @@ public:
 	vector<Node>::iterator PointToNode(int x, int y, vector<Node>* _grid);
 	int DistanceTo(Node* A, Node* B);
 	vector<fPoint> CreatePath(Node* end, fPoint end_pos);
+
+private:
+	bool show;
 };
 
 #endif //_j1PathFinding_

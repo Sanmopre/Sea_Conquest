@@ -4,25 +4,35 @@
 #include "j1Render.h"
 #include "j1Map.h"
 #include "p2Log.h"
+#include "j1Input.h"
 #include "Color.h"
+
 bool j1PathFinding::Start()
 {
+	show = false;
 	return true;
 }
 
 bool j1PathFinding::Update(float dt)
 {
-	/*
-	for (auto i = NodeMap.begin(); i != NodeMap.end(); i++)
-	{
-		fPoint point = App->map->MapToWorld<fPoint>(i->tile.x, i->tile.y);
-		Color c = {};
-		if (i->type == NodeType::GROUND)
-			c.Red();
-		else if (i->type == NodeType::WATER)
-			c.Green();
-		App->render->AddBlitEvent(10, nullptr, 0, 0, { (int)point.x, (int)point.y, 5, 5 }, false, false, c.r, c.g, c.b, 255);
-	}//*/
+	if (App->godmode && App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		show = !show;
+
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		show = false;
+
+	if(show)
+		for (auto i = NodeMap.begin(); i != NodeMap.end(); i++)
+		{
+			fPoint point = App->map->MapToWorld<fPoint>(i->tile.x, i->tile.y);
+			Color c = {};
+			if (i->type == NodeType::GROUND)
+				c.Red();
+			else if (i->type == NodeType::WATER)
+				c.Green();
+			App->render->AddBlitEvent(10, nullptr, 0, 0, { (int)point.x, (int)point.y, 5, 5 }, false, false, c.r, c.g, c.b, 255);
+		}
+
 	return true;
 }
 

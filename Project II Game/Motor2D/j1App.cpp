@@ -279,7 +279,7 @@ void j1App::FinishUpdate()
 		}
 	}
 
-	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		godmode = !godmode;
 }
 
