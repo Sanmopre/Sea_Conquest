@@ -303,6 +303,7 @@
     <ClInclude Include="j1LogoScene.h">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -357,5 +358,11 @@
     <None Include="..\Game\maps\Mapa definitivo.tmx">
       <Filter>Desenvolupament  ========</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\textures\ICON.ico" />
   </ItemGroup>
 </Project>

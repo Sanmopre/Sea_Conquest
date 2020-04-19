@@ -149,7 +149,9 @@ bool j1App::Start()
 {
 	bool ret = true;
 	////
+	//INITIAL SCENE AND LOGO SCENE AND AUDIO FOR LOGO
 	App->scenemanager->ChangeScene(3);
+	App->audio->PlayFx(App->audio->logo_scene,0,70);
 	////
 	p2List_item<j1Module*>* item;
 	item = modules.start;
