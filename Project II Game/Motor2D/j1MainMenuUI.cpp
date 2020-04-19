@@ -38,8 +38,14 @@ bool j1MainMenuUI::Start()
 {
 
 	Add_UI();
+
+	//SETTING AUDIO IN THE CORRECT STARTING VOLUME
 	menu.music->Button->map_position.x = 830 + 186;
+	menu.music->Button->inside_position.x = -186;
 	menu.fx->Button->map_position.x = 830 + 186;
+	menu.fx->Button->inside_position.x = -186;
+	
+	
 	return true;
 }
 
