@@ -136,7 +136,6 @@ private:
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
 
-
 public:
 
 	uint32				framerate_cap = 144;

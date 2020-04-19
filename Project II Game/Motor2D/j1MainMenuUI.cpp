@@ -131,6 +131,7 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 	{
 	case GUI_Event::EVENT_ONCLICK:
 	{
+		App->audio->PlayFx(App->audio->ui_wood_hit);
 		if (element == menu.start) 
 		{
 			App->transitions->LinesAppearing(Black, 0.75f, 1);

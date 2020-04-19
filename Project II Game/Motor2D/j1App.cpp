@@ -28,6 +28,10 @@
 #include "j1Font.h"
 #include <thread>
 
+
+#include "SDL_image/include/SDL_image.h"
+#pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
+
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
@@ -71,8 +75,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene3);
 	AddModule(minimap);
 	AddModule(player);	
-	AddModule(mainmenu);
 	AddModule(InGameUI);
+	AddModule(mainmenu);
+
 
 	AddModule(gui);
 
@@ -180,6 +185,7 @@ bool j1App::Update()
 
 	if(ret == true)
 		ret = PostUpdate();
+
 
 	FinishUpdate();
 	return ret;

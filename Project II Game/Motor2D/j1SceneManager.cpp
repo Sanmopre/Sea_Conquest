@@ -18,6 +18,8 @@
 #include "j1TransitionManager.h"
 #include "j1Audio.h"
 
+
+
 j1SceneManager::j1SceneManager() : j1Module()
 {
 	name.create("scenemanager");
@@ -44,7 +46,7 @@ bool j1SceneManager::Start()
 	App->scene2->main_texture = App->tex->Load("textures/Main_Screen.png");
 	App->scene3->logo_texture = App->tex->Load("textures/logo.png");
 
-	logo.iterations = 3.0f;
+	logo.iterations = 3.5f;
 	return true;
 }
 
@@ -58,7 +60,7 @@ bool j1SceneManager::PreUpdate()
 // Called each loop iteration
 bool j1SceneManager::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN){
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)	{
 		App->transitions->LinesAppearing(Black, 1.25f, 1);
 		App->mainmenu->Deactivate_Audio_Options();
 	}
