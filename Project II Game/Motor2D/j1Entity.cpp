@@ -8,7 +8,6 @@
 
 j1Entity::~j1Entity()
 {
-	LOG("Destructor Entity");
 	trading_entity = nullptr;
 	texture = nullptr;
 	tradeable_list.erase(tradeable_list.begin(), tradeable_list.end());

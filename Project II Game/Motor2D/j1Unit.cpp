@@ -14,7 +14,6 @@ j1Unit::j1Unit()
 
 j1Unit::~j1Unit()
 {
-	LOG("Destructor Unit");
 	target = nullptr;
 	path.erase(path.begin(), path.end());
 	path.shrink_to_fit();
