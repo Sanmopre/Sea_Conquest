@@ -45,7 +45,6 @@ bool j1SceneManager::Start()
 	App->map->Load("Mapa definitivo.tmx") == true;
 	App->scene2->main_texture = App->tex->Load("textures/Main_Screen.png");
 	App->scene3->logo_texture = App->tex->Load("textures/logo.png");
-
 	logo.iterations = 3.5f;
 	return true;
 }
@@ -129,6 +128,7 @@ int j1SceneManager::ChangeScene(int scene)
 	case 1:
 		App->scene->active = true;
 		App->scene->ChangeScene();
+		App->audio->PlayMusic("audio/music/Sea_conquest_chill_cutre.wav");
 		In_Main_Menu = false;
 		In_Logo_Scene = false;
 		return 1;
@@ -136,6 +136,7 @@ int j1SceneManager::ChangeScene(int scene)
 	case 2:		
 		App->scene2->active = true;
 		App->scene2->ChangeScene();
+		App->audio->PlayMusic("audio/music/Motorista_Reciclista_Shop1_start.wav");
 		App->render->camera.x = 0;
 		App->render->camera.y = 0;
 		App->win->scale = 1;

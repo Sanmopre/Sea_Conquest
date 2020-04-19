@@ -47,6 +47,9 @@ public:
 	unsigned int ui_wood_hit;
 	unsigned int logo_audio;
 
+	_Mix_Music* mainmenu_music;
+	_Mix_Music* ingame_chill_music;
+
 private:		 
 
 	_Mix_Music*			music = NULL;
