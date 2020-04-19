@@ -38,6 +38,7 @@ public:
 	SDL_Texture* cloudTexture;
 	SDL_Texture* fireTexture;
 	SDL_Texture* explosionTexture;
+	SDL_Texture* dustTexture;
 
 private:
 

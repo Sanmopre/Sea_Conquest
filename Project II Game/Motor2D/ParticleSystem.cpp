@@ -76,6 +76,14 @@ void ParticleSystem::loadSystem()
 		systemProps.lifetimeSubstraction = 3;
 		systemProps.tex = App->pmanager->explosionTexture;
 	}
+	else if (systemProps.type == PARTICLE_TYPES::DUST)
+	{
+		systemProps.lifetime = 255;
+		systemProps.Acceleration = { 0, -0.0005 };
+		systemProps.rect = { 0, 0, 25, 20 };
+		systemProps.lifetimeSubstraction = 1;
+		systemProps.tex = App->pmanager->dustTexture;
+	}
 	else
 	{
 		systemProps.lifetime = 255;

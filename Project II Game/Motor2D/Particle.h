@@ -20,7 +20,7 @@ enum class PARTICLE_TYPES
 	EXPLOSION,
 	WIND,
 	CLOUD,
-	WAVE
+	DUST
 };
 
 struct ParticleProps

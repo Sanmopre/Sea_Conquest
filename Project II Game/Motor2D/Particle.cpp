@@ -54,6 +54,9 @@ void Particle::loadProperties(ParticleProps properties)
 
 	if (pType == PARTICLE_TYPES::SMOKE || pType == PARTICLE_TYPES::FIRE)
 		pVelocity = { (float)(0.3*(Random::Randomize() - 0.5)), (float)(0.3 * (Random::Randomize() - 0.5)) };
+
+	if (pType == PARTICLE_TYPES::DUST)
+		pVelocity = { (float)(0.5 * (Random::Randomize() -0.5)), (float)(-0.2 * (Random::Randomize())) };
 }
 
 void Particle::switchParticleState()

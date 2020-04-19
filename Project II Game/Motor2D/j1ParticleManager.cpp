@@ -34,6 +34,7 @@ bool j1ParticleManager::Start()
 	cloudTexture = App->tex->Load("textures/Cloud_Texture_2_270x270px.png");
 	fireTexture = App->tex->Load("textures/Fire_Texture_7x7px.png");
 	explosionTexture = App->tex->Load("textures/Explosion_Texture_2_7x7px.png");
+	dustTexture = App->tex->Load("textures/Dust_Texture_25x20px.png");
 
 	return true;
 }
@@ -101,8 +102,8 @@ bool j1ParticleManager::Update(float dt)
 		test.x -= App->render->camera.x / App->win->GetScale();
 		test.y -= App->render->camera.y / App->win->GetScale();
 
-		App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, { (float)test.x, (float)test.y }, 0);
-		LOG("CLOUD CREATED AT  X:%.2f Y:%.2f", (float)test.x, (float)test.y);
+		App->pmanager->createSystem(PARTICLE_TYPES::DUST, { (float)test.x, (float)test.y }, 0);
+		//LOG("CLOUD CREATED AT  X:%.2f Y:%.2f", (float)test.x, (float)test.y);
 	}
 
 ///////////////////////CLOUDS SPAWN PARAMETERS
