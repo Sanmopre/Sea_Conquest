@@ -33,8 +33,5 @@ jobs:
           README.md
           LICENSE.md
             '**/Game/**'
-            !*.obj
-            !*.ibd
-            !*.pdb
           
           
