@@ -45,7 +45,6 @@ public:
 	unsigned int ui_open;
 	unsigned int ui_purchase;
 	unsigned int ui_wood_hit;
-	unsigned int logo_scene;
 
 private:		 
 

@@ -44,7 +44,7 @@ bool j1SceneManager::Start()
 	App->scene2->main_texture = App->tex->Load("textures/Main_Screen.png");
 	App->scene3->logo_texture = App->tex->Load("textures/logo.png");
 
-	logo.iterations = 3.5f;
+	logo.iterations = 3.0f;
 	return true;
 }
 
