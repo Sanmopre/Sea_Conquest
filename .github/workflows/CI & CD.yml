@@ -23,7 +23,7 @@ jobs:
       run: MSBuild Sea_Conquest.sln /property:Configuration=Release
     
     - name: Release
-      uses: "marvinpinto/action-automatic-releases@v1"
+      uses: "marvinpinto/action-automatic-releases@v1.0.0"
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         prerelease: false
