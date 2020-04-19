@@ -28,6 +28,9 @@ public:
 	// Play a music file
 	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME, _Mix_Music* loadedmusic = nullptr);
 
+	//Quick bug fix (THIS AUDIO SYSTEM IS GETTING REWORKED ANYWAYS)
+	bool PlayFxIntro(unsigned int fx, int repeat = 0, int volume = -1);
+
 	// Load a WAV in memory
 	unsigned int LoadFx(const char* path);
 

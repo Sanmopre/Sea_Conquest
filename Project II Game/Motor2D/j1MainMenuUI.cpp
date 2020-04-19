@@ -70,10 +70,10 @@ bool j1MainMenuUI::Update(float dt)
 void j1MainMenuUI::Add_UI()
 {
 	//MENU
-	menu.start = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510,140 }, { 50,25 }, true, false, { 0,0,200,65 }, "START", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.audio_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510, 240}, { 30,25 }, true, false, { 0,0,200,65 }, "AUDIO OPT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.quit = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510,440 }, { 50,25 }, true, false, { 0,0,200,65 }, "QUIT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.fullscreen = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510,340 }, { 50,25 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.start = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510,140 }, { 75,25 }, true, false, { 0,0,200,65 }, "START", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.audio_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510, 240}, { 65,25 }, true, false, { 0,0,200,65 }, "AUDIO OPT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.quit = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510,440 }, { 75,25 }, true, false, { 0,0,200,65 }, "QUIT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.fullscreen = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 510,340 }, { 65,25 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.link = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 1220,660 }, { 0,0 }, true, false, { 0,0,60,60 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::LINK);
 	//AUDIO OPTIONS
 	menu.music = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 830, 230 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);

@@ -152,6 +152,21 @@ bool j1Audio::PlayMusic(const char* path, float fade_time, _Mix_Music* loadedmus
 	return ret;
 }
 
+bool j1Audio::PlayFxIntro(unsigned int id, int repeat, int volume)
+{
+	bool ret = false;
+	int vol = 100;
+		vol = volume;
+	if (id > 0 && id <= fx.count())
+	{
+		Mix_Chunk* sentchunk = fx[id - 1];
+		Mix_VolumeChunk(sentchunk, vol);
+		Mix_PlayChannel(-1, sentchunk, repeat);
+	}
+
+	return ret;
+}
+
 // Load WAV
 unsigned int j1Audio::LoadFx(const char* path)
 {

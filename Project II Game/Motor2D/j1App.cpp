@@ -64,7 +64,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
-	AddModule(audio);
 	AddModule(fonts);
 	AddModule(font);
 	
@@ -77,7 +76,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);	
 	AddModule(InGameUI);
 	AddModule(mainmenu);
-
+	AddModule(audio);
 
 	AddModule(gui);
 
@@ -155,7 +154,7 @@ bool j1App::Start()
 	bool ret = true;
 	////
 	App->scenemanager->ChangeScene(3);
-	App->audio->PlayFx(App->audio->logo_audio,0,100);
+	App->audio->PlayFxIntro(App->audio->logo_audio,0,100);
 	////
 	p2List_item<j1Module*>* item;
 	item = modules.start;
