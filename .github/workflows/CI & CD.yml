@@ -26,8 +26,7 @@ jobs:
       uses: "marvinpinto/action-automatic-releases@v1.0.0"
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        prerelease: false
-        automatic_release_tag: lastest
+        automatic_release_tag: (CD)Pre_Release
         title: Sea_Conquest_Release
         files: | 
           README.md
