@@ -375,8 +375,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 
 	case GUI_Event::EVENT_ONCLICK:
 	{
+		App->audio->PlayFx(App->audio->ui_wood_hit);
+		if (element == menu.Return_button) {
 
-		if (element == menu.Return_button)
 			for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
 				if ((*entity)->selected)
 				{
@@ -384,7 +385,7 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 					(*entity)->load.wood += 10;
 					(*entity)->load.metal += 10;
 				}
-
+		}
 		if (element == menu.Exit_button) {
 			App->win->Fullscreen();
 		}
