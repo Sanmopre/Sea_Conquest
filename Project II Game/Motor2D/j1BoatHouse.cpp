@@ -30,7 +30,7 @@ j1BoatHouse::j1BoatHouse(float x, float y, int team)
 
 j1BoatHouse::~j1BoatHouse()
 {
-
+	LOG("Destructor BoatHouse");
 }
 
 void j1BoatHouse::Update(float dt)

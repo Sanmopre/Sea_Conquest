@@ -4,7 +4,6 @@
 #include "j1Input.h"
 #include "j1EntityManager.h"
 #include "j1ParticleManager.h"
-#include "ParticleSystem.h"
 
 #include <vector>
 

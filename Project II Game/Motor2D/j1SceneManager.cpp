@@ -86,7 +86,7 @@ bool j1SceneManager::Update(float dt)
 	if (In_Main_Menu == true) {
 		App->InGameUI->Deactivate_All_UI();
 		App->mainmenu->Activate_Menu();
-		App->godmode = false;
+		App->godmode = true;
 	}
 	else {
 		App->InGameUI->Activate_Necessary_UI();
@@ -96,7 +96,7 @@ bool j1SceneManager::Update(float dt)
 	if (In_Logo_Scene == true) {
 		App->mainmenu->Deactivate_Menu();
 		App->InGameUI->Deactivate_All_UI();
-		App->godmode = false;
+		App->godmode = true;
 	}
 
 

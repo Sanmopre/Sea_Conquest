@@ -6,6 +6,7 @@
 #include "j1InGameUI.h"
 #include "j1Scene.h"
 #include "j1Pathfinding.h"
+#include "j1ParticleManager.h"
 
 j1Structure::j1Structure()
 { 
@@ -19,7 +20,6 @@ j1Structure::j1Structure()
 	{
 		built_state = BUILDING;
 		health = 1;
-		App->audio->PlayFx(App->audio->structure_build);
 	}
 		
 
@@ -29,7 +29,7 @@ j1Structure::j1Structure()
 
 j1Structure::~j1Structure()
 {
-	App->audio->PlayFx(App->audio->structure_destroy);
+	LOG("Destructor Structure");
 	unitqueue.erase(unitqueue.begin(), unitqueue.end());
 	unitqueue.shrink_to_fit();
 }
@@ -67,10 +67,13 @@ void j1Structure::Primitive_Update(float dt)
 		BuildProcces(dt);
 	}
 
-		if (built_state == BUILDING || built_state == ON_HOLD)
-			rect = other_rect;
-		else
-			rect = built_rect;
+	if (built_state == BUILDING || built_state == ON_HOLD)
+		rect = other_rect;
+	else
+		rect = built_rect;
+
+	if(health <= 0)
+		App->audio->PlayFx(App->audio->structure_destroy);
 }
 
 void j1Structure::NotPlacedBehaviour()
@@ -84,7 +87,10 @@ void j1Structure::NotPlacedBehaviour()
 		if (App->godmode)
 		{
 			if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
+			{
 				CleanUp();
+				App->audio->PlayFx(App->audio->structure_destroy);
+			}
 		}
 	}
 }

@@ -37,17 +37,17 @@ bool j1EntityManager::Update(float dt)
 		entity += counter;
 		for (; entity != entities.end(); entity++)
 		{
-			if ((*entity)->to_delete)
-			{
-				QuickDeleteEntity(entity);
-				break;
-			}
-			else
+			if (!(*entity)->to_delete)
 			{
 				(*entity)->Primitive_Update(dt);
 				(*entity)->Update(dt);
 				if ((*entity)->selected)
 					n++;
+			}
+			else
+			{
+				QuickDeleteEntity(entity);
+				break;
 			}
 
 			counter++;
@@ -129,7 +129,7 @@ bool j1EntityManager::Update(float dt)
 			App->input->GetMousePosition(test.x, test.y);
 			test.x -= App->render->camera.x / App->win->GetScale();
 			test.y -= App->render->camera.y / App->win->GetScale();
-			AddEntity(test.x, test.y, EntityType::RESOURCE, 1);
+			AddEntity(test.x, test.y, EntityType::ALL_WOOD, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
@@ -148,6 +148,8 @@ bool j1EntityManager::Update(float dt)
 	return true;
 }
 
+//Schedules an entity creation in the next iteration, however the entity can be modified in the iteration of cretion with out problem. 
+//Types: BOAT, HARVESTER, BOATHOUSE, STORAGE, STORAGE, TOWNHALL, ALL_COTTON, ALL_WOOD, ALL_METAL
 j1Entity* j1EntityManager::AddEntity(float x, float y, EntityType type, int level, int team)
 {
 	switch (type)
@@ -188,6 +190,7 @@ void j1EntityManager::DeleteEntity(j1Entity* entity_)
 		{
 			if ((*entity) == entity_)
 			{
+				(*entity)->CleanUp();
 				delete (*entity);
 				entities.erase(entity, entity + 1);
 				if(entities.size() <= entities.capacity()/2)
@@ -209,6 +212,7 @@ void j1EntityManager::DeleteAll()
 {
 	while (entities.size() != 0)
 	{
+		(*entities.begin())->CleanUp(); 
 		delete (*entities.begin());
 		entities.erase(entities.begin(), entities.begin() + 1);
 	}
@@ -216,6 +220,7 @@ void j1EntityManager::DeleteAll()
 
 	while (buffer.size() != 0)
 	{
+		(*entities.begin())->CleanUp();  
 		delete (*buffer.begin());
 		buffer.erase(buffer.begin(), buffer.begin() + 1);
 	}

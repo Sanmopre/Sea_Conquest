@@ -172,7 +172,10 @@ unsigned int j1Audio::LoadFx(const char* path)
 bool j1Audio::PlayFx(unsigned int id, int repeat, int volume)
 {
 	bool ret = false;
-	int vol = App->mainmenu->GetMenu().fx->Value;
+	int vol = 0;
+	if(App->mainmenu != nullptr)
+		if (App->mainmenu->GetMenu().fx != nullptr)
+			vol = App->mainmenu->GetMenu().fx->Value;
 	if(!active)
 		return false;
 	if (volume > 0)
