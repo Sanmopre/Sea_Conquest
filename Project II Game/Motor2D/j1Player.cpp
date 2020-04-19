@@ -174,7 +174,8 @@ bool j1Player::Update(float dt)
 
 bool j1Player::CleanUp()
 {
-
+	building = nullptr;
+	builder = nullptr;
 	return true;
 
 }

@@ -59,7 +59,6 @@ public:
 	int DistanceTo(Node* A, Node* B);
 	vector<fPoint> CreatePath(Node* end, fPoint end_pos);
 
-private:
 	bool show;
 };
 

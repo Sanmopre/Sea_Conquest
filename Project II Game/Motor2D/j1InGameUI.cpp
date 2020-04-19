@@ -192,7 +192,7 @@ bool j1InGameUI::Update(float dt)
 
 bool j1InGameUI::CleanUp()
 {
-
+	selected = nullptr;
 	return true;
 
 }

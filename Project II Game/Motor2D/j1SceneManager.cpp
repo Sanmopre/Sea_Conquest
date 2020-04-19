@@ -17,6 +17,8 @@
 #include "j1MainMenuUI.h"
 #include "j1TransitionManager.h"
 #include "j1Audio.h"
+#include "j1Player.h"
+#include "j1Pathfinding.h"
 
 
 
@@ -85,8 +87,10 @@ bool j1SceneManager::Update(float dt)
 
 	if (In_Main_Menu == true) {
 		App->InGameUI->Deactivate_All_UI();
+		App->InGameUI->CleanUp();
+		App->player->CleanUp();
 		App->mainmenu->Activate_Menu();
-		App->godmode = true;
+		App->godmode = false;
 	}
 	else {
 		App->InGameUI->Activate_Necessary_UI();
@@ -96,7 +100,9 @@ bool j1SceneManager::Update(float dt)
 	if (In_Logo_Scene == true) {
 		App->mainmenu->Deactivate_Menu();
 		App->InGameUI->Deactivate_All_UI();
-		App->godmode = true;
+		App->InGameUI->CleanUp();
+		App->player->CleanUp();
+		App->godmode = false;
 	}
 	//LOGO_SCENE_TIMER
 	
@@ -124,6 +130,7 @@ int j1SceneManager::ChangeScene(int scene)
 	switch (scene)
 	{
 	case 1:
+		App->pathfinding->show = false;
 		App->scene->active = true;
 		App->scene->ChangeScene();
 		App->audio->PlayMusic("audio/music/Sea_conquest_chill_cutre.wav");
@@ -132,6 +139,7 @@ int j1SceneManager::ChangeScene(int scene)
 		return 1;
 		break;
 	case 2:		
+		App->pathfinding->show = false;
 		App->scene2->active = true;
 		App->scene2->ChangeScene();
 		App->audio->PlayMusic("audio/music/Motorista_Reciclista_Shop1_start.wav");
