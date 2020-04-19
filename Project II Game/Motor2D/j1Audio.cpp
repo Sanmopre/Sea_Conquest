@@ -61,6 +61,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	ui_open = App->audio->LoadFx("audio/fx/ui_open.wav");
 	ui_purchase = App->audio->LoadFx("audio/fx/ui_purchase.wav");
 	ui_wood_hit = App->audio->LoadFx("audio/fx/ui_wood_hit.wav");
+	logo_audio = App->audio->LoadFx("audio/fx/logo_intro.wav");
 	return ret;
 }
 

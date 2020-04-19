@@ -150,6 +150,7 @@ bool j1App::Start()
 	bool ret = true;
 	////
 	App->scenemanager->ChangeScene(3);
+	App->audio->PlayFx(App->audio->logo_audio,0,100);
 	////
 	p2List_item<j1Module*>* item;
 	item = modules.start;
