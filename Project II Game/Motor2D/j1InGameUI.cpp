@@ -151,7 +151,7 @@ bool j1InGameUI::Update(float dt)
 	}
 
 	//MENU FROM ESC
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && App->scenemanager->In_Main_Menu == false) {
 	//	Activate_Win_Menu();
 	//	Activate_Defeat_Menu();
 		Activate_Menu();
@@ -375,6 +375,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 
 	case GUI_Event::EVENT_ONCLICK:
 	{
+		//AUDIO PLAYING
+		App->audio->PlayFx(App->audio->ui_wood_hit);
+
 
 		if (element == menu.Return_button)
 			for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
