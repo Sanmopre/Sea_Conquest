@@ -170,7 +170,7 @@ class j1Entity
 public:
 
 	j1Entity() { selected = false; to_delete = false; }
-	~j1Entity();
+	virtual ~j1Entity();
 
 	virtual void Primitive_Update(float dt) = 0;
 	virtual void Update(float dt) = 0;
@@ -227,7 +227,7 @@ class j1Unit : public j1Entity
 public:
 
 	j1Unit();
-	~j1Unit();
+	virtual ~j1Unit();
 	void Primitive_Update(float dt);
 	float speed;
 	int range;
@@ -267,7 +267,7 @@ class j1Structure : public j1Entity
 public:
 
 	j1Structure();
-	~j1Structure();
+	virtual ~j1Structure();
 	void Primitive_Update(float dt);
 
 	iPoint tile;
@@ -297,6 +297,7 @@ class j1Resource : public j1Entity
 public:
 
 	j1Resource(float x, float y, int level = 1, EntityType type = EntityType::ALL_WOOD);
+	~j1Resource() {};
 	void Primitive_Update(float dt) {}
 
 	Color color;

@@ -3,10 +3,14 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "j1EntityManager.h"
+#include "j1Textures.h"
 #include <vector>
 
 j1Entity::~j1Entity()
 {
+	LOG("Destructor Entity");
+	trading_entity = nullptr;
+	texture = nullptr;
 	tradeable_list.erase(tradeable_list.begin(), tradeable_list.end());
 	tradeable_list.shrink_to_fit();
 }

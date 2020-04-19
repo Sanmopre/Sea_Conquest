@@ -663,9 +663,12 @@ void j1InGameUI::Activate_Win_Menu()
 
 void j1InGameUI::Deactivate_Win_Menu()
 {
-	win.Label->enabled = false;
-	win.Back_button->enabled = false;
-	win.Image->enabled = false;
+	if (win.Label != nullptr)
+	{
+		win.Label->enabled = false;
+			win.Back_button->enabled = false;
+			win.Image->enabled = false;
+	}
 }
 
 void j1InGameUI::Activate_Defeat_Menu()

@@ -68,7 +68,10 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 
 j1Harvester::~j1Harvester()
 {
-
+	LOG("Destructor Harvester");
+	building = nullptr;
+	path.erase(path.begin(), path.end());
+	path.shrink_to_fit();
 }
 
 void j1Harvester::Update(float dt)
@@ -132,6 +135,7 @@ void j1Harvester::Update(float dt)
 				{
 					if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 					{
+						App->audio->PlayFx(App->audio->structure_build);
 						state = BUILDING;
 						float x = App->player->building->position.x;
 						float y = App->player->building->position.y;
@@ -174,6 +178,7 @@ void j1Harvester::Update(float dt)
 					building->health += dt * 100 * level;
 				else
 				{
+					App->audio->PlayFx(App->audio->ui_wood_hit);
 					building->health = building->max_health;
 					building->SetBuiltState(NOT_BUILDING);
 					state = NOT_BUILDING;
@@ -312,8 +317,6 @@ void j1Harvester::Update(float dt)
 
 void j1Harvester::CleanUp()
 {
-	path.erase(path.begin(), path.end());
-	path.shrink_to_fit();
 	to_delete = true;
 }
 
@@ -335,7 +338,7 @@ void j1Harvester::SetAutomatic()
 
 void j1Harvester::BuildStructure(EntityType type)
 {
-	if (App->InGameUI->selected == this && (App->player->building == nullptr || App->player->building->GetBuiltState() == TO_BUILD))
+	if (App->InGameUI->selected != nullptr && App->InGameUI->selected == this && building == nullptr && (App->player->building == nullptr || App->player->building->GetBuiltState() == TO_BUILD))
 	{
 		delete App->player->building;
 		App->player->building = nullptr;
