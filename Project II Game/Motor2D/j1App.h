@@ -8,6 +8,10 @@
 #include "j1PerfTimer.h"
 
 
+#include "SDL_image/include/SDL_image.h"
+#pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
+
+
 // Modules
 class j1Window;
 class j1Input;
@@ -136,6 +140,7 @@ private:
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
 
+	SDL_Surface* icon = nullptr;
 
 public:
 
