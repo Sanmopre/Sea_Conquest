@@ -62,6 +62,9 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	ui_purchase = App->audio->LoadFx("audio/fx/ui_purchase.wav");
 	ui_wood_hit = App->audio->LoadFx("audio/fx/uiclick.wav");
 	logo_audio = App->audio->LoadFx("audio/fx/logo_intro.wav");
+
+	mainmenu_music = Mix_LoadMUS("audio/music/Sea_conquest_chill_cutre.wav");
+	ingame_chill_music = Mix_LoadMUS("audio/music/Motorista_Reciclista_Shop1_start.wav");
 	return ret;
 }
 
@@ -92,7 +95,7 @@ bool j1Audio::CleanUp()
 }
 
 // Play a music file
-bool j1Audio::PlayMusic(const char* path, float fade_time)
+bool j1Audio::PlayMusic(const char* path, float fade_time, _Mix_Music* loadedmusic)
 {
 	bool ret = true;
 
@@ -114,6 +117,7 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 		Mix_FreeMusic(music);
 	}
 
+	if (loadedmusic == nullptr)
 	music = Mix_LoadMUS(path);
 
 	if(music == NULL)
