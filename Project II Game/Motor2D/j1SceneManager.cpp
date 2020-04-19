@@ -98,8 +98,6 @@ bool j1SceneManager::Update(float dt)
 		App->InGameUI->Deactivate_All_UI();
 		App->godmode = true;
 	}
-
-
 	//LOGO_SCENE_TIMER
 	
 	if(finished_logo != true){

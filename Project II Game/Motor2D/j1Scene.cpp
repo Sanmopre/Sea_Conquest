@@ -41,7 +41,6 @@ bool j1Scene::Start()
 
 	//App->map->Load("mapa men.tmx") == true;
 	debug_tex = App->tex->Load("maps/path2.png");
-
 	return true;
 }
 
