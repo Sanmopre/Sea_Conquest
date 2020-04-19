@@ -75,8 +75,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene3);
 	AddModule(minimap);
 	AddModule(player);	
-	AddModule(mainmenu);
 	AddModule(InGameUI);
+	AddModule(mainmenu);
+
 
 	AddModule(gui);
 
@@ -153,7 +154,6 @@ bool j1App::Start()
 {
 	bool ret = true;
 	////
-	icon = IMG_Load("textures/icon.png");
 	App->scenemanager->ChangeScene(3);
 	App->audio->PlayFx(App->audio->logo_audio,0,100);
 	////
@@ -186,8 +186,6 @@ bool j1App::Update()
 	if(ret == true)
 		ret = PostUpdate();
 
-
-	SDL_SetWindowIcon(App->win->window, icon);
 
 	FinishUpdate();
 	return ret;

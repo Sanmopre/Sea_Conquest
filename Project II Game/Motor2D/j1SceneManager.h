@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "j1Timer.h"
 
+
 struct SDL_Texture;
 class j1Transitions;
 
@@ -41,6 +42,7 @@ private:
 	bool finished_logo = false;
 	j1Transitions* transition = nullptr;
 	timed_var logo;
+
 };
 
 #endif // __j1SCENEMANAGER_H__

@@ -111,7 +111,7 @@ bool j1InGameUI::Update(float dt)
 		sprintf_s(text_type_1, 10, "%7d", selected->load.wood);
 		sprintf_s(text_type_2, 10, "%7d", selected->load.metal);
 		//TRADER RESOURCES
-		if (selected->trading_entity != nullptr) {
+		if (selected->trading_entity != nullptr) {			
 			sprintf_s(trader_max_text, 10, "%7d", selected->trading_entity->load.Total());
 			sprintf_s(trader_text_type_0, 10, "%7d", selected->trading_entity->load.cotton);
 			sprintf_s(trader_text_type_1, 10, "%7d", selected->trading_entity->load.wood);
@@ -151,7 +151,7 @@ bool j1InGameUI::Update(float dt)
 	}
 
 	//MENU FROM ESC
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && App->scenemanager->In_Main_Menu == false) {
 	//	Activate_Win_Menu();
 	//	Activate_Defeat_Menu();
 		Activate_Menu();
