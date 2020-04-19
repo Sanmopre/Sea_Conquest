@@ -19,4 +19,5 @@ jobs:
         vs-version: "[16.4,16.6]"
 
     - name: MSBuild
+      working-directory: Project II Game
       run: MSBuild Sea_Conquest.sln /property:Configuration=Release
