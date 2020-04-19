@@ -28,11 +28,6 @@
 #include "j1Font.h"
 #include <thread>
 
-
-
-#include "SDL_image/include/SDL_image.h"
-#pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
-
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
@@ -157,11 +152,7 @@ bool j1App::Start()
 	//INITIAL SCENE AND LOGO SCENE AND AUDIO FOR LOGO
 	App->scenemanager->ChangeScene(3);
 	App->audio->PlayFx(App->audio->logo_scene,0,70);
-	///
-
-	//ICON TEXTURE
-	icon = IMG_Load("textures/icon.png");
-
+	////
 	p2List_item<j1Module*>* item;
 	item = modules.start;
 
@@ -190,8 +181,6 @@ bool j1App::Update()
 
 	if(ret == true)
 		ret = PostUpdate();
-
-	SDL_SetWindowIcon(App->win->window, icon);
 
 	FinishUpdate();
 	return ret;
