@@ -33,6 +33,7 @@ public:
 
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0, int volume = -1);
+	void StopFx(int channel = -1);
 
 	unsigned int boat_attack;
 	unsigned int boat_destroy;
@@ -47,8 +48,10 @@ public:
 	unsigned int ui_wood_hit;
 	unsigned int logo_audio;
 
-	_Mix_Music* mainmenu_music;
-	_Mix_Music* ingame_chill_music;
+	//_Mix_Music* mainmenu_music;
+	//_Mix_Music* ingame_chill_music;
+	unsigned int mainmenu_music;
+	unsigned int ingame_chill_music;
 
 private:		 
 

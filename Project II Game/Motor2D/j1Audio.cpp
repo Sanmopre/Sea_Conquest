@@ -63,8 +63,10 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	ui_wood_hit = App->audio->LoadFx("audio/fx/uiclick.wav");
 	logo_audio = App->audio->LoadFx("audio/fx/logo_intro.wav");
 
-	mainmenu_music = Mix_LoadMUS("audio/music/Sea_conquest_chill_cutre.wav");
-	ingame_chill_music = Mix_LoadMUS("audio/music/Motorista_Reciclista_Shop1_start.wav");
+	//mainmenu_music = Mix_LoadMUS("audio/music/Motorista_Reciclista_Shop1_start.wav");
+	//ingame_chill_music = Mix_LoadMUS("audio/music/Sea_conquest_chill_cutre.wav");
+	mainmenu_music = LoadFx("audio/music/Motorista_Reciclista_Shop1_start.wav");
+	ingame_chill_music = LoadFx("audio/music/Sea_conquest_chill_cutre.wav");
 	return ret;
 }
 
@@ -118,8 +120,9 @@ bool j1Audio::PlayMusic(const char* path, float fade_time, _Mix_Music* loadedmus
 	}
 
 	if (loadedmusic == nullptr)
-	music = Mix_LoadMUS(path);
-
+		music = Mix_LoadMUS(path);
+	//_Mix_Music* loadedmus = loadedmusic;
+	music = loadedmusic;
 	if(music == NULL)
 	{
 		LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
@@ -192,4 +195,10 @@ bool j1Audio::PlayFx(unsigned int id, int repeat, int volume)
 	}
 
 	return ret;
+}
+
+void j1Audio::StopFx(int channel)
+{
+	Mix_HaltChannel(channel);
+	return;
 }
