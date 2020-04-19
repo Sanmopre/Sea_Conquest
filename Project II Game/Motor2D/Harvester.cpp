@@ -29,7 +29,7 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	transferrate = { 0.5 };
 	max_health = 50;
 	health = max_health;
-	load = { 0, 0, 0, 500 };
+	load = { 0, 0, 0, 600 };
 	target = nullptr;
 
 	automatic = false;
@@ -68,7 +68,6 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 
 j1Harvester::~j1Harvester()
 {
-	LOG("Destructor Harvester");
 	building = nullptr;
 	path.erase(path.begin(), path.end());
 	path.shrink_to_fit();

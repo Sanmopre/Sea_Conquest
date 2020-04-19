@@ -29,7 +29,6 @@ j1Structure::j1Structure()
 
 j1Structure::~j1Structure()
 {
-	LOG("Destructor Structure");
 	unitqueue.erase(unitqueue.begin(), unitqueue.end());
 	unitqueue.shrink_to_fit();
 }
