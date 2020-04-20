@@ -43,6 +43,7 @@ vector<fPoint> j1PathFinding::PathTo(fPoint start_pos, fPoint end_pos, NodeType 
 	iPoint _start = App->map->WorldToMap((int)start_pos.x, (int)start_pos.y);
 	iPoint _end = App->map->WorldToMap((int)end_pos.x, (int)end_pos.y);
 
+	if(_end.x >= 0 && _end.y >= 0)
 	if (PointToNode(_end.x, _end.y, &NodeMap)->type == terrain || terrain == NodeType::ALL)
 	{
 		if (_start == _end)
