@@ -129,7 +129,25 @@ bool j1EntityManager::Update(float dt)
 			App->input->GetMousePosition(test.x, test.y);
 			test.x -= App->render->camera.x / App->win->GetScale();
 			test.y -= App->render->camera.y / App->win->GetScale();
+			AddEntity(test.x, test.y, EntityType::ALL_COTTON, 1);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+		{
+			iPoint test;
+			App->input->GetMousePosition(test.x, test.y);
+			test.x -= App->render->camera.x / App->win->GetScale();
+			test.y -= App->render->camera.y / App->win->GetScale();
 			AddEntity(test.x, test.y, EntityType::ALL_WOOD, 1);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+		{
+			iPoint test;
+			App->input->GetMousePosition(test.x, test.y);
+			test.x -= App->render->camera.x / App->win->GetScale();
+			test.y -= App->render->camera.y / App->win->GetScale();
+			AddEntity(test.x, test.y, EntityType::ALL_METAL, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)

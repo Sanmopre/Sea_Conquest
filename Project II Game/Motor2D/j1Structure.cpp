@@ -14,7 +14,7 @@ j1Structure::j1Structure()
 	
 	placed = true;
 
-	if (App->scene->start)
+	if (App->scene->start || App->godmode)
 		built_state = NOT_BUILDING;
 	else
 	{
