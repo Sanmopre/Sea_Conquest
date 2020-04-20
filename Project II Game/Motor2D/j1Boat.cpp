@@ -4,6 +4,7 @@
 #include "j1Input.h"
 #include "j1EntityManager.h"
 #include "j1ParticleManager.h"
+#include "j1Player.h"
 
 #include <vector>
 
@@ -71,7 +72,7 @@ void j1Boat::Update(float dt)
 		{
 			if (team == 1)
 			{
-				if (App->entitymanager->selected_n == 1 && App->input->GetMouseButtonDown(3) == KEY_DOWN)
+				if (App->entitymanager->selected_n == 1 && App->input->GetMouseButtonDown(3) == KEY_DOWN && !App->player->disable_click)
 					SetDestination(terrain);
 			}
 		}

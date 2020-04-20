@@ -6,8 +6,8 @@
 #include "j1ParticleManager.h"
 #include "j1InGameUI.h"
 #include "j1Window.h"
-
 #include "j1Player.h"
+
 #include <vector>
 
 j1Harvester::j1Harvester(float x, float y, int level, int team)
@@ -82,7 +82,7 @@ void j1Harvester::Update(float dt)
 			if (team == 1)
 			{
 				if (!automating && state != TO_BUILD)
-					if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+					if (App->input->GetMouseButtonDown(3) == KEY_DOWN && !App->player->disable_click)
 					{
 						if (App->entitymanager->selected_n == 1)
 							SetDestination(terrain);
