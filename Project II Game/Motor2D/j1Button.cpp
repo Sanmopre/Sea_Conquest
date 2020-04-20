@@ -6,6 +6,7 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Window.h"
+#include "j1Player.h"
 
 
 j1Button::j1Button() {
@@ -94,6 +95,7 @@ bool j1Button::Update(float dt)
 	{
 		if (above)
 		{
+			App->player->disable_click = true;
 			if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 				OnClick();
 
