@@ -30,14 +30,17 @@ To draw a clear path towards the game we would like to do, we will state our gam
 		- D  : Spawn enemy boat
 		- C  : Spawn ally boathouse
 		- X  : Spawn enemy boathouse
-		- R  : Spawn wood resource
-		- T  : Spawn cotton resource
+		- R  : Spawn cotton resource
+		- T  : Spawn wood resource
 		- Y  : Spawn metal resource
 		- G  : Delete all selected units
 		- H  : Delete all units
-  - Mouse : -Holding right click and moving it will create a square that selects all entities inside.
+  - Mouse : -Holding right click and moving it will create a square that selects all entities inside, if holding the Left-Shift 
+		button the entities inside the square will be selected in addition to the previously selected ones and if holding 
+		the Left-Alt button  the entities inside the square will be unselected.
 	    -To interact with UI right click.
-	    -Leftclick in the trading menu will exchange all the rosurce material form one unit to the other.
+	    -Leftclick in the trading menu will exchange all the rosurce material form one unit to the other and move selected 
+		units to the clicked position.
   
   - Zoom options:("This options still need work and improvement, they may cause gamebugs")
 		- A  : Zoom in
