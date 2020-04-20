@@ -102,7 +102,7 @@ bool j1ParticleManager::Update(float dt)
 		test.x -= App->render->camera.x / App->win->GetScale();
 		test.y -= App->render->camera.y / App->win->GetScale();
 
-		App->pmanager->createSystem(PARTICLE_TYPES::DUST, { (float)test.x, (float)test.y }, 0);
+		App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, { (float)test.x, (float)test.y }, 0);
 		//LOG("CLOUD CREATED AT  X:%.2f Y:%.2f", (float)test.x, (float)test.y);
 	}
 
