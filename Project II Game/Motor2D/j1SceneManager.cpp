@@ -61,6 +61,11 @@ bool j1SceneManager::PreUpdate()
 // Called each loop iteration
 bool j1SceneManager::Update(float dt)
 {
+
+
+
+	//DEBUG ONLY
+	/*
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)	{
 		App->transitions->LinesAppearing(Black, 1.25f, 1);
 		App->mainmenu->Deactivate_Audio_Options();
@@ -74,7 +79,12 @@ bool j1SceneManager::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
 		App->transitions->FadingToColor(White, 1.25f, 3);
 		App->mainmenu->Deactivate_Audio_Options();
-	}
+	}*/
+
+
+
+
+
 	/*
 	App->transitions->FadingToColor(White, 1.0f, //scene);
 	App->transitions->Wiping(Black, 0.5f, //scene);

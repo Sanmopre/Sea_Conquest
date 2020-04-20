@@ -43,6 +43,7 @@ To draw a clear path towards the game we would like to do, we will state our gam
 		- A  : Zoom in
 		- S  : Zoom out
 		- SPACE  : Set camera to original size 
+  - P : Spawn a cloud particle
 
 ## Developers
  - {Moliner Préjano, Santiago} - {Lead}        - {[GitHub account](https://github.com/Sanmopre)}
