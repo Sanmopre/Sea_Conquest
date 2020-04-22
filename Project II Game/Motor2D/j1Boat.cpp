@@ -77,6 +77,8 @@ void j1Boat::Update(float dt)
 			}
 		}
 
+		target = FindTarget(position.x, position.y, range, EntityType::NONE, -1);
+
 		if (destination != position)
 			Move(dt);
 		else
@@ -93,8 +95,6 @@ void j1Boat::Update(float dt)
 				}
 			}
 		}
-
-		target = FindTarget(position.x, position.y, range, EntityType::NONE, -1);
 
 		//PARTICLES
 		if (health < 0)

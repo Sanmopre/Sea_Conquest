@@ -63,7 +63,8 @@ bool j1InGameUI::PreUpdate()
 bool j1InGameUI::Update(float dt)
 {
 	//if (App->entitymanager->selected_n > 0)
-		GetSelectedEntity();
+	selected = nullptr;
+	GetSelectedEntity();
 	//else
 	//	selected = nullptr;
 	if (App->scenemanager->In_Main_Menu == false && selected_total != 0) {
