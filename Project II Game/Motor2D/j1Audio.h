@@ -4,7 +4,8 @@
 #include "j1Module.h"
 #include "j1MainMenuUI.h"
 #include "j1GUIElements.h"
-
+#include <list>
+#include <iterator>
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
 
 struct _Mix_Music;
@@ -26,8 +27,7 @@ public:
 	bool CleanUp();
 
 	// Play a music file
-	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME, _Mix_Music* loadedmusic = nullptr);
-
+	//bool PlayMusic(const char* path, float fade_time = 2.0f, Mix_Music* loadedmusic = nullptr);
 	//Quick bug fix (THIS AUDIO SYSTEM IS GETTING REWORKED ANYWAYS)
 	bool PlayFxIntro(unsigned int fx, int repeat = 0, int volume = -1);
 
@@ -59,7 +59,8 @@ public:
 private:		 
 
 	_Mix_Music*			music = NULL;
-	p2List<Mix_Chunk*>	fx;
+	//Mix_Music* music;
+	std::list<Mix_Chunk*>	fx;
 };
 
 #endif // __j1AUDIO_H__

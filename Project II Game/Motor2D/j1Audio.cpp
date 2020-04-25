@@ -83,9 +83,9 @@ bool j1Audio::CleanUp()
 		Mix_FreeMusic(music);
 	}
 
-	p2List_item<Mix_Chunk*>* item;
-	for(item = fx.start; item != NULL; item = item->next)
-		Mix_FreeChunk(item->data);
+	std::list<Mix_Chunk*>::iterator it;
+	for(it = fx.begin(); (*it) != NULL; it++)
+		Mix_FreeChunk((*it));
 
 	fx.clear();
 
@@ -97,7 +97,8 @@ bool j1Audio::CleanUp()
 }
 
 // Play a music file
-bool j1Audio::PlayMusic(const char* path, float fade_time, _Mix_Music* loadedmusic)
+/*
+bool j1Audio::PlayMusic(const char* path, float fade_time, Mix_Music* loadedmusic)
 {
 	bool ret = true;
 
@@ -151,15 +152,17 @@ bool j1Audio::PlayMusic(const char* path, float fade_time, _Mix_Music* loadedmus
 	LOG("Successfully playing %s", path);
 	return ret;
 }
-
+*/
 bool j1Audio::PlayFxIntro(unsigned int id, int repeat, int volume)
 {
 	bool ret = false;
 	int vol = 100;
 		vol = volume;
-	if (id > 0 && id <= fx.count())
+	if (id > 0 && id <= fx.size())
 	{
-		Mix_Chunk* sentchunk = fx[id - 1];
+		std::list<Mix_Chunk*>::iterator it = fx.begin();
+		std::advance(it, id - 1);
+		Mix_Chunk* sentchunk = *it;
 		Mix_VolumeChunk(sentchunk, vol);
 		Mix_PlayChannel(-1, sentchunk, repeat);
 	}
@@ -183,8 +186,8 @@ unsigned int j1Audio::LoadFx(const char* path)
 	}
 	else
 	{
-		fx.add(chunk);
-		ret = fx.count();
+		fx.push_back(chunk);
+		ret = fx.size();
 	}
 
 	return ret;
@@ -202,9 +205,11 @@ bool j1Audio::PlayFx(unsigned int id, int repeat, int volume)
 		return false;
 	if (volume > 0)
 		vol = volume;
-	if(id > 0 && id <= fx.count())
+	if(id > 0 && id <= fx.size())
 	{
-		Mix_Chunk* sentchunk = fx[id - 1];
+		std::list<Mix_Chunk*>::iterator it = fx.begin();
+		std::advance(it, id - 1);
+		Mix_Chunk* sentchunk = *it;
 		Mix_VolumeChunk(sentchunk,vol);
 		Mix_PlayChannel(-1, sentchunk, repeat);
 	}
