@@ -49,6 +49,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		active = false;
 		ret = true;
 	}
+	Mix_AllocateChannels(360);
 
 	boat_attack = App->audio->LoadFx("audio/fx/boat_attack.wav");
 	boat_destroy = App->audio->LoadFx("audio/fx/boat_destroy.wav");
@@ -84,8 +85,8 @@ bool j1Audio::CleanUp()
 	}
 
 	std::list<Mix_Chunk*>::iterator it;
-	for(it = fx.begin(); (*it) != NULL; it++)
-		Mix_FreeChunk((*it));
+	for(it = fx.begin(); it != fx.end(); it++)
+		Mix_FreeChunk(*it);
 
 	fx.clear();
 
@@ -221,4 +222,72 @@ void j1Audio::StopFx(int channel)
 {
 	Mix_HaltChannel(channel);
 	return;
+}
+
+bool j1Audio::PlaySpatialFx(uint id, uint channel_angle, uint distance, int repeat)
+{
+	bool ret = false;
+
+	if (!active)
+		return false;
+
+	Mix_Chunk* chunk = NULL;
+
+	if (id > 0 && id <= fx.size())
+	{
+		std::list <Mix_Chunk*>::const_iterator it;
+		it = std::next(fx.begin(), id - 1);
+		chunk = *it;
+	}
+	Mix_VolumeChunk(chunk, 127);
+	if (chunk != nullptr)
+	{
+		while (Mix_Playing(channel_angle) == 1)	// If the channel is already playing, choose the next channel that we already allocated with Mix_AllocateChannels()
+		{
+			channel_angle++;
+
+			if (channel_angle > 360)
+				channel_angle = 0;
+		}
+
+		// TODO 2 Set a channel in a position given a channel, an angle and a distance, There is SDL_Mixer function already explained 
+		// Play the channel that we already placed with Mix_SetPosition()
+		Mix_SetPosition(channel_angle, channel_angle, distance);	// Set a channel in a position given a channel, an angle and a distance
+
+		Mix_PlayChannel(channel_angle, chunk, repeat);				// Play the channel that we already placed with Mix_SetPosition()
+
+		ret = true;
+	}
+
+	return ret;
+}
+
+uint j1Audio::GetAngle(iPoint player_pos, iPoint enemy_pos)
+{
+	iPoint vector_pos = player_pos - enemy_pos;				// The vector of the player and enemy positions
+	iPoint vector_axis = { 0, 1 };							// We use the this vector because we want the angle that is formed with the Y axis
+
+	double dot_x = vector_axis.y * vector_pos.y;			// Product of the two vectors to get the X position
+	double det_y = -(vector_axis.y * vector_pos.x);			// Determinant of the two vectors to get the Y position
+
+	float f_angle = (atan2(det_y, dot_x)) * RAD_TO_DEG;		// Arc tangent of the previous X and Y, multiply the result with RAD_TO_DEG to get the result in degrees instead of radiants
+
+	if (f_angle < 0)										// If the angle is negative we add +360 because in PlaySpatialFx() we need the channel to be positive
+		f_angle += 360;
+
+	return uint(f_angle);
+}
+
+uint j1Audio::GetDistance(iPoint player_pos, iPoint enemy_pos)
+{
+
+	// TODO 3 Calculate the distance between the player and the enemy passed by reference using pythagoras
+	uint distance = sqrt(pow(player_pos.x - enemy_pos.x, 2) + pow(player_pos.y - enemy_pos.y, 2));	// Calculate the distance with Pythagoras
+
+	//uint distance_scaled = (distance * MAX_DISTANCE) / scale;										// We can scale the maximum hear distance by modifying scale in the config XML
+	uint distance_scaled = (distance * MAX_DISTANCE);
+	if (distance_scaled > MAX_DISTANCE)																// If the distance is greater than the MAX_DISTANCE(255), keep it in 255
+		distance_scaled = MAX_DISTANCE;
+
+	return distance_scaled;
 }

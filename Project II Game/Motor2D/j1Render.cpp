@@ -357,3 +357,11 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	return ret;
 }
+
+p2Point<int> j1Render::getCameraPosition()
+{
+	p2Point<int> r;
+	r.x = camera.x + (camera.w / 2);
+	r.y = camera.y + (camera.h / 2);
+	return r;
+}

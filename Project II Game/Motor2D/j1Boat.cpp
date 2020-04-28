@@ -56,7 +56,9 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	texture = LoadTexture((j1Entity*)this, App->entitymanager->allTextures);
 
 	rect = north.GetCurrentFrame();
-	App->audio->PlayFx(App->audio->boat_spawn);
+	//App->audio->PlayFx(App->audio->boat_spawn);
+	App->audio->PlaySpatialFx(App->audio->boat_spawn, App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }), App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+	
 }
 
 j1Boat::~j1Boat()

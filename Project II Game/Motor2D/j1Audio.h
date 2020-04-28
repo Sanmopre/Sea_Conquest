@@ -7,10 +7,11 @@
 #include <list>
 #include <iterator>
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
-
+#define RAD_TO_DEG 57.32f				// The result of 180 / 3.14 for pass radiants to degrees
+#define MAX_DISTANCE 255				// The maximum distance where you can listen
 struct _Mix_Music;
 struct Mix_Chunk;
-
+typedef unsigned int uint;
 class j1Audio : public j1Module
 {
 public:
@@ -37,19 +38,22 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0, int volume = -1);
 	void StopFx(int channel = -1);
+	bool PlaySpatialFx(uint id, uint channel_angle = 1, uint distance = 1, int repeat = 0);
+	uint GetAngle(iPoint player_pos, iPoint enemy_pos);
+	uint GetDistance(iPoint player_pos, iPoint enemy_pos);
 
-	unsigned int boat_attack;
-	unsigned int boat_destroy;
-	unsigned int boat_spawn;
-	unsigned int harvester_destroy;
-	unsigned int harvester_spawn;
-	unsigned int harvester_work;
-	unsigned int structure_build;
-	unsigned int structure_destroy;
-	unsigned int ui_open;
-	unsigned int ui_purchase;
-	unsigned int ui_wood_hit;
-	unsigned int logo_audio;
+	uint boat_attack;
+	uint boat_destroy;
+	uint boat_spawn;
+	uint harvester_destroy;
+	uint harvester_spawn;
+	uint harvester_work;
+	uint structure_build;
+	uint structure_destroy;
+	uint ui_open;
+	uint ui_purchase;
+	uint ui_wood_hit;
+	uint logo_audio;
 
 	//_Mix_Music* mainmenu_music;
 	//_Mix_Music* ingame_chill_music;
