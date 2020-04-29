@@ -53,6 +53,9 @@ bool j1Image::Start()
 	if (textureType == TEXTURE::GODMODE)
 		texture = App->gui->Load_Texture(TEXTURE::GODMODE);
 
+	if (textureType == TEXTURE::INFO_IMAGE)
+		texture = App->gui->Load_Texture(TEXTURE::INFO_IMAGE);
+
 	return true;
 }
 

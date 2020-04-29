@@ -22,6 +22,7 @@ struct Unit_Manager_UI {
 	j1Element* buton_prev;
 	j1Element* image;
 	j1Element* entity_type_Image;
+	j1Element* info;
 };
 
 struct In_Game_Basics {
@@ -109,6 +110,21 @@ struct GodMode {
 	j1Element* Image;
 };
 
+struct Information {
+	j1Element* Image;
+	j1Element* Text;
+	j1Element* Health;
+	j1Element* Attack;
+	j1Element* Max_resource;
+	j1Element* Speed;
+
+	char health_text[10];
+	char attack_text[10];
+	char max_resource_text[10];
+	char speed_text[10];
+
+	bool in_info = false;
+};
 
 
 struct SDL_Texture;
@@ -176,6 +192,10 @@ public:
 	void Activate_Defeat_Menu();
 	void Deactivate_Defeat_Menu();
 
+	//INFORMATION
+	void Activate_Information();
+	void Deactivate_Information();
+
 	//BAR UPDATES
 	void Update_Bar(j1Element* scroll, float resource, float total_resource, Material material);
 	void Update_Bar_Trader(j1Element* scroll, float resource, float total_resource, Material material);
@@ -240,6 +260,7 @@ private:
 	char metal_t[10];
 
 	bool in_hover = false;
+	bool in_hover_info = false;
 
 	//menu ui
 	Game_Menu menu;
@@ -255,6 +276,7 @@ private:
 	Cost cost;
 	Resources resources;
 	GodMode godmode;
+	Information information;
 
 	//ENtities
 	Building_Menu building;

@@ -90,6 +90,14 @@ bool j1InGameUI::Update(float dt)
 	}
 
 
+	//UPDATE INFORMATION
+	if (selected != nullptr) {
+		sprintf_s(information.attack_text, 10, "%7d", 500);
+		sprintf_s(information.health_text, 10, "%7d", 10);
+		sprintf_s(information.max_resource_text, 10, "%7d", 100);
+		sprintf_s(information.speed_text, 10, "%7d", 1000);
+	}
+
 	//UPDATE RESOURCES
 	if (selected != nullptr) {
 		sprintf_s(cotton_resource, 10, "%7d", selected->load.cotton);
@@ -149,6 +157,13 @@ bool j1InGameUI::Update(float dt)
 			App->fonts->BlitText(270, 485, 1, metal_t);
 		}
 
+		if (information.in_info == true) {
+			App->fonts->BlitText(100, 120, 1,information.attack_text);
+			App->fonts->BlitText(100, 150, 1, information.health_text);
+			App->fonts->BlitText(100, 180, 1, information.speed_text);
+			App->fonts->BlitText(100, 210, 1, information.max_resource_text);
+		}
+
 	}
 
 	//MENU FROM ESC
@@ -164,6 +179,10 @@ bool j1InGameUI::Update(float dt)
 	if(in_hover == false)
 	Deactivate_Cost_Menu();
 
+	if (in_hover_info == false)
+	Deactivate_Information();
+
+	in_hover_info = false;
 	in_hover = false;
 	////////////////////////////////////////////////////
 
@@ -186,9 +205,18 @@ bool j1InGameUI::Update(float dt)
 		godmode.Image->enabled = false;
 	}
 	
+
+
+	//MANAGE THE INFO BUTTTON 
+	//TEMPORAL FIX
+	///////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////
+	if (in_trading == true)
+		manager.info->enabled = false;
+	///////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////
+
 	return true;
-
-
 }
 
 bool j1InGameUI::CleanUp()
@@ -203,7 +231,7 @@ void j1InGameUI::Add_UI()
 {
 	//MENU
 	menu.Menu_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, {width -50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this,false, false, SCROLL_TYPE::SCROLL_NONE,true, TEXTURE::OPTIONS);
-	menu.Return_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH-140 }, { 40,30 }, true, false, { 0,0,200,65 }, "MORE RESOURCES", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.Return_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH-140 }, { 40,30 }, true, false, { 0,0,200,65 }, "ADD RESOURCES", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.Resume_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH -60}, { 60,30 }, true, false, { 0,0,200,65 }, "RESUME", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.Exit_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH + 15 }, {60,30 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.Save = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +90 }, { 70,30 }, true, false, { 0,0,200,65 }, "QUIT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
@@ -215,7 +243,7 @@ void j1InGameUI::Add_UI()
 	manager.image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW - 470,525 }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this,false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MANAGER_IMAGE);
 	manager.button_next = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW - 510,585 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::PREV);
 	manager.buton_prev = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW -120,585 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NEXT);
-	
+	manager.info = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW - 180,545 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::INFO);
 	
 	//BOAT_MENU
 	boat.entity_name_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT ", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
@@ -291,6 +319,14 @@ void j1InGameUI::Add_UI()
 	//GODMODE
 	godmode.Godmode_Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 25, 78 }, { 0,0 }, true, true, { 0,0,40,40 }, "GOD MODE ACTIVATED!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	godmode.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 10,63 }, { 0,0 }, true, false, { 0, 0,145,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::GODMODE);
+
+	//INFORMATION
+	information.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {20,50 }, { 0,0 }, true, false, { 0, 0,200,200 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::INFO_IMAGE);
+	information.Text = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 90, 70 }, { 0,0 }, true, true, { 0,0,40,40 }, "UNIT STATS", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	information.Attack = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 30, 120 }, { 0,0 }, true, true, { 0,0,40,40 }, "ATTACK", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	information.Health = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 30, 150 }, { 0,0 }, true, true, { 0,0,40,40 }, "HEALTH", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	information.Speed = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 30, 180 }, { 0,0 }, true, true, { 0,0,40,40 }, "SPEED", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	information.Max_resource= App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 30, 210 }, { 0,0 }, true, true, { 0,0,40,40 }, "MAX RESOURCE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 }
 
 void j1InGameUI::Activate_Menu()
@@ -555,6 +591,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			wood = 0;
 			metal = 30;
 		}
+		if (element == manager.info) {
+			Activate_Information();
+		}
 		
 
 	}	
@@ -688,6 +727,30 @@ void j1InGameUI::Deactivate_Defeat_Menu()
 	defeat.Back_button->enabled = false;
 	defeat.Image->enabled = false;
 	defeat.Label->enabled = false;
+}
+
+void j1InGameUI::Activate_Information()
+{
+	information.Image->enabled = true;
+	information.Text->enabled = true;
+	information.Health->enabled = true;
+	information.Attack->enabled = true;
+	information.Speed->enabled = true;
+	information.Max_resource->enabled = true;
+	information.in_info = true;
+	in_hover_info = true;
+}
+
+void j1InGameUI::Deactivate_Information()
+{
+	information.Image->enabled = false;
+	information.Text->enabled = false;
+	information.Health->enabled = false;
+	information.Attack->enabled = false;
+	information.Speed->enabled = false;
+	information.Max_resource->enabled = false;
+	information.in_info = false;
+	in_hover_info = false;
 }
 
 void j1InGameUI::Update_Bar(j1Element* scroll, float resource, float total_resource, Material material)
@@ -846,6 +909,7 @@ void j1InGameUI::Activate_Manager()
 		selected_offset = 0;
 	}
 	manager.image->enabled = true;
+	manager.info->enabled = true;
 }
 
 void j1InGameUI::Deactivate_Manager()
@@ -853,6 +917,7 @@ void j1InGameUI::Deactivate_Manager()
 	manager.button_next->enabled = false;
 	manager.buton_prev->enabled = false;
 	manager.image->enabled = false;
+	manager.info->enabled = false;
 }
 
 void j1InGameUI::GetSelectedEntity()

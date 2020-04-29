@@ -174,6 +174,12 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::GODMODE:
 		texture_load = App->tex->Load("textures/godmode.png");
 		break;
+	case TEXTURE::INFO:
+		texture_load = App->tex->Load("textures/info.png");
+		break;
+	case TEXTURE::INFO_IMAGE:
+		texture_load = App->tex->Load("textures/info_image.png");
+		break;
 	}
 
 	return texture_load;

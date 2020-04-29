@@ -59,6 +59,8 @@ enum class TEXTURE
 	STORAGE,
 	COST,
 	GODMODE,
+	INFO,
+	INFO_IMAGE,
 	NONE
 };
 
