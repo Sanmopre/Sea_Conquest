@@ -92,10 +92,11 @@ bool j1InGameUI::Update(float dt)
 
 	//UPDATE INFORMATION
 	if (selected != nullptr) {
-		sprintf_s(information.attack_text, 10, "%7d", 500);
-		sprintf_s(information.health_text, 10, "%7d", 10);
-		sprintf_s(information.max_resource_text, 10, "%7d", 100);
-		sprintf_s(information.speed_text, 10, "%7d", 1000);
+		sprintf_s(information.attack_text, 10, "%7d", 50);
+		information.health = selected->max_health;
+		sprintf_s(information.health_text, 10, "%7d", information.health);
+		sprintf_s(information.max_resource_text, 10, "%7d", selected->load.maxweight);
+		sprintf_s(information.speed_text, 10, "%7d", 100);
 	}
 
 	//UPDATE RESOURCES

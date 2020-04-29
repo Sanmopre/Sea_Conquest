@@ -122,7 +122,7 @@ struct Information {
 	char attack_text[10];
 	char max_resource_text[10];
 	char speed_text[10];
-
+	int health;
 	bool in_info = false;
 };
 
