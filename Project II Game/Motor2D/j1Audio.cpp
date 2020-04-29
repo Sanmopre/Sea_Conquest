@@ -66,7 +66,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 
 	//mainmenu_music = Mix_LoadMUS("audio/music/Motorista_Reciclista_Shop1_start.wav");
 	//ingame_chill_music = Mix_LoadMUS("audio/music/Sea_conquest_chill_cutre.wav");
-	mainmenu_music = LoadFx("audio/music/Motorista_Reciclista_Shop1_start.wav");
+	mainmenu_music = LoadFx("audio/music/tavern_song.wav");
 	ingame_chill_music = LoadFx("audio/music/song.wav");
 	return ret;
 }
