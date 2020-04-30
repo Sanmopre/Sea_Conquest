@@ -55,6 +55,7 @@ public:
 	uint ui_wood_hit;
 	uint logo_audio;
 	uint welcome_voice;
+	uint start;
 
 	//_Mix_Music* mainmenu_music;
 	//_Mix_Music* ingame_chill_music;
