@@ -14,6 +14,18 @@ BUILD_10_BOATS,
 NONE
 };
 
+struct Quest {
+	int total;
+	char total_t[5];
+	int current;
+	char current_t[5];
+	int reward;
+	char reward_t[5];
+
+	j1Element* text;
+	j1Element* image;
+	j1Element* reward_image;
+};
 
 struct QuestManagerUI {
 	j1Element* image_open;
@@ -34,7 +46,7 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 
-	void Set_Quest(QUEST quest = QUEST::NONE);
+	QUEST Set_Quest(QUEST quest = QUEST::NONE);
 	void Restart_Quest(QUEST quest = QUEST::NONE);
 	void Cancel_Quest(QUEST quest = QUEST::NONE);
 	void Finish_Quest(QUEST quest = QUEST::NONE);
@@ -44,9 +56,11 @@ public:
 	void Open_Quest_Manager();
 	void GUI_Event_Manager(GUI_Event type, j1Element* element);
 public:
-
+	bool quest_manager_open = false;
+	QUEST current_quest = QUEST::NONE;
 private:
 	QuestManagerUI manager;
+	Quest main_quest;
 };
 
 

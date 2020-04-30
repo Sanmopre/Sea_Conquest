@@ -38,12 +38,16 @@ bool j1QuestManager::Start()
 	manager.image_close = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 950 ,15 }, { 0,0 }, true, false, { 0, 0,180,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::QUEST_IMAGE_CLOSE);
 	manager.image_open = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 950 ,15 + 30 }, { 0,0 }, true, false, { 0, 0,180,180 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::QUEST_IMAGE_OPEN);
 
+	current_quest = Set_Quest(QUEST::BUILD_10_BOATS);
 	return true;
 }
 
 bool j1QuestManager::Update(float dt)
 {
-
+	switch (current_quest) {
+	case QUEST::BUILD_10_BOATS:
+		break;
+	}
 	return true;
 }
 
@@ -52,8 +56,21 @@ bool j1QuestManager::CleanUp()
 	return false;
 }
 
-void j1QuestManager::Set_Quest(QUEST quest)
+QUEST j1QuestManager::Set_Quest(QUEST quest)
 {
+	switch (quest)
+	{
+	case QUEST::BUILD_10_BOATS:
+		main_quest.total = 10;
+		main_quest.reward = 10;
+		main_quest.current = 0;
+		return QUEST::BUILD_10_BOATS;
+	break;
+	}
+
+
+	
+	return QUEST::NONE;
 }
 
 void j1QuestManager::Restart_Quest(QUEST quest)
@@ -73,6 +90,7 @@ void j1QuestManager::Close_Quest_Manager()
 	manager.button->enabled = false;
 	manager.image_close->enabled = false;
 	manager.image_open->enabled = false;
+	quest_manager_open = false;
 }
 
 void j1QuestManager::Open_Quest_Manager()
@@ -92,6 +110,10 @@ void j1QuestManager::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		App->audio->PlayFx(App->audio->ui_wood_hit);
 		if (element == manager.button) {
 			manager.image_open->enabled = !manager.image_open->enabled;
+			if(manager.image_open->enabled == true)
+				quest_manager_open = true;
+			else 
+				quest_manager_open = false;
 		}
 	}
 	break;
