@@ -11,6 +11,7 @@
 #include "j1SceneManager.h"
 #include "j1MainMenuUI.h"
 #include "j1TransitionManager.h"
+#include "j1QuestManager.h"
 #include <vector>
 #include <iostream>
 
@@ -996,6 +997,7 @@ void j1InGameUI::Deactivate_All_UI()
 	Deactivate_Defeat_Menu();
 	Deactivate_Win_Menu();
 	Deactivate_Resource_Menu();
+	App->quest->Close_Quest_Manager();
 
 	menu.Resume_button->enabled = false;
 	menu.Return_button->enabled = false;
@@ -1011,4 +1013,5 @@ void j1InGameUI::Deactivate_All_UI()
 void j1InGameUI::Activate_Necessary_UI() {
 	basics.Image->enabled = true;
 	menu.Menu_button->enabled = true;
+	App->quest->Open_Quest_Manager();
 }

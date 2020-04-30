@@ -56,6 +56,12 @@ bool j1Image::Start()
 	if (textureType == TEXTURE::INFO_IMAGE)
 		texture = App->gui->Load_Texture(TEXTURE::INFO_IMAGE);
 
+	if (textureType == TEXTURE::QUEST_IMAGE_CLOSE)
+		texture = App->gui->Load_Texture(TEXTURE::QUEST_IMAGE_CLOSE);
+
+	if (textureType == TEXTURE::QUEST_IMAGE_OPEN)
+		texture = App->gui->Load_Texture(TEXTURE::QUEST_IMAGE_OPEN);
+
 	return true;
 }
 

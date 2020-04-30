@@ -74,6 +74,9 @@ bool j1Button::Start()
 
 	if (textureType == TEXTURE::INFO)
 		texture = App->gui->Load_Texture(TEXTURE::INFO);
+	
+	if (textureType == TEXTURE::QUEST_CLOSE)
+		texture = App->gui->Load_Texture(TEXTURE::QUEST_CLOSE);
 
 	if (text != nullptr)
 		label = App->gui->AddElement(GUItype::GUI_LABEL, this, map_position, inside_position, true, true, { 0,0,0,0 }, text);

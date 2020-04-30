@@ -2,6 +2,7 @@
 #define __j1QUESTMANAGER_H__
 
 #include "j1Module.h"
+#include "p2Point.h"
 
 struct SDL_Texture;
 
@@ -12,6 +13,7 @@ KILL_ENEMY_BASE,
 BUILD_10_BOATS,
 NONE
 };
+
 
 struct QuestManagerUI {
 	j1Element* image_open;
@@ -36,6 +38,11 @@ public:
 	void Restart_Quest(QUEST quest = QUEST::NONE);
 	void Cancel_Quest(QUEST quest = QUEST::NONE);
 	void Finish_Quest(QUEST quest = QUEST::NONE);
+
+
+	void Close_Quest_Manager();
+	void Open_Quest_Manager();
+	void GUI_Event_Manager(GUI_Event type, j1Element* element);
 public:
 
 private:
