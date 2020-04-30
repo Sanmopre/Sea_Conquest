@@ -7,6 +7,8 @@
 #include "j1Input.h"
 #include "j1Map.h"
 #include "j1SceneManager.h"
+#include "j1Entities.h"
+#include "j1EntityManager.h"
 
 #include "p2Log.h"
 #include <list>
@@ -31,6 +33,8 @@ bool j1Minimap::Start()
 	minimap_tex = App->tex->Load("textures/minimap.png");
 	minimap_camera = App->tex->Load("textures/minimap_camera.png");
 
+	enemy = App->tex->Load("textures/enemy_unit.png");
+	ally = App->tex->Load("textures/friend_unit.png");
 	return true;
 }
 
@@ -60,7 +64,7 @@ bool j1Minimap::CleanUp()
 
 void j1Minimap::DrawCamera()
 {
-	App->render->AddBlitEvent(6, minimap_camera, 128 + position.x - App->render->camera.x/App->win->scale - (App->render->camera.x / 50) / App->win->scale, position.y - App->render->camera.y / App->win->scale - (App->render->camera.y / 50) / App->win->scale, cameraminimap, false);
+	App->render->AddBlitEvent(6, minimap_camera, 128 + position.x - App->render->camera.x - (App->render->camera.x / 50), position.y - App->render->camera.y - (App->render->camera.y / 50), cameraminimap, false);
 }
 
 void j1Minimap::MinimapToWorldCamera()
@@ -76,6 +80,26 @@ void j1Minimap::MinimapToWorldCamera()
 	}
 	else {
 		clicking_map = false;
+	}
+}
+
+void j1Minimap::Draw_entities()
+{
+
+	for (std::vector<j1Entity*>::iterator i = App->entitymanager->entities.begin(); i != App->entitymanager->entities.end(); i++)
+	{
+		if ((*i)->team == 1)
+		{
+			
+			App->render->AddBlitEvent(6, ally,128 +  position.x + (*i)->position.x/50 - App->render->camera.x, position.y + (*i)->position.y / 50 - App->render->camera.y ,unit, false);
+
+		}
+		else if ((*i)->team == 2) {
+
+			App->render->AddBlitEvent(6, enemy, 128 + position.x + (*i)->position.x / 50 - App->render->camera.x, position.y + (*i)->position.y / 50 - App->render->camera.y , unit, false);
+
+		}
+			
 	}
 }
 

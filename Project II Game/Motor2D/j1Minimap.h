@@ -29,11 +29,15 @@ public:
 
 	void DrawCamera();
 	void MinimapToWorldCamera();
-
+	void Draw_entities();
 
 	SDL_Texture* minimap_tex = nullptr;
 	SDL_Texture* minimap_camera = nullptr;
 
+	SDL_Texture* enemy = nullptr;
+	SDL_Texture* ally = nullptr;
+
+	SDL_Rect unit = { 0,0,2,2 };
 	SDL_Rect rect = {0,0,256,128};
 	SDL_Rect cameraminimap = {0,0,26,15};
 
