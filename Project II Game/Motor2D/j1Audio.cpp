@@ -63,6 +63,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	ui_purchase = App->audio->LoadFx("audio/fx/ui_purchase.wav");
 	ui_wood_hit = App->audio->LoadFx("audio/fx/uiclick.wav");
 	logo_audio = App->audio->LoadFx("audio/fx/logo_intro.wav");
+	welcome_voice = App->audio->LoadFx("audio/fx/welcome.wav");
 
 	//mainmenu_music = Mix_LoadMUS("audio/music/Motorista_Reciclista_Shop1_start.wav");
 	//ingame_chill_music = Mix_LoadMUS("audio/music/Sea_conquest_chill_cutre.wav");

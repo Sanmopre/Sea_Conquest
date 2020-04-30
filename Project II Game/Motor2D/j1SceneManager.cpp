@@ -157,6 +157,7 @@ int j1SceneManager::ChangeScene(int scene)
 		//App->audio->PlayMusic("audio/music/Motorista_Reciclista_Shop1_start.wav", 2.0f, App->audio->mainmenu_music);
 		App->audio->StopFx(-1);
 		App->audio->PlayFx(App->audio->mainmenu_music, -1);
+		App->audio->PlayFx(App->audio->welcome_voice, 0);
 		App->render->camera.x = 0;
 		App->render->camera.y = 0;
 		App->win->scale = 1;
