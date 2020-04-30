@@ -34,6 +34,10 @@ public:
 	SDL_Texture* minimap_tex = nullptr;
 	SDL_Texture* minimap_camera = nullptr;
 
+	//UNITS in minimap
+	SDL_Texture* metal= nullptr;
+	SDL_Texture* wood = nullptr;
+	SDL_Texture* cotton = nullptr;
 	SDL_Texture* enemy = nullptr;
 	SDL_Texture* ally = nullptr;
 

@@ -35,6 +35,10 @@ bool j1Minimap::Start()
 
 	enemy = App->tex->Load("textures/enemy_unit.png");
 	ally = App->tex->Load("textures/friend_unit.png");
+
+	cotton = App->tex->Load("textures/cotton_mini.png");
+	metal = App->tex->Load("textures/metal_mini.png");
+	wood = App->tex->Load("textures/wood_mini.png");
 	return true;
 }
 
@@ -97,6 +101,21 @@ void j1Minimap::Draw_entities()
 		else if ((*i)->team == 2) {
 
 			App->render->AddBlitEvent(6, enemy, 128 + position.x + (*i)->position.x / 50 - App->render->camera.x, position.y + (*i)->position.y / 50 - App->render->camera.y , unit, false);
+
+		}
+		else if ((*i)->type == EntityType::ALL_COTTON) {
+
+			App->render->AddBlitEvent(6, cotton, 128 + position.x + (*i)->position.x / 50 - App->render->camera.x, position.y + (*i)->position.y / 50 - App->render->camera.y, unit, false);
+
+		}
+		else if ((*i)->type == EntityType::ALL_WOOD) {
+
+			App->render->AddBlitEvent(6, wood, 128 + position.x + (*i)->position.x / 50 - App->render->camera.x, position.y + (*i)->position.y / 50 - App->render->camera.y, unit, false);
+
+		}
+		else if ((*i)->type == EntityType::ALL_METAL) {
+
+			App->render->AddBlitEvent(6, metal, 128 + position.x + (*i)->position.x / 50 - App->render->camera.x, position.y + (*i)->position.y / 50 - App->render->camera.y, unit, false);
 
 		}
 			
