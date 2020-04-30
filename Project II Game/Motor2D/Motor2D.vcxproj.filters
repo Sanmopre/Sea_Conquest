@@ -160,6 +160,9 @@
     <ClCompile Include="j1Unit.cpp">
       <Filter>Desenvolupament  ========\Entities\Primitives</Filter>
     </ClCompile>
+    <ClCompile Include="j1QuestManager.cpp">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -302,6 +305,9 @@
     </ClInclude>
     <ClInclude Include="j1LogoScene.h">
       <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="j1QuestManager.h">
+      <Filter>Desenvolupament  ========\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

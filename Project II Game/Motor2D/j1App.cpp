@@ -26,6 +26,7 @@
 #include "j1MainMenuUI.h"
 #include "j1Minimap.h"
 #include "j1Font.h"
+#include "j1QuestManager.h"
 #include <thread>
 
 
@@ -57,6 +58,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	mainmenu = new j1MainMenuUI();
 	minimap = new j1Minimap();
 	font = new j1Font();
+	quest = new j1QuestManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -81,7 +83,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(gui);
 
 	AddModule(transitions);
-
+	AddModule(quest);
 	AddModule(entitymanager);
 	AddModule(pathfinding);
 
