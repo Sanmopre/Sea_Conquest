@@ -114,6 +114,12 @@ bool j1InGameUI::Update(float dt)
 		sprintf_s(metal_t, 10, "%7d", metal);
 	}
 
+	//COIN COST UPDATE
+	if (in_hover_coin_cost == true) {
+		sprintf_s(coin_cost_t, 10, "%7d", coin_cost);
+	}
+	
+	sprintf_s(coins_t, 10, "%7d", coins);
 
 	//TRADING RESOURCES
 	if (selected != nullptr) {
@@ -134,9 +140,9 @@ bool j1InGameUI::Update(float dt)
 	if (App->scenemanager->In_Main_Menu == false) {
 
 		if (selected_total != 0) {
-			App->fonts->BlitText(10, 10, 1, cotton_resource);
-			App->fonts->BlitText(120, 10, 1, wood_resource);
-			App->fonts->BlitText(240, 10, 1, metal_resource);
+			App->fonts->BlitText(0, 8, 1, cotton_resource);
+			App->fonts->BlitText(120, 8, 1, wood_resource);
+			App->fonts->BlitText(245, 8, 1, metal_resource);
 		}
 
 		if (in_trading == true) {
@@ -166,6 +172,13 @@ bool j1InGameUI::Update(float dt)
 			App->fonts->BlitText(100, 210, 1, information.max_resource_text);
 		}
 
+		if (in_hover_coin_cost == true) {
+			App->fonts->BlitText(70, 485, 1, coin_cost_t);
+		}
+
+		if (in_townhall == true) {
+			App->fonts->BlitText(105, 660, 1, coins_t);
+		}
 	}
 
 	//MENU FROM ESC
@@ -184,6 +197,10 @@ bool j1InGameUI::Update(float dt)
 	if (in_hover_info == false)
 	Deactivate_Information();
 
+	if (in_hover_coin_cost == false)
+	Deactivate_Coin_Cost();
+
+	in_hover_coin_cost = false;
 	in_hover_info = false;
 	in_hover = false;
 	////////////////////////////////////////////////////
@@ -259,10 +276,13 @@ void j1InGameUI::Add_UI()
 	harvester.Trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 120,655 }, { 0,0 }, true, true, { 0,0,30,30 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
 	harvester.boathouse = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 110,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUILDING_IMAGE);
 	harvester.Storage = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 145,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::STORAGE);
+	harvester.Automatic = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW - 180,655 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::AUTOMATIC);
 
 	//TOWNHALL
 	townhall.entity_name_townhall = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, true, { 0,0,40,40 }, "TOWNHALL", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	townhall.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TOWNHALL);
+	townhall.coins_image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 120,655 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::COIN);
+	townhall.lvl_up = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 110,600 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::LVLUP);
 
 	//BOAT_BUILDER_MENU
 	building.Boat_Building_Button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 110,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BOAT_IMAGE);
@@ -329,6 +349,9 @@ void j1InGameUI::Add_UI()
 	information.Health = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 30, 150 }, { 0,0 }, true, true, { 0,0,40,40 }, "HEALTH", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	information.Speed = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 30, 180 }, { 0,0 }, true, true, { 0,0,40,40 }, "SPEED", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	information.Max_resource= App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 30, 210 }, { 0,0 }, true, true, { 0,0,40,40 }, "MAX RESOURCE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+
+	//COINCOST
+	coincost.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 95,475 }, { 0,0 }, true, true, { 0, 0,100,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::COIN_COST);
 }
 
 void j1InGameUI::Activate_Menu()
@@ -352,6 +375,18 @@ void j1InGameUI::Deactivate_Cost_Menu()
 {
 	cost.Image->enabled = false;
 	in_hover = false;
+}
+
+void j1InGameUI::Activate_Coin_Cost()
+{
+	in_hover_coin_cost = true;
+	coincost.Image->enabled = true;
+}
+
+void j1InGameUI::Deactivate_Coin_Cost()
+{
+	in_hover_coin_cost = false;
+	coincost.Image->enabled = false;
 }
 
 void j1InGameUI::Activate_Trading()
@@ -597,6 +632,10 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			Activate_Information();
 		}
 		
+		if (element == townhall.lvl_up) {
+			Activate_Coin_Cost();
+			coin_cost = 10;
+		}
 
 	}	
 }
@@ -660,6 +699,7 @@ void j1InGameUI::Activate_Harvester_Menu()
 	harvester.Trade->enabled = true;
 	harvester.boathouse->enabled = true;
 	harvester.Storage->enabled = true;
+	harvester.Automatic->enabled = true;
 }
 
 void j1InGameUI::Deactivate_Harvester_Menu()
@@ -669,18 +709,25 @@ void j1InGameUI::Deactivate_Harvester_Menu()
 	harvester.Trade->enabled = false;
 	harvester.boathouse->enabled = false;
 	harvester.Storage->enabled = false;
+	harvester.Automatic->enabled = false;
 }
 
 void j1InGameUI::Activate_Townhall_Menu()
 {
 	townhall.entity_name_townhall->enabled = true;
 	townhall.entity_type_Image->enabled = true;
+	townhall.coins_image->enabled = true;
+	townhall.lvl_up->enabled = true;
+	in_townhall = true;
 }
 
 void j1InGameUI::Deactivate_Townhall_Menu()
 {
 	townhall.entity_name_townhall->enabled = false;
 	townhall.entity_type_Image->enabled = false;
+	townhall.coins_image->enabled = false;
+	townhall.lvl_up->enabled = false;
+	in_townhall = false;
 }
 
 void j1InGameUI::Activate_Storage_Menu()

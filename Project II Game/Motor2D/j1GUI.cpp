@@ -186,8 +186,20 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::QUEST_IMAGE_CLOSE:
 		texture_load = App->tex->Load("textures/quest_close.png");
 		break;
+	case TEXTURE::LVLUP:
+		texture_load = App->tex->Load("textures/lvlup.png");
+		break;
 	case TEXTURE::QUEST_IMAGE_OPEN:
 		texture_load = App->tex->Load("textures/quest_open.png");
+		break;
+	case TEXTURE::COIN:
+		texture_load = App->tex->Load("textures/coin.png");
+		break;
+	case TEXTURE::AUTOMATIC:
+		texture_load = App->tex->Load("textures/automatic.png");
+		break;
+	case TEXTURE::COIN_COST:
+		texture_load = App->tex->Load("textures/coin_cost.png");
 		break;
 	}
 

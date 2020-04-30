@@ -46,6 +46,8 @@ struct Boat_Menu {
 struct Townhall_Menu {
 	j1Element* entity_type_Image;
 	j1Element* entity_name_townhall;
+	j1Element* coins_image;
+	j1Element* lvl_up;
 };
 
 struct Harvester_Menu {
@@ -54,6 +56,7 @@ struct Harvester_Menu {
 	j1Element* boathouse;
 	j1Element* Storage;
 	j1Element* Trade;
+	j1Element* Automatic;
 };
 
 struct Trading_Menu_Selected {
@@ -61,6 +64,10 @@ struct Trading_Menu_Selected {
 	j1Element* Scroll_1;
 	j1Element* Scroll_2;
 	j1Element* back;
+};
+
+struct CoinCost {
+	j1Element* Image;
 };
 
 struct Trader_Menu {
@@ -152,6 +159,10 @@ public:
 	//COST
 	void Activate_Cost_Menu();
 	void Deactivate_Cost_Menu();
+
+	//COIN COST
+	void Activate_Coin_Cost();
+	void Deactivate_Coin_Cost();
 
 	//TRADING OPTIONS
 	void Activate_Trading();
@@ -254,14 +265,24 @@ private:
 	int wood = 0;
 	int cotton = 0;
 	int metal = 0;
-
+	
 	char wood_t[10];
 	char cotton_t[10];
 	char metal_t[10];
 
+
+	//COINS
+	int coins = 0;
+	char coins_t[10];
+
+	int coin_cost = 0;
+	char coin_cost_t[10];
+
+
 	bool in_hover = false;
 	bool in_hover_info = false;
-
+	bool in_hover_coin_cost = false;
+	bool in_townhall = false;
 	//menu ui
 	Game_Menu menu;
 	Unit_Manager_UI manager;
@@ -277,6 +298,7 @@ private:
 	Resources resources;
 	GodMode godmode;
 	Information information;
+	CoinCost coincost;
 
 	//ENtities
 	Building_Menu building;
