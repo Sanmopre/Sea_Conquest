@@ -73,9 +73,10 @@ void j1MainMenuUI::Add_UI()
 	//MENU
 	menu.start = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,240 }, { 75,25 }, true, false, { 0,0,200,65 }, "START", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.audio_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540, 325}, { 65,25 }, true, false, { 0,0,200,65 }, "AUDIO OPT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.quit = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,495 }, { 75,25 }, true, false, { 0,0,200,65 }, "QUIT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.quit = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,580 }, { 75,25 }, true, false, { 0,0,200,65 }, "QUIT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.fullscreen = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,410 }, { 65,25 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.link = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 1220,660 }, { 0,0 }, true, false, { 0,0,60,60 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::LINK);
+	menu.instructions = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,495 }, { 55,25 }, true, false, { 0,0,200,65 }, "INSTRUCTIONS", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	//AUDIO OPTIONS
 	menu.music = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 820, 330 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
 	menu.music_label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 850,300 }, { 0,0 }, true, false, { 0,0,40,40 }, "MUSIC", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
@@ -94,6 +95,7 @@ void j1MainMenuUI::Activate_Menu()
 	menu.quit->enabled = true;
 	menu.fullscreen->enabled = true;
 	menu.link->enabled = true;
+	menu.instructions->enabled = true;
 }
 
 void j1MainMenuUI::Deactivate_Menu()
@@ -103,6 +105,7 @@ void j1MainMenuUI::Deactivate_Menu()
 	menu.quit->enabled = false;
 	menu.fullscreen->enabled = false;
 	menu.link->enabled = false;
+	menu.instructions->enabled = false;
 }
 
 void j1MainMenuUI::Activate_Audio_Options()
@@ -163,6 +166,10 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == menu.link)
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II", NULL, NULL, SW_SHOWNORMAL);
+		}
+		if (element == menu.instructions)
+		{
+			ShellExecuteA(NULL, "open", "https://www.youtube.com/watch?v=FTQbiNvZqaY", NULL, NULL, SW_SHOWNORMAL);
 		}
 		
 	}
