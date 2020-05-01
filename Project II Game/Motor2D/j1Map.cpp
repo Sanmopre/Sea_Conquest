@@ -104,13 +104,6 @@ void j1Map::CreateNodeMap()
 			}
 		}
 	}
-	LOG("asodufhasd");
-	//for (int y = 0; y < data.height; ++y)
-	//	for (int x = 0; x < data.width; ++x)
-	//	{
-	//		Node n(x, y, WATER);
-	//		App->pathfinding->NodeMap.push_back(n);
-	//	}
 }
 
 int Properties::Get(const char* value, int default_value) const
