@@ -309,6 +309,7 @@
     <ClInclude Include="j1QuestManager.h">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -363,5 +364,11 @@
     <None Include="..\Game\maps\Mapa definitivo.tmx">
       <Filter>Desenvolupament  ========</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Development - Class 12 Handout.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\textures\Captura.ico" />
   </ItemGroup>
 </Project>
