@@ -201,6 +201,9 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::COIN_COST:
 		texture_load = App->tex->Load("textures/coin_cost.png");
 		break;
+    case TEXTURE::EXPLANATION:
+		texture_load = App->tex->Load("textures/explanation.png");
+		break;
 	}
 
 	return texture_load;

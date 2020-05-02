@@ -68,6 +68,7 @@ enum class TEXTURE
 	AUTOMATIC,
 	LVLUP,
 	COIN_COST,
+	EXPLANATION,
 	NONE
 };
 

@@ -67,6 +67,9 @@ bool j1Image::Start()
 
 	if (textureType == TEXTURE:: COIN_COST)
 		texture = App->gui->Load_Texture(TEXTURE::COIN_COST);
+
+	if (textureType == TEXTURE::EXPLANATION)
+		texture = App->gui->Load_Texture(TEXTURE::EXPLANATION);
 	return true;
 }
 

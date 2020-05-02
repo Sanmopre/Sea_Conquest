@@ -24,6 +24,7 @@ bool j1Explanation::Awake(pugi::xml_node& config)
 
 bool j1Explanation::Start()
 {
+	explanation.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 0,0 }, { 0,0 }, true, true, { 0, 0,400,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::EXPLANATION);
 	return true;
 }
 
@@ -35,4 +36,12 @@ bool j1Explanation::Update(float dt)
 bool j1Explanation::PostUpdate()
 {
 	return true;
+}
+
+void j1Explanation::Update_Position_(j1Element* element)
+{
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	element->map_position.x = x + 30;
+	element->map_position.y = y + 30;
 }

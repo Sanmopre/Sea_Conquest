@@ -4,6 +4,13 @@
 #include "j1Module.h"
 #include "p2Point.h"
 
+struct Explanation_UI 
+{
+	j1Element* Image;
+	j1Element* Text;
+};
+
+
 class j1Explanation : public j1Module
 {
 
@@ -17,8 +24,11 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 
+	void Update_Position_(j1Element* element);
 
 public:
+
+	Explanation_UI explanation;
 
 };
 
