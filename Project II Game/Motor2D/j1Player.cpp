@@ -15,6 +15,11 @@
 #include "j1InGameUI.h"
 #include "j1SceneManager.h"
 
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
 #include "j1EntityManager.h"
 
 #define X_DISTANCE 30
@@ -180,6 +185,14 @@ bool j1Player::CleanUp()
 	builder = nullptr;
 	return true;
 
+}
+
+int j1Player::Randon_Number(int minimum_value, int maximum_value)
+{
+	srand(time(0));
+	int number = 0;
+	number = rand() % maximum_value + minimum_value;
+	return number;
 }
 
 void j1Player::Camera_Control(float dt)
