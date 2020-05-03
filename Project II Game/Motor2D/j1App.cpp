@@ -27,6 +27,7 @@
 #include "j1Minimap.h"
 #include "j1Font.h"
 #include "j1QuestManager.h"
+#include "j1DialogSystem.h"
 #include <thread>
 
 
@@ -36,6 +37,7 @@
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
+	dialog = new j1DialogSystem();
 	input = new j1Input();
 	win = new j1Window();
 	render = new j1Render();
@@ -86,7 +88,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(quest);
 	AddModule(entitymanager);
 	AddModule(pathfinding);
-
+	AddModule(dialog);
 	AddModule(pmanager);
 	AddModule(scenemanager);
 

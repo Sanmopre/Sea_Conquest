@@ -89,6 +89,7 @@
     <ClCompile Include="j1BoatHouse.cpp" />
     <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1Color.cpp" />
+    <ClCompile Include="j1DialogSystem.cpp" />
     <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Explanation.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="animation.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="FadeToColor.h" />
+    <ClInclude Include="j1DialogSystem.h" />
     <ClInclude Include="j1Explanation.h" />
     <ClInclude Include="j1LogoScene.h" />
     <ClInclude Include="j1Color.h" />

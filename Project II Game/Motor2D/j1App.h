@@ -31,6 +31,7 @@ class j1MainMenuUI;
 class j1Minimap;
 class j1Font;
 class j1QuestManager;
+class j1DialogSystem;
 
 class j1App 
 {
@@ -118,6 +119,7 @@ public:
 	j1Minimap*				minimap = NULL;
 	j1Font*					font = NULL;
 	j1QuestManager*			quest = NULL;
+	j1DialogSystem*			dialog = NULL; 
 private:
 
 	p2List<j1Module*>	modules;

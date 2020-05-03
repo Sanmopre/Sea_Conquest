@@ -69,6 +69,7 @@ enum class TEXTURE
 	LVLUP,
 	COIN_COST,
 	EXPLANATION,
+	DIALOG,
 	NONE
 };
 
