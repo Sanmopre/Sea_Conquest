@@ -15,6 +15,7 @@ struct DialogSystem
 enum class Dialog
 {
 	PIRATE,
+	FUN,
 	NONE
 };
 
@@ -34,7 +35,13 @@ public:
 	void Hide_Dialogs();
 public:
 	iPoint position;
+	
+	
 	DialogSystem pirate;
+	DialogSystem pirate_fun; 
+
+
+
 	bool show_dialog = false;
 
 	timed_var timer;
