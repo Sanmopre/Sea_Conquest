@@ -4,6 +4,7 @@
 #include "j1Textures.h"
 #include "random.h"
 #include "j1Render.h"
+#include "p2Log.h"
 
 ParticleSystem::ParticleSystem(PARTICLE_TYPES _type, p2Point<float> location, int index, float _timer)
 {
@@ -12,23 +13,13 @@ ParticleSystem::ParticleSystem(PARTICLE_TYPES _type, p2Point<float> location, in
 	timer = _timer;
 	toDelete = false;
 
+	awakeningCounter = 0;
+	allParticlesAwake = false;
+
 	if (_timer == 0)
 		timeActive = false;
 	else
 		timeActive = true;
-
-	if (systemType == PARTICLE_TYPES::CLOUD)
-	{
-		numberOfParticles = 3;
-	}
-	else if (systemType == PARTICLE_TYPES::SMOKE || systemType == PARTICLE_TYPES::FIRE)
-	{
-		numberOfParticles = 6;
-	}
-	else
-	{
-		numberOfParticles = 20;
-	}
 
 	loadSystem();
 	activateSystem(index);
@@ -51,6 +42,7 @@ void ParticleSystem::loadSystem()
 		systemProps.rect = { 0, 0, 200, 200 };
 		systemProps.lifetimeSubstraction = 0;
 		systemProps.tex = App->pmanager->cloudTexture;
+		numberOfParticles = 3;
 	}
 	else if (systemProps.type == PARTICLE_TYPES::SMOKE)
 	{
@@ -59,6 +51,9 @@ void ParticleSystem::loadSystem()
 		systemProps.rect = { 0, 0, 7, 7 };
 		systemProps.lifetimeSubstraction = 0.5;
 		systemProps.tex = App->pmanager->smokeTexture;
+		numberOfParticles = 6;
+		systemProps.AwakeningDelay = 1;
+
 	}
 	else if (systemProps.type == PARTICLE_TYPES::FIRE)
 	{
@@ -67,6 +62,8 @@ void ParticleSystem::loadSystem()
 		systemProps.rect = { 0, 0, 7, 7 };
 		systemProps.lifetimeSubstraction = 1.;
 		systemProps.tex = App->pmanager->fireTexture;
+		numberOfParticles = 6;
+		systemProps.AwakeningDelay = 1;
 	}
 	else if (systemProps.type == PARTICLE_TYPES::EXPLOSION)
 	{
@@ -75,6 +72,7 @@ void ParticleSystem::loadSystem()
 		systemProps.rect = { 0, 0, 7, 7 };
 		systemProps.lifetimeSubstraction = 3;
 		systemProps.tex = App->pmanager->explosionTexture;
+		numberOfParticles = 20;
 	}
 	else if (systemProps.type == PARTICLE_TYPES::DUST)
 	{
@@ -83,6 +81,7 @@ void ParticleSystem::loadSystem()
 		systemProps.rect = { 0, 0, 25, 20 };
 		systemProps.lifetimeSubstraction = 1;
 		systemProps.tex = App->pmanager->dustTexture;
+		numberOfParticles = 3;
 	}
 	else
 	{
@@ -103,18 +102,28 @@ bool ParticleSystem::activateSystem(int index)
 	{
 		if (App->pmanager->particlePool[newIndex].active == true || newIndex >= 1499)
 		{
-			if(App->pmanager->updateIndex()) 
-			newIndex = App->pmanager->getIndex();
+			if (App->pmanager->updateIndex())
+				newIndex = App->pmanager->getIndex();
 		}
 
 		pReference = &(App->pmanager->particlePool[newIndex]);
 		pReference->loadProperties(systemProps);
 		pReference->switchParticleState();
 
+		if (systemProps.AwakeningDelay == 0)
+		{
+			pReference->awake = true;
+		}
+
 		*(referencesArray + counter) = pReference; //asigno la referencia de la particula cargada al lugar que le corresponde de 
 
 		newIndex++;
 		counter++;
+	}
+
+	if (systemProps.AwakeningDelay == 0)
+	{
+		allParticlesAwake = true;
 	}
 
 	App->pmanager->updateIndex();
@@ -131,6 +140,27 @@ void ParticleSystem::Update(float dt)
 		if (timer <= 0)
 		{
 			toDelete = true;
+		}
+	}
+
+	if (allParticlesAwake != true && systemProps.AwakeningDelay != 0)
+	{
+		systemProps.AwakeningDelay -= dt;
+
+		if (systemProps.AwakeningDelay <= 0)
+		{
+			if (awakeningCounter < numberOfParticles)
+			{
+				Particle* particle = *(referencesArray + awakeningCounter);
+				particle->awake = true;
+				LOG("particle active");
+
+				awakeningCounter++;
+			}
+			else
+				allParticlesAwake = true;
+
+			systemProps.AwakeningDelay = 1;
 		}
 	}
 }
