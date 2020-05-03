@@ -39,8 +39,9 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 
-	void Update_Position_(j1Element* element = nullptr);
-	void Change_Label(j1Element* element = nullptr, Text text = Text::NONE);
+	void Show_Information(Text text = Text::NONE);
+	void Update_Position(j1Element* element = nullptr);
+	j1Element* Change_Label( Text text = Text::NONE);
 
 public:
 
