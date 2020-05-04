@@ -56,9 +56,12 @@ public:
 	void Finish_Quest(QUEST quest = QUEST::NONE);
 	void Select_Quest_Text(QUEST quest = QUEST::NONE);
 
+	void Quest_Line(QUEST quest = QUEST::NONE);
 	void Close_Quest_Manager();
 	void Open_Quest_Manager();
 	void GUI_Event_Manager(GUI_Event type, j1Element* element);
+
+
 public:
 	bool quest_manager_open = false;
 	bool quest_activate = false;
@@ -68,6 +71,7 @@ private:
 	Quest main_quest;
 
 	j1Element* quest_explanation_build_boat = nullptr;
+	j1Element* quest_explanation_kill_boat = nullptr;
 };
 
 
