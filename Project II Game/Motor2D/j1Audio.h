@@ -8,7 +8,7 @@
 #include <iterator>
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
 #define RAD_TO_DEG 57.32f				// The result of 180 / 3.14 for pass radiants to degrees
-#define MAX_DISTANCE 255				// The maximum distance where you can listen
+#define MAX_DISTANCE 1000				// The maximum distance where you can listen
 struct _Mix_Music;
 struct Mix_Chunk;
 typedef unsigned int uint;

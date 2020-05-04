@@ -136,7 +136,7 @@ int j1SceneManager::ChangeScene(int scene)
 		App->scene->ChangeScene();
 		//App->audio->PlayMusic("audio/music/Sea_conquest_chill_cutre.wav", 2.0f, App->audio->ingame_chill_music);
 		App->audio->StopFx(-1);
-		App->audio->PlayFx(App->audio->ingame_chill_music, -1);
+		//App->audio->PlayFx(App->audio->ingame_chill_music, -1);
 		In_Main_Menu = false;
 		In_Logo_Scene = false;
 		return 1;

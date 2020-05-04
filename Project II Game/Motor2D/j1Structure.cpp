@@ -71,7 +71,9 @@ void j1Structure::Primitive_Update(float dt)
 		rect = built_rect;
 
 	if(health <= 0)
-		App->audio->PlayFx(App->audio->structure_destroy);
+		App->audio->PlaySpatialFx(App->audio->structure_destroy,
+			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 }
 
 void j1Structure::NotPlacedBehaviour()
@@ -87,7 +89,9 @@ void j1Structure::NotPlacedBehaviour()
 			if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 			{
 				CleanUp();
-				App->audio->PlayFx(App->audio->structure_destroy);
+				App->audio->PlaySpatialFx(App->audio->structure_destroy,
+					App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+					App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 			}
 		}
 	}

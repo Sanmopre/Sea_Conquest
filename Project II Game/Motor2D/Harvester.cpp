@@ -39,7 +39,7 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 
 	GetBasicAnimations();
 
-	App->audio->PlayFx(App->audio->harvester_spawn);
+	App->audio->PlaySpatialFx(App->audio->harvester_spawn, App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }), App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 }
 
 j1Harvester::~j1Harvester()
@@ -110,7 +110,10 @@ void j1Harvester::Update(float dt)
 				{
 					if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 					{
-						App->audio->PlayFx(App->audio->structure_build);
+						//App->audio->PlayFx(App->audio->structure_build);
+						App->audio->PlaySpatialFx(App->audio->structure_build,
+							App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+							App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 						state = BUILDING;
 						float x = App->player->building->position.x;
 						float y = App->player->building->position.y;
@@ -282,7 +285,10 @@ void j1Harvester::Update(float dt)
 	
 	if (health == 0) {
 		CleanUp();
-		App->audio->PlayFx(App->audio->harvester_destroy);
+		//App->audio->PlayFx(App->audio->harvester_destroy);
+		App->audio->PlaySpatialFx(App->audio->harvester_destroy,
+			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 	}
 }
 
@@ -349,7 +355,10 @@ void j1Harvester::Harvest(int power, j1Entity* target)
 	{
 		load.Transfer(METAL, &target->load.metal, power);
 	}
-	App->audio->PlayFx(App->audio->harvester_work);
+	//App->audio->PlayFx(App->audio->harvester_work);
+	App->audio->PlaySpatialFx(App->audio->harvester_work,
+		App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+		App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 }
 
 j1Entity* j1Harvester::SearchResources(float x, float y)
