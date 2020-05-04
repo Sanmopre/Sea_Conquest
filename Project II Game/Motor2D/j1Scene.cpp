@@ -6,10 +6,10 @@
 #include "j1Audio.h"
 #include "j1Render.h"
 #include "j1Window.h"
-#include "j1Map.h"
 #include "j1PathFinding.h"
 #include "j1Scene.h"
 #include "j1Scene2.h"
+#include "j1Map.h"
 #include "j1GUI.h"
 #include "j1Transitions.h"
 #include "j1TransitionManager.h"
@@ -38,8 +38,6 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-
-	//App->map->Load("mapa men.tmx") == true;
 	debug_tex = App->tex->Load("maps/path2.png");
 	return true;
 }
@@ -122,6 +120,7 @@ bool j1Scene::CleanUp()
 void j1Scene::ChangeScene()
 {
 	this->active = true;
+	App->map->LoadMap("maps/Mapa definitivo.tmx");
 	App->scene2->active = false;
 	App->scene3->active = false;
 	App->scene->Start();

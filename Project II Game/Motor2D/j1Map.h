@@ -1,180 +1,161 @@
-#ifndef __j1MAP_H__
-#define __j1MAP_H__
+#ifndef _MAP_H_
+#define _MAP_H_
 
-#include "p2List.h"
-#include "p2Point.h"
-#include "p2Log.h"
 #include "j1Module.h"
-#include "j1Pathfinding.h"
+#include "p2Point.h"
+
+#include <string>
 #include <vector>
-#include <map>
-// ----------------------------------------------------
-struct Animation;
 
-struct Properties
+using namespace std;
+
+struct SDL_Texture;
+struct SDL_Rect;
+
+enum class MapOrientation
 {
-	struct Property
-	{
-		p2SString name;
-		int value;
-	};
-
-	~Properties()
-	{
-		p2List_item<Property*>* item;
-		item = list.start;
-
-		while(item != NULL)
-		{
-			RELEASE(item->data);
-			item = item->next;
-		}
-
-		list.clear();
-	}
-
-	int Get(const char* name, int default_value = 0) const;
-
-	p2List<Property*>	list;
+	ISOMETRIC = 1,
+	ORTHOGONAL = 2,
+	NONE = 0
 };
 
-// ----------------------------------------------------
-struct MapLayer
+struct Property
 {
-	p2SString	name;
-	int			width;
-	int			height;
-	uint*		data;
-	Properties	properties;
-
-	MapLayer() : data(NULL)
-	{}
-
-	~MapLayer()
+	Property(string name, string data)
 	{
-		RELEASE(data);
+		this->name = name;
+		this->data = data;
 	}
 
-	inline uint Get(int x, int y) const
-	{
-		return data[(y*width) + x];
-	}
+	string name;
+	string data;
 };
 
-// ----------------------------------------------------
 struct TileSet
 {
-	SDL_Rect GetTileRect(int id) const;
-	SDL_Rect GetAnimTileRect(int id, uint columns);
-	p2SString			name;
-	int					firstgid;
-	int					margin;
-	int					spacing;
-	int					tile_width;
-	int					tile_height;
-	SDL_Texture*		texture;
-	int					tex_width;
-	int					tex_height;
-	int					num_tiles_width;
-	int					num_tiles_height;
-	int					offset_x;
-	int					offset_y;
-	NodeType			terrain;
+	TileSet(string name, int firstgid, int tileswidth, int tilesheight, int columns, SDL_Texture* texture)
+	{
+		this->name = name;
+		this->firstgid = firstgid;
+		this->tileswidth = tileswidth;
+		this->tilesheight = tilesheight;
+		this->columns = columns;
+		this->texture = texture;
+	}
+
+	string name;
+	int firstgid;
+	int tileswidth;
+	int tilesheight;
+	int columns;
+	SDL_Texture* texture; //SDL_Texture
 };
 
-enum MapTypes
+struct Tile
 {
-	MAPTYPE_UNKNOWN = 0,
-	MAPTYPE_ORTHOGONAL,
-	MAPTYPE_ISOMETRIC,
-	MAPTYPE_STAGGERED
+	Tile(int id)
+	{ 
+		this->id = id;
+		tileset = nullptr;
+	}
+
+	int id;
+	TileSet* tileset;
+
+	vector<Property> properties;
 };
-// ----------------------------------------------------
+
+struct Layer
+{
+	Layer(string name, int id, int layer_width, int layer_height)
+	{
+		this->name = name;
+		this->id = id;
+		this->layer_width = layer_width;
+		this->layer_height = layer_height;
+	}
+
+	string name;
+	int id;
+	int layer_width;
+	int layer_height;
+
+	int** layerdata;
+	vector<Property> properties;
+};
+
 struct MapData
 {
-	int					width;
-	int					height;
-	int					tile_width;
-	int					tile_height;
-	SDL_Color			background_color;
-	MapTypes			type;
-	p2List<TileSet*>	tilesets;
-	p2List<MapLayer*>	layers;
+	MapData(MapOrientation orientation, int width, int height, int tilewidth, int tileheight)
+	{
+		this->orientation = orientation;
+		this->width = width;
+		this->height = height;
+		this->tilewidth = tilewidth;
+		this->tileheight = tileheight;
+	}
+
+	MapOrientation orientation;
+	int width;
+	int height;
+	int tilewidth;
+	int tileheight;
+
+	vector<TileSet*> tilesets;
+
+	vector<Tile*> tiles;
+	vector<Layer*> layers;
 };
 
-// ----------------------------------------------------
 class j1Map : public j1Module
 {
 public:
 
 	j1Map();
-
-	// Destructor
 	virtual ~j1Map();
 
-	// Called before render is available
-	bool Awake(pugi::xml_node& conf);
-
-	// Called each loop iteration
-	void Draw();
-
-	// Called before quitting
 	bool CleanUp();
 
-	// Load new map
-	bool Load(const char* path);
+	void LoadMap(const char* path);
+	void Draw();
 
 	template<class type>
 	type MapToWorld(int x, int y) const
 	{
 		type ret;
 
-		if (data.type == MAPTYPE_ORTHOGONAL)
+		if (mapdata->orientation == MapOrientation::ORTHOGONAL)
 		{
-			ret.x = x * data.tile_width;
-			ret.y = y * data.tile_height;
+			ret.x = x * mapdata->tilewidth;
+			ret.y = y * mapdata->tileheight;
 		}
-		else if (data.type == MAPTYPE_ISOMETRIC)
+		else if (mapdata->orientation == MapOrientation::ISOMETRIC)
 		{
-			ret.x = (x - y) * (data.tile_width * 0.5f);
-			ret.y = (x + y) * (data.tile_height * 0.5f);
-		}
-		else
-		{
-			LOG("Unknown map type");
-			ret.x = x; ret.y = y;
+			ret.x = (x - y) * (mapdata->tilewidth * 0.5f);
+			ret.y = (x + y) * (mapdata->tileheight * 0.5f);
 		}
 
 		return ret;
 	}
+	iPoint WorldToMap(float x, float y) const;
 
-	iPoint WorldToMap(int x, int y) const;
-	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
-	TileSet* GetTilesetFromTileId(int id) const;
-
-private:
-
-	bool LoadMap();
-	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
-	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
-	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
-	bool LoadProperties(pugi::xml_node& node, Properties& properties);
-	bool LoadTilesetAnimations(pugi::xml_node& tileset_node, TileSet* set);
-	void CreateNodeMap();
-
-
-
-public:
-
-	MapData data;
-	int map_size;
+	MapData* mapdata = nullptr;
 
 private:
 
-	std::map<int, NodeType> map_nodetypes;
-	pugi::xml_document	map_file;
-	p2SString			folder;
-	bool				map_loaded;
+	string GetTileProperty(int id, string name = "");
+	string GetLayerProperty(int id, string name = "");
+
+	Tile* GetTile(int id);
+
+	void LoadTiles(pugi::xml_node& node, TileSet* tileset);
+	void LoadLayers(pugi::xml_node& node);
+	void LoadProperties(pugi::xml_node& node, vector<Property>& properties);
+	void LoadPathNodes();
+
+	SDL_Rect MapCulling(iPoint size);
+
+	pugi::xml_document map_data;
 };
 
-#endif // __j1MAP_H__
+#endif //_MAP_H_

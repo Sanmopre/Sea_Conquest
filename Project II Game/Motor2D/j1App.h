@@ -17,7 +17,6 @@ class j1Audio;
 class j1Scene;
 class j1Scene2;
 class j1LogoScene;
-class j1Map;
 class j1PathFinding;
 class j1Player;
 class j1EntityManager;
@@ -31,33 +30,23 @@ class j1MainMenuUI;
 class j1Minimap;
 class j1Font;
 class j1QuestManager;
+class j1Map;
 
 class j1App 
 {
 public:
 
-	// Constructor
 	j1App(int argc, char* args[]);
-
-	// Destructor
 	virtual ~j1App();
 
-	// Called before render is available
 	bool Awake();
 
-	// Called before the first frame
 	bool Start();
-
-	// Called each loop iteration
 	bool Update();
-
-	// Called before quitting
 	bool CleanUp();
 
-	// Add a new module to handle
 	void AddModule(j1Module* module);
 
-	// Exposing some properties for reading
 	int GetArgc() const;
 	const char* GetArgv(int index) const;
 	const char* GetTitle() const;
@@ -70,31 +59,20 @@ public:
 
 private:
 
-	// Load config file
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
 
-	// Call modules before each loop iteration
 	void PrepareUpdate();
-
-	// Call modules before each loop iteration
 	void FinishUpdate();
 
-	// Call modules before each loop iteration
 	bool PreUpdate();
-
-	// Call modules on each loop iteration
 	bool DoUpdate();
-
-	// Call modules after each loop iteration
 	bool PostUpdate();
 
-	// Load / Save
 	bool LoadGameNow();
 	bool SavegameNow() const;
 
 public:
 
-	// Modules
 	j1Window*				win = NULL;
 	j1Input*				input = NULL;
 	j1Render*				render = NULL;
@@ -103,8 +81,6 @@ public:
 	j1Scene*				scene = NULL;
 	j1Scene2*				scene2 = NULL;
 	j1LogoScene*			scene3 = NULL;
-	j1Map*					map = NULL;
-	j1Map*					map_2 = NULL;
 	j1PathFinding*			pathfinding = NULL;
 	j1Player*				player = NULL;
 	j1EntityManager*		entitymanager = NULL;
@@ -118,6 +94,8 @@ public:
 	j1Minimap*				minimap = NULL;
 	j1Font*					font = NULL;
 	j1QuestManager*			quest = NULL;
+	j1Map*					map = NULL;
+
 private:
 
 	p2List<j1Module*>	modules;

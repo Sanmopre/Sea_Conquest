@@ -1,8 +1,8 @@
 #include "j1Entities.h"
 #include "j1Render.h"
 
-#include "j1EntityManager.h"
 #include "j1Map.h"
+#include "j1EntityManager.h"
 #include "j1InGameUI.h"
 #include "j1Input.h"
 #include "j1Scene.h"

@@ -1,8 +1,8 @@
 #include "j1App.h"
 #include "j1Pathfinding.h"
 
-#include "j1Render.h"
 #include "j1Map.h"
+#include "j1Render.h"
 #include "p2Log.h"
 #include "j1Input.h"
 #include "Color.h"
@@ -148,7 +148,7 @@ vector<Node*> j1PathFinding::GetNeighbours(iPoint node)
 		{
 			if (x == 0 && y == 0)
 				continue;
-			else if ((node.x + x) >= 0 && (node.x + x) < App->map->map_size && (node.y + y) >= 0 && (node.y + y) < App->map->map_size)
+			else if ((node.x + x) >= 0 && (node.x + x) < App->map->mapdata->width && (node.y + y) >= 0 && (node.y + y) < App->map->mapdata->height)
 			{
 				ret.push_back(&*PointToNode((node.x + x), (node.y + y), &NodeMap));
 			}
@@ -159,9 +159,9 @@ vector<Node*> j1PathFinding::GetNeighbours(iPoint node)
 vector<Node>::iterator j1PathFinding::PointToNode(int x, int y, vector<Node>* _grid)
 {
 	vector<Node>::iterator ret;
-	if (x >= App->map->map_size || y >= App->map->map_size || x < 0 || y < 0)
+	if (x >= App->map->mapdata->width || y >= App->map->mapdata->height || x < 0 || y < 0)
 		return ret;
-	return _grid->begin() + (App->map->map_size * y + x);
+	return _grid->begin() + (App->map->mapdata->width * y + x);
 }
 
 int j1PathFinding::DistanceTo(Node* A, Node* B)

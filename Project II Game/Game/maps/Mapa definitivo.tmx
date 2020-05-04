@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.5" orientation="isometric" renderorder="right-down" width="200" height="200" tilewidth="64" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
- <tileset firstgid="1" name="Final_Terrain_tiles" tilewidth="64" tileheight="64" tilecount="60" columns="12">
-  <image source="Terrain_tiles.png" width="768" height="320"/>
+ <tileset firstgid="1" name="Final_Terrain_tiles" tilewidth="64" tileheight="64" tilecount="55" columns="12">
+  <image source="maps/Terrain_tiles.png" width="768" height="320"/>
   <tile id="0">
    <properties>
     <property name="terrain" value="GROUND"/>
@@ -278,98 +278,11 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="61" name="galleon" tilewidth="32" tileheight="32" tilecount="24" columns="6">
-  <properties>
-   <property name="level" value="2"/>
-   <property name="name" value="galleon"/>
-  </properties>
-  <image source="../textures/Pipoya Vehicle &amp; Ship Sprites/8-directional/pipo-ship.png" width="192" height="128"/>
- </tileset>
- <tileset firstgid="85" name="harvester" tilewidth="32" tileheight="32" tilecount="24" columns="6">
-  <properties>
-   <property name="level" type="int" value="1"/>
-   <property name="name" value="harvester"/>
-  </properties>
-  <image source="../textures/Pipoya Vehicle &amp; Ship Sprites/8-directional/pipo-drilltank_b.png" width="192" height="128"/>
- </tileset>
- <tileset firstgid="109" name="boat" tilewidth="32" tileheight="32" tilecount="24" columns="6">
-  <properties>
-   <property name="level" type="int" value="1"/>
-   <property name="name" value="boat"/>
-  </properties>
-  <image source="../textures/Pipoya Vehicle &amp; Ship Sprites/8-directional/pipo-boat.png" width="192" height="128"/>
-  <tile id="0" type="animation_eight_south">
-   <animation>
-    <frame tileid="0" duration="300"/>
-    <frame tileid="1" duration="300"/>
-    <frame tileid="2" duration="300"/>
-   </animation>
-  </tile>
-  <tile id="3" type="animation_eight_southwest">
-   <animation>
-    <frame tileid="3" duration="300"/>
-    <frame tileid="4" duration="300"/>
-    <frame tileid="5" duration="300"/>
-   </animation>
-  </tile>
-  <tile id="6" type="animation_eight_west">
-   <animation>
-    <frame tileid="6" duration="300"/>
-    <frame tileid="7" duration="300"/>
-    <frame tileid="8" duration="300"/>
-   </animation>
-  </tile>
-  <tile id="9" type="animation_eight_southeast">
-   <animation>
-    <frame tileid="9" duration="300"/>
-    <frame tileid="10" duration="300"/>
-    <frame tileid="11" duration="300"/>
-   </animation>
-  </tile>
-  <tile id="12" type="animation_eight_east">
-   <animation>
-    <frame tileid="12" duration="300"/>
-    <frame tileid="13" duration="300"/>
-    <frame tileid="14" duration="300"/>
-   </animation>
-  </tile>
-  <tile id="15" type="animation_eight_northwest">
-   <animation>
-    <frame tileid="15" duration="300"/>
-    <frame tileid="16" duration="300"/>
-    <frame tileid="17" duration="300"/>
-   </animation>
-  </tile>
-  <tile id="18" type="animation_eight_north">
-   <animation>
-    <frame tileid="18" duration="300"/>
-    <frame tileid="19" duration="300"/>
-    <frame tileid="20" duration="300"/>
-   </animation>
-  </tile>
-  <tile id="21" type="animation_eight_northeast">
-   <animation>
-    <frame tileid="21" duration="300"/>
-    <frame tileid="22" duration="300"/>
-    <frame tileid="23" duration="300"/>
-   </animation>
-  </tile>
- </tileset>
- <tileset firstgid="133" name="buildings_ally" tilewidth="64" tileheight="64" tilecount="4" columns="4">
-  <properties>
-   <property name="level" value="1"/>
-   <property name="name" value="buildings_ally"/>
-  </properties>
-  <image source="../textures/edificios_aliados.png" width="256" height="64"/>
- </tileset>
- <tileset firstgid="137" name="buildings_enemy" tilewidth="64" tileheight="64" tilecount="4" columns="4">
-  <properties>
-   <property name="level" value="1"/>
-   <property name="name" value="buildings_enemy"/>
-  </properties>
-  <image source="../textures/edificios_enemigos.png" width="256" height="64"/>
- </tileset>
  <layer id="1" name="Capa de patrones 1" width="200" height="200">
+  <properties>
+   <property name="TerrainNodes" value="true"/>
+   <property name="ToDraw" value="true"/>
+  </properties>
   <data>
    <tile gid="16"/>
    <tile gid="16"/>

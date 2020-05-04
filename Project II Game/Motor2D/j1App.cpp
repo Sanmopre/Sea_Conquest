@@ -12,7 +12,6 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1LogoScene.h"
-#include "j1Map.h"
 #include "j1Pathfinding.h"
 #include "j1App.h"
 #include "j1Player.h"
@@ -27,6 +26,7 @@
 #include "j1Minimap.h"
 #include "j1Font.h"
 #include "j1QuestManager.h"
+#include "j1Map.h"
 #include <thread>
 
 
@@ -45,8 +45,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene2 = new j1Scene2();
 	scene3 = new j1LogoScene();
 	InGameUI = new j1InGameUI();
-	map = new j1Map();
-	map_2 = new j1Map();
 	pathfinding = new j1PathFinding();
 	player = new j1Player();
 	entitymanager = new j1EntityManager();
@@ -59,6 +57,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	minimap = new j1Minimap();
 	font = new j1Font();
 	quest = new j1QuestManager();
+	map = new j1Map();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -70,7 +69,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(font);
 	
 	AddModule(map);
-	AddModule(map_2);
 	AddModule(scene);
 	AddModule(scene2);
 	AddModule(scene3);

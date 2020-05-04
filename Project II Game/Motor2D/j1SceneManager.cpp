@@ -10,7 +10,6 @@
 #include "j1Transitions.h"
 #include "j1EntityManager.h"
 #include "j1Render.h"
-#include "j1Map.h"
 #include "j1Textures.h"
 #include "j1InGameUI.h"
 #include "j1Window.h"
@@ -19,8 +18,7 @@
 #include "j1Audio.h"
 #include "j1Player.h"
 #include "j1Pathfinding.h"
-
-
+#include "j1Map.h"
 
 j1SceneManager::j1SceneManager() : j1Module()
 {
@@ -41,10 +39,6 @@ bool j1SceneManager::Awake()
 // Called before the first frame
 bool j1SceneManager::Start()
 {
-	//LOAD THE START OF BOTH SCENES
-	//App->map->Load("mapa men.tmx") == true;
-	//App->map->Load("Map_v01.tmx") == true;
-	App->map->Load("Mapa definitivo.tmx") == true;
 	App->scene2->main_texture = App->tex->Load("textures/Main_Screen.png");
 	App->scene3->logo_texture = App->tex->Load("textures/logo.png");
 	logo.iterations = 3.5f;
@@ -60,10 +54,7 @@ bool j1SceneManager::PreUpdate()
 
 // Called each loop iteration
 bool j1SceneManager::Update(float dt)
-{
-
-
-
+{	
 	//DEBUG ONLY
 	/*
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)	{
@@ -163,6 +154,7 @@ int j1SceneManager::ChangeScene(int scene)
 		App->win->scale = 1;
 		In_Logo_Scene = false;
 		In_Main_Menu = true;
+		App->map->CleanUp();
 		return 2;
 		break;
 	case 3:

@@ -5,7 +5,7 @@
 #include "j1Player.h"
 #include "j1Textures.h"
 #include "j1Input.h"
-#include "j1Map.h"
+
 #include "j1SceneManager.h"
 #include "j1Entities.h"
 #include "j1EntityManager.h"
