@@ -199,3 +199,17 @@ SDL_Texture* j1Entity::LoadTexture(j1Entity* entity, std::vector<TextureInfo>& t
 	}
 	return ret;
 }
+
+void j1Unit::GetBasicAnimations()
+{
+	north = App->anim->GetAnimation("unit-north");
+	north_east = App->anim->GetAnimation("unit-north_east");
+	north_west = App->anim->GetAnimation("unit-north_west");
+	south = App->anim->GetAnimation("unit-south");
+	south_east = App->anim->GetAnimation("unit-south_east");
+	south_west = App->anim->GetAnimation("unit-south_west");
+	east = App->anim->GetAnimation("unit-east");
+	west = App->anim->GetAnimation("unit-west");
+
+	rect = north.GetCurrentFrame();
+}

@@ -20,7 +20,8 @@ j1TownHall::j1TownHall(float x, float y, int team)
 
 	type = EntityType::TOWNHALL;
 	level = 1;
-	texture = LoadTexture(this, App->entitymanager->allTextures);
+
+	texture = App->tex->GetTexture("buildings", level, team);
 }
 
 j1TownHall::~j1TownHall()

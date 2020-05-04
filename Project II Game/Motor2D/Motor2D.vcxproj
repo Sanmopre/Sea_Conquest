@@ -82,9 +82,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="animation.cpp" />
     <ClCompile Include="FadeToColor.cpp" />
     <ClCompile Include="Harvester.cpp" />
+    <ClCompile Include="j1AnimationManager.cpp" />
     <ClCompile Include="j1Boat.cpp" />
     <ClCompile Include="j1BoatHouse.cpp" />
     <ClCompile Include="j1Collision.cpp" />
@@ -140,7 +140,7 @@
     <ClCompile Include="Wipe.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="animation.h" />
+    <ClInclude Include="j1AnimationManager.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="FadeToColor.h" />
     <ClInclude Include="j1DialogSystem.h" />

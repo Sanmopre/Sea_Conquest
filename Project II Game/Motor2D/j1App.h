@@ -32,6 +32,7 @@ class j1Font;
 class j1QuestManager;
 class j1Map;
 class j1DialogSystem;
+class j1AnimationManager;
 
 
 class j1App 
@@ -98,6 +99,7 @@ public:
 	j1QuestManager*			quest = NULL;
 	j1Map*					map = NULL;
 	j1DialogSystem*			dialog = NULL; 
+	j1AnimationManager*		anim = NULL;
 
 private:
 

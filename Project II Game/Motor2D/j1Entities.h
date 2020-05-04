@@ -9,16 +9,16 @@
 
 #include "j1Render.h"
 #include "Color.h"
-#include "animation.h"
+#include "j1AnimationManager.h"
 #include "j1Timer.h"
 #include "j1Pathfinding.h"
 #include "j1Audio.h"
+#include "j1Textures.h"
 
 #define WOOD_MASS 4
 #define COTTON_MASS 1
 #define METAL_MASS 10
 
-struct SDL_Texture;
 struct ParticleSystem;
 
 enum class Orientation
@@ -260,6 +260,7 @@ protected:
 	void NextStep();
 	void SetDestination(NodeType terrain = NodeType::WATER);
 	void SelectAnimation();
+	void GetBasicAnimations();
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1Structure : public j1Entity

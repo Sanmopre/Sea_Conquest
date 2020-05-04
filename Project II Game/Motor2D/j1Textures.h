@@ -2,38 +2,57 @@
 #define __j1TEXTURES_H__
 
 #include "j1Module.h"
-#include "p2List.h"
+
+#include <vector>
+#include <string>
+
+using namespace std;
 
 struct SDL_Texture;
 struct SDL_Surface;
+
+struct Texture
+{
+	Texture(string name, int level, int team, SDL_Texture* texture)
+	{
+		this->name = name;
+		this->level = level;
+		this->team = team;
+		this->texture = texture;
+	}
+	~Texture();
+
+
+	string name;
+	int level;
+	int team;
+	SDL_Texture* texture;
+};
 
 class j1Textures : public j1Module
 {
 public:
 
 	j1Textures();
-
-	// Destructor
 	virtual ~j1Textures();
 
-	// Called before render is available
 	bool Awake(pugi::xml_node&);
 
-	// Called before the first frame
 	bool Start();
 
-	// Called before quitting
 	bool CleanUp();
 
-	// Load Texture
-	SDL_Texture* const	Load(const char* path);
-	bool				UnLoad(SDL_Texture* texture);
-	SDL_Texture* const	LoadSurface(SDL_Surface* surface);
-	void				GetSize(const SDL_Texture* texture, uint& width, uint& height) const;
+	SDL_Texture* const Load(const char* path, string name = "", int level = 0, int team = 0);
+	bool UnLoad(SDL_Texture* texture);
 
-public:
+	SDL_Texture* const GetTexture(string name, int level, int team);
 
-	p2List<SDL_Texture*>	textures;
+	SDL_Texture* const LoadSurface(SDL_Surface* surface);
+	void GetSize(const SDL_Texture* texture, uint& width, uint& height) const;
+	
+private:
+
+	vector<Texture*> textures;
 };
 
 

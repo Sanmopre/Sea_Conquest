@@ -22,7 +22,6 @@ j1Structure::j1Structure()
 		health = 1;
 	}
 		
-
 	other_rect = {192, 0, 63, 63}; //////////////
 }
 

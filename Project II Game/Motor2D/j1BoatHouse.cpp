@@ -25,7 +25,8 @@ j1BoatHouse::j1BoatHouse(float x, float y, int team)
 	rect = { 128, 0, 64, 64 };
 	built_rect = rect; /////////////////////
 	load = { 0, 0, 0, 1000 };
-	texture = LoadTexture(this, App->entitymanager->allTextures);
+
+	texture = App->tex->GetTexture("buildings", level, team);
 }
 
 j1BoatHouse::~j1BoatHouse()

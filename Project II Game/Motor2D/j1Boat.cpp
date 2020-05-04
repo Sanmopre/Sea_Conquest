@@ -32,33 +32,12 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	SmokeSystem = nullptr;
 	FireSystem = nullptr;
 	//
-	
-	for (std::vector<Animation>::iterator i = App->entitymanager->allAnimations.begin(); i != App->entitymanager->allAnimations.end(); i++)
-	{
-		if (strcmp("entity_eight_north", i->name) == 0)
-			this->north = i->GetAnimation();
-		if (strcmp("entity_eight_northeast", i->name) == 0)
-			this->north_east = i->GetAnimation();
-		if (strcmp("entity_eight_east", i->name) == 0)
-			this->east = i->GetAnimation();
-		if (strcmp("entity_eight_southeast", i->name) == 0)
-			this->south_east = i->GetAnimation();
-		if (strcmp("entity_eight_south", i->name) == 0)
-			this->south = i->GetAnimation();
-		if (strcmp("entity_eight_southwest", i->name) == 0)
-			this->south_west = i->GetAnimation();
-		if (strcmp("entity_eight_west", i->name) == 0)
-			this->west = i->GetAnimation();
-		if (strcmp("entity_eight_northwest", i->name) == 0)
-			this->north_west = i->GetAnimation();
-	}
 
-	texture = LoadTexture((j1Entity*)this, App->entitymanager->allTextures);
+	texture = App->tex->GetTexture("boat", level, team);
 
-	rect = north.GetCurrentFrame();
-	//App->audio->PlayFx(App->audio->boat_spawn);
+	GetBasicAnimations();
+
 	App->audio->PlaySpatialFx(App->audio->boat_spawn, App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }), App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
-	
 }
 
 j1Boat::~j1Boat()

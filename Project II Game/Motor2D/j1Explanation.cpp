@@ -65,4 +65,6 @@ j1Element* j1Explanation::Change_Label( Text text)
 		text_label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, false, { 0,0,40,40 }, "STORAGE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 		break;
 	}
+
+	return text_label;
 }

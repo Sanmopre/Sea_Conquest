@@ -35,34 +35,10 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	automatic = false;
 	automating = false;
 
-	for (std::vector<Animation>::iterator i = App->entitymanager->allAnimations.begin(); i != App->entitymanager->allAnimations.end(); i++)
-	{
-		if (strcmp("entity_eight_north", i->name) == 0)
-			north = i->GetAnimation();
-		if (strcmp("entity_eight_northeast", i->name) == 0)
-			north_east = i->GetAnimation();
-		if (strcmp("entity_eight_east", i->name) == 0)
-			east = i->GetAnimation();
-		if (strcmp("entity_eight_southeast", i->name) == 0)
-			south_east = i->GetAnimation();
-		if (strcmp("entity_eight_south", i->name) == 0)
-			south = i->GetAnimation();
-		if (strcmp("entity_eight_southwest", i->name) == 0)
-			south_west = i->GetAnimation();
-		if (strcmp("entity_eight_west", i->name) == 0)
-			west = i->GetAnimation();
-		if (strcmp("entity_eight_northwest", i->name) == 0)
-			north_west = i->GetAnimation();
-	}
+	texture = App->tex->GetTexture("harvester", level, team);
 
-	for (std::vector<TextureInfo>::iterator e = App->entitymanager->allTextures.begin(); e != App->entitymanager->allTextures.end(); e++)
-		if (type == e->type && level == e->level)
-		{
-			texture = e->texture;
-			break;
-		}
+	GetBasicAnimations();
 
-	rect = north.GetCurrentFrame();
 	App->audio->PlayFx(App->audio->harvester_spawn);
 }
 
@@ -271,10 +247,6 @@ void j1Harvester::Update(float dt)
 			{
 				if (load.Total() != load.maxweight)
 					target = SearchResources(position.x, position.y);
-				//if (target == nullptr)
-				//{
-				//	target = FindTarget(position.x, position.y, range, EntityType::STORAGE, team);
-				//}
 			}
 
 			if (target != nullptr)

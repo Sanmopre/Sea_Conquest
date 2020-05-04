@@ -30,4 +30,34 @@
     <camera speed ="1" offset ="10"/>
   </camera>
 
+  <textures>
+    <texture name ="boat"       level ="1" team ="1" source ="textures/units/pipo-boat_nosail.png"/>
+    <texture name ="boat"       level ="2" team ="1" source ="textures/units/pipo-boat.png"/>
+    <texture name ="boat"       level ="3" team ="1" source ="textures/units/pipo-ship.png"/>
+    <texture name ="boat"       level ="1" team ="2" source ="textures/units/pipo-boat_nosail.png"/>
+    <texture name ="boat"       level ="2" team ="2" source ="textures/units/pipo-boat_b.png"/>
+    <texture name ="boat"       level ="3" team ="2" source ="textures/units/pipo-ship_b.png"/>
+    <texture name ="harvester"  level ="1" team ="1" source ="textures/units/pipo-drilltank_b.png"/>
+    <texture name ="harvester"  level ="2" team ="1" source ="textures/units/pipo-drilltank.png"/>
+    <texture name ="harvester"  level ="1" team ="2" source ="textures/units/pipo-drilltank_c.png"/>
+    <texture name ="balloon"    level ="1" team ="1" source ="textures/units/pipo-balloon.png"/>
+    <texture name ="balloon"    level ="2" team ="1" source ="textures/units/pipo-airship2.png"/>
+    <texture name ="balloon"    level ="1" team ="2" source ="textures/units/pipo-balloon_c.png"/>
+    <texture name ="balloon"    level ="2" team ="2" source ="textures/units/pipo-airship2_b.png"/>
+    <texture name ="carrier"    level ="1" team ="1" source ="textures/units/pipo-van.png"/>
+    <texture name ="buildings"  level ="1" team ="1" source ="textures/edificios_aliados.png"/>
+    <texture name ="buildings"  level ="1" team ="2" source ="textures/edificios_enemigos.png"/>
+  </textures>
+  
+  <animations>
+    <animation name ="unit-south"       coll="0" row="0" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
+    <animation name ="unit-south_west"  coll="3" row="0" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
+    <animation name ="unit-west"        coll="0" row="1" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
+    <animation name ="unit-south_east"  coll="3" row="1" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
+    <animation name ="unit-east"        coll="0" row="2" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
+    <animation name ="unit-north_west"  coll="3" row="2" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
+    <animation name ="unit-north"       coll="0" row="3" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
+    <animation name ="unit-north_east"  coll="3" row="3" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
+  </animations>
+
 </config>

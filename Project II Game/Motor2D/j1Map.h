@@ -26,6 +26,11 @@ struct Property
 		this->name = name;
 		this->data = data;
 	}
+	~Property()
+	{
+		name.clear();
+		data.clear();
+	}
 
 	string name;
 	string data;
@@ -42,6 +47,7 @@ struct TileSet
 		this->columns = columns;
 		this->texture = texture;
 	}
+	~TileSet();
 
 	string name;
 	int firstgid;
@@ -58,6 +64,11 @@ struct Tile
 		this->id = id;
 		tileset = nullptr;
 	}
+	~Tile()
+	{
+		vector<Property> v;
+		properties.swap(v);
+	}
 
 	int id;
 	TileSet* tileset;
@@ -73,6 +84,17 @@ struct Layer
 		this->id = id;
 		this->layer_width = layer_width;
 		this->layer_height = layer_height;
+	}
+	~Layer()
+	{
+		name.clear();
+
+		for (int i = 0; i < layer_width; ++i)
+			delete[] layerdata[i];
+		delete[] layerdata;
+
+		vector<Property> v;
+		properties.swap(v);
 	}
 
 	string name;
@@ -94,6 +116,27 @@ struct MapData
 		this->tilewidth = tilewidth;
 		this->tileheight = tileheight;
 	}
+	~MapData()
+	{
+		while (tiles.size() != 0)
+		{
+			delete* tiles.begin();
+			tiles.erase(tiles.begin());
+		}
+		tiles.shrink_to_fit();
+		while (tilesets.size() != 0)
+		{
+			delete* tilesets.begin();
+			tilesets.erase(tilesets.begin());
+		}
+		tilesets.shrink_to_fit();
+		while (layers.size() != 0)
+		{
+			delete* layers.begin();
+			layers.erase(layers.begin());
+		}
+		layers.shrink_to_fit();
+	}
 
 	MapOrientation orientation;
 	int width;
@@ -102,7 +145,6 @@ struct MapData
 	int tileheight;
 
 	vector<TileSet*> tilesets;
-
 	vector<Tile*> tiles;
 	vector<Layer*> layers;
 };

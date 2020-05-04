@@ -5,7 +5,6 @@
 
 #include "j1Input.h"
 #include "j1Render.h"
-#include "j1Textures.h"
 #include "j1Window.h"
 
 using namespace std;
@@ -249,16 +248,4 @@ bool j1EntityManager::CleanUp()
 	DeleteAll();
 
 	return true;
-}
-
-void j1EntityManager::addAnimation(Animation animation)
-{
-	allAnimations.push_back(animation);
-	return;
-}
-
-void j1EntityManager::addTexture(TextureInfo texture)
-{
-	allTextures.push_back(texture);
-	return;
 }

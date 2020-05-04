@@ -28,6 +28,7 @@
 #include "j1QuestManager.h"
 #include "j1Map.h"
 #include "j1DialogSystem.h"
+#include "j1AnimationManager.h"
 
 #include <thread>
 
@@ -61,6 +62,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	font = new j1Font();
 	quest = new j1QuestManager();
 	map = new j1Map();
+	anim = new j1AnimationManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -68,6 +70,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
+	AddModule(anim);
 	AddModule(fonts);
 	AddModule(font);
 	

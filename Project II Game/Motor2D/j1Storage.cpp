@@ -27,7 +27,7 @@ j1Storage::j1Storage(float x, float y, int team)
 	type = EntityType::STORAGE;
 	level = 1;
 
-	texture = LoadTexture(this, App->entitymanager->allTextures);
+	texture = App->tex->GetTexture("buildings", level, team);
 }
 
 j1Storage::~j1Storage()

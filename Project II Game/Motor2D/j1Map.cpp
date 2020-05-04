@@ -1,10 +1,17 @@
 #include "j1Map.h"
 #include "p2Log.h"
-#include "j1Textures.h"
 #include "j1Render.h"
+#include "j1Textures.h"
 #include "j1Window.h"
 #include "j1App.h"
 #include "j1Pathfinding.h"
+
+TileSet::~TileSet()
+{
+	name.clear();
+
+	App->tex->UnLoad(texture);
+}
 
 j1Map::j1Map()
 {
@@ -48,7 +55,7 @@ void j1Map::LoadMap(const char* path)
 		int tilesheight = node.attribute("tileheight").as_int();
 		int columns = node.attribute("columns").as_int();
 		string path = node.child("image").attribute("source").as_string(); //SDL_Texture
-		SDL_Texture* texture = App->tex->Load(path.c_str());
+		SDL_Texture* texture = App->tex->Load(path.c_str(), name);
 
 		TileSet *tileset = new TileSet(name, firstgid, tileswidth, tilesheight, columns, texture);
 
@@ -324,30 +331,6 @@ bool j1Map::CleanUp()
 	map_data.reset();
 	if (mapdata != nullptr)
 	{
-		while (mapdata->tiles.size() != 0)
-		{
-			delete* mapdata->tiles.begin();
-			mapdata->tiles.erase(mapdata->tiles.begin());
-			mapdata->tiles.shrink_to_fit();
-		}
-		while (mapdata->tilesets.size() != 0)
-		{
-			delete *mapdata->tilesets.begin();
-			mapdata->tilesets.erase(mapdata->tilesets.begin());
-			mapdata->tilesets.shrink_to_fit();
-		}
-		for (vector<Layer*>::iterator itr = mapdata->layers.begin(); itr != mapdata->layers.end(); itr++)
-		{
-			for (int i = 0; i < (*itr)->layer_width; ++i)
-				delete[](*itr)->layerdata[i];
-			delete[](*itr)->layerdata;
-		}
-		while (mapdata->layers.size() != 0)
-		{
-			delete* mapdata->layers.begin();
-			mapdata->layers.erase(mapdata->layers.begin());
-			mapdata->layers.shrink_to_fit();
-		}
 		delete mapdata;
 		mapdata = nullptr;
 	}

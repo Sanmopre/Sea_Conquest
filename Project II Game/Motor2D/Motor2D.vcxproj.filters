@@ -52,9 +52,6 @@
     <ClCompile Include="j1InGameUI.cpp">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="animation.cpp">
-      <Filter>Desenvolupament  ========\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="j1Fonts.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
@@ -169,6 +166,9 @@
     <ClCompile Include="j1DialogSystem.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1AnimationManager.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -239,9 +239,6 @@
     </ClInclude>
     <ClInclude Include="j1EntityManager.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="animation.h">
-      <Filter>Desenvolupament  ========\Tools</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
       <Filter>Desenvolupament  ========\Tools</Filter>
@@ -320,6 +317,9 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1DialogSystem.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1AnimationManager.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>

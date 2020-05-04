@@ -38,7 +38,6 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	debug_tex = App->tex->Load("maps/path2.png");
 	return true;
 }
 

@@ -5,8 +5,6 @@
 #include "j1Entities.h"
 #include <vector>
 
-struct SDL_Texture;
-
 class j1EntityManager : public j1Module
 {
 public:
@@ -22,13 +20,8 @@ public:
 
 	void DeleteEntity(j1Entity*);
 	void DeleteAll();
-	void addAnimation(Animation);
-	void addTexture(TextureInfo);
 
 	std::vector<j1Entity*> entities;
-
-	std::vector<Animation> allAnimations;
-	std::vector<TextureInfo> allTextures;
 
 	int selected_n;
 
