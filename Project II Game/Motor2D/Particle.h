@@ -33,6 +33,7 @@ struct ParticleProps
 	PARTICLE_TYPES	type = PARTICLE_TYPES::TEST;
 	float			lifetime = 255;
 	float			lifetimeSubstraction = 0;
+	float			AwakeningDelay = 0;
 };
 
 class Particle
@@ -57,6 +58,7 @@ public:
 	float			remainingLifetime;
 	float			pLifetimeSubstraction;
 	bool			active;
+	bool			awake;
 	ParticleProps	Props;
 };
 

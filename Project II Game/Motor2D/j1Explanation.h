@@ -7,9 +7,24 @@
 struct Explanation_UI 
 {
 	j1Element* Image;
-	j1Element* Text;
 };
 
+struct Text_Label
+{
+	j1Element* Boat;
+	j1Element* Boathouse;
+	j1Element* Storage;
+	j1Element* Harvester;
+};
+
+enum class Text
+{
+	BOAT,
+	BOATHOUSE,
+	STORAGE,
+	HARVESTER,
+	NONE
+};
 
 class j1Explanation : public j1Module
 {
@@ -24,12 +39,14 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 
-	void Update_Position_(j1Element* element);
+	void Show_Information(Text text = Text::NONE);
+	void Update_Position(j1Element* element = nullptr);
+	j1Element* Change_Label( Text text = Text::NONE);
 
 public:
 
+	Text_Label label;
 	Explanation_UI explanation;
-
 };
 
 #endif //  __j1GUI_H__

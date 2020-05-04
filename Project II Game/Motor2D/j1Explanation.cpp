@@ -24,7 +24,7 @@ bool j1Explanation::Awake(pugi::xml_node& config)
 
 bool j1Explanation::Start()
 {
-	explanation.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 0,0 }, { 0,0 }, true, true, { 0, 0,400,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::EXPLANATION);
+	explanation.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 0,0 }, { 0,0 }, true, true, { 0, 0,200,200 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::EXPLANATION);
 	return true;
 }
 
@@ -32,16 +32,37 @@ bool j1Explanation::Update(float dt)
 {
 	return true;
 }
-
+ 
 bool j1Explanation::PostUpdate()
 {
 	return true;
 }
 
-void j1Explanation::Update_Position_(j1Element* element)
+void j1Explanation::Show_Information(Text text)
+{
+	j1Element* text_label = nullptr;
+
+	explanation.Image->enabled = true;
+	Update_Position(explanation.Image);
+	text_label = Change_Label(text);
+	Update_Position(text_label);
+}
+
+void j1Explanation::Update_Position(j1Element* element)
 {
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	element->map_position.x = x + 30;
 	element->map_position.y = y + 30;
+}
+
+j1Element* j1Explanation::Change_Label( Text text)
+{
+	j1Element* text_label = nullptr;
+	switch(text)
+	{
+	case Text::NONE:
+		text_label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, false, { 0,0,40,40 }, "STORAGE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+		break;
+	}
 }

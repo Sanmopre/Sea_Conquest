@@ -21,6 +21,11 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 
+	//Random number function with parameters
+	int Randon_Number(int minimum_value, int maximum_value);
+
+
+
 	//LOADING AND SAVING OPTIONS
 	bool Save(pugi::xml_node& data);
 	bool Load(pugi::xml_node& data);	

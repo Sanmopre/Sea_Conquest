@@ -31,6 +31,8 @@ class j1Minimap;
 class j1Font;
 class j1QuestManager;
 class j1Map;
+class j1DialogSystem;
+
 
 class j1App 
 {
@@ -95,6 +97,7 @@ public:
 	j1Font*					font = NULL;
 	j1QuestManager*			quest = NULL;
 	j1Map*					map = NULL;
+	j1DialogSystem*			dialog = NULL; 
 
 private:
 

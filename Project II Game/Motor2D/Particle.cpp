@@ -10,6 +10,7 @@ using namespace std;
 
 Particle::Particle()
 {
+	awake = false;
 	active = false;
 	pTexture = nullptr;
 }

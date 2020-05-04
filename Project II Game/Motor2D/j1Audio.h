@@ -56,6 +56,8 @@ public:
 	uint logo_audio;
 	uint welcome_voice;
 	uint start;
+	uint you_are_not_prepared;
+	uint this_will_be_fun;
 
 	//_Mix_Music* mainmenu_music;
 	//_Mix_Music* ingame_chill_music;

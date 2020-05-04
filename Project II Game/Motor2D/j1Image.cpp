@@ -70,6 +70,9 @@ bool j1Image::Start()
 
 	if (textureType == TEXTURE::EXPLANATION)
 		texture = App->gui->Load_Texture(TEXTURE::EXPLANATION);
+
+	if (textureType == TEXTURE::DIALOG)
+		texture = App->gui->Load_Texture(TEXTURE::DIALOG);
 	return true;
 }
 

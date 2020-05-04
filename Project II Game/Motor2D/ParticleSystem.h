@@ -20,10 +20,16 @@ public:
 	bool timeActive;
 	bool toDelete;
 
+	//timer between activations
+	int awakeningCounter;
+	bool allParticlesAwake;
+
 	ParticleProps systemProps;
 
 private:
+
 	PARTICLE_TYPES systemType;
 	Particle* referencesArray[20];
 	int numberOfParticles;
+
 };
