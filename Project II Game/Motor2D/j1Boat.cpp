@@ -56,8 +56,9 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	texture = LoadTexture((j1Entity*)this, App->entitymanager->allTextures);
 
 	rect = north.GetCurrentFrame();
-	//App->audio->PlayFx(App->audio->boat_spawn);
-	App->audio->PlaySpatialFx(App->audio->boat_spawn, App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }), App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+	App->audio->PlaySpatialFx(App->audio->boat_spawn,
+		App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+		App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 	
 }
 
@@ -102,7 +103,10 @@ void j1Boat::Update(float dt)
 		if (health < 0)
 		{
 			health = 0;
-			App->audio->PlayFx(App->audio->boat_destroy);
+			//App->audio->PlayFx(App->audio->boat_destroy);
+			App->audio->PlaySpatialFx(App->audio->boat_destroy,
+				App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+				App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 		}
 
 		if (health != 0.0f)
@@ -151,8 +155,9 @@ void j1Boat::Damage(int damage, j1Entity* target)
 	if (target->health != 0)
 	{
 		target->health -= damage;
-		App->audio->PlayFx(App->audio->boat_attack);
-
+		App->audio->PlaySpatialFx(App->audio->boat_attack,
+			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 		if (target->health < 0)
 			target->health = 0;
 	}

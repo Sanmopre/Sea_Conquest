@@ -772,7 +772,7 @@ void j1InGameUI::Activate_Defeat_Menu()
 }
 
 void j1InGameUI::Deactivate_Defeat_Menu()
-{
+{ 
 	defeat.Back_button->enabled = false;
 	defeat.Image->enabled = false;
 	defeat.Label->enabled = false;
