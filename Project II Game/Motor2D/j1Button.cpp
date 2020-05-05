@@ -84,6 +84,12 @@ bool j1Button::Start()
 	if (textureType == TEXTURE::AUTOMATIC)
 		texture = App->gui->Load_Texture(TEXTURE::AUTOMATIC);
 
+	if (textureType == TEXTURE::BALLOON)
+		texture = App->gui->Load_Texture(TEXTURE::BALLOON);
+
+	if (textureType == TEXTURE::SHIP)
+		texture = App->gui->Load_Texture(TEXTURE::SHIP);
+
 	if (text != nullptr)
 		label = App->gui->AddElement(GUItype::GUI_LABEL, this, map_position, inside_position, true, true, { 0,0,0,0 }, text);
 
