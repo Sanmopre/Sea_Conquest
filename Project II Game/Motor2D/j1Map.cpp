@@ -68,6 +68,8 @@ void j1Map::LoadMap(const char* path)
 	LoadLayers(node);
 
 	LoadPathNodes();
+
+	App->pathfinding->LoadIslands();
 }
 
 void j1Map::LoadTiles(pugi::xml_node& node, TileSet* tileset)
@@ -169,7 +171,7 @@ void j1Map::LoadPathNodes()
 							else if (prop.compare("GROUND") == 0)
 								terrain = NodeType::GROUND;
 
-							App->pathfinding->NodeMap.push_back(Node(x, y, terrain));
+							App->pathfinding->NodeMap.push_back(new Node(x, y, terrain));
 						}
 					}
 }
@@ -334,6 +336,7 @@ bool j1Map::CleanUp()
 		delete mapdata;
 		mapdata = nullptr;
 	}
+	App->pathfinding->CleanUp();
 
 	return true;
 }

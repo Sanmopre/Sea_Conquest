@@ -41,7 +41,7 @@ void j1Unit::Primitive_Update(float dt)
 
 void j1Unit::GoTo(fPoint destination, NodeType terrain)
 {
-	path.swap(App->pathfinding->PathTo(this->position, destination, terrain));
+	path.swap(App->pathfinding->PathTo(this->position, destination, terrain, map));
 
 	if(path.size() != 0)
 		this->destination = *path.begin();

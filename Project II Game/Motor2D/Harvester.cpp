@@ -7,6 +7,7 @@
 #include "j1InGameUI.h"
 #include "j1Window.h"
 #include "j1Player.h"
+#include "j1Map.h"
 
 #include <vector>
 
@@ -36,6 +37,8 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	automating = false;
 
 	texture = App->tex->GetTexture("harvester", level, team);
+
+	map = App->pathfinding->GetIsland(position);
 
 	GetBasicAnimations();
 

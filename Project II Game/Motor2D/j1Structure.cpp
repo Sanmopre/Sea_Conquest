@@ -112,7 +112,7 @@ void j1Structure::BuildUnit(EntityType type, int level)
 		p = s;
 		for (int y = 0; y < amount; y++)
 		{
-			if (App->pathfinding->PointToNode(p.x, p.y, &App->pathfinding->NodeMap)->type == terrain)
+			if ((*App->pathfinding->PointToNode(p.x, p.y, App->pathfinding->NodeMap))->type == terrain)
 			{
 				out = true;
 				fPoint a = App->map->MapToWorld<fPoint>(p.x, p.y);
