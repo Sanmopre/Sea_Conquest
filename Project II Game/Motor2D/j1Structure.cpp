@@ -99,62 +99,85 @@ void j1Structure::NotPlacedBehaviour()
 
 void j1Structure::BuildUnit(EntityType type, int level)
 {
-	iPoint p;
-	fPoint pos;
-	int limit = 4;
-	int r = 64 * limit;
-	bool out = false;
-	for (int i = 1; i < limit; i++)
+	iPoint tile = App->map->WorldToMap(position.x, position.y);
+	int x = tile.x;
+	int y = tile.y;
+
+	int i = 3;
+	SpreadState state = UP;
+	int limit = 7;
+	while (i <= limit)
 	{
-		int line = 3 * i - (i - 1);
-		int amount = line + 2 * line - 2 + line - 2;
-		iPoint s = { tile.x - line / 2,tile.y - line / 2 };
-		p = s;
-		for (int y = 0; y < amount; y++)
+		switch (state)
 		{
-			if ((*App->pathfinding->PointToNode(p.x, p.y, App->pathfinding->NodeMap))->type == terrain)
+		case UP:
+			y -= i / 2;
+			if (i != 1)
+				state = RIGHT;
+			else
+				i += 2;
+			break;
+		case RIGHT:
+			x++;
+			if (x == tile.x + i / 2)
+				state = DOWN;
+			break;
+		case DOWN:
+			y++;
+			if (y == tile.y + i / 2)
+				state = LEFT;
+			break;
+		case LEFT:
+			x--;
+			if (x == tile.x - i / 2)
+				state = UP2;
+			break;
+		case UP2:
+			y--;
+			if (y == tile.y - i / 2)
+				state = RIGHT2;
+			break;
+		case RIGHT2:
+			if (x == tile.x - 1)
 			{
-				out = true;
-				fPoint a = App->map->MapToWorld<fPoint>(p.x, p.y);
-				for (vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
-				{
-					if ((*e)->main_type == EntityType::UNIT)
-							if ((*e)->position == a)
-								out = false;
-				}
-				for (vector<EntityRequest>::iterator e = unitqueue.begin(); e != unitqueue.end(); e++)
-				{
-					fPoint b = { e->x, e->y };
-					if (b == a)
-						out = false;
-				}
-				
-				if (out)
-					break;
+				i += 2;
+				x = tile.x;
+				y = tile.y;
+				state = UP;
 			}
-			if (y < line - 1)
-				p.x += 1;
-			if(y >= amount - line)
-				p.x += 1;
-			if (y >= line && y < amount - line)
-				if (y % 2 == 0)
-				{
-					p.x = s.x;
-					p.y += 1;
-				}
-				else
-				{
-					p.x = s.x + line - 1;
-					p.y += 1;
-				}
+			else
+				x++;
+			break;
 		}
-		if (out)
+		bool can = false;
+		fPoint pos = {};
+		if ((*App->pathfinding->PointToNode(x, y, App->pathfinding->NodeMap))->type == terrain)
 		{
-			pos = App->map->MapToWorld<fPoint>(p.x, p.y);
+			can = true;
+			pos = App->map->MapToWorld<fPoint>(x, y);
+			for (vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
+			{
+				if ((*e)->main_type == EntityType::UNIT)
+					if ((*e)->position == pos)
+					{
+						can = false;
+						break;
+					}
+			}
+			for (vector<EntityRequest>::iterator e = unitqueue.begin(); e != unitqueue.end(); e++)
+			{
+				fPoint epos = { e->x, e->y };
+				if (epos == pos)
+					can = false;
+			}
+		}
+		if (can)
+		{
+			pos = App->map->MapToWorld<fPoint>(x, y);
 			EntityRequest unit(pos.x, pos.y, type, level, team);
 			unitqueue.push_back(unit);
 			break;
-		}
+		}	
 	}
 }
 

@@ -13,6 +13,16 @@ class j1App;
 struct Collider;
 class j1Element;
 
+enum SpreadState
+{
+	UP,
+	RIGHT,
+	DOWN,
+	LEFT,
+	UP2,
+	RIGHT2
+};
+
 enum class GUI_Event
 {
 	EVENT_UNKOWNN = -1,
