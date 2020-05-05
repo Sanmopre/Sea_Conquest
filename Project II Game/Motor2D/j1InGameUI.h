@@ -231,6 +231,10 @@ public:
 	
 	bool  clicking_ui = false;
 
+	//COINS
+	int coins = 0;
+	char coins_t[10];
+
 	j1Entity* selected = nullptr;
 
 private:
@@ -271,9 +275,7 @@ private:
 	char metal_t[10];
 
 
-	//COINS
-	int coins = 0;
-	char coins_t[10];
+
 
 	int coin_cost = 0;
 	char coin_cost_t[10];

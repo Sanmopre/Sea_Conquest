@@ -6,12 +6,12 @@
 
 struct SDL_Texture;
 
-enum QUEST{
-KILL_15_BOATS,
-GATHER_1000_IRON,
-KILL_ENEMY_BASE,
-BUILD_10_BOATS,
-NONE
+enum QUEST {
+	KILL_15_BOATS,
+	GATHER_1000_IRON,
+	KILL_ENEMY_STRUCTURE,
+	BUILD_10_BOATS,
+	NONE
 };
 
 struct Quest {
@@ -51,10 +51,11 @@ public:
 	bool CleanUp();
 
 	QUEST Set_Quest(QUEST quest = QUEST::NONE);
-	void Restart_Quest(QUEST quest = QUEST::NONE);
-	void Cancel_Quest(QUEST quest = QUEST::NONE);
 	void Finish_Quest(QUEST quest = QUEST::NONE);
 	void Select_Quest_Text(QUEST quest = QUEST::NONE);
+
+	bool Check_Quest_Stat(Quest quest);
+	void Claim_Reward(Quest quest);
 
 	void Quest_Line(QUEST quest = QUEST::NONE);
 	void Close_Quest_Manager();

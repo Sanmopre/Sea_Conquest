@@ -12,6 +12,7 @@
 #include "j1InGameUI.h"
 #include "j1Fonts.h"
 #include "j1Input.h"
+#include "j1InGameUI.h"
 #include "SDL\include\SDL.h"
 
 
@@ -36,7 +37,7 @@ bool j1QuestManager::Awake(pugi::xml_node& conf)
 bool j1QuestManager::Start()
 {
 	//Quest manager position
-	manager.button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, {950 + 180,15}, { 0,0 }, true, false, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::QUEST_CLOSE);
+	manager.button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 950 + 180,15 }, { 0,0 }, true, false, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::QUEST_CLOSE);
 	manager.image_close = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 950 ,15 }, { 0,0 }, true, false, { 0, 0,180,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::QUEST_IMAGE_CLOSE);
 	manager.image_open = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 950 ,15 + 30 }, { 0,0 }, true, false, { 0, 0,180,180 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::QUEST_IMAGE_OPEN);
 	manager.current = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 965, 110 }, { 0,0 }, true, true, { 0,0,40,40 }, "CURRENT :", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
@@ -114,12 +115,16 @@ bool j1QuestManager::Update(float dt)
 	{
 		current_quest = Set_Quest(QUEST::NONE);
 	}
-	
+
 	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
 	{
 		current_quest = Set_Quest(QUEST::KILL_15_BOATS);
 	}
 	////////////////////////////////////////////////////////////////
+
+
+	Check_Quest_Stat(main_quest);
+
 	return true;
 }
 
@@ -139,7 +144,7 @@ QUEST j1QuestManager::Set_Quest(QUEST quest)
 		Select_Quest_Text(quest);
 		quest_activate = true;
 		return QUEST::BUILD_10_BOATS;
-	break;
+		break;
 
 	case QUEST::NONE:
 		main_quest.total = 0;
@@ -165,12 +170,12 @@ QUEST j1QuestManager::Set_Quest(QUEST quest)
 
 void j1QuestManager::Finish_Quest(QUEST quest)
 {
-	
+
 }
 
 void j1QuestManager::Select_Quest_Text(QUEST quest)
 {
-	
+
 	switch (quest)
 	{
 	case QUEST::BUILD_10_BOATS:
@@ -182,6 +187,21 @@ void j1QuestManager::Select_Quest_Text(QUEST quest)
 		break;
 	}
 
+}
+
+bool j1QuestManager::Check_Quest_Stat(Quest quest)
+{
+	if (quest.current >= quest.total) {
+		Claim_Reward(quest);
+		return true;
+	}
+	else
+		return false;
+}
+
+void j1QuestManager::Claim_Reward(Quest quest)
+{
+	App->InGameUI->coins = App->InGameUI->coins + quest.reward;
 }
 
 
@@ -231,7 +251,7 @@ void j1QuestManager::Close_Quest_Manager()
 void j1QuestManager::Open_Quest_Manager()
 {
 	manager.button->enabled = true;
-	manager.image_close->enabled =true;
+	manager.image_close->enabled = true;
 }
 
 void j1QuestManager::GUI_Event_Manager(GUI_Event type, j1Element* element)
@@ -249,7 +269,7 @@ void j1QuestManager::GUI_Event_Manager(GUI_Event type, j1Element* element)
 				manager.no_quest->enabled = false;
 				quest_manager_open = true;
 			}
-			else  if (manager.image_open->enabled == true && quest_activate == false){
+			else  if (manager.image_open->enabled == true && quest_activate == false) {
 				manager.no_quest->enabled = true;
 				quest_manager_open = true;
 			}
