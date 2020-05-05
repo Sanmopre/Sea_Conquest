@@ -137,6 +137,7 @@ int j1SceneManager::ChangeScene(int scene)
 		//App->audio->PlayMusic("audio/music/Sea_conquest_chill_cutre.wav", 2.0f, App->audio->ingame_chill_music);
 		App->audio->StopFx(-1);
 		//App->audio->PlayFx(App->audio->ingame_chill_music, -1);
+		App->audio->PlayMusic(App->audio->ingame_chill_music, 0.0f);
 		In_Main_Menu = false;
 		In_Logo_Scene = false;
 		return 1;
@@ -147,7 +148,8 @@ int j1SceneManager::ChangeScene(int scene)
 		App->scene2->ChangeScene();
 		//App->audio->PlayMusic("audio/music/Motorista_Reciclista_Shop1_start.wav", 2.0f, App->audio->mainmenu_music);
 		App->audio->StopFx(-1);
-		App->audio->PlayFx(App->audio->mainmenu_music, -1);
+		//App->audio->PlayFx(App->audio->mainmenu_music, -1);
+		App->audio->PlayMusic(App->audio->mainmenu_music, 0.0f);
 		App->audio->PlayFx(App->audio->welcome_voice, 0);
 		App->render->camera.x = 0;
 		App->render->camera.y = 0;

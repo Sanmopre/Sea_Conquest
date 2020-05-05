@@ -69,8 +69,8 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	this_will_be_fun = App->audio->LoadFx("audio/fx/this_will_be_fun.wav");
 	//mainmenu_music = Mix_LoadMUS("audio/music/Motorista_Reciclista_Shop1_start.wav");
 	//ingame_chill_music = Mix_LoadMUS("audio/music/Sea_conquest_chill_cutre.wav");
-	mainmenu_music = LoadFx("audio/music/tavern_song.wav");
-	ingame_chill_music = LoadFx("audio/music/song.wav");
+	mainmenu_music = LoadMusic("audio/music/tavern_song.wav");
+	ingame_chill_music = LoadMusic("audio/music/song.wav");
 	
 	return ret;
 }
@@ -158,6 +158,95 @@ bool j1Audio::PlayMusic(const char* path, float fade_time, Mix_Music* loadedmusi
 	return ret;
 }
 */
+
+uint j1Audio::LoadMusic(const char* path) // Loads the audio on the Mix_Music* 
+{
+	unsigned int ret = 0;
+
+	if (!active)
+		return 0;
+
+	//TODO 5 load the audio path given into a Mix_Music variable
+	Mix_Music* music_chunk = Mix_LoadMUS(path);
+
+	if (music_chunk == NULL)
+	{
+		LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
+	}
+	else
+	{
+		//TODO 5.1 Add the previous audio into the list
+		musics.push_back(music_chunk);
+		ret = musics.size();
+	}
+
+	return ret;
+}
+
+bool j1Audio::PlayMusic(unsigned int id, int volume, float fade_time)
+{
+	bool ret = true;
+	int vol = 0;
+	if (App->mainmenu != nullptr)
+		if (App->mainmenu->GetMenu().music != nullptr)
+			vol = App->mainmenu->GetMenu().music->Value;
+	if (volume > 0)
+		vol = volume;
+
+	if (!active)
+		return false;
+
+	if (id > 0 && id <= musics.size())
+	{
+		//TODO 6 Iterate all the music audios stored in the list
+		std::list <Mix_Music*>::const_iterator it;
+		it = std::next(musics.begin(), id - 1);
+		Mix_VolumeMusic(vol);
+		//TODO 7 Given the fade_time implement a fade in and fade out using Mix_Fade(Out/In)Music
+		if (*it != NULL)
+		{
+			if (fade_time > 0.0f)
+			{
+				Mix_FadeOutMusic(int(fade_time * 1000.0f));
+			}
+			else
+			{
+				Mix_HaltMusic();
+			}
+		}
+		if (fade_time > 0.0f)
+		{
+			Mix_FadeInMusic(*it, -1, (int)(fade_time * 1000.0f));
+			//Mix_PlayMusic(*it, -1);
+		}
+		else
+		{
+			Mix_PlayMusic(*it, -1);
+		}
+
+	}
+
+	return ret;
+}
+
+void j1Audio::PauseMusic(float fade_time)
+{
+	if (active)
+	{
+		if (Mix_PlayingMusic() == 1)	// Sees if there is music playing
+		{
+			if (Mix_PausedMusic() == 1)	// If there is resume it
+			{
+				Mix_ResumeMusic();
+			}
+			else
+			{
+				Mix_PauseMusic();
+			}
+		}
+	}
+}
+
 bool j1Audio::PlayFxIntro(unsigned int id, int repeat, int volume)
 {
 	bool ret = false;
@@ -294,4 +383,11 @@ uint j1Audio::GetDistance(iPoint player_pos, iPoint enemy_pos)
 		distance_scaled = MAX_DISTANCE;
 
 	return distance_scaled;
+}
+
+bool j1Audio::Update(float dt)
+{
+	Mix_VolumeMusic(App->mainmenu->GetMenu().music->Value);
+	LOG("Audio update peepoClap");
+	return true;
 }

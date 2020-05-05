@@ -4,9 +4,10 @@
 #include "j1Module.h"
 #include "j1MainMenuUI.h"
 #include "j1GUIElements.h"
+#include "SDL_mixer/include/SDL_mixer.h"
 #include <list>
 #include <iterator>
-#define DEFAULT_MUSIC_FADE_TIME 2.0f
+#define DEFAULT_MUSIC_FADE_TIME 0.0f
 #define RAD_TO_DEG 57.32f				// The result of 180 / 3.14 for pass radiants to degrees
 #define MAX_DISTANCE 1000				// The maximum distance where you can listen
 struct _Mix_Music;
@@ -27,6 +28,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Called every frame KEKW
+	bool Update(float dt);
+
 	// Play a music file
 	//bool PlayMusic(const char* path, float fade_time = 2.0f, Mix_Music* loadedmusic = nullptr);
 	//Quick bug fix (THIS AUDIO SYSTEM IS GETTING REWORKED ANYWAYS)
@@ -41,6 +45,9 @@ public:
 	bool PlaySpatialFx(uint id, uint channel_angle = 1, uint distance = 1, int repeat = 0);
 	uint GetAngle(iPoint player_pos, iPoint enemy_pos);
 	uint GetDistance(iPoint player_pos, iPoint enemy_pos);
+	bool PlayMusic(unsigned int id, int volume = 127 ,float fade_time = DEFAULT_MUSIC_FADE_TIME);
+	void PauseMusic(float fade_time = DEFAULT_MUSIC_FADE_TIME);
+	uint LoadMusic(const char* path);
 
 	uint boat_attack;
 	uint boat_destroy;
@@ -59,15 +66,17 @@ public:
 	uint you_are_not_prepared;
 	uint this_will_be_fun;
 
+	
 	//_Mix_Music* mainmenu_music;
 	//_Mix_Music* ingame_chill_music;
 	unsigned int mainmenu_music;
 	unsigned int ingame_chill_music;
 
-private:		 
-
+private:
+	
 	_Mix_Music*			music = NULL;
 	//Mix_Music* music;
+	std::list<Mix_Music*>	musics;
 	std::list<Mix_Chunk*>	fx;
 };
 
