@@ -61,6 +61,7 @@ public:
 
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
+	void GetMousePosFloat(float& x, float& y);
 	fPoint GetMouseWorldPosition();
 	void GetMouseMotion(int& x, int& y);
 

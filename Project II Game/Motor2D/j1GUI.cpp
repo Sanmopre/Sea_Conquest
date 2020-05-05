@@ -207,6 +207,12 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::DIALOG:
 		texture_load = App->tex->Load("textures/dialog.png");
 		break;
+	case TEXTURE::BALLOON:
+		texture_load = App->tex->Load("textures/ballon.png");
+		break;
+	case TEXTURE::SHIP:
+		texture_load = App->tex->Load("textures/ship.png");
+		break;
 	}
 
 	return texture_load;

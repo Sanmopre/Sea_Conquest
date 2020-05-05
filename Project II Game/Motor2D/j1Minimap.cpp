@@ -73,8 +73,8 @@ void j1Minimap::DrawCamera()
 
 void j1Minimap::MinimapToWorldCamera()
 {
-	int x, y = 0;
-	App->input->GetMousePosition(x,y);
+	float x, y = 0;
+	App->input->GetMousePosFloat(x, y);
 	if (x > position.x&& y > position.y) {
 		if (App->input->GetMouseButtonDown(1) == KEY_REPEAT) {
 			clicking_map = true;
