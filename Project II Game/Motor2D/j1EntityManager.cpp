@@ -6,8 +6,17 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Window.h"
+#include <algorithm>
 
 using namespace std;
+
+struct {
+	bool operator()(j1Entity* a, j1Entity* b) const
+	{
+		return a->position.y < b->position.y;
+	}
+} customLess;
+
 
 j1EntityManager::j1EntityManager()
 {
@@ -61,6 +70,7 @@ bool j1EntityManager::Update(float dt)
 		buffer.erase(buffer.begin(), buffer.end());
 		buffer.shrink_to_fit();
 	}
+	std::sort(entities.begin(), entities.end(), customLess);
 	////////////////////////////////////ENTITIES_DEBUG///////////////////////////////////////////////////
 	if (App->godmode)
 	{
