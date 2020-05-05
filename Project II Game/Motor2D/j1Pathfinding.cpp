@@ -21,30 +21,115 @@ bool j1PathFinding::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		show = false;
 
-	if(show)
+	if (show)
+	{
+		for (auto i = islands.begin(); i != islands.end(); i++)
+			for (auto itr = (*i)->map.begin(); itr != (*i)->map.end(); itr++)
+			{
+				iPoint ps = App->map->MapToWorld<iPoint>((*itr)->tile.x, (*itr)->tile.y);
+				App->render->AddBlitEvent(0, nullptr, 0, 0, { ps.x-2,ps.y-2, 9,9 }, false, false, 0, 0, 255);
+			}
 		for (auto i = NodeMap.begin(); i != NodeMap.end(); i++)
 		{
-			fPoint point = App->map->MapToWorld<fPoint>(i->tile.x, i->tile.y);
+			fPoint point = App->map->MapToWorld<fPoint>((*i)->tile.x, (*i)->tile.y);
 			Color c = {};
-			if (i->type == NodeType::GROUND)
+			if ((*i)->type == NodeType::GROUND)
 				c.Red();
-			else if (i->type == NodeType::WATER)
+			else if ((*i)->type == NodeType::WATER)
 				c.Green();
 			App->render->AddBlitEvent(10, nullptr, 0, 0, { (int)point.x, (int)point.y, 5, 5 }, false, false, c.r, c.g, c.b, 255);
 		}
+	}
 
 	return true;
 }
 
-vector<fPoint> j1PathFinding::PathTo(fPoint start_pos, fPoint end_pos, NodeType terrain)
+void j1PathFinding::LoadIslands()
+{
+	for (vector<Node*>::iterator node = NodeMap.begin(); node != NodeMap.end(); node++)
+	{
+		if ((*node)->island == nullptr && (*node)->type == NodeType::GROUND)
+			CreateIsland((*node)->tile, (*node)->type);
+	}
+}
+
+void j1PathFinding::CreateIsland(iPoint position, NodeType terrain)
+{
+	Island* island = new Island();
+
+	island->map = GetWalkableMap(position, terrain, island);
+
+	islands.push_back(island);
+}
+
+vector<Node*> j1PathFinding::GetWalkableMap(iPoint position, NodeType terrain, Island* island)
+{
+	vector<Node*> ret;
+
+	Expand(position, ret, terrain, island);
+
+	return ret;
+}
+
+void j1PathFinding::Expand(iPoint node, vector<Node*>& map, NodeType terrain, Island* island)
+{
+	for (int y = -1; y <= 1; y++)
+		for (int x = -1; x <= 1; x++)
+			if (x == 0 && y == 0)
+				continue;
+			else if ((node.x + x) >= 0 && (node.x + x) < App->map->mapdata->width && (node.y + y) >= 0 && (node.y + y) < App->map->mapdata->height)
+			{
+				Node* n = *PointToNode((node.x + x), (node.y + y), NodeMap);
+				if (n->type == terrain)
+				{
+					bool found = false;
+					for (vector<Node*>::iterator itr = map.begin(); itr != map.end(); itr++)
+						if ((*itr) == n)
+						{
+							found = true;
+							break;
+						}
+					if (!found)
+					{
+						map.push_back(n);
+						n->island = island;
+						Expand(n->tile, map, terrain, island);
+					}
+				}
+			}
+		
+}
+
+vector<Node*>* j1PathFinding::GetIsland(fPoint position)
+{
+	iPoint pos = App->map->WorldToMap(position.x, position.y);
+
+	Node* node = *(PointToNode(pos.x, pos.y, NodeMap));
+
+	return &node->island->map;
+}
+
+vector<fPoint> j1PathFinding::PathTo(fPoint start_pos, fPoint end_pos, NodeType terrain, vector<Node*>* map)
 {
 	vector<fPoint> ret;
 
-	iPoint _start = App->map->WorldToMap((int)start_pos.x, (int)start_pos.y);
-	iPoint _end = App->map->WorldToMap((int)end_pos.x, (int)end_pos.y);
+	iPoint _start = App->map->WorldToMap(start_pos.x, start_pos.y);
+	iPoint _end = App->map->WorldToMap(end_pos.x, end_pos.y);
 
-	if(_end.x >= 0 && _end.y >= 0)
-	if (PointToNode(_end.x, _end.y, &NodeMap)->type == terrain || terrain == NodeType::ALL)
+	bool reachable = true;
+	if (map != nullptr)
+	{
+		reachable = false;
+		for (vector<Node*>::iterator itr = (*map).begin(); itr != (*map).end(); itr++)
+			if ((*itr)->tile == _end)
+			{
+				reachable = true;
+				break;
+			}	
+	}
+
+	if(reachable && _end.x >= 0 && _end.y >= 0)
+	if ((*PointToNode(_end.x, _end.y, NodeMap))->type == terrain || terrain == NodeType::ALL)
 	{
 		if (_start == _end)
 		{
@@ -53,8 +138,8 @@ vector<fPoint> j1PathFinding::PathTo(fPoint start_pos, fPoint end_pos, NodeType 
 		}
 		else
 		{
-			Node* start = &*PointToNode(_start.x, _start.y, &NodeMap);
-			Node* end = &*PointToNode(_end.x, _end.y, &NodeMap);
+			Node* start = *PointToNode(_start.x, _start.y, NodeMap);
+			Node* end = *PointToNode(_end.x, _end.y, NodeMap);
 
 			if (start == nullptr || end == nullptr)
 				return ret;
@@ -150,18 +235,18 @@ vector<Node*> j1PathFinding::GetNeighbours(iPoint node)
 				continue;
 			else if ((node.x + x) >= 0 && (node.x + x) < App->map->mapdata->width && (node.y + y) >= 0 && (node.y + y) < App->map->mapdata->height)
 			{
-				ret.push_back(&*PointToNode((node.x + x), (node.y + y), &NodeMap));
+				ret.push_back(*PointToNode((node.x + x), (node.y + y), NodeMap));
 			}
 		}
 	return ret;
 }
 
-vector<Node>::iterator j1PathFinding::PointToNode(int x, int y, vector<Node>* _grid)
+vector<Node*>::iterator j1PathFinding::PointToNode(int x, int y, vector<Node*> _grid)
 {
-	vector<Node>::iterator ret;
+	vector<Node*>::iterator ret;
 	if (x >= App->map->mapdata->width || y >= App->map->mapdata->height || x < 0 || y < 0)
 		return ret;
-	return _grid->begin() + (App->map->mapdata->width * y + x);
+	return _grid.begin() + (App->map->mapdata->width * y + x);
 }
 
 int j1PathFinding::DistanceTo(Node* A, Node* B)
@@ -207,6 +292,14 @@ vector<fPoint> j1PathFinding::CreatePath(Node* end, fPoint end_pos)
 
 bool j1PathFinding::CleanUp()
 {
+	for (vector<Island*>::iterator itr = islands.begin(); itr != islands.end(); itr++)
+	{
+		vector<Node*> n;
+		(*itr)->map.swap(n);
+		delete* itr;
+	}
+	for (vector<Node*>::iterator itr = NodeMap.begin(); itr != NodeMap.end(); itr++)
+		delete* itr;
 	NodeMap.erase(NodeMap.begin(), NodeMap.end());
 	NodeMap.shrink_to_fit();
 	

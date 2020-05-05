@@ -18,6 +18,14 @@ enum NodeType
 	ALL
 };
 
+struct Node;
+
+class Island
+{
+public:
+	vector<Node*> map;
+};
+
 struct Node
 {
 	Node(int x, int y, NodeType type)
@@ -32,6 +40,7 @@ struct Node
 	int g = 0;
 	int h = 0;
 	Node* parent = nullptr;
+	Island* island;
 
 	int GetFCost() { return g + h; }
 
@@ -50,16 +59,27 @@ public:
 	bool Start();
 	bool CleanUp();
 	bool Update(float dt);
-	vector<Node> NodeMap;
 
-	vector<fPoint> PathTo(fPoint start_pos, fPoint end_pos, NodeType terrain);
+	vector<Node*> NodeMap;
+	vector<Island*> islands;
+
+	void LoadIslands();
+	vector<Node*>* GetIsland(fPoint position);
+
+	vector<fPoint> PathTo(fPoint start_pos, fPoint end_pos, NodeType terrain, vector<Node*>* map = nullptr);
 
 	vector<Node*> GetNeighbours(iPoint node);
-	vector<Node>::iterator PointToNode(int x, int y, vector<Node>* _grid);
+	vector<Node*>::iterator PointToNode(int x, int y, vector<Node*> _grid);
 	int DistanceTo(Node* A, Node* B);
 	vector<fPoint> CreatePath(Node* end, fPoint end_pos);
 
 	bool show;
+
+private:
+
+	void CreateIsland(iPoint position, NodeType terrain = NodeType::GROUND);
+	vector<Node*> GetWalkableMap(iPoint position, NodeType terrain, Island* island);
+	void Expand(iPoint node, vector<Node*>& map, NodeType terrain, Island* island);
 };
 
 #endif //_j1PathFinding_

@@ -278,6 +278,16 @@ void j1InGameUI::Add_UI()
 	harvester.Storage = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 145,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::STORAGE);
 	harvester.Automatic = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW - 180,655 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::AUTOMATIC);
 
+	//SHIP
+	ship.entity_name = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, false, { 0,0,40,40 }, "BATTLE SHIP", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	ship.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SHIP);
+	ship.Trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 120,655 }, { 0,0 }, true, false, { 0,0,30,30 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
+
+	//BALLOON
+	balloon.entity_name = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, false, { 0,0,40,40 }, "BATTLE BALLOON", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	balloon.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BALLOON);
+	balloon.Trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 120,655 }, { 0,0 }, true, false, { 0,0,30,30 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
+
 	//TOWNHALL
 	townhall.entity_name_townhall = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, true, { 0,0,40,40 }, "TOWNHALL", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	townhall.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TOWNHALL);
@@ -517,6 +527,16 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			Deactivate_Building_Menu();
 			Activate_Trading();
 			
+		}
+		if (element == ship.Trade) {
+			in_trading = true;
+			Deactivate_Ship();
+			Activate_Trading();
+		}
+		if (element == balloon.Trade) {
+			in_trading = true;
+			Deactivate_Balloon();
+			Activate_Trading();
 		}
 		if (element == harvester.Trade) {
 			in_trading = true;
@@ -800,6 +820,34 @@ void j1InGameUI::Deactivate_Information()
 	information.Max_resource->enabled = false;
 	information.in_info = false;
 	in_hover_info = false;
+}
+
+void j1InGameUI::Activate_Balloon()
+{
+	balloon.entity_name->enabled = true;
+	balloon.entity_type_Image->enabled = true;
+	balloon.Trade->enabled = true;
+}
+
+void j1InGameUI::Deactivate_Balloon()
+{
+	balloon.entity_name->enabled = false;
+	balloon.entity_type_Image->enabled = false;
+	balloon.Trade->enabled = false;
+}
+
+void j1InGameUI::Activate_Ship()
+{
+	ship.entity_name->enabled = true;
+	ship.entity_type_Image->enabled = true;
+	ship.Trade->enabled = true;
+}
+
+void j1InGameUI::Deactivate_Ship()
+{
+	ship.entity_name->enabled = false;
+	ship.entity_type_Image->enabled = false;
+	ship.Trade->enabled = false;
 }
 
 void j1InGameUI::Update_Bar(j1Element* scroll, float resource, float total_resource, Material material)

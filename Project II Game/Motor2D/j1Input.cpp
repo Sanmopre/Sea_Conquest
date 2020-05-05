@@ -155,6 +155,12 @@ void j1Input::GetMousePosition(int& x, int& y)
 	y = mouse_y;
 }
 
+void j1Input::GetMousePosFloat(float& x, float& y)
+{
+	x = mouse_x;
+	y = mouse_y;
+}
+
 fPoint j1Input::GetMouseWorldPosition()
 {
 	fPoint ret;

@@ -70,6 +70,8 @@ enum class TEXTURE
 	COIN_COST,
 	EXPLANATION,
 	DIALOG,
+	SHIP,
+	BALLOON,
 	NONE
 };
 

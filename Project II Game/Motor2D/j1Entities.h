@@ -255,6 +255,8 @@ protected:
 	Animation west;
 	Animation north_west;
 
+	vector<Node*>* map = nullptr;
+
 	void GoTo(fPoint destination, NodeType terrain);
 	void Move(float dt);
 	void NextStep();

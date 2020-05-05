@@ -43,6 +43,21 @@ struct Boat_Menu {
 	j1Element* Trade;
 };
 
+
+struct Battle_Ship_Menu {
+	j1Element* entity_type_Image;
+	j1Element* entity_name;
+	j1Element* Trade;
+};
+
+
+struct Ballon_Menu {
+	j1Element* entity_type_Image;
+	j1Element* entity_name;
+	j1Element* Trade;
+};
+
+
 struct Townhall_Menu {
 	j1Element* entity_type_Image;
 	j1Element* entity_name_townhall;
@@ -207,6 +222,16 @@ public:
 	void Activate_Information();
 	void Deactivate_Information();
 
+
+	//BALLOON
+	void Activate_Balloon();
+	void Deactivate_Balloon();
+
+	//BATTLE SHIP
+	void Activate_Ship();
+	void Deactivate_Ship();
+
+
 	//BAR UPDATES
 	void Update_Bar(j1Element* scroll, float resource, float total_resource, Material material);
 	void Update_Bar_Trader(j1Element* scroll, float resource, float total_resource, Material material);
@@ -301,6 +326,8 @@ private:
 	GodMode godmode;
 	Information information;
 	CoinCost coincost;
+	Battle_Ship_Menu ship;
+	Ballon_Menu balloon;
 
 	//ENtities
 	Building_Menu building;
