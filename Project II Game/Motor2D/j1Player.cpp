@@ -14,11 +14,12 @@
 #include "j1Minimap.h"
 #include "j1InGameUI.h"
 #include "j1SceneManager.h"
-
+#include "j1Map.h"
 
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 
 #include "j1EntityManager.h"
 
@@ -26,6 +27,16 @@
 #define Y_DISTANCE 30
 
 using namespace std;
+
+struct {
+	bool operator()(fPoint a, fPoint b) const
+	{
+		if(a.y != b.y)
+			return a.y < b.y;
+		else
+			return a.x < b.x;
+	}
+} LessY;
 
 j1Player::j1Player() : j1Module()
 {
@@ -104,55 +115,95 @@ bool j1Player::Update(float dt)
 		App->input->GetMousePosition(m.x, m.y);
 		m.x -= App->render->camera.x / App->win->GetScale();
 		m.y -= App->render->camera.y / App->win->GetScale();
-		if (App->entitymanager->selected_n > 1)
+		iPoint tile = App->map->WorldToMap((float)m.x, (float)m.y);
+		NodeType terrain = (*App->pathfinding->PointToNode(tile.x, tile.y, App->pathfinding->NodeMap))->type;
+
+		vector<fPoint> locations;
+
+		SpreadState state = UP;
+		int limit = App->entitymanager->selected_n;
+		int n = 0;
+		int i = 1;
+		int x;
+		int y;
+		int loop = 0;
+
+		while (n != limit)
 		{
-			int n = 0;
-			int w_group = 0;
-			fPoint x = { 0,0 };
-			fPoint y = { 0,0 };
-			fPoint w, h;
-			for (vector<j1Entity*>::iterator i = App->entitymanager->entities.begin(); i != App->entitymanager->entities.end(); i++)
+			switch (state)
 			{
-				if ((*i)->selected && (*i)->main_type == EntityType::UNIT && (*i)->team == 1)
+			case UP:
+				x = tile.x + loop;
+				y = tile.y - i / 2;
+				if (i != 1)
+					state = RIGHT;
+				else
+					i += 2;
+				break;
+			case RIGHT:
+				x = tile.x + i / 2;
+				y = tile.y + loop;
+				state = DOWN;
+				break;
+			case DOWN:
+				x = tile.x - loop;
+				y = tile.y + i / 2;
+				state = LEFT;
+				break;
+			case LEFT:
+				x = tile.x - i / 2;
+				y = tile.y - loop;
+				state = UP;
+				if (loop > 0)
+					loop *= -1;
+				else
 				{
-					if (n == 0)
-					{
-						//direction detector
-						fPoint v = { (*i)->position.x - m.x , (*i)->position.y - m.y };
-						float m = v.y / v.x;
-						h.x = Y_DISTANCE / sqrt(m * m + 1);
-						h.y = m * h.x;
-
-						if (v.x < 0)
-							h.Negate();
-
-						v = { -v.y, v.x };
-						m = v.y / v.x;
-						w.x = X_DISTANCE / sqrt(m * m + 1);
-						w.y = m * w.x;
-					}
-					if (w_group == max_w_group - 1)
-					{
-						x.SetToZero();
-						y += h;
-						w_group = 0;
-					}
-					(*i)->GoTo({ (float)m.x + x.x + y.x, (float)m.y + x.y + y.y }, (*i)->terrain);
-					if (n % 2 == 0)
-					{
-						x.Negate();
-						x += w;
-					}
-					else
-						x.Negate();
-					n++;
-					w_group++;
+					loop *= -1;
+					loop++;
 				}
-				if (n == App->entitymanager->selected_n)
-					break;
+				if (tile.y - i / 2 == y)
+				{
+					loop = 0;
+					i += 2;
+				}
+				break;
+			}
+			bool can = false;
+			fPoint pos = {};
+			if ((*App->pathfinding->PointToNode(x, y, App->pathfinding->NodeMap))->type == terrain)
+			{
+				can = true;
+				pos = App->map->MapToWorld<fPoint>(x, y);
+				for(vector<fPoint>::iterator itr = locations.begin(); itr != locations.end(); itr++)
+					if (*itr == pos)
+					{
+						can = false;
+						break;
+					}
+				for (vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
+					if ((*e)->main_type == EntityType::UNIT)
+						if ((*e)->position == pos)
+						{
+							can = false;
+							break;
+						}
+			}
+			if (can)
+			{
+				locations.push_back(pos);
+				n++;
 			}
 		}
-
+		sort(locations.begin(), locations.end(), LessY);
+		for (vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
+			if ((*e)->main_type == EntityType::UNIT && (*e)->selected && (*e)->team == 1 && (*e)->terrain == terrain)
+			{
+				fPoint dest = *locations.begin();
+				(*e)->GoTo(dest, (*e)->terrain);
+				locations.erase(locations.begin());
+			}
+		vector<fPoint> v;
+		locations.swap(v);
 	}
 	
 	//This functions should always be last//

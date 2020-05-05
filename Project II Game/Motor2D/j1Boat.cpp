@@ -51,15 +51,6 @@ void j1Boat::Update(float dt)
 {
 	if (dt != 0.0f)
 	{	
-		if (selected)
-		{
-			if (team == 1)
-			{
-				if (App->entitymanager->selected_n == 1 && App->input->GetMouseButtonDown(3) == KEY_DOWN && !App->player->disable_click)
-					SetDestination(terrain);
-			}
-		}
-
 		target = FindTarget(position.x, position.y, range, EntityType::NONE, -1);
 
 		if (destination != position)
@@ -83,7 +74,6 @@ void j1Boat::Update(float dt)
 		if (health < 0)
 		{
 			health = 0;
-			//App->audio->PlayFx(App->audio->boat_destroy);
 			App->audio->PlaySpatialFx(App->audio->boat_destroy,
 				App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
 				App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));

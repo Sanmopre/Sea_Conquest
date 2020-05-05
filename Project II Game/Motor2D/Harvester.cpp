@@ -63,8 +63,6 @@ void j1Harvester::Update(float dt)
 				if (!automating && state != TO_BUILD)
 					if (App->input->GetMouseButtonDown(3) == KEY_DOWN && !App->player->disable_click)
 					{
-						if (App->entitymanager->selected_n == 1)
-							SetDestination(terrain);
 						automatic = false;
 					}
 

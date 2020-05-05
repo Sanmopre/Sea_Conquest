@@ -13,7 +13,10 @@ using namespace std;
 struct {
 	bool operator()(j1Entity* a, j1Entity* b) const
 	{
-		return a->position.y < b->position.y;
+		if(a->position.y != b->position.y)
+			return a->position.y < b->position.y;
+		else
+			return a->position.x < b->position.x;
 	}
 } customLess;
 
@@ -50,7 +53,7 @@ bool j1EntityManager::Update(float dt)
 			{
 				(*entity)->Primitive_Update(dt);
 				(*entity)->Update(dt);
-				if ((*entity)->selected)
+				if ((*entity)->selected && (*entity)->team == 1)
 					n++;
 			}
 			else
@@ -82,79 +85,7 @@ bool j1EntityManager::Update(float dt)
 			App->input->GetMousePosition(test.x, test.y);
 			test.x -= App->render->camera.x / App->win->GetScale();
 			test.y -= App->render->camera.y / App->win->GetScale();
-
-			iPoint tile = App->map->WorldToMap(test.x, test.y);
-			NodeType terrain = NodeType::WATER;
-
-			SpreadState state = UP;
-			int limit = 7;
-			int i = 1;
-			int x;
-			int y;
-			int loop = 0;
-
-			while (i <= limit)
-			{
-				switch (state)
-				{
-				case UP:
-					x = tile.x + loop;
-					y = tile.y - i / 2;
-					if (i != 1)
-						state = RIGHT;
-					else
-						i += 2;
-					break;
-				case RIGHT:
-					x = tile.x + i / 2;
-					y = tile.y + loop;
-					state = DOWN;
-					break;
-				case DOWN:
-					x = tile.x - loop;
-					y = tile.y + i / 2;
-					state = LEFT;
-					break;
-				case LEFT:
-					x = tile.x - i / 2;
-					y = tile.y - loop;
-					state = UP;
-					if (loop > 0)
-						loop *= -1;
-					else
-					{
-						loop *= -1;
-						loop++;
-					}
-					if (tile.y - i / 2 == y)
-					{
-						loop = 0;
-						i += 2;
-					}
-					break;
-				}
-				bool can = false;
-				fPoint pos = {};
-				if ((*App->pathfinding->PointToNode(x, y, App->pathfinding->NodeMap))->type == terrain)
-				{
-					can = true;
-					pos = App->map->MapToWorld<fPoint>(x, y);
-					for (vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
-					{
-						if ((*e)->main_type == EntityType::UNIT)
-							if ((*e)->position == pos)
-							{
-								can = false;
-								break;
-							}
-					}
-				}
-				if (can)
-				{
-					AddEntity(pos.x, pos.y, EntityType::BOAT, 3, 1);
-					break;
-				}
-			}
+			AddEntity(test.x, test.y, EntityType::BOAT, 1, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
