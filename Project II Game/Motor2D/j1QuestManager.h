@@ -73,6 +73,7 @@ private:
 	j1Element* quest_explanation_build_boat = nullptr;
 	j1Element* quest_explanation_kill_boat = nullptr;
 	j1Element* quest_explanation_destroy_structure = nullptr;
+	j1Element* gold_icon = nullptr;
 };
 
 
