@@ -28,7 +28,6 @@ j1QuestManager::~j1QuestManager()
 // Called before render is available
 bool j1QuestManager::Awake(pugi::xml_node& conf)
 {
-
 	bool ret = true;
 
 	return ret;
@@ -46,7 +45,8 @@ bool j1QuestManager::Start()
 	manager.no_quest = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 985, 80 }, { 0,0 }, true, true, { 0,0,40,40 }, "NO QUEST ACTIVE!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	quest_explanation_build_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 995, 70 }, { 0,0 }, true, true, { 0,0,40,40 }, "BUILD 10 BOATS", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	quest_explanation_kill_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 985, 70 }, { 0,0 }, true, true, { 0,0,40,40 }, "DESTROY 15 ENEMY BOATS", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-
+	quest_explanation_destroy_structure = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 970, 70 }, { 0,0 }, true, true, { 0,0,40,40 }, "DESTROY ENEMY STRUCTURE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	gold_icon = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 1090,185 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::COIN);
 	return true;
 }
 
@@ -63,10 +63,11 @@ bool j1QuestManager::Update(float dt)
 		manager.current->enabled = true;
 		manager.reward->enabled = true;
 		manager.total->enabled = true;
+		gold_icon->enabled = true;
 		Quest_Line(current_quest);
 		App->fonts->BlitText(1005, 110, 1, main_quest.current_t);
 		App->fonts->BlitText(1005, 150, 1, main_quest.total_t);
-		App->fonts->BlitText(1005, 190, 1, main_quest.reward_t);
+		App->fonts->BlitText(970, 190, 1, main_quest.reward_t);
 
 
 		//DEACTIVATE NO QUEST MESSAGE
@@ -78,9 +79,11 @@ bool j1QuestManager::Update(float dt)
 		manager.current->enabled = false;
 		manager.reward->enabled = false;
 		manager.total->enabled = false;
+		gold_icon->enabled = false;
 		manager.no_quest->enabled = false;
 		quest_explanation_build_boat->enabled = false;
 		quest_explanation_kill_boat->enabled = false;
+		quest_explanation_destroy_structure->enabled = false;
 	}
 
 	//MANAGES WHEN OPEN AND NO QUEST
@@ -89,8 +92,10 @@ bool j1QuestManager::Update(float dt)
 		manager.reward->enabled = false;
 		manager.total->enabled = false;
 		manager.no_quest->enabled = true;
+		gold_icon->enabled = false;
 		quest_explanation_build_boat->enabled = false;
 		quest_explanation_kill_boat->enabled = false;
+		quest_explanation_destroy_structure->enabled = false;
 	}
 
 
@@ -100,30 +105,17 @@ bool j1QuestManager::Update(float dt)
 		manager.current->enabled = false;
 		manager.reward->enabled = false;
 		manager.total->enabled = false;
+		gold_icon->enabled = false;
 		manager.no_quest->enabled = false;
 		quest_explanation_build_boat->enabled = false;
 		quest_explanation_kill_boat->enabled = false;
+		quest_explanation_destroy_structure->enabled = false;
 	}
 
-	////////////////////////////////////////////////////////////////
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
-	{
-		current_quest = Set_Quest(QUEST::BUILD_10_BOATS);
-	}
 
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-	{
-		current_quest = Set_Quest(QUEST::NONE);
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
-	{
-		current_quest = Set_Quest(QUEST::KILL_15_BOATS);
-	}
-	////////////////////////////////////////////////////////////////
-
-
-	Check_Quest_Stat(main_quest);
+	if (Check_Quest_Stat(main_quest)) 
+	current_quest = Set_Quest(QUEST::NONE);
+	
 
 	return true;
 }
@@ -141,7 +133,6 @@ QUEST j1QuestManager::Set_Quest(QUEST quest)
 		main_quest.total = 10;
 		main_quest.reward = 10;
 		main_quest.current = 0;
-		Select_Quest_Text(quest);
 		quest_activate = true;
 		return QUEST::BUILD_10_BOATS;
 		break;
@@ -150,7 +141,6 @@ QUEST j1QuestManager::Set_Quest(QUEST quest)
 		main_quest.total = 0;
 		main_quest.reward = 0;
 		main_quest.current = 0;
-		Select_Quest_Text(quest);
 		quest_activate = false;
 		return QUEST::NONE;
 		break;
@@ -159,9 +149,16 @@ QUEST j1QuestManager::Set_Quest(QUEST quest)
 		main_quest.total = 15;
 		main_quest.reward = 20;
 		main_quest.current = 0;
-		Select_Quest_Text(quest);
 		quest_activate = true;
 		return QUEST::KILL_15_BOATS;
+		break;
+
+	case QUEST::DESTROY_ENEMY_STRUCTURE:
+		main_quest.total = 1;
+		main_quest.reward = 15;
+		main_quest.current = 0;
+		quest_activate = true;
+		return QUEST::DESTROY_ENEMY_STRUCTURE;
 		break;
 	}
 
@@ -175,17 +172,6 @@ void j1QuestManager::Finish_Quest(QUEST quest)
 
 void j1QuestManager::Select_Quest_Text(QUEST quest)
 {
-
-	switch (quest)
-	{
-	case QUEST::BUILD_10_BOATS:
-		quest_explanation_build_boat->enabled = true;
-		break;
-
-	case QUEST::NONE:
-		quest_explanation_build_boat->enabled = false;
-		break;
-	}
 
 }
 
@@ -212,21 +198,28 @@ void j1QuestManager::Quest_Line(QUEST quest)
 	case QUEST::BUILD_10_BOATS:
 		quest_explanation_build_boat->enabled = true;
 		quest_explanation_kill_boat->enabled = false;
-
+		quest_explanation_destroy_structure->enabled = false;
 		manager.no_quest->enabled = false;
 		break;
 
 	case QUEST::KILL_15_BOATS:
 		quest_explanation_build_boat->enabled = false;
 		quest_explanation_kill_boat->enabled = true;
+		quest_explanation_destroy_structure->enabled = false;
+		manager.no_quest->enabled = false;
+		break;
 
+	case QUEST::DESTROY_ENEMY_STRUCTURE:
+		quest_explanation_destroy_structure->enabled = true;
+		quest_explanation_build_boat->enabled = false;
+		quest_explanation_kill_boat->enabled = false;
 		manager.no_quest->enabled = false;
 		break;
 
 	case QUEST::NONE:
+		quest_explanation_destroy_structure->enabled = false;
 		quest_explanation_build_boat->enabled = false;
 		quest_explanation_kill_boat->enabled = false;
-
 		manager.no_quest->enabled = true;
 		break;
 	}

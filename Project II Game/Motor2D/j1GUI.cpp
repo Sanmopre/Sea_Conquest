@@ -212,6 +212,9 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 		break;
 	case TEXTURE::SHIP:
 		texture_load = App->tex->Load("textures/ship.png");
+	case TEXTURE::QUEST:
+		texture_load = App->tex->Load("textures/quest.png");
+
 		break;
 	}
 

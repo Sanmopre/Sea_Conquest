@@ -293,7 +293,9 @@ void j1InGameUI::Add_UI()
 	townhall.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TOWNHALL);
 	townhall.coins_image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 120,655 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::COIN);
 	townhall.lvl_up = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 110,600 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::LVLUP);
-
+	townhall.Quest_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 150,600 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::QUEST);
+	
+	
 	//BOAT_BUILDER_MENU
 	building.Boat_Building_Button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 110,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BOAT_IMAGE);
 	building.entity_name_boathouse = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, true, { 0,0,40,40 }, "BOAT HOUSE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
@@ -306,6 +308,11 @@ void j1InGameUI::Add_UI()
 	storage.entity_type_Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::STORAGE);
 	storage.Trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 120,655 }, { 0,0 }, true, false, { 0,0,30,30 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
 
+	//QUEST SELECTOR
+	quest_selector.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW + 80,525 }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MANAGER_IMAGE);
+	quest_selector.Quest_1 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 110,550 }, { 50,5 }, true, false, { 0,0,30,30 },"DESTROY 15 ENEMY BOATS", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::QUEST);
+	quest_selector.Quest_2 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 110,600 }, { 50,5 }, true, false, { 0,0,30,30 }, "DESTROY 1 ENEMY STRUCTURE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::QUEST);
+	quest_selector.Quest_3 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 110,650 }, { 50,5 }, true, false, { 0,0,30,30 }, "BUILD 10 BOATS", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::QUEST);
 
 	//UI BASICS ALWAYS ACTIVE
 	basics.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {0,520 }, { 0,0 }, true, true, { 0, 0,1280,200 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MAIN_IMAGE);
@@ -474,6 +481,24 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		}
 		if (element == menu.Exit_button) {
 			App->win->Fullscreen();
+		}
+
+		if (element == quest_selector.Quest_1)
+			App->quest->current_quest = App->quest->Set_Quest(QUEST::KILL_15_BOATS);
+
+
+		if (element == quest_selector.Quest_2)
+			App->quest->current_quest = App->quest->Set_Quest(QUEST::DESTROY_ENEMY_STRUCTURE);
+
+		if (element == quest_selector.Quest_3)
+			App->quest->current_quest = App->quest->Set_Quest(QUEST::BUILD_10_BOATS);
+
+
+		if (element == townhall.Quest_button) {
+			if (in_quest_manager == false)
+				Activate_Quest_Selector();
+			else
+				Deactivate_Quest_Selector();
 		}
 
 		if (element == menu.Save) {
@@ -738,6 +763,7 @@ void j1InGameUI::Activate_Townhall_Menu()
 	townhall.entity_type_Image->enabled = true;
 	townhall.coins_image->enabled = true;
 	townhall.lvl_up->enabled = true;
+	townhall.Quest_button->enabled = true;
 	in_townhall = true;
 }
 
@@ -747,6 +773,7 @@ void j1InGameUI::Deactivate_Townhall_Menu()
 	townhall.entity_type_Image->enabled = false;
 	townhall.coins_image->enabled = false;
 	townhall.lvl_up->enabled = false;
+	townhall.Quest_button->enabled = false;
 	in_townhall = false;
 }
 
@@ -850,6 +877,24 @@ void j1InGameUI::Deactivate_Ship()
 	ship.Trade->enabled = false;
 }
 
+void j1InGameUI::Activate_Quest_Selector()
+{
+	quest_selector.Image->enabled = true;
+	quest_selector.Quest_1->enabled = true;
+	quest_selector.Quest_2->enabled = true;
+	quest_selector.Quest_3->enabled = true;
+	in_quest_manager = true;
+}
+
+void j1InGameUI::Deactivate_Quest_Selector()
+{
+	quest_selector.Image->enabled = false;
+	quest_selector.Quest_1->enabled = false;
+	quest_selector.Quest_2->enabled = false;
+	quest_selector.Quest_3->enabled = false;
+	in_quest_manager = false;
+}
+
 void j1InGameUI::Update_Bar(j1Element* scroll, float resource, float total_resource, Material material)
 {
 	float percentage = 0;
@@ -935,6 +980,7 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 			Deactivate_Harvester_Menu();
 			Deactivate_Storage_Menu();
 			Deactivate_Townhall_Menu();
+			Deactivate_Quest_Selector();
 			break;
 
 		case EntityType::BOAT:
@@ -944,6 +990,7 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 			Deactivate_Harvester_Menu();
 			Deactivate_Storage_Menu();
 			Deactivate_Townhall_Menu();
+			Deactivate_Quest_Selector();
 			break;
 
 		case EntityType::HARVESTER:
@@ -953,6 +1000,7 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 			Deactivate_Boat_Menu();
 			Deactivate_Storage_Menu();
 			Deactivate_Townhall_Menu();
+			Deactivate_Quest_Selector();
 			break;
 
 		case EntityType::STORAGE:
@@ -962,6 +1010,7 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 			Deactivate_Building_Menu();
 			Deactivate_Boat_Menu();
 			Deactivate_Harvester_Menu();	
+			Deactivate_Quest_Selector();
 			break;
 
 		case EntityType::TOWNHALL:
@@ -979,6 +1028,7 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 			Deactivate_Harvester_Menu();
 			Deactivate_Storage_Menu();
 			Deactivate_Townhall_Menu();
+			Deactivate_Quest_Selector();
 			break;
 		}
 	}
@@ -991,6 +1041,7 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 		Deactivate_Trader();
 		Deactivate_Townhall_Menu();
 		Deactivate_Storage_Menu();
+		Deactivate_Quest_Selector();
 	}
 }
 
@@ -1092,6 +1143,7 @@ void j1InGameUI::Deactivate_All_UI()
 	Deactivate_Defeat_Menu();
 	Deactivate_Win_Menu();
 	Deactivate_Resource_Menu();
+	Deactivate_Quest_Selector();
 	App->quest->Close_Quest_Manager();
 
 	menu.Resume_button->enabled = false;
