@@ -182,5 +182,5 @@ int j1Entity::GetRenderPositionX()
 
 int j1Entity::GetRenderPositionY()
 {
-	return position.y - rect.h / 2;
+	return (position.y - rect.h / 2) + 16;
 }

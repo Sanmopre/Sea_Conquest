@@ -303,8 +303,10 @@ public:
 
 protected:
 
-	SDL_Rect other_rect; //MIQUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEL
-	SDL_Rect built_rect; //REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+	Animation build_anim;
+	Animation cons_anim;
+
+	SDL_Texture* cons_tex;
 
 	void BuildProcces(float dt);
 

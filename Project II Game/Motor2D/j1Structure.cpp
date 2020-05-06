@@ -21,8 +21,6 @@ j1Structure::j1Structure()
 		built_state = BUILDING;
 		health = 1;
 	}
-		
-	other_rect = {192, 0, 63, 63}; //////////////
 }
 
 
@@ -68,9 +66,9 @@ void j1Structure::Primitive_Update(float dt)
 	}
 
 	if (built_state == BUILDING || built_state == ON_HOLD)
-		rect = other_rect;
+		rect = cons_anim.GetCurrentFrame();
 	else
-		rect = built_rect;
+		rect = build_anim.GetCurrentFrame();
 
 	if(health <= 0)
 		App->audio->PlaySpatialFx(App->audio->structure_destroy,

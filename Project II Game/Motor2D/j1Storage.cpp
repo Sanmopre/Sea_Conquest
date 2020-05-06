@@ -13,10 +13,16 @@ j1Storage::j1Storage(float x, float y, int team)
 	tile = App->map->WorldToMap(x, y);
 	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 	terrain = NodeType::GROUND;
-
-	rect = { 0, 0, 64, 64 };
-	built_rect = rect; /////////////////////
+	level = 1;
 	this->team = team;
+
+	texture = App->tex->GetTexture("storage", level, this->team);
+	cons_tex = App->tex->GetTexture("cons_medium", 0, 0);
+
+	build_anim = App->anim->GetAnimation("storage");
+	cons_anim = App->anim->GetAnimation("cons_medium");
+
+	
 	load = { 0,0,0,2000 };
 	int range = 100;
 	trading_range = 200;
@@ -27,9 +33,9 @@ j1Storage::j1Storage(float x, float y, int team)
 		(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = true;
 	}
 	type = EntityType::STORAGE;
-	level = 1;
 
-	texture = App->tex->GetTexture("buildings", level, team);
+
+	rect = build_anim.GetCurrentFrame();
 }
 
 j1Storage::~j1Storage()

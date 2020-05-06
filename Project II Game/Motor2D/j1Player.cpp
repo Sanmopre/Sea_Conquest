@@ -69,9 +69,12 @@ bool j1Player::Start()
 	bool ret = true;
 	LOG("Player Started");
 	Tex_Player = App->tex->Load("textures/test2.png");
+	highlight = App->tex->GetTexture("tile_highlight", 0, 0);
+	highlight_anim = App->anim->GetAnimation("tile_highlight");
 	App->win->GetWindowSize(win_width, win_height);
 	max_w_group = 7;
 	SDL_ShowCursor(SDL_DISABLE);
+
 	return ret;
 }
 
@@ -314,7 +317,7 @@ bool j1Player::Update(float dt)
 	}
 	
 	//This functions should always be last//
-	Mouse_Cursor();
+	Mouse_Cursor(dt);
 	if (App->scenemanager->In_Main_Menu == false) {
 		if (!disable_click && !disable_click && App->minimap->clicking_map == false)
 			if (dt != 0.0f)
@@ -397,7 +400,6 @@ void j1Player::Select_Entitites(SDL_Rect select_area)
 		select_area.y = select_area.y + select_area.h;
 		select_area.h *= -1;
 	}
-	//LOG("Ax -> %d | Ay -> %d | Aw -> %d | Ah -> %d", select_area.x, select_area.y, select_area.w, select_area.h);
 
 	for (auto entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
 		if (select_area.x < (*entity)->GetRenderPositionX() + (*entity)->rect.w &&
@@ -415,11 +417,18 @@ void j1Player::Select_Entitites(SDL_Rect select_area)
 		}
 }
 
-void j1Player::Mouse_Cursor() 
+void j1Player::Mouse_Cursor(float dt) 
 {
 	mouse_position.x -= App->render->camera.x / App->win->GetScale();
 	mouse_position.y -= App->render->camera.y / App->win->GetScale();
 	App->render->AddBlitEvent(7,Tex_Player, mouse_position.x, mouse_position.y, texture_rect);
+	if (App->map->mapdata != nullptr && dt != 0.0f)
+	{
+		iPoint tile = App->map->WorldToMap((float)mouse_position.x, (float)mouse_position.y);
+		fPoint position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
+		SDL_Rect r = highlight_anim.GetCurrentFrame();
+		App->render->AddBlitEvent(1, highlight, position.x - 32, position.y - 32, r);
+	}
 }
 
 void j1Player::Drag_Mouse()

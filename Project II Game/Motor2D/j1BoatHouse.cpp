@@ -13,22 +13,28 @@ j1BoatHouse::j1BoatHouse(float x, float y, int team)
 	type = EntityType::BOATHOUSE;
 	main_type = EntityType::STRUCTURE;
 	terrain = NodeType::WATER;
+	level = 1;
+	this->team = team;
+
+	texture = App->tex->GetTexture("boathouse", level, this->team);
+	cons_tex = App->tex->GetTexture("cons_small", 0, 0);
+
+	build_anim = App->anim->GetAnimation("boathouse");
+	cons_anim = App->anim->GetAnimation("cons_small");
 
 	tile = App->map->WorldToMap(x, y);
 	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
-	level = 1;
-	this->team = team;
+
 	max_health = 500;
 	if (built_state != BUILDING)
 	{
 		health = max_health;
 		(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = true;
 	}
-	rect = { 128, 0, 64, 64 };
-	built_rect = rect; /////////////////////
-	load = { 0, 0, 0, 1000 };
 
-	texture = App->tex->GetTexture("buildings", level, team);
+	rect = build_anim.GetCurrentFrame();
+
+	load = { 0, 0, 0, 1000 };
 }
 
 j1BoatHouse::~j1BoatHouse()

@@ -24,8 +24,6 @@ public:
 	//Random number function with parameters
 	int Randon_Number(int minimum_value, int maximum_value);
 
-
-
 	//LOADING AND SAVING OPTIONS
 	bool Save(pugi::xml_node& data);
 	bool Load(pugi::xml_node& data);	
@@ -39,7 +37,7 @@ private:
 
 	void Drag_Mouse();
 	void Camera_Control(float dt);
-	void Mouse_Cursor();
+	void Mouse_Cursor(float dt);
 	void Select_Entitites(SDL_Rect);
 	void Zoom();
 	void Camera_Limit();
@@ -50,6 +48,8 @@ private:
 	int max_w_group;
 
 	SDL_Texture* Tex_Player;
+	SDL_Texture* highlight;
+	Animation highlight_anim;
 
 	iPoint mouse_position; 
 	iPoint start_mouse_position;

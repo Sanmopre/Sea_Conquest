@@ -287,7 +287,7 @@ void j1Map::Draw()
 								rect.x = rect.w * n;
 								rect.y = rect.h * t;
 
-								App->render->AddBlitEvent(0, tile->tileset->texture, (int)position.x - 32, (int)position.y - 32 - 16, rect);
+								App->render->AddBlitEvent(0, tile->tileset->texture, (int)position.x - 32, (int)position.y - 32, rect);
 							}
 						}
 					}
