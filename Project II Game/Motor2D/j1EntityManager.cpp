@@ -6,6 +6,7 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Window.h"
+#include "j1Pathfinding.h"
 #include <algorithm>
 
 using namespace std;
@@ -43,6 +44,7 @@ bool j1EntityManager::Update(float dt)
 {
 	int n = 0;
 	int counter = 0;
+	selected_units.erase(selected_units.begin(), selected_units.end());
 	while (counter != entities.size())
 	{
 		vector<j1Entity*>::iterator entity = entities.begin();
@@ -55,6 +57,8 @@ bool j1EntityManager::Update(float dt)
 				(*entity)->Update(dt);
 				if ((*entity)->selected && (*entity)->team == 1)
 					n++;
+				if ((*entity)->main_type == EntityType::UNIT && (*entity)->selected && (*entity)->team == 1)
+					selected_units.push_back(*entity);
 			}
 			else
 			{

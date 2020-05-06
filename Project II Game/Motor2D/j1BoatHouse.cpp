@@ -16,12 +16,14 @@ j1BoatHouse::j1BoatHouse(float x, float y, int team)
 
 	tile = App->map->WorldToMap(x, y);
 	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
-
 	level = 1;
 	this->team = team;
 	max_health = 500;
-	if(built_state != BUILDING)
+	if (built_state != BUILDING)
+	{
 		health = max_health;
+		(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = true;
+	}
 	rect = { 128, 0, 64, 64 };
 	built_rect = rect; /////////////////////
 	load = { 0, 0, 0, 1000 };

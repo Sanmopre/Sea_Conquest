@@ -207,6 +207,9 @@ public:
 	virtual void ToPlace(bool to_place) {}
 	virtual void SetBuiltState(BuildState state) {}
 	virtual BuildState GetBuiltState() { return NOTHING; }
+	virtual fPoint GetDestination() { return position; }
+	virtual void SetDestination(fPoint destination) {}
+	virtual void ResetPath() {}
 
 protected:
 
@@ -263,6 +266,19 @@ protected:
 	void SetDestination(NodeType terrain = NodeType::WATER);
 	void SelectAnimation();
 	void GetBasicAnimations();
+	fPoint GetDestination() 
+	{ 
+		if(path.size() != 0)
+			return *path.end(); 
+		return destination;
+	}
+	void SetDestination(fPoint destination) { this->destination = destination; }
+	void ResetPath()
+	{
+		if (path.size() != 0)
+			path.erase(path.begin(), path.end());
+		destination = { 0,0 };
+	}
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1Structure : public j1Entity

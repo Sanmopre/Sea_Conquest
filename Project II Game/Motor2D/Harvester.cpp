@@ -127,6 +127,7 @@ void j1Harvester::Update(float dt)
 						App->player->building = nullptr;
 						
 						building = App->entitymanager->AddEntity(x, y, ty, l, t);
+						(*App->pathfinding->WorldToNode(x, y))->built = true;
 						building->SetBuiltState(BUILDING);
 					}
 					c.Green();

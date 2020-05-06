@@ -28,6 +28,8 @@ j1Structure::j1Structure()
 
 j1Structure::~j1Structure()
 {
+	if(App->pathfinding->NodeMap.size() != 0)
+		(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = false;
 	unitqueue.erase(unitqueue.begin(), unitqueue.end());
 	unitqueue.shrink_to_fit();
 }
@@ -151,7 +153,7 @@ void j1Structure::BuildUnit(EntityType type, int level)
 		}
 		bool can = false;
 		fPoint pos = {};
-		if ((*App->pathfinding->PointToNode(x, y, App->pathfinding->NodeMap))->type == terrain)
+		if ((*App->pathfinding->WorldToNode(x, y))->type == terrain)
 		{
 			can = true;
 			pos = App->map->MapToWorld<fPoint>(x, y);
