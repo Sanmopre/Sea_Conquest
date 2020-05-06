@@ -108,6 +108,8 @@ bool j1Player::Update(float dt)
 		Camera_Limit();
 	}
 
+	if (App->InGameUI->clicking_ui == true)
+		disable_click = true;
 
 	if (App->input->GetMouseButtonDown(3) == KEY_DOWN && !disable_click)
 	{
@@ -314,7 +316,7 @@ bool j1Player::Update(float dt)
 	//This functions should always be last//
 	Mouse_Cursor();
 	if (App->scenemanager->In_Main_Menu == false) {
-		if (App->InGameUI->clicking_ui == false && !disable_click && App->minimap->clicking_map == false)
+		if (!disable_click && !disable_click && App->minimap->clicking_map == false)
 			if (dt != 0.0f)
 				Drag_Mouse();
 	}

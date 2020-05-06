@@ -210,6 +210,7 @@ public:
 	virtual fPoint GetDestination() { return position; }
 	virtual void SetDestination(fPoint destination) {}
 	virtual void ResetPath() {}
+	virtual void SetAutomatic() {}
 
 protected:
 
@@ -359,12 +360,14 @@ private:
 
 	void Harvest(int power, j1Entity* target);
 	j1Entity* SearchResources(float x, float y);
+	void BuildUpdate(float dt);
 
 	j1Entity* building;
 	BuildState state;
 
 	bool automatic;
 	bool automating;
+	j1Entity* storage;
 	fPoint harvest_destination;
 	fPoint deposit_destination;
 

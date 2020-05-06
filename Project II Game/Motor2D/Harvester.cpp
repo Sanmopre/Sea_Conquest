@@ -60,10 +60,11 @@ void j1Harvester::Update(float dt)
 		{
 			if (team == 1)
 			{
-				if (!automating && state != TO_BUILD)
-					if (App->input->GetMouseButtonDown(3) == KEY_DOWN && !App->player->disable_click)
+				if (state != TO_BUILD)
+					if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
 					{
 						automatic = false;
+						automating = false;
 					}
 
 				if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
@@ -84,99 +85,10 @@ void j1Harvester::Update(float dt)
 			}
 		}
 
-		float distance = 0.0f;
-		float x = 0.0f;
-		float y = 0.0f;
-		Color c = {};
-		SDL_Rect r = {};
-
-		switch (state)
-		{
-		case TO_BUILD:
-			if (App->player->builder == this)
-			{
-				App->player->building->Primitive_Update(dt);
-				App->player->building->Update(dt);
-				c.Red();
-
-				App->player->disable_click = true;
-
-				r = { App->player->building->GetRenderPositionX(), App->player->building->GetRenderPositionY(), App->player->building->rect.w, App->player->building->rect.h };
-
-				x = App->player->building->position.x - position.x;
-				y = App->player->building->position.y - position.y;
-				distance = sqrtf(x * x + y * y);
-
-				if (distance < range)
-				{
-					if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
-					{
-						//App->audio->PlayFx(App->audio->structure_build);
-						App->audio->PlaySpatialFx(App->audio->structure_build,
-							App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
-							App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
-						state = BUILDING;
-						float x = App->player->building->position.x;
-						float y = App->player->building->position.y;
-						EntityType ty = App->player->building->type;
-						int l = App->player->building->level;
-						int t = App->player->building->team;
-
-						App->player->builder = nullptr;
-						delete App->player->building;
-						App->player->building = nullptr;
-						
-						building = App->entitymanager->AddEntity(x, y, ty, l, t);
-						(*App->pathfinding->WorldToNode(x, y))->built = true;
-						building->SetBuiltState(BUILDING);
-					}
-					c.Green();
-				}
-
-				App->render->AddBlitEvent(3, nullptr, 0, 0, r, false, false, c.r, c.g, c.b, 50);
-
-				if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
-				{
-					state = NOT_BUILDING;
-					delete App->player->building;
-					App->player->building = nullptr;
-				}
-			}
-			else
-			{
-				state = NOT_BUILDING;
-			}
-			break;
-		case BUILDING:
-
-			x = building->position.x - position.x;
-			y = building->position.y - position.y;
-			distance = sqrtf(x * x + y * y);
-
-			if (distance < range)
-				if (building->health < building->max_health)
-					building->health += dt * 100 * level;
-				else
-				{
-					App->audio->PlayFx(App->audio->ui_wood_hit);
-					building->health = building->max_health;
-					building->SetBuiltState(NOT_BUILDING);
-					state = NOT_BUILDING;
-					building = nullptr;
-				}
-		break;
-		}
-
-		if (state != NOT_BUILDING)
-		{
-			automatic = false;
-			automating = false;
-			harvest_destination = {};
-			deposit_destination = {};
-		}
+		BuildUpdate(dt);
 
 		if (automating)
-			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+			if (App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->InGameUI->clicking_ui)
 				if (harvest_destination == position)
 				{
 					iPoint m;
@@ -185,7 +97,8 @@ void j1Harvester::Update(float dt)
 					m.y -= App->render->camera.y / App->win->GetScale();
 					if (FindTarget((float)m.x, (float)m.y, range, EntityType::STORAGE, team) != nullptr)
 					{
-						deposit_destination = { (float)m.x, (float)m.y };
+						iPoint tile = App->map->WorldToMap((float)m.x, (float)m.y);
+						deposit_destination = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 						automating = false;
 						automatic = true;
 					}
@@ -203,7 +116,8 @@ void j1Harvester::Update(float dt)
 					m.y -= App->render->camera.y / App->win->GetScale();
 					if (SearchResources((float)m.x, (float)m.y) != nullptr)
 					{
-						harvest_destination = { (float)m.x, (float)m.y };
+						iPoint tile = App->map->WorldToMap((float)m.x, (float)m.y);
+						harvest_destination = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 						automating = false;
 						automatic = true;
 					}
@@ -223,7 +137,7 @@ void j1Harvester::Update(float dt)
 				if (target != nullptr)
 					if (load.Weight() == load.maxweight || target->load.Total() == 0)
 					{
-						GoTo(deposit_destination, NodeType::ALL);
+						GoTo(deposit_destination, terrain);
 						if (target->load.Total() == 0)
 							automatic = false;
 					}
@@ -235,7 +149,7 @@ void j1Harvester::Update(float dt)
 				if (target != nullptr)
 					if (load.Total() == 0 || target->load.Total() == target->load.maxweight)
 					{
-						GoTo(harvest_destination, NodeType::ALL);
+						GoTo(harvest_destination, terrain);
 						if (target->load.Total() == target->load.maxweight)
 							automatic = false;
 					}
@@ -305,9 +219,15 @@ void j1Harvester::SetAutomatic()
 	{
 		automating = true;
 		if (SearchResources(position.x, position.y) != nullptr)
-			harvest_destination = position;
+		{
+			iPoint tile = App->map->WorldToMap(position.x, position.y);
+			harvest_destination = App->map->MapToWorld<fPoint>(tile.x, tile.y);
+		}
 		else if (FindTarget(position.x, position.y, range, EntityType::STORAGE, team) != nullptr)
-			deposit_destination = position;
+		{
+			iPoint tile = App->map->WorldToMap(position.x, position.y);
+			deposit_destination = App->map->MapToWorld<fPoint>(tile.x, tile.y);
+		}
 		else
 			automating = false;
 	}
@@ -392,4 +312,98 @@ j1Entity* j1Harvester::SearchResources(float x, float y)
 		ret = nullptr;
 
 	return ret;
+}
+
+void j1Harvester::BuildUpdate(float dt)
+{
+	float distance = 0.0f;
+	float x = 0.0f;
+	float y = 0.0f;
+	Color c = {};
+	SDL_Rect r = {};
+
+	switch (state)
+	{
+	case TO_BUILD:
+		if (App->player->builder == this)
+		{
+			App->player->building->Primitive_Update(dt);
+			App->player->building->Update(dt);
+			c.Red();
+
+			App->player->disable_click = true;
+
+			r = { App->player->building->GetRenderPositionX(), App->player->building->GetRenderPositionY(), App->player->building->rect.w, App->player->building->rect.h };
+
+			x = App->player->building->position.x - position.x;
+			y = App->player->building->position.y - position.y;
+			distance = sqrtf(x * x + y * y);
+
+			if (distance < range)
+			{
+				if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
+				{
+					App->audio->PlaySpatialFx(App->audio->structure_build,
+						App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+						App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+					state = BUILDING;
+					float x = App->player->building->position.x;
+					float y = App->player->building->position.y;
+					EntityType ty = App->player->building->type;
+					int l = App->player->building->level;
+					int t = App->player->building->team;
+
+					App->player->builder = nullptr;
+					delete App->player->building;
+					App->player->building = nullptr;
+
+					building = App->entitymanager->AddEntity(x, y, ty, l, t);
+					iPoint tile = App->map->WorldToMap(x, y);
+					(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = true;
+					building->SetBuiltState(BUILDING);
+				}
+				c.Green();
+			}
+
+			App->render->AddBlitEvent(3, nullptr, 0, 0, r, false, false, c.r, c.g, c.b, 50);
+
+			if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+			{
+				state = NOT_BUILDING;
+				delete App->player->building;
+				App->player->building = nullptr;
+			}
+		}
+		else
+		{
+			state = NOT_BUILDING;
+		}
+		break;
+	case BUILDING:
+
+		x = building->position.x - position.x;
+		y = building->position.y - position.y;
+		distance = sqrtf(x * x + y * y);
+
+		if (distance < range)
+			if (building->health < building->max_health)
+				building->health += dt * 100 * level;
+			else
+			{
+				App->audio->PlayFx(App->audio->ui_wood_hit);
+				building->health = building->max_health;
+				building->SetBuiltState(NOT_BUILDING);
+				state = NOT_BUILDING;
+				building = nullptr;
+			}
+		break;
+	}
+
+	if (state != NOT_BUILDING)
+	{
+		automatic = false;
+		automating = false;
+		harvest_destination = {};
+		deposit_destination = {};
+	}
 }
