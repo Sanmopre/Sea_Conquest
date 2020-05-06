@@ -8,8 +8,7 @@ struct SDL_Texture;
 
 enum QUEST {
 	KILL_15_BOATS,
-	GATHER_1000_IRON,
-	KILL_ENEMY_STRUCTURE,
+	DESTROY_ENEMY_STRUCTURE,
 	BUILD_10_BOATS,
 	NONE
 };
@@ -73,6 +72,7 @@ private:
 
 	j1Element* quest_explanation_build_boat = nullptr;
 	j1Element* quest_explanation_kill_boat = nullptr;
+	j1Element* quest_explanation_destroy_structure = nullptr;
 };
 
 
