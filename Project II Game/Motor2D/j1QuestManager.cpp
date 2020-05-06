@@ -112,30 +112,10 @@ bool j1QuestManager::Update(float dt)
 		quest_explanation_destroy_structure->enabled = false;
 	}
 
-	////////////////////////////////////////////////////////////////
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
-	{
-		current_quest = Set_Quest(QUEST::BUILD_10_BOATS);
-	}
 
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-	{
-		current_quest = Set_Quest(QUEST::NONE);
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
-	{
-		current_quest = Set_Quest(QUEST::KILL_15_BOATS);
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
-	{
-		current_quest = Set_Quest(QUEST::DESTROY_ENEMY_STRUCTURE);
-	}
-	////////////////////////////////////////////////////////////////
-
-
-	Check_Quest_Stat(main_quest);
+	if (Check_Quest_Stat(main_quest)) 
+	current_quest = Set_Quest(QUEST::NONE);
+	
 
 	return true;
 }

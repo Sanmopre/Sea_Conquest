@@ -63,6 +63,7 @@ struct Townhall_Menu {
 	j1Element* entity_name_townhall;
 	j1Element* coins_image;
 	j1Element* lvl_up;
+	j1Element* Quest_button;
 };
 
 struct Harvester_Menu {
@@ -105,6 +106,13 @@ struct Storage_Menu {
 	j1Element* entity_name_Storage;
 	j1Element* Harvester_builder_button;
 	j1Element* Trade;
+};
+
+struct Quest_selector {
+	j1Element* Image;
+	j1Element* Quest_1;
+	j1Element* Quest_2;
+	j1Element* Quest_3;
 };
 
 struct Win {
@@ -231,6 +239,9 @@ public:
 	void Activate_Ship();
 	void Deactivate_Ship();
 
+	//QUEST SELECTOR
+	void Activate_Quest_Selector();
+	void Deactivate_Quest_Selector();
 
 	//BAR UPDATES
 	void Update_Bar(j1Element* scroll, float resource, float total_resource, Material material);
@@ -310,6 +321,7 @@ private:
 	bool in_hover_info = false;
 	bool in_hover_coin_cost = false;
 	bool in_townhall = false;
+	bool in_quest_manager = false;
 	//menu ui
 	Game_Menu menu;
 	Unit_Manager_UI manager;
@@ -328,6 +340,7 @@ private:
 	CoinCost coincost;
 	Battle_Ship_Menu ship;
 	Ballon_Menu balloon;
+	Quest_selector quest_selector;
 
 	//ENtities
 	Building_Menu building;

@@ -72,6 +72,7 @@ enum class TEXTURE
 	DIALOG,
 	SHIP,
 	BALLOON,
+	QUEST,
 	NONE
 };
 
