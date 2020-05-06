@@ -207,6 +207,10 @@ public:
 	virtual void ToPlace(bool to_place) {}
 	virtual void SetBuiltState(BuildState state) {}
 	virtual BuildState GetBuiltState() { return NOTHING; }
+	virtual fPoint GetDestination() { return position; }
+	virtual void SetDestination(fPoint destination) {}
+	virtual void ResetPath() {}
+	virtual void SetAutomatic() {}
 
 protected:
 
@@ -263,6 +267,19 @@ protected:
 	void SetDestination(NodeType terrain = NodeType::WATER);
 	void SelectAnimation();
 	void GetBasicAnimations();
+	fPoint GetDestination() 
+	{ 
+		if(path.size() != 0)
+			return *path.end(); 
+		return destination;
+	}
+	void SetDestination(fPoint destination) { this->destination = destination; }
+	void ResetPath()
+	{
+		if (path.size() != 0)
+			path.erase(path.begin(), path.end());
+		destination = { 0,0 };
+	}
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1Structure : public j1Entity
@@ -343,12 +360,14 @@ private:
 
 	void Harvest(int power, j1Entity* target);
 	j1Entity* SearchResources(float x, float y);
+	void BuildUpdate(float dt);
 
 	j1Entity* building;
 	BuildState state;
 
 	bool automatic;
 	bool automating;
+	j1Entity* storage;
 	fPoint harvest_destination;
 	fPoint deposit_destination;
 

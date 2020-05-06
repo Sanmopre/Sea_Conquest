@@ -41,6 +41,7 @@ struct Node
 	int h = 0;
 	Node* parent = nullptr;
 	Island* island;
+	bool built = false;
 
 	int GetFCost() { return g + h; }
 
@@ -63,15 +64,17 @@ public:
 	vector<Node*> NodeMap;
 	vector<Island*> islands;
 
+	vector<fPoint> occupied_positions;
+
 	void LoadIslands();
 	vector<Node*>* GetIsland(fPoint position);
 
 	vector<fPoint> PathTo(fPoint start_pos, fPoint end_pos, NodeType terrain, vector<Node*>* map = nullptr);
 
 	vector<Node*> GetNeighbours(iPoint node);
-	vector<Node*>::iterator PointToNode(int x, int y, vector<Node*> _grid);
+	vector<Node*>::iterator WorldToNode(int x, int y);
 	int DistanceTo(Node* A, Node* B);
-	vector<fPoint> CreatePath(Node* end, fPoint end_pos);
+	vector<fPoint> CreatePath(Node* end, fPoint end_pos, NodeType terrain);
 
 	bool show;
 

@@ -39,12 +39,12 @@
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
-	dialog = new j1DialogSystem();
 	input = new j1Input();
 	win = new j1Window();
 	render = new j1Render();
 	tex = new j1Textures();
 	audio = new j1Audio();
+	map = new j1Map();
 	scene = new j1Scene();
 	scene2 = new j1Scene2();
 	scene3 = new j1LogoScene();
@@ -61,8 +61,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	minimap = new j1Minimap();
 	font = new j1Font();
 	quest = new j1QuestManager();
-	map = new j1Map();
 	anim = new j1AnimationManager();
+	dialog = new j1DialogSystem();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp

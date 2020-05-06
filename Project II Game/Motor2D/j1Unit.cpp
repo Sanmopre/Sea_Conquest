@@ -111,6 +111,7 @@ void  j1Unit::Move(float dt)
 
 void j1Unit::NextStep()
 {
+
 	if (path.size() != 0)
 	{
 		path.erase(path.begin());

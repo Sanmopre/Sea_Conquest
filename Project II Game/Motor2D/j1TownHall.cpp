@@ -17,6 +17,7 @@ j1TownHall::j1TownHall(float x, float y, int team)
 
 	max_health = 250;
 	health = max_health;
+	(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = true;
 
 	type = EntityType::TOWNHALL;
 	level = 1;

@@ -22,8 +22,10 @@ j1Storage::j1Storage(float x, float y, int team)
 	trading_range = 200;
 	max_health = 250;
 	if (built_state != BUILDING)
+	{
 		health = max_health;
-	
+		(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = true;
+	}
 	type = EntityType::STORAGE;
 	level = 1;
 

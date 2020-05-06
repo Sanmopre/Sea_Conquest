@@ -31,7 +31,7 @@ using namespace std;
 struct {
 	bool operator()(fPoint a, fPoint b) const
 	{
-		if(a.y != b.y)
+		if (a.y != b.y)
 			return a.y < b.y;
 		else
 			return a.x < b.x;
@@ -69,7 +69,7 @@ bool j1Player::Start()
 	bool ret = true;
 	LOG("Player Started");
 	Tex_Player = App->tex->Load("textures/test2.png");
-	App->win->GetWindowSize( win_width,win_height);
+	App->win->GetWindowSize(win_width, win_height);
 	max_w_group = 7;
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
@@ -108,6 +108,8 @@ bool j1Player::Update(float dt)
 		Camera_Limit();
 	}
 
+	if (App->InGameUI->clicking_ui == true)
+		disable_click = true;
 
 	if (App->input->GetMouseButtonDown(3) == KEY_DOWN && !disable_click)
 	{
@@ -116,100 +118,205 @@ bool j1Player::Update(float dt)
 		m.x -= App->render->camera.x / App->win->GetScale();
 		m.y -= App->render->camera.y / App->win->GetScale();
 		iPoint tile = App->map->WorldToMap((float)m.x, (float)m.y);
-		NodeType terrain = (*App->pathfinding->PointToNode(tile.x, tile.y, App->pathfinding->NodeMap))->type;
-
-		vector<fPoint> locations;
-
-		SpreadState state = UP;
-		int limit = App->entitymanager->selected_n;
-		int n = 0;
-		int i = 1;
-		int x;
-		int y;
-		int loop = 0;
-
-		while (n != limit)
+		if (tile.x <= App->map->mapdata->width && tile.y <= App->map->mapdata->height && tile.x >= 0 && tile.y >= 0)
 		{
-			switch (state)
+			NodeType terrain = (*App->pathfinding->WorldToNode(tile.x, tile.y))->type;
+
+			vector<fPoint> water_locations;
+			vector<fPoint> ground_locations;
+			int water_amount = 0;
+			int ground_amount = 0;
+			int w = 0;
+			int g = 0;
+
+			for (vector<j1Entity*>::iterator entity = App->entitymanager->selected_units.begin(); entity != App->entitymanager->selected_units.end(); entity++)
 			{
-			case UP:
-				x = tile.x + loop;
-				y = tile.y - i / 2;
-				if (i != 1)
-					state = RIGHT;
-				else
-					i += 2;
-				break;
-			case RIGHT:
-				x = tile.x + i / 2;
-				y = tile.y + loop;
-				state = DOWN;
-				break;
-			case DOWN:
-				x = tile.x - loop;
-				y = tile.y + i / 2;
-				state = LEFT;
-				break;
-			case LEFT:
-				x = tile.x - i / 2;
-				y = tile.y - loop;
-				state = UP;
-				if (loop > 0)
-					loop *= -1;
-				else
+				if (App->input->GetKey(SDL_SCANCODE_LSHIFT) != KEY_REPEAT)
+					(*entity)->ResetPath();
+				switch ((*entity)->terrain)
 				{
-					loop *= -1;
-					loop++;
+				case NodeType::WATER:
+					water_amount++;
+					break;
+				case NodeType::GROUND:
+					ground_amount++;
+					break;
 				}
-				if (tile.y - i / 2 == y)
-				{
-					loop = 0;
-					i += 2;
-				}
-				break;
 			}
-			bool can = false;
-			fPoint pos = {};
-			if ((*App->pathfinding->PointToNode(x, y, App->pathfinding->NodeMap))->type == terrain)
-			{
-				can = true;
-				pos = App->map->MapToWorld<fPoint>(x, y);
-				for(vector<fPoint>::iterator itr = locations.begin(); itr != locations.end(); itr++)
-					if (*itr == pos)
+
+			SpreadState state = UP;
+
+			int i = 1;
+			int i_max = 101;
+			int x;
+			int y;
+			int loop = 0;
+			int limit = water_amount + ground_amount;
+			bool last = false;
+			bool scape = false;
+
+			if (limit != 0)
+				while (limit != w + g && scape == false)
+				{
+					switch (state)
 					{
-						can = false;
+					case UP:
+						x = tile.x + loop;
+						y = tile.y - i / 2;
+						if (i != 1)
+							state = RIGHT;
+						else
+							i += 2;
+						break;
+					case RIGHT:
+						x = tile.x + i / 2;
+						y = tile.y + loop;
+						state = DOWN;
+						break;
+					case DOWN:
+						x = tile.x - loop;
+						y = tile.y + i / 2;
+						state = LEFT;
+						break;
+					case LEFT:
+						x = tile.x - i / 2;
+						y = tile.y - loop;
+						state = UP;
+						if (loop > 0)
+							loop *= -1;
+						else
+						{
+							loop *= -1;
+							loop++;
+						}
+						if (tile.y - i / 2 == y)
+						{
+							loop = 0;
+							i += 2;
+						}
 						break;
 					}
-				for (vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
-					if ((*e)->main_type == EntityType::UNIT)
-						if ((*e)->position == pos)
+					
+					if (x <= App->map->mapdata->width && y <= App->map->mapdata->height && x >= 0 && y >= 0)
+					{
+						bool can = false;
+						fPoint pos = {};
+						Node* a = *App->pathfinding->WorldToNode(x, y);
+						if (!a->built)
 						{
-							can = false;
-							break;
+							can = true;
+							pos = App->map->MapToWorld<fPoint>(x, y);
+							switch (a->type)
+							{
+							case NodeType::WATER:
+								if (water_amount > w)
+								{
+									for (vector<fPoint>::iterator itr = water_locations.begin(); itr != water_locations.end(); itr++)
+										if (*itr == pos)
+										{
+											can = false;
+											break;
+										}
+								}
+								else
+									can = false;
+								break;
+							case NodeType::GROUND:
+								if (ground_amount > g)
+								{
+									for (vector<fPoint>::iterator itr = ground_locations.begin(); itr != ground_locations.end(); itr++)
+										if (*itr == pos)
+										{
+											can = false;
+											break;
+										}
+								}
+								else
+									can = false;
+								break;
+							}
+							for (vector<j1Entity*>::iterator e = App->entitymanager->selected_units.begin(); e != App->entitymanager->selected_units.end(); e++)
+								if ((*e)->GetDestination() == pos)
+								{
+									can = false;
+									break;
+								}
 						}
-			}
-			if (can)
-			{
-				locations.push_back(pos);
-				n++;
-			}
+
+						if (can)
+						{
+							switch (a->type)
+							{
+							case NodeType::WATER:
+								w++;
+								water_locations.push_back(pos);
+								break;
+							case NodeType::GROUND:
+								g++;
+								ground_locations.push_back(pos);
+								break;
+							}
+						}
+
+						if (!last)
+							switch (terrain)
+							{
+							case NodeType::WATER:
+								if (w == water_amount && g != ground_amount)
+								{
+									i_max = i + 2 * 4;
+									last = true;
+								}
+								break;
+							case NodeType::GROUND:
+								if (g == ground_amount && w != water_amount)
+								{
+									i_max = i + 2 * 4;
+									last = true;
+								}
+								break;
+							}
+						if (i == i_max)
+							scape = true;
+					}
+				}
+			if (water_locations.size() != 0)
+				std::sort(water_locations.begin(), water_locations.end(), LessY);
+			if (ground_locations.size() != 0)
+				std::sort(ground_locations.begin(), ground_locations.end(), LessY);
+			for (vector<j1Entity*>::iterator e = App->entitymanager->selected_units.begin(); e != App->entitymanager->selected_units.end(); e++)
+				if ((*e)->terrain == NodeType::WATER)
+				{
+					if (water_locations.size() != 0)
+					{
+						fPoint dest = *water_locations.begin();
+						(*e)->GoTo(dest, (*e)->terrain);
+						water_locations.erase(water_locations.begin());
+					}
+					else
+						(*e)->SetDestination((*e)->position);
+				}
+				else if ((*e)->terrain == NodeType::GROUND)
+				{
+					if (ground_locations.size() != 0)
+					{
+						fPoint dest = *ground_locations.begin();
+						(*e)->GoTo(dest, (*e)->terrain);
+						ground_locations.erase(ground_locations.begin());
+					}
+					else
+						(*e)->SetDestination((*e)->position);
+				}
+			vector<fPoint> v;
+			water_locations.swap(v);
+			ground_locations.swap(v);
 		}
-		sort(locations.begin(), locations.end(), LessY);
-		for (vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
-			if ((*e)->main_type == EntityType::UNIT && (*e)->selected && (*e)->team == 1 && (*e)->terrain == terrain)
-			{
-				fPoint dest = *locations.begin();
-				(*e)->GoTo(dest, (*e)->terrain);
-				locations.erase(locations.begin());
-			}
-		vector<fPoint> v;
-		locations.swap(v);
 	}
 	
 	//This functions should always be last//
 	Mouse_Cursor();
 	if (App->scenemanager->In_Main_Menu == false) {
-		if (App->InGameUI->clicking_ui == false && !disable_click && App->minimap->clicking_map == false)
+		if (!disable_click && !disable_click && App->minimap->clicking_map == false)
 			if (dt != 0.0f)
 				Drag_Mouse();
 	}
