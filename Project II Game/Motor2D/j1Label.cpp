@@ -17,10 +17,15 @@ j1Label::~j1Label() {
 
 }
 
+bool j1Label::ChangeLabel(char* new_text)
+{
+	texture = App->font->Print(new_text);
+	return true;
+}
+
 bool j1Label::Start()
 {
 	texture = App->font->Print(text);
-	font_name = App->fonts->Load("textures/NameTile.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
 	return true;
 }
 

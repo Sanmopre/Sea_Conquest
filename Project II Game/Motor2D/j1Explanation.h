@@ -9,12 +9,12 @@ struct Explanation_UI
 	j1Element* Image;
 };
 
-struct Text_Label
+struct Explanation
 {
-	j1Element* Boat;
-	j1Element* Boathouse;
-	j1Element* Storage;
-	j1Element* Harvester;
+	char* first;
+	char* second;
+	char* third;
+	char* forth;
 };
 
 enum class Text
@@ -39,14 +39,26 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 
-	void Show_Information(Text text = Text::NONE);
+
+    void Show_Label(Text text = Text::NONE);
+
+private:
+
 	void Update_Position(j1Element* element = nullptr);
-	j1Element* Change_Label( Text text = Text::NONE);
+	bool Change_Label_Text(Explanation explanation);
+	void Activate_Explanation();
+	void Deactivate_Explanation();
 
 public:
+	j1Element* first = nullptr;
+	j1Element* second = nullptr;
+	j1Element* third = nullptr;
+	j1Element* forth = nullptr;
 
-	Text_Label label;
 	Explanation_UI explanation;
+
+	Explanation boat;
+	Explanation boathouse;
 };
 
 #endif //  __j1GUI_H__

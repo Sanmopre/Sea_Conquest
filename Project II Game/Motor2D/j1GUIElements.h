@@ -92,6 +92,7 @@ public:
 	virtual bool CleanUp() { return true; };
 
 	bool OnAbove();
+	virtual bool ChangeLabel(char* new_text = nullptr);
 	virtual void OnClick();
 	virtual void OnLeftClick();
 	virtual void OnRelease();
@@ -202,6 +203,7 @@ public:
 	j1Label();
 	~j1Label();
 
+	bool ChangeLabel(char* new_text = nullptr);
 	bool Start();
 	bool PreUpdate();
 	bool Update(float dt);
