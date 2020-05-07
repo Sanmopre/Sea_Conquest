@@ -65,12 +65,12 @@ bool j1Explanation::PostUpdate()
 }
 
 
-void j1Explanation::Update_Position(j1Element* element)
+void j1Explanation::Update_Position(j1Element* element, int pos_x, int pos_y)
 {
 	int x, y;
 	App->input->GetMousePosition(x, y);
-	element->map_position.x = x + 30;
-	element->map_position.y = y + 30;
+	element->map_position.x = x + 30 + pos_x;
+	element->map_position.y = y + 30 + pos_y;
 }
 
 bool j1Explanation::Change_Label_Text(Explanation explanation)
@@ -92,10 +92,10 @@ void j1Explanation::Activate_Explanation()
 	third->enabled = true;
 	forth->enabled = true;
 
-	Update_Position(first);
-	Update_Position(second);
-	Update_Position(third);
-	Update_Position(forth);
+	Update_Position(first, 10, 10);
+	Update_Position(second , 10 , 40);
+	Update_Position(third , 10 , 70);
+	Update_Position(forth , 10 , 100);
 }
 
 void j1Explanation::Deactivate_Explanation()

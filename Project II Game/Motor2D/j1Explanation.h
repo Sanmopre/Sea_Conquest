@@ -44,7 +44,7 @@ public:
 
 private:
 
-	void Update_Position(j1Element* element = nullptr);
+	void Update_Position(j1Element* element = nullptr , int pos_x = 0, int pos_y = 0);
 	bool Change_Label_Text(Explanation explanation);
 	void Activate_Explanation();
 	void Deactivate_Explanation();
