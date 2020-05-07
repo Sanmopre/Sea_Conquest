@@ -16,29 +16,38 @@ j1BoatHouse::j1BoatHouse(float x, float y, int team)
 	level = 1;
 	this->team = team;
 
-	texture = App->tex->GetTexture("boathouse", level, this->team);
-	cons_tex = App->tex->GetTexture("cons_small", 0, 0);
+	texture = App->tex->GetTexture("boathouse", level, 0);
+	tex_construction = App->tex->GetTexture("cons_small", 0, 0);
 
-	build_anim = App->anim->GetAnimation("boathouse");
-	cons_anim = App->anim->GetAnimation("cons_small");
+	basic = App->anim->GetAnimation("boathouse");
+
+	under_construction = App->anim->GetAnimation("cons_small");
 
 	tile = App->map->WorldToMap(x, y);
 	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 
 	max_health = 500;
 	if (built_state != BUILDING)
-	{
 		health = max_health;
-		(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = true;
-	}
 
-	rect = build_anim.GetCurrentFrame();
+	(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = true;
+	(*App->pathfinding->WorldToNode(tile.x + 1, tile.y))->built = true;
+	(*App->pathfinding->WorldToNode(tile.x, tile.y + 1))->built = true;
+	(*App->pathfinding->WorldToNode(tile.x + 1, tile.y + 1))->built = true;
+
+	current_animation = &basic;
 
 	load = { 0, 0, 0, 1000 };
 }
 
 j1BoatHouse::~j1BoatHouse()
 {
+	if (App->pathfinding->NodeMap.size() != 0) 
+	{
+		(*App->pathfinding->WorldToNode(tile.x + 1, tile.y))->built = false;
+		(*App->pathfinding->WorldToNode(tile.x, tile.y + 1))->built = false;
+		(*App->pathfinding->WorldToNode(tile.x + 1, tile.y + 1))->built = false;
+	}
 }
 
 void j1BoatHouse::Update(float dt)

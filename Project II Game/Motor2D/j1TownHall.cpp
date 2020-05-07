@@ -12,11 +12,14 @@ j1TownHall::j1TownHall(float x, float y, int team)
 	level = 1;
 	this->team = team;
 
-	texture = App->tex->GetTexture("townhall", level, this->team);
-	cons_tex = App->tex->GetTexture("cons_medium", 0, 0);
+	texture = App->tex->GetTexture("townhall", level, 0);
+	tex_construction = App->tex->GetTexture("cons_medium", 0, 0);
 
-	build_anim = App->anim->GetAnimation("townhall");
-	cons_anim = App->anim->GetAnimation("cons_medium");
+	if(team == 1)
+		basic = App->anim->GetAnimation("ally_townhall");
+	else if(team == 2)
+		basic = App->anim->GetAnimation("enemy_townhall");
+	under_construction = App->anim->GetAnimation("cons_medium");
 
 	
 	load = { 0,0,0, 100 };
@@ -27,7 +30,7 @@ j1TownHall::j1TownHall(float x, float y, int team)
 
 	type = EntityType::TOWNHALL;
 
-	rect = build_anim.GetCurrentFrame();
+	current_animation = &basic;
 }
 
 j1TownHall::~j1TownHall()
@@ -37,13 +40,17 @@ j1TownHall::~j1TownHall()
 
 void j1TownHall::Update(float)
 {
+	bool flip = false;
+	if (team == 2)
+		flip = true;
+
 	if (health == 0)
 		if (team == 1)
 			App->scene->state = LOSE;
 		else if (team == 2)
 			App->scene->state = WIN;
 
-	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
 }
 
 void j1TownHall::CleanUp()

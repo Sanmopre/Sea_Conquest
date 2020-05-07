@@ -16,11 +16,14 @@ j1Storage::j1Storage(float x, float y, int team)
 	level = 1;
 	this->team = team;
 
-	texture = App->tex->GetTexture("storage", level, this->team);
-	cons_tex = App->tex->GetTexture("cons_medium", 0, 0);
+	texture = App->tex->GetTexture("storage", level, 0);
+	tex_construction = App->tex->GetTexture("cons_medium", 0, 0);
 
-	build_anim = App->anim->GetAnimation("storage");
-	cons_anim = App->anim->GetAnimation("cons_medium");
+	basic = App->anim->GetAnimation("ally_storage_empty");
+	low = App->anim->GetAnimation("ally_storage_low");
+	half = App->anim->GetAnimation("ally_storage_half");
+	full = App->anim->GetAnimation("ally_storage_full");
+	under_construction = App->anim->GetAnimation("cons_medium");
 
 	
 	load = { 0,0,0,2000 };
@@ -33,9 +36,6 @@ j1Storage::j1Storage(float x, float y, int team)
 		(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = true;
 	}
 	type = EntityType::STORAGE;
-
-
-	rect = build_anim.GetCurrentFrame();
 }
 
 j1Storage::~j1Storage()
@@ -45,17 +45,35 @@ j1Storage::~j1Storage()
 
 void j1Storage::Update(float dt)
 {
-	if(team == 1)
+	bool flip = false;
+	if (team == 1)
+	{
+		flip = true;
 		if (selected)
 		{
+
 			if (App->godmode)
 			{
 				if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
 					BuildUnit(EntityType::HARVESTER, 1);
 			}
 		}
+	}
 
-	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+	current_animation = &basic;
+
+	float percent = 100.0f / load.maxweight;
+	percent *= load.Weight();
+
+	if (percent > 0 && percent < 50)
+		current_animation = &low;
+	else if (percent >= 50 && percent < 100)
+		current_animation = &half;
+	else if (percent >= 100)
+		current_animation = &full;
+	
+
+	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
 }
 
 void j1Storage::CleanUp()

@@ -63,7 +63,6 @@ bool j1Player::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-
 bool j1Player::Start()
 {
 	bool ret = true;
@@ -402,10 +401,10 @@ void j1Player::Select_Entitites(SDL_Rect select_area)
 	}
 
 	for (auto entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
-		if (select_area.x < (*entity)->GetRenderPositionX() + (*entity)->rect.w &&
-			select_area.x + select_area.w >(*entity)->GetRenderPositionX() &&
-			select_area.y < (*entity)->GetRenderPositionY() + (*entity)->rect.h &&
-			select_area.h + select_area.y >(*entity)->GetRenderPositionY())
+		if (select_area.x < (*entity)->selectable_area.x + (*entity)->selectable_area.w &&
+			select_area.x + select_area.w >(*entity)->selectable_area.x &&
+			select_area.y < (*entity)->selectable_area.y + (*entity)->selectable_area.h &&
+			select_area.h + select_area.y >(*entity)->selectable_area.y)
 			if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 				(*entity)->selected = false;
 			else

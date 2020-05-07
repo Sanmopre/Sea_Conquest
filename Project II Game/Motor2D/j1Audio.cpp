@@ -388,6 +388,5 @@ uint j1Audio::GetDistance(iPoint player_pos, iPoint enemy_pos)
 bool j1Audio::Update(float dt)
 {
 	Mix_VolumeMusic(App->mainmenu->GetMenu().music->Value);
-	LOG("Audio update peepoClap");
 	return true;
 }

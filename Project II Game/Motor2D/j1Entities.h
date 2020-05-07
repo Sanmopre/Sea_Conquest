@@ -195,6 +195,8 @@ public:
 	int trading_offset_modifier;
 	int trading_total;
 
+	SDL_Rect selectable_area;
+
 	SDL_Rect rect;
 	SDL_Texture* texture;
 
@@ -214,7 +216,7 @@ public:
 
 protected:
 
-	void  ShowHPbar(int extra_width, int height, int distance = 20);
+	void  ShowHPbar(int extra_width, int height, int distance = 0);
 	void Trading();
 	j1Entity* FindTarget(float x, float y, int range, EntityType type, int team);
 	
@@ -301,12 +303,15 @@ public:
 	void SetBuiltState(BuildState state) { built_state = state; }
 	BuildState GetBuiltState() { return built_state; }
 
+	Animation* current_animation;
+
 protected:
 
-	Animation build_anim;
-	Animation cons_anim;
+	Animation basic;
+	Animation under_construction;
 
-	SDL_Texture* cons_tex;
+	SDL_Texture* texture;
+	SDL_Texture* tex_construction;
 
 	void BuildProcces(float dt);
 
@@ -386,8 +391,6 @@ public:
 
 	void Update(float);
 	void CleanUp();
-
-	Color color;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1Storage : public j1Structure
@@ -400,6 +403,12 @@ public:
 	void CleanUp();
 
 	int range;
+
+private:
+
+	Animation low;
+	Animation half;
+	Animation full;
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 class j1TownHall : public j1Structure

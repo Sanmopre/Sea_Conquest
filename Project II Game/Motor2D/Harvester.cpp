@@ -21,7 +21,7 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	position.y = y;
 	destination = position;
 	this->level = level;
-	trading_range = 50;
+	trading_range = 60;
 	this->team = team;
 	speed = 30;
 	range = 50;
@@ -41,6 +41,7 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	map = App->pathfinding->GetIsland(position);
 
 	GetBasicAnimations();
+	selectable_area = rect;
 
 	App->audio->PlaySpatialFx(App->audio->harvester_spawn, App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }), App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 }
@@ -201,7 +202,7 @@ void j1Harvester::Update(float dt)
 	
 	if (health == 0) {
 		CleanUp();
-		//App->audio->PlayFx(App->audio->harvester_destroy);
+
 		App->audio->PlaySpatialFx(App->audio->harvester_destroy,
 			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
 			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
@@ -277,7 +278,7 @@ void j1Harvester::Harvest(int power, j1Entity* target)
 	{
 		load.Transfer(METAL, &target->load.metal, power);
 	}
-	//App->audio->PlayFx(App->audio->harvester_work);
+
 	App->audio->PlaySpatialFx(App->audio->harvester_work,
 		App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
 		App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
@@ -359,7 +360,7 @@ void j1Harvester::BuildUpdate(float dt)
 
 					building = App->entitymanager->AddEntity(x, y, ty, l, t);
 					iPoint tile = App->map->WorldToMap(x, y);
-					(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = true;
+
 					building->SetBuiltState(BUILDING);
 				}
 				c.Green();

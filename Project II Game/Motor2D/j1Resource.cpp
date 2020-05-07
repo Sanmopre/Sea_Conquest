@@ -1,12 +1,15 @@
 #include "j1Entities.h"
 #include "j1Render.h"
+#include "j1Map.h"
 
 j1Resource::j1Resource(float x, float y, int level,EntityType type)
 {
 	this->type = type;
 	main_type = EntityType::RESOURCE;
-	position.x = x;
-	position.y = y;
+
+	iPoint tile = App->map->WorldToMap(x, y);
+	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
+
 	this->level = level;
 	team = 0;
 	max_health = 1000;
@@ -53,6 +56,8 @@ void j1Resource::Update(float dt)
 
 	rect.x = GetRenderPositionX();
 	rect.y = GetRenderPositionY();
+
+	selectable_area = rect;
 	App->render->AddBlitEvent(0, nullptr, 0, 0, rect, false, false, color.r, color.g, color.b, 255);
 }
 

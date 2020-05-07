@@ -27,7 +27,7 @@ void j1Unit::Primitive_Update(float dt)
 
 	if (App->InGameUI->selected != nullptr)
 		if (this == App->InGameUI->selected->trading_entity)
-			ShowHPbar(10, 5);
+			ShowHPbar(10, 5, -10);
 
 	if (selected)
 	{
@@ -35,8 +35,14 @@ void j1Unit::Primitive_Update(float dt)
 			if (this == App->InGameUI->selected)
 				Trading();
 		
-		ShowHPbar(10, 5);
+		ShowHPbar(10, 5, -10);
+
+		if(App->godmode)
+			App->render->AddBlitEvent(0, nullptr, 0, 0, { (int)position.x - trading_range, (int)position.y + 16 - trading_range, trading_range*2, trading_range*2 }, false, false, 255, 0, 0, 50);
 	}
+
+	selectable_area.x = GetRenderPositionX();
+	selectable_area.y = GetRenderPositionY();
 }
 
 void j1Unit::GoTo(fPoint destination, NodeType terrain)

@@ -89,6 +89,8 @@ bool j1EntityManager::Update(float dt)
 			App->input->GetMousePosition(test.x, test.y);
 			test.x -= App->render->camera.x / App->win->GetScale();
 			test.y -= App->render->camera.y / App->win->GetScale();
+			iPoint placing_tile = App->map->WorldToMap(test.x, test.y);
+			test = App->map->MapToWorld<iPoint>(placing_tile.x, placing_tile.y);
 			AddEntity(test.x, test.y, EntityType::BOAT, 1, 1);
 		}
 
@@ -98,6 +100,8 @@ bool j1EntityManager::Update(float dt)
 			App->input->GetMousePosition(test.x, test.y);
 			test.x -= App->render->camera.x / App->win->GetScale();
 			test.y -= App->render->camera.y / App->win->GetScale();
+			iPoint placing_tile = App->map->WorldToMap(test.x, test.y);
+			test = App->map->MapToWorld<iPoint>(placing_tile.x, placing_tile.y);
 			AddEntity(test.x, test.y, EntityType::BOAT, 1, 2);
 		}
 

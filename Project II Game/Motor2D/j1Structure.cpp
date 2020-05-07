@@ -38,7 +38,7 @@ void j1Structure::Primitive_Update(float dt)
 
 	if (built_state == BUILDING)
 	{
-		ShowHPbar(10, 5);
+		ShowHPbar(10, 5, -20);
 	}
 	else
 	{
@@ -46,11 +46,11 @@ void j1Structure::Primitive_Update(float dt)
 
 		if (App->InGameUI->selected != nullptr)
 			if (this == App->InGameUI->selected->trading_entity)
-				ShowHPbar(10, 5);
+				ShowHPbar(10, 5, -20);
 
 		if (selected)
 		{
-			ShowHPbar(10, 5);
+			ShowHPbar(10, 5, -20);
 
 			if (this == App->InGameUI->selected)
 				Trading();
@@ -60,15 +60,26 @@ void j1Structure::Primitive_Update(float dt)
 				if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 					placed = false;
 			}
+			if (App->godmode)
+				App->render->AddBlitEvent(0, nullptr, 0, 0, { (int)position.x - trading_range, (int)position.y - trading_range, trading_range*2, trading_range*2 }, false, false, 255, 0, 0, 50);
 		}
 
 		BuildProcces(dt);
 	}
 
 	if (built_state == BUILDING || built_state == ON_HOLD)
-		rect = cons_anim.GetCurrentFrame();
-	else
-		rect = build_anim.GetCurrentFrame();
+		current_animation = &under_construction;
+
+	if(current_animation != nullptr)
+		rect = current_animation->GetCurrentFrame();
+
+	selectable_area = rect;
+	selectable_area.x = GetRenderPositionX();
+	selectable_area.y = GetRenderPositionY();
+	selectable_area.h /= 2;
+	selectable_area.y += selectable_area.h;
+	
+
 
 	if(health <= 0)
 		App->audio->PlaySpatialFx(App->audio->structure_destroy,

@@ -20,7 +20,7 @@ void  j1Entity::ShowHPbar(int extra_width, int height, int distance)
 	{
 		showing_hpbar = true;
 
-		SDL_Rect Brect = { GetRenderPositionX() - extra_width, GetRenderPositionY() - distance, rect.w + extra_width * 2, height };
+		SDL_Rect Brect = { selectable_area.x - extra_width, selectable_area.y + distance, selectable_area.w + extra_width * 2, height };
 		Color Bcolor(96u, 96u, 96u);
 
 		float max_w = Brect.w;
@@ -78,23 +78,29 @@ void j1Entity::Trading()
 				position.y + trading_range >(*e)->position.y &&
 				position.y - trading_range < (*e)->position.y)
 			{
-				bool found = false;
-				for (std::vector<j1Entity*>::iterator s = tradeable_list.begin(); s != tradeable_list.end(); s++)
-					if (*e == *s)
-					{
-						found = true;
-						break;
-					}
-				if (!found)
-					tradeable_list.push_back(*e);
+				float distance = sqrtf((position.x - (*e)->position.x) * (position.x - (*e)->position.x) + (position.y - (*e)->position.y) * (position.y - (*e)->position.y));
+
+				if (distance < trading_range)
+				{
+					ShowHPbar(10, 5);
+					bool found = false;
+					for (std::vector<j1Entity*>::iterator s = tradeable_list.begin(); s != tradeable_list.end(); s++)
+						if (*e == *s)
+						{
+							found = true;
+							break;
+						}
+					if (!found)
+						tradeable_list.push_back(*e);
+				}
+				else
+					for (std::vector<j1Entity*>::iterator s = tradeable_list.begin(); s != tradeable_list.end(); s++)
+						if (*e == *s)
+						{
+							tradeable_list.erase(s);
+							break;
+						}
 			}
-			else
-				for (std::vector<j1Entity*>::iterator s = tradeable_list.begin(); s != tradeable_list.end(); s++)
-					if (*e == *s)
-					{
-						tradeable_list.erase(s);
-						break;
-					}
 	}
 	trading_total = tradeable_list.size();
 
@@ -131,11 +137,11 @@ void j1Entity::Trading()
 				tradeable_list.erase(s);
 				break;
 			}
-			else if (s == tradeable_list.begin() + trading_entity_offset)
+			else if (s == tradeable_list.begin() + trading_entity_offset)	
 			{
-				trading_entity = *s;
-
-				App->render->AddBlitEvent(0, nullptr, 0, 0, { trading_entity->GetRenderPositionX(), trading_entity->GetRenderPositionY(), 30, 30 }, false, false, 0, 255, 255, 100);
+				trading_entity = *s; 
+				
+				App->render->AddBlitEvent(0, nullptr, 0, 0, trading_entity->selectable_area, false, false, 0, 255, 255, 100);
 			}
 
 			counter++;
@@ -182,5 +188,10 @@ int j1Entity::GetRenderPositionX()
 
 int j1Entity::GetRenderPositionY()
 {
-	return (position.y - rect.h / 2) + 16;
+	int center = 0;
+
+	if (main_type == EntityType::UNIT)
+		center = 16;
+
+	return (position.y - rect.h / 2) + center;
 }

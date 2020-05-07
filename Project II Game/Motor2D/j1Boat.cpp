@@ -36,6 +36,7 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	texture = App->tex->GetTexture("boat", level, team);
 
 	GetBasicAnimations();
+	selectable_area = rect;
 
 	App->audio->PlaySpatialFx(App->audio->boat_spawn,
 		App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),

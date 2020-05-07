@@ -5,6 +5,7 @@
 #include "j1Window.h"
 #include "j1App.h"
 #include "j1Pathfinding.h"
+#include "j1Input.h"
 
 TileSet::~TileSet()
 {
@@ -69,7 +70,8 @@ void j1Map::LoadMap(const char* path)
 
 	LoadPathNodes();
 
-	App->pathfinding->LoadIslands();
+	if(App->input->GetKey(SDL_SCANCODE_F1) != KEY_REPEAT)
+		App->pathfinding->LoadIslands();
 }
 
 void j1Map::LoadTiles(pugi::xml_node& node, TileSet* tileset)

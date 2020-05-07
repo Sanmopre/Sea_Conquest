@@ -1128,7 +1128,7 @@ void j1InGameUI::GetSelectedEntity()
 			{
 				selected = *s;
 	
-				App->render->AddBlitEvent(0, nullptr, 0, 0, { selected->GetRenderPositionX(), selected->GetRenderPositionY(), 30, 30 }, false, false, 255, 0, 255, 100);
+				App->render->AddBlitEvent(0, nullptr, 0, 0, selected->selectable_area, false, false, 255, 0, 255, 100);
 			}
 	
 			counter++;
