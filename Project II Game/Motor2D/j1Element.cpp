@@ -50,6 +50,11 @@ bool j1Element::OnAbove()
 	return ret;
 }
 
+bool j1Element::ChangeLabel(char* new_text)
+{
+	return false;
+}
+
 
 void j1Element::OnClick()
 {

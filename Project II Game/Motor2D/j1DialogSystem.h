@@ -16,6 +16,9 @@ enum class Dialog
 {
 	PIRATE,
 	FUN,
+	HAHA,
+	ARROGANCE,
+	NO,
 	NONE
 };
 
@@ -39,6 +42,9 @@ public:
 	
 	DialogSystem pirate;
 	DialogSystem pirate_fun; 
+	DialogSystem haha;
+	DialogSystem arrogance;
+	DialogSystem no;
 
 
 

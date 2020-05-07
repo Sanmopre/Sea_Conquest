@@ -33,6 +33,7 @@ class j1QuestManager;
 class j1Map;
 class j1DialogSystem;
 class j1AnimationManager;
+class j1Explanation;
 
 
 class j1App 
@@ -100,6 +101,7 @@ public:
 	j1Map*					map = NULL;
 	j1DialogSystem*			dialog = NULL; 
 	j1AnimationManager*		anim = NULL;
+	j1Explanation*			expl = NULL;
 
 private:
 
