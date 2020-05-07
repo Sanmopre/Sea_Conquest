@@ -65,6 +65,9 @@ public:
 	uint start;
 	uint you_are_not_prepared;
 	uint this_will_be_fun;
+	uint such_arrogance;
+	uint ha;
+	uint no;
 
 	
 	//_Mix_Music* mainmenu_music;

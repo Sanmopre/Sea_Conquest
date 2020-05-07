@@ -66,11 +66,15 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	welcome_voice = App->audio->LoadFx("audio/fx/welcome.wav");
 	start = App->audio->LoadFx("audio/fx/start_game.wav");
 	you_are_not_prepared = App->audio->LoadFx("audio/fx/you_are_not_prepared.wav");
-	this_will_be_fun = App->audio->LoadFx("audio/fx/this_will_be_fun.wav");
+	this_will_be_fun = App->audio->LoadFx("audio/fx/this_will_be_fun.wav");	
+	such_arrogance = LoadFx("audio/fx/such_arrogance.wav");
+	ha = LoadFx("audio/fx/ha.wav");
+	no = LoadFx("audio/fx/no.wav");
 	//mainmenu_music = Mix_LoadMUS("audio/music/Motorista_Reciclista_Shop1_start.wav");
 	//ingame_chill_music = Mix_LoadMUS("audio/music/Sea_conquest_chill_cutre.wav");
 	mainmenu_music = LoadMusic("audio/music/tavern_song.wav");
 	ingame_chill_music = LoadMusic("audio/music/song.wav");
+
 	
 	return ret;
 }
