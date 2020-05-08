@@ -149,16 +149,16 @@ bool j1InGameUI::Update(float dt)
 
 		if (in_trading == true) {
 			App->fonts->BlitText( 75, 658, 1, text_max);
-			App->fonts->BlitText(255, 558, 1, text_type_0);
-			App->fonts->BlitText(255, 598, 1, text_type_1);
-			App->fonts->BlitText(255, 638, 1, text_type_2);
+			App->fonts->BlitText(265, 560, 1, text_type_0);
+			App->fonts->BlitText(265, 590, 1, text_type_1);
+			App->fonts->BlitText(265, 620, 1, text_type_2);
 		}
 
 		if (in_trader == true) {
 			App->fonts->BlitText(635, 658, 1, trader_max_text);
-			App->fonts->BlitText(810, 558, 1, trader_text_type_0);
-			App->fonts->BlitText(810, 598, 1, trader_text_type_1);
-			App->fonts->BlitText(810, 638, 1, trader_text_type_2);
+			App->fonts->BlitText(810, 560, 1, trader_text_type_0);
+			App->fonts->BlitText(810, 590, 1, trader_text_type_1);
+			App->fonts->BlitText(810, 620, 1, trader_text_type_2);
 		}
 
 		if (in_hover == true) {
@@ -277,9 +277,9 @@ void j1InGameUI::Add_UI()
 	
 
 	//ENTITY UI
-	entity_ui.image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 110,550 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NONE);
-	entity_ui.name = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 150,555 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-	entity_ui.trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 120,655 }, { 0,0 }, true, true, { 0,0,30,30 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
+	entity_ui.image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 90,545 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NONE);
+	entity_ui.name = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 130,550 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	entity_ui.trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 90,655 }, { 0,0 }, true, true, { 0,0,30,30 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
 	entity_ui.button_1 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 110,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NONE);
 	entity_ui.button_2 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 145,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NONE);
 	entity_ui.button_3 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 190,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NONE);
@@ -300,18 +300,18 @@ void j1InGameUI::Add_UI()
 
 
 	//TRADING_MENU
-	trading.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 110, 550 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_COTTON, true, TEXTURE::SCROLL);
-	trading.Scroll_1 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 110, 590 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_WOOD, true, TEXTURE::SCROLL);
-	trading.Scroll_2 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 110, 630 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_METAL, true, TEXTURE::SCROLL);
-	trading.back = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 120,655 }, { 0,0 }, true, true, { 0,0,30,30 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
+	trading.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 126, 580 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_COTTON, true, TEXTURE::SCROLL);
+	trading.Scroll_1 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 126, 610 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_WOOD, true, TEXTURE::SCROLL);
+	trading.Scroll_2 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 126, 640 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_METAL, true, TEXTURE::SCROLL);
+	trading.back = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 90,655 }, { 0,0 }, true, true, { 0,0,30,30 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
 
 	//TRADER 
 	trader.image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { MiddleScreenW + 80,525 }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MANAGER_IMAGE);
 	trader.buton_prev = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 430 ,585 }, { 0,0 }, true, false, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NEXT);
 	trader.button_next = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 40,585 }, { 0,0 }, true,false, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::PREV);
-	trader.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { MiddleScreenW + 130, 550 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_COTTON, true, TEXTURE::SCROLL);
-	trader.Scroll_1 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { MiddleScreenW + 130,  590 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_WOOD, true, TEXTURE::SCROLL);
-	trader.Scroll_2 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { MiddleScreenW + 130, 630 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_METAL, true, TEXTURE::SCROLL);
+	trader.Scroll = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { MiddleScreenW + 130,  580 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_COTTON, true, TEXTURE::SCROLL);
+	trader.Scroll_1 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { MiddleScreenW + 130, 610 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_WOOD, true, TEXTURE::SCROLL);
+	trader.Scroll_2 = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { MiddleScreenW + 130, 640 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_METAL, true, TEXTURE::SCROLL);
 
 	trader.button_trade_1 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 480 ,545 }, { 0,0 }, true, false, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADER_IZQUIERDA);
 	trader.button_trade_2 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 480,545 + 35 }, { 0,0 }, true, false, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADER_IZQUIERDA);
@@ -769,13 +769,13 @@ void j1InGameUI::Update_Bar(j1Element* scroll, float resource, float total_resou
 	scroll->Button->inside_position.x = -(235 * percentage);
 	switch (material) {
 	case Material::COTTON:
-		scroll->Button->map_position.x = 110 + (235 * percentage);
+		scroll->Button->map_position.x = 126 + (235 * percentage);
 		break;
 	case Material::WOOD:
-		scroll->Button->map_position.x = 110 + (235 * percentage) * 4;
+		scroll->Button->map_position.x = 126 + (235 * percentage) * 4;
 		break;
 	case Material::METAL:
-		scroll->Button->map_position.x = 110 + (235 * percentage) * 10;
+		scroll->Button->map_position.x = 126 + (235 * percentage) * 10;
 		break;
 	}
 }
