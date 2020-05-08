@@ -23,6 +23,7 @@ j1Carrier::j1Carrier(float x, float y, int level, int team)
 	target = nullptr;
 
 	texture = App->tex->GetTexture("carrier", level, team);
+	shadow = App->tex->GetTexture("carrier-shadow", 0, 0);
 
 	GetBasicAnimations();
 	selectable_area = rect;
@@ -54,6 +55,7 @@ void j1Carrier::Update(float dt)
 		}
 	}
 
+	App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 
 	if (health <= 0)

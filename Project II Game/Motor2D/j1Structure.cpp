@@ -196,11 +196,21 @@ void j1Structure::BuildProcces(float dt)
 {
 	if (unitqueue.size() != 0)
 	{
-		if (unitqueue.begin()->type == EntityType::BOAT)
+		switch (unitqueue.begin()->type)
+		{
+		case EntityType::BOAT:
 			building_time.iterations = 5 * level / 2;
-		if (unitqueue.begin()->type == EntityType::HARVESTER)
+			break;
+		case EntityType::BALLOON:
+			building_time.iterations = 10 * level / 2;
+			break;
+		case EntityType::HARVESTER:
 			building_time.iterations = 8 * level / 2;
-
+			break;
+		case EntityType::CARRIER:
+			building_time.iterations = 15 * level / 2;
+			break;
+		}
 		building_time.counter += dt;
 
 		SDL_Rect Brect = { GetRenderPositionX(), GetRenderPositionY() + rect.h, rect.w, 5 };

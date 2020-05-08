@@ -172,6 +172,9 @@
     <ClCompile Include="j1Carrier.cpp">
       <Filter>Desenvolupament  ========\Entities\Units</Filter>
     </ClCompile>
+    <ClCompile Include="j1Balloon.cpp">
+      <Filter>Desenvolupament  ========\Entities\Units</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">

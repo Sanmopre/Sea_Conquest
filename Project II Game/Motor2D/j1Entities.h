@@ -37,6 +37,7 @@ enum class Orientation
 enum class EntityType
 {
 	BOAT,
+	BALLOON,
 	HARVESTER,
 	CARRIER,
 	BOATHOUSE,
@@ -201,6 +202,7 @@ public:
 
 	SDL_Rect rect;
 	SDL_Texture* texture;
+	SDL_Texture* shadow;
 
 	int GetRenderPositionX();
 	int GetRenderPositionY();
@@ -347,6 +349,22 @@ class j1Boat : public j1Unit
 public:
 	j1Boat(float x = 0, float y = 0, int level = 1, int team = 1);
 	~j1Boat();
+
+	void Update(float);
+	void CleanUp();
+
+private:
+
+	void Damage(int damage, j1Entity* target);
+
+	timed_var firerate;
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class j1Balloon : public j1Unit
+{
+public:
+	j1Balloon(float x = 0, float y = 0, int level = 1, int team = 1);
+	~j1Balloon();
 
 	void Update(float);
 	void CleanUp();

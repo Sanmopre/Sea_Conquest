@@ -56,8 +56,12 @@ void j1BoatHouse::Update(float dt)
 	{
 		if (App->godmode)
 		{
-			if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+			if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 				BuildUnit(EntityType::BOAT, 1);
+			if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+				BuildUnit(EntityType::CARRIER, 1);
+			if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+				BuildUnit(EntityType::BALLOON, 1);
 		}
 	}
 

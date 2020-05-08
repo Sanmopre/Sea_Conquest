@@ -37,6 +37,7 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	automating = false;
 
 	texture = App->tex->GetTexture("harvester", level, team);
+	shadow = App->tex->GetTexture("harvester-shadow", 0, 0);
 
 	map = App->pathfinding->GetIsland(position);
 
@@ -198,6 +199,7 @@ void j1Harvester::Update(float dt)
 		}
 	}
 
+	App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
 	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 	
 	if (health == 0) {

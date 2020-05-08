@@ -126,10 +126,13 @@ bool j1Player::Update(float dt)
 
 			vector<fPoint> water_locations;
 			vector<fPoint> ground_locations;
+			vector<fPoint> air_locations;
 			int water_amount = 0;
 			int ground_amount = 0;
+			int air_amount = 0;
 			int w = 0;
 			int g = 0;
+			int a = 0;
 
 			for (vector<j1Entity*>::iterator entity = App->entitymanager->selected_units.begin(); entity != App->entitymanager->selected_units.end(); entity++)
 			{
@@ -143,6 +146,9 @@ bool j1Player::Update(float dt)
 				case NodeType::GROUND:
 					ground_amount++;
 					break;
+				case NodeType::ALL:
+					air_amount++;
+					break;
 				}
 			}
 
@@ -153,12 +159,12 @@ bool j1Player::Update(float dt)
 			int x;
 			int y;
 			int loop = 0;
-			int limit = water_amount + ground_amount;
+			int limit = water_amount + ground_amount + air_amount;
 			bool last = false;
 			bool scape = false;
 
 			if (limit != 0)
-				while (limit != w + g && scape == false)
+				while (limit != w + g + a && scape == false)
 				{
 					switch (state)
 					{
@@ -201,14 +207,33 @@ bool j1Player::Update(float dt)
 					
 					if (x <= App->map->mapdata->width && y <= App->map->mapdata->height && x >= 0 && y >= 0)
 					{
+						bool air_can = false;
+						fPoint pos = pos = App->map->MapToWorld<fPoint>(x, y);
+						Node* node = *App->pathfinding->WorldToNode(x, y);
+						if (air_amount > a)
+						{
+							air_can = true;
+							for (vector<fPoint>::iterator itr = air_locations.begin(); itr != air_locations.end(); itr++)
+								if (*itr == pos)
+								{
+									air_can = false;
+									break;
+								}
+							if (air_can)
+								for (vector<j1Entity*>::iterator itr = App->entitymanager->air_units.begin(); itr != App->entitymanager->air_units.end(); itr++)
+								{
+									if ((*itr)->GetDestination() == pos)
+									{
+										air_can = false;
+										break;
+									}
+								}
+						}
 						bool can = false;
-						fPoint pos = {};
-						Node* a = *App->pathfinding->WorldToNode(x, y);
-						if (!a->built)
+						if (!node->built)
 						{
 							can = true;
-							pos = App->map->MapToWorld<fPoint>(x, y);
-							switch (a->type)
+							switch (node->type)
 							{
 							case NodeType::WATER:
 								if (water_amount > w)
@@ -237,17 +262,18 @@ bool j1Player::Update(float dt)
 									can = false;
 								break;
 							}
-							for (vector<j1Entity*>::iterator e = App->entitymanager->selected_units.begin(); e != App->entitymanager->selected_units.end(); e++)
-								if ((*e)->GetDestination() == pos)
-								{
-									can = false;
-									break;
-								}
+							if (can)
+								for (vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
+									if ((*e)->GetDestination() == pos)
+									{
+										can = false;
+										break;
+									}
 						}
 
 						if (can)
 						{
-							switch (a->type)
+							switch (node->type)
 							{
 							case NodeType::WATER:
 								w++;
@@ -259,25 +285,31 @@ bool j1Player::Update(float dt)
 								break;
 							}
 						}
+						if (air_can)
+						{
+							a++;
+							air_locations.push_back(pos);
+						}
 
 						if (!last)
-							switch (terrain)
-							{
-							case NodeType::WATER:
-								if (w == water_amount && g != ground_amount)
+							if(a == air_amount)
+								switch (terrain)
 								{
-									i_max = i + 2 * 4;
-									last = true;
+								case NodeType::WATER:
+									if (w == water_amount && g != ground_amount)
+									{
+										i_max = i + 2 * 4;
+										last = true;
+									}
+									break;
+								case NodeType::GROUND:
+									if (g == ground_amount && w != water_amount)
+									{
+										i_max = i + 2 * 4;
+										last = true;
+									}
+									break;
 								}
-								break;
-							case NodeType::GROUND:
-								if (g == ground_amount && w != water_amount)
-								{
-									i_max = i + 2 * 4;
-									last = true;
-								}
-								break;
-							}
 						if (i == i_max)
 							scape = true;
 					}
@@ -286,6 +318,9 @@ bool j1Player::Update(float dt)
 				std::sort(water_locations.begin(), water_locations.end(), LessY);
 			if (ground_locations.size() != 0)
 				std::sort(ground_locations.begin(), ground_locations.end(), LessY);
+			if (air_locations.size() != 0)
+				std::sort(air_locations.begin(), air_locations.end(), LessY);
+
 			for (vector<j1Entity*>::iterator e = App->entitymanager->selected_units.begin(); e != App->entitymanager->selected_units.end(); e++)
 				if ((*e)->terrain == NodeType::WATER)
 				{
@@ -309,9 +344,22 @@ bool j1Player::Update(float dt)
 					else
 						(*e)->SetDestination((*e)->position);
 				}
+				else if ((*e)->terrain == NodeType::ALL)
+				{
+					if (air_locations.size() != 0)
+					{
+						fPoint dest = *air_locations.begin();
+						(*e)->GoTo(dest, (*e)->terrain);
+						air_locations.erase(air_locations.begin());
+					}
+					else
+						(*e)->SetDestination((*e)->position);
+				}
+
 			vector<fPoint> v;
 			water_locations.swap(v);
 			ground_locations.swap(v);
+			air_locations.swap(v);
 		}
 	}
 	
@@ -400,20 +448,35 @@ void j1Player::Select_Entitites(SDL_Rect select_area)
 		select_area.h *= -1;
 	}
 
-	for (auto entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
+	bool single_click = false;
+	for (auto entity = App->entitymanager->entities.end() - 1; entity != App->entitymanager->entities.begin() - 1; entity--)
 		if (select_area.x < (*entity)->selectable_area.x + (*entity)->selectable_area.w &&
 			select_area.x + select_area.w >(*entity)->selectable_area.x &&
 			select_area.y < (*entity)->selectable_area.y + (*entity)->selectable_area.h &&
 			select_area.h + select_area.y >(*entity)->selectable_area.y)
-			if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
-				(*entity)->selected = false;
+		{
+			if (!single_click)
+			{
+				if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
+					(*entity)->selected = false;
+				else
+					(*entity)->selected = true;
+
+				if (select_area.w * select_area.h < 10)
+					single_click = true;
+			}
 			else
-				(*entity)->selected = true;
+			{
+				if (App->input->GetKey(SDL_SCANCODE_LSHIFT) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT)
+					(*entity)->selected = false;
+			}
+		}
 		else
 		{
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT)
 				(*entity)->selected = false;
 		}
+
 }
 
 void j1Player::Mouse_Cursor(float dt) 

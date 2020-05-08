@@ -24,6 +24,7 @@ public:
 
 	std::vector<j1Entity*> entities;
 	std::vector<j1Entity*> selected_units;
+	std::vector<j1Entity*> air_units;
 
 	int selected_n;
 

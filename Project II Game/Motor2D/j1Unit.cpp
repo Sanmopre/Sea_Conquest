@@ -43,6 +43,7 @@ void j1Unit::Primitive_Update(float dt)
 
 	selectable_area.x = GetRenderPositionX();
 	selectable_area.y = GetRenderPositionY();
+
 }
 
 void j1Unit::UpdateMap(Node* node)

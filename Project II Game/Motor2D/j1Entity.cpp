@@ -186,7 +186,10 @@ int j1Entity::GetRenderPositionY()
 	int center = 0;
 
 	if (main_type == EntityType::UNIT)
-		center = 16;
+		if (terrain == NodeType::ALL)
+			center -= 48;
+		else
+			center = 16;
 
 	return (position.y - rect.h / 2) + center;
 }

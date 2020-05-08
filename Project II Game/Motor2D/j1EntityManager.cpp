@@ -16,8 +16,16 @@ struct {
 	{
 		if(a->position.y != b->position.y)
 			return a->position.y < b->position.y;
-		else
+		else if (a->position.x != b->position.x)
 			return a->position.x < b->position.x;
+		else
+		{
+			if(a->terrain == NodeType::ALL)
+				return false;
+			else if (b->terrain == NodeType::ALL)
+				return true;
+		}
+		return false;
 	}
 } customLess;
 
@@ -45,6 +53,7 @@ bool j1EntityManager::Update(float dt)
 	int n = 0;
 	int counter = 0;
 	selected_units.erase(selected_units.begin(), selected_units.end());
+	air_units.erase(air_units.begin(), air_units.end());
 	while (counter != entities.size())
 	{
 		vector<j1Entity*>::iterator entity = entities.begin();
@@ -64,6 +73,8 @@ bool j1EntityManager::Update(float dt)
 					n++;
 				if ((*entity)->main_type == EntityType::UNIT && (*entity)->selected && (*entity)->team == 1)
 					selected_units.push_back(*entity);
+				if ((*entity)->main_type == EntityType::UNIT && (*entity)->terrain == NodeType::ALL && (*entity)->team == 1)
+					air_units.push_back(*entity);
 			}
 
 			counter++;
@@ -188,6 +199,26 @@ bool j1EntityManager::Update(float dt)
 				if ((*entity)->selected)
 					(*entity)->CleanUp();
 		}
+		if (App->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN)
+		{
+			iPoint test;
+			App->input->GetMousePosition(test.x, test.y);
+			test.x -= App->render->camera.x / App->win->GetScale();
+			test.y -= App->render->camera.y / App->win->GetScale();
+			iPoint placing_tile = App->map->WorldToMap(test.x, test.y);
+			test = App->map->MapToWorld<iPoint>(placing_tile.x, placing_tile.y);
+			AddEntity(test.x, test.y, EntityType::BALLOON, 1, 1);
+		}
+		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
+		{
+			iPoint test;
+			App->input->GetMousePosition(test.x, test.y);
+			test.x -= App->render->camera.x / App->win->GetScale();
+			test.y -= App->render->camera.y / App->win->GetScale();
+			iPoint placing_tile = App->map->WorldToMap(test.x, test.y);
+			test = App->map->MapToWorld<iPoint>(placing_tile.x, placing_tile.y);
+			AddEntity(test.x, test.y, EntityType::BALLOON, 2, 1);
+		}
 
 		if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
 		{
@@ -206,6 +237,9 @@ j1Entity* j1EntityManager::AddEntity(float x, float y, EntityType type, int leve
 	{
 	case EntityType::BOAT:
 		buffer.push_back(new j1Boat(x, y, level, team));
+		break;
+	case EntityType::BALLOON:
+		buffer.push_back(new j1Balloon(x, y, level, team));
 		break;
 	case EntityType::HARVESTER:
 		buffer.push_back(new j1Harvester(x, y, level, team));

@@ -120,22 +120,25 @@ vector<fPoint> j1PathFinding::PathTo(fPoint start_pos, fPoint end_pos, NodeType 
 	NodeType pathterrain = terrain;
 
 	bool reachable = true;
-	if (map != nullptr)
+	if (terrain != NodeType::ALL)
 	{
-		reachable = false;
-		for (vector<Node*>::iterator itr = (*map).begin(); itr != (*map).end(); itr++)
-			if ((*itr)->tile == _end)
-			{
-				reachable = true;
-				break;
-			}	
-	}
-	if ((*WorldToNode(_end.x, _end.y))->type != terrain)
-		reachable = false;
+		if (map != nullptr)
+		{
+			reachable = false;
+			for (vector<Node*>::iterator itr = (*map).begin(); itr != (*map).end(); itr++)
+				if ((*itr)->tile == _end)
+				{
+					reachable = true;
+					break;
+				}
+		}
+		if ((*WorldToNode(_end.x, _end.y))->type != terrain)
+			reachable = false;
 
-	if (!reachable)
-	{
-		pathterrain = NodeType::ALL;
+		if (!reachable)
+		{
+			pathterrain = NodeType::ALL;
+		}
 	}
 
 	if(_end.x >= 0 && _end.y >= 0)
@@ -293,7 +296,7 @@ vector<fPoint> j1PathFinding::CreatePath(Node* end, fPoint end_pos, NodeType ter
 
 	for (vector<Node*>::iterator itr = nodes.begin(); itr != nodes.end(); itr++)
 	{
-		if ((*itr)->type == terrain)
+		if ((*itr)->type == terrain || terrain == NodeType::ALL)
 		{
 			fPoint pos = App->map->MapToWorld<fPoint>((*itr)->tile.x, (*itr)->tile.y);
 			ret.push_back(pos);
