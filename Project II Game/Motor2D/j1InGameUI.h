@@ -356,6 +356,8 @@ private:
 	bool in_trader = false;
 	int font_name = -1;
 	bool quit = false;
+
+	j1Entity* selected_last_frame;
 };
 
 #endif // __j1WINDOW_H__

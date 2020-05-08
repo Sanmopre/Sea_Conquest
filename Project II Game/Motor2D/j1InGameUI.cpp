@@ -64,11 +64,10 @@ bool j1InGameUI::PreUpdate()
 
 bool j1InGameUI::Update(float dt)
 {
-	//if (App->entitymanager->selected_n > 0)
+	selected_last_frame = selected;
 	selected = nullptr;
 	GetSelectedEntity();
-	//else
-	//	selected = nullptr;
+
 	if (App->scenemanager->In_Main_Menu == false && selected_total != 0) {
 		if (selected->trading_entity != nullptr) {
 			if (in_trading)
