@@ -30,51 +30,6 @@ struct In_Game_Basics {
 };
 
 
-struct Building_Menu {
-	j1Element* entity_type_Image;
-	j1Element* entity_name_boathouse;
-	j1Element* Boat_Building_Button;
-	j1Element* Trade;
-};
-
-struct Boat_Menu {
-	j1Element* entity_type_Image;
-	j1Element* entity_name_boat;
-	j1Element* Trade;
-};
-
-
-struct Battle_Ship_Menu {
-	j1Element* entity_type_Image;
-	j1Element* entity_name;
-	j1Element* Trade;
-};
-
-
-struct Ballon_Menu {
-	j1Element* entity_type_Image;
-	j1Element* entity_name;
-	j1Element* Trade;
-};
-
-
-struct Townhall_Menu {
-	j1Element* entity_type_Image;
-	j1Element* entity_name_townhall;
-	j1Element* coins_image;
-	j1Element* lvl_up;
-	j1Element* Quest_button;
-};
-
-struct Harvester_Menu {
-	j1Element* entity_type_Image;
-	j1Element* entity_name_Harvester;
-	j1Element* boathouse;
-	j1Element* Storage;
-	j1Element* Trade;
-	j1Element* Automatic;
-};
-
 struct Trading_Menu_Selected {
 	j1Element* Scroll;
 	j1Element* Scroll_1;
@@ -99,13 +54,6 @@ struct Trader_Menu {
 	j1Element* button_trade_4;
 	j1Element* button_trade_5;
 	j1Element* button_trade_6;
-};
-
-struct Storage_Menu {
-	j1Element* entity_type_Image;
-	j1Element* entity_name_Storage;
-	j1Element* Harvester_builder_button;
-	j1Element* Trade;
 };
 
 struct Quest_selector {
@@ -140,6 +88,17 @@ struct GodMode {
 	j1Element* Image;
 };
 
+struct Entity_UI {
+	j1Element* name;
+	j1Element* image;
+	j1Element* trade;
+	j1Element* button_1 = nullptr;
+	j1Element* button_2 = nullptr;
+	j1Element* button_3 = nullptr;
+	j1Element* button_4 = nullptr;
+	j1Element* button_5 = nullptr;
+};
+
 struct Information {
 	j1Element* Image;
 	j1Element* Text;
@@ -155,6 +114,7 @@ struct Information {
 	int health;
 	bool in_info = false;
 };
+
 
 
 struct SDL_Texture;
@@ -198,26 +158,6 @@ public:
 	void Activate_Resource_Menu();
 	void Deactivate_Resource_Menu();
 
-	//BOAT_BUILDING
-	void Activate_Building_Menu();
-	void Deactivate_Building_Menu();
-
-	//BOAT
-	void Activate_Boat_Menu();
-	void Deactivate_Boat_Menu();
-
-	//HARVESTER
-	void Activate_Harvester_Menu();
-	void Deactivate_Harvester_Menu();
-
-	//TOWNHALL
-	void Activate_Townhall_Menu();
-	void Deactivate_Townhall_Menu();
-
-	//STORAGE
-	void Activate_Storage_Menu();
-	void Deactivate_Storage_Menu();
-
 	//WIN
 	void Activate_Win_Menu();
 	void Deactivate_Win_Menu();
@@ -231,14 +171,6 @@ public:
 	void Deactivate_Information();
 
 
-	//BALLOON
-	void Activate_Balloon();
-	void Deactivate_Balloon();
-
-	//BATTLE SHIP
-	void Activate_Ship();
-	void Deactivate_Ship();
-
 	//QUEST SELECTOR
 	void Activate_Quest_Selector();
 	void Deactivate_Quest_Selector();
@@ -249,8 +181,12 @@ public:
 	void Update_Resources(j1Entity* entity);
 	void Update_Resources_Trader(j1Entity* entity);
 
-	//TRADING FUNCTION
-	void Trading_Manager(j1Entity* entity);
+
+	////MANAGING IMAGE AND LABEL OF TRADE UNITS 
+	void Change_Image_Label(j1Entity* entity = nullptr);
+	void Change_Image_Label_Trader(j1Entity* entity = nullptr);
+	void Deactivate_Entity_UI();
+	void Deactivate_Entity_Buttons();
 
 	//COST
 	bool Cost_Function(j1Entity* entity, int cotton, int wood,int metal);
@@ -328,9 +264,6 @@ private:
 	In_Game_Basics basics;
 	Trading_Menu_Selected trading;
 	Trader_Menu trader;
-	Harvester_Menu harvester;
-	Townhall_Menu townhall;
-	Storage_Menu storage;
 	Win win;
 	Defeat defeat;
 	Cost cost;
@@ -338,13 +271,11 @@ private:
 	GodMode godmode;
 	Information information;
 	CoinCost coincost;
-	Battle_Ship_Menu ship;
-	Ballon_Menu balloon;
 	Quest_selector quest_selector;
 
-	//ENtities
-	Building_Menu building;
-	Boat_Menu boat;
+	
+	Entity_UI entity_ui;
+
 
 	int selected_offset;
 	int offset_modifier;
