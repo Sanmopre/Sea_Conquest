@@ -64,6 +64,8 @@ void  j1Entity::ShowHPbar(int extra_width, int height, int distance)
 void j1Entity::Trading()
 {
 	trading_entity = nullptr;
+	tradeable_list.erase(tradeable_list.begin(), tradeable_list.end());
+
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
 		trading_offset_modifier = -1;
 
@@ -93,13 +95,6 @@ void j1Entity::Trading()
 					if (!found)
 						tradeable_list.push_back(*e);
 				}
-				else
-					for (std::vector<j1Entity*>::iterator s = tradeable_list.begin(); s != tradeable_list.end(); s++)
-						if (*e == *s)
-						{
-							tradeable_list.erase(s);
-							break;
-						}
 			}
 	}
 	trading_total = tradeable_list.size();

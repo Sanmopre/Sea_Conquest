@@ -87,6 +87,7 @@
     <ClCompile Include="j1AnimationManager.cpp" />
     <ClCompile Include="j1Boat.cpp" />
     <ClCompile Include="j1BoatHouse.cpp" />
+    <ClCompile Include="j1Carrier.cpp" />
     <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1Color.cpp" />
     <ClCompile Include="j1DialogSystem.cpp" />
