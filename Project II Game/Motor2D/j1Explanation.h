@@ -23,6 +23,9 @@ enum class Text
 	BOATHOUSE,
 	STORAGE,
 	HARVESTER,
+	QUEST,
+	TRADE,
+	SELECT_QUEST,
 	NONE
 };
 
@@ -41,6 +44,8 @@ public:
 
 
     void Show_Label(Text text = Text::NONE);
+	
+	bool information_mode = false;
 
 private:
 
@@ -48,17 +53,25 @@ private:
 	bool Change_Label_Text(Explanation explanation);
 	void Activate_Explanation();
 	void Deactivate_Explanation();
-
-public:
+	bool explanation_active = false;
 	j1Element* first = nullptr;
 	j1Element* second = nullptr;
 	j1Element* third = nullptr;
 	j1Element* forth = nullptr;
 
+	j1Element* information_image;
 	Explanation_UI explanation;
 
 	Explanation boat;
 	Explanation boathouse;
+	Explanation storage;
+	Explanation harvester;
+	Explanation quest;
+	Explanation trader;
+	Explanation select_quest;
+
+
+
 };
 
 #endif //  __j1GUI_H__

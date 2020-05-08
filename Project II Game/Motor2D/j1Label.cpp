@@ -25,6 +25,7 @@ bool j1Label::ChangeLabel(char* new_text)
 
 bool j1Label::Start()
 {
+	font_name = App->fonts->Load("textures/NameTile.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
 	texture = App->font->Print(text);
 	return true;
 }

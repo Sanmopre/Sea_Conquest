@@ -12,6 +12,7 @@
 #include "j1MainMenuUI.h"
 #include "j1TransitionManager.h"
 #include "j1QuestManager.h"
+#include "j1Explanation.h"
 #include <vector>
 #include <iostream>
 
@@ -654,18 +655,24 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			cotton = 20;
 			wood = 40;
 			metal = 0;
+			if(App->expl->information_mode)
+			App->expl->Show_Label(Text::BOAT);
 		}
 		if (element == harvester.boathouse) {
 			Activate_Cost_Menu();
 			cotton = 0;
 			wood = 40;
 			metal = 40;
+			if (App->expl->information_mode)
+			App->expl->Show_Label(Text::BOATHOUSE);
 		}
 		if (element == harvester.Storage) {
 			Activate_Cost_Menu();
 			cotton = 0;
 			wood = 50;
 			metal = 10;
+			if (App->expl->information_mode)
+			App->expl->Show_Label(Text::STORAGE);
 		}
 
 		if (element == storage.Harvester_builder_button) {
@@ -673,6 +680,8 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			cotton = 0;
 			wood = 0;
 			metal = 30;
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::HARVESTER);
 		}
 		if (element == manager.info) {
 			Activate_Information();
@@ -681,6 +690,26 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == townhall.lvl_up) {
 			Activate_Coin_Cost();
 			coin_cost = 10;
+		}
+
+		if (element == townhall.Quest_button) {
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::QUEST);
+		}
+
+		if (element == quest_selector.Quest_1) {
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::SELECT_QUEST);
+		}
+
+		if (element == quest_selector.Quest_2) {
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::SELECT_QUEST);
+		}
+
+		if (element == quest_selector.Quest_3) {
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::SELECT_QUEST);
 		}
 
 	}	

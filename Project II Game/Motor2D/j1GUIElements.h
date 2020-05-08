@@ -73,6 +73,7 @@ enum class TEXTURE
 	SHIP,
 	BALLOON,
 	QUEST,
+	INFORMATION_IMAGE,
 	NONE
 };
 

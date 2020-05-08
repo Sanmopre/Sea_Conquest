@@ -79,6 +79,10 @@ bool j1Image::Start()
 
 	if (textureType == TEXTURE::SHIP)
 		texture = App->gui->Load_Texture(TEXTURE::SHIP);
+
+	if (textureType == TEXTURE::INFORMATION_IMAGE)
+		texture = App->gui->Load_Texture(TEXTURE::INFORMATION_IMAGE);
+
 	return true;
 }
 
@@ -98,6 +102,12 @@ bool j1Image::Update(float dt) {
 		App->render->AddBlitEvent(3, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0, 0, 0, 0, true);
 		else
 		App->render->AddBlitEvent(4, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0, 0, 0, 0, true);
+
+
+
+		if (textureType == TEXTURE::EXPLANATION) {
+			App->render->AddBlitEvent(5, texture, map_position.x - App->render->camera.x, map_position.y - App->render->camera.y, rect, false, true, 0, 0, 0, 0, true);
+		}
 	}
 
 

@@ -181,8 +181,8 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 		texture_load = App->tex->Load("textures/info_image.png");
 		break;
 	case TEXTURE::QUEST_CLOSE:
-			texture_load = App->tex->Load("textures/close_quest.png");
-			break;
+		texture_load = App->tex->Load("textures/close_quest.png");
+		break;
 	case TEXTURE::QUEST_IMAGE_CLOSE:
 		texture_load = App->tex->Load("textures/quest_close.png");
 		break;
@@ -212,9 +212,12 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 		break;
 	case TEXTURE::SHIP:
 		texture_load = App->tex->Load("textures/ship.png");
+		break;
 	case TEXTURE::QUEST:
 		texture_load = App->tex->Load("textures/quest.png");
-
+		break;
+	case TEXTURE::INFORMATION_IMAGE:
+		texture_load = App->tex->Load("textures/information_image.png");
 		break;
 	}
 
