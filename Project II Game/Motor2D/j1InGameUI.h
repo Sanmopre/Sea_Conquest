@@ -276,6 +276,8 @@ private:
 	
 	Entity_UI entity_ui;
 
+	j1Element* Trader_image;
+	j1Element* Trader_label;
 
 	int selected_offset;
 	int offset_modifier;

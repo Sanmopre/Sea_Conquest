@@ -130,7 +130,18 @@ bool j1InGameUI::Update(float dt)
 		sprintf_s(text_type_1, 10, "%7d", selected->load.wood);
 		sprintf_s(text_type_2, 10, "%7d", selected->load.metal);
 		//TRADER RESOURCES
-		if (selected->trading_entity != nullptr) {			
+		if (selected->trading_entity != nullptr) {	
+
+
+			Change_Image_Label_Trader(selected->trading_entity);
+			if (in_trading) {
+				Trader_image->enabled = true;
+				Trader_label->enabled = true;
+			}
+			else {
+				Trader_image->enabled = false;
+				Trader_label->enabled = false;
+			}
 			sprintf_s(trader_max_text, 10, "%7d", selected->trading_entity->load.Total());
 			sprintf_s(trader_text_type_0, 10, "%7d", selected->trading_entity->load.cotton);
 			sprintf_s(trader_text_type_1, 10, "%7d", selected->trading_entity->load.wood);
@@ -246,6 +257,11 @@ bool j1InGameUI::Update(float dt)
 		trading.Scroll_2->enabled = false;
 	}
 
+	if (!in_trader) {
+		Trader_image->enabled = false;
+		Trader_label->enabled = false;
+	}
+
 	return true;
 }
 
@@ -320,6 +336,11 @@ void j1InGameUI::Add_UI()
 	trader.button_trade_5 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 480 + 32,545 + 35}, { 0,0 }, true, false, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADER_DERECHA);
 	trader.button_trade_6 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 480 + 32,545 + 70}, { 0,0 }, true, false, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADER_DERECHA);
 		
+
+	//TRADER IMAGE AND LABEL
+	Trader_label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 680,550 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	Trader_image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 640,545 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NONE);
+
 	//WIN
 	win.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {600 - 150,225  }, { 0,0 }, true, false, { 0, 0,350,170 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::MANAGER_IMAGE);
 	win.Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, {750 - 150, 280 }, { 0,0 }, true, false, { 0,0,40,40 }, "VICTORY!!", this, false, false, SCROLL_TYPE::SCROLL_NONE,true);
@@ -847,35 +868,35 @@ void j1InGameUI::Change_Image_Label(j1Entity* entity)
 
 void j1InGameUI::Change_Image_Label_Trader(j1Entity* entity)
 {
-	/*
+	
 	if (entity != nullptr)
 		switch (entity->type)
 		{
 		case EntityType::BOAT:
-			Trader_Label->ChangeLabel("BOAT");
-			Trader_Image->texture = App->gui->Load_Texture(TEXTURE::BOAT_IMAGE);
+			Trader_label->ChangeLabel("BOAT");
+			Trader_image->texture = App->gui->Load_Texture(TEXTURE::BOAT_IMAGE);
 			break;
 		case EntityType::BOATHOUSE:
-			Trader_Label->ChangeLabel("BOATHOUSE");
-			Trader_Image->texture = App->gui->Load_Texture(TEXTURE::BUILDING_IMAGE);
+			Trader_label->ChangeLabel("BOATHOUSE");
+			Trader_image->texture = App->gui->Load_Texture(TEXTURE::BUILDING_IMAGE);
 			break;
 		case EntityType::HARVESTER:
-			Trader_Label->ChangeLabel("HARVESTER");
-			Trader_Image->texture = App->gui->Load_Texture(TEXTURE::HARVESTER);
+			Trader_label->ChangeLabel("HARVESTER");
+			Trader_image->texture = App->gui->Load_Texture(TEXTURE::HARVESTER);
 			break;
 		case EntityType::TOWNHALL:
-			Trader_Label->ChangeLabel("TOWNHALL");
-			Trader_Image->texture = App->gui->Load_Texture(TEXTURE::TOWNHALL);
+			Trader_label->ChangeLabel("TOWNHALL");
+			Trader_image->texture = App->gui->Load_Texture(TEXTURE::TOWNHALL);
 			break;
 		case EntityType::STORAGE:
-			Trader_Label->ChangeLabel("STORAGE");
-			Trader_Image->texture = App->gui->Load_Texture(TEXTURE::STORAGE);
+			Trader_label->ChangeLabel("STORAGE");
+			Trader_image->texture = App->gui->Load_Texture(TEXTURE::STORAGE);
 			break;
 		case EntityType::NONE:
-			Trader_Label->ChangeLabel("");
-			Trader_Image->texture = nullptr;
+			Trader_label->ChangeLabel("");
+			Trader_image->texture = nullptr;
 			break;
-		}*/
+		}
 }
 
 void j1InGameUI::Deactivate_Entity_UI()
