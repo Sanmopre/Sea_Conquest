@@ -38,6 +38,7 @@ enum class EntityType
 {
 	BOAT,
 	HARVESTER,
+	CARRIER,
 	BOATHOUSE,
 	STORAGE,
 	TOWNHALL,
@@ -169,7 +170,7 @@ class j1Entity
 {
 public:
 
-	j1Entity() { selected = false; to_delete = false; }
+	j1Entity() { selected = false; to_delete = false; to_remove = false; }
 	virtual ~j1Entity();
 
 	virtual void Primitive_Update(float dt) = 0;
@@ -177,6 +178,7 @@ public:
 	virtual void CleanUp() = 0;
 
 	bool to_delete;
+	bool to_remove;
 
 	int team;
 
@@ -203,16 +205,21 @@ public:
 	int GetRenderPositionX();
 	int GetRenderPositionY();
 
+	//UNITS
 	virtual void GoTo(fPoint destination, NodeType terrain) {}
-	virtual void BuildUnit(EntityType type, int level) {}
+	virtual fPoint GetDestination() { return position; }
+	virtual void SetDestination(fPoint destination) {}
+	virtual void SetPosition(fPoint position) {}
+	virtual void ResetPath() {}
+	virtual void UpdateMap(Node* node) {}
+		//HARVESTER
+		virtual void SetAutomatic() {}
+		virtual void BuildUnit(EntityType type, int level) {}
+	//STRUCTURES
 	virtual void BuildStructure(EntityType type) {}
 	virtual void ToPlace(bool to_place) {}
 	virtual void SetBuiltState(BuildState state) {}
 	virtual BuildState GetBuiltState() { return NOTHING; }
-	virtual fPoint GetDestination() { return position; }
-	virtual void SetDestination(fPoint destination) {}
-	virtual void ResetPath() {}
-	virtual void SetAutomatic() {}
 
 protected:
 
@@ -250,6 +257,8 @@ public:
 	ParticleSystem* SmokeSystem;
 	ParticleSystem* FireSystem;
 
+	void UpdateMap(Node* node);
+
 protected:
 
 	Animation north;
@@ -266,7 +275,7 @@ protected:
 	void GoTo(fPoint destination, NodeType terrain);
 	void Move(float dt);
 	void NextStep();
-	void SetDestination(NodeType terrain = NodeType::WATER);
+	void SetPosition(fPoint position);
 	void SelectAnimation();
 	void GetBasicAnimations();
 	fPoint GetDestination() 
@@ -381,6 +390,27 @@ private:
 	timed_var harvestrate;
 	timed_var transferrate;
 	int power;
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class j1Carrier : public j1Unit
+{
+public:
+
+	j1Carrier(float x = 0, float y = 0, int level = 1, int team = 1);
+	~j1Carrier();
+
+	void Update(float);
+	void CleanUp();
+
+	void Store();
+	void Deploy();
+
+	int stored_units;
+	int capacity;
+
+private:
+
+	vector<j1Entity*> units;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1BoatHouse : public j1Structure

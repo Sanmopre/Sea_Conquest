@@ -51,7 +51,12 @@ bool j1EntityManager::Update(float dt)
 		entity += counter;
 		for (; entity != entities.end(); entity++)
 		{
-			if (!(*entity)->to_delete)
+			if ((*entity)->to_delete || (*entity)->to_remove)
+			{
+				QuickDeleteEntity(entity);
+				break;
+			}
+			else
 			{
 				(*entity)->Primitive_Update(dt);
 				(*entity)->Update(dt);
@@ -59,11 +64,6 @@ bool j1EntityManager::Update(float dt)
 					n++;
 				if ((*entity)->main_type == EntityType::UNIT && (*entity)->selected && (*entity)->team == 1)
 					selected_units.push_back(*entity);
-			}
-			else
-			{
-				QuickDeleteEntity(entity);
-				break;
 			}
 
 			counter++;
@@ -83,6 +83,17 @@ bool j1EntityManager::Update(float dt)
 	////////////////////////////////////ENTITIES_DEBUG///////////////////////////////////////////////////
 	if (App->godmode)
 	{
+		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+		{
+			iPoint test;
+			App->input->GetMousePosition(test.x, test.y);
+			test.x -= App->render->camera.x / App->win->GetScale();
+			test.y -= App->render->camera.y / App->win->GetScale();
+			iPoint placing_tile = App->map->WorldToMap(test.x, test.y);
+			test = App->map->MapToWorld<iPoint>(placing_tile.x, placing_tile.y);
+			AddEntity(test.x, test.y, EntityType::CARRIER, 1, 1);
+		}
+
 		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		{
 			iPoint test;
@@ -199,6 +210,9 @@ j1Entity* j1EntityManager::AddEntity(float x, float y, EntityType type, int leve
 	case EntityType::HARVESTER:
 		buffer.push_back(new j1Harvester(x, y, level, team));
 		break;
+	case EntityType::CARRIER:
+		buffer.push_back(new j1Carrier(x, y, level, team));
+		break;
 	case EntityType::BOATHOUSE:
 		buffer.push_back(new j1BoatHouse(x, y, team));
 		break;
@@ -222,6 +236,11 @@ j1Entity* j1EntityManager::AddEntity(float x, float y, EntityType type, int leve
 	return *(buffer.end() - 1);
 }
 
+void j1EntityManager::AddToBuffer(j1Entity* entity)
+{
+	buffer.push_back(entity);
+}
+
 void j1EntityManager::DeleteEntity(j1Entity* entity_)
 {
 	if(entities.size() != 0)
@@ -241,7 +260,8 @@ void j1EntityManager::DeleteEntity(j1Entity* entity_)
 
 void j1EntityManager::QuickDeleteEntity(std::vector<j1Entity*>::iterator entity)
 {
-	delete (*entity);
+	if((*entity)->to_delete)
+		delete (*entity);
 	entities.erase(entity, entity + 1);
 	if (entities.size() <= entities.capacity() / 2)
 		entities.shrink_to_fit();

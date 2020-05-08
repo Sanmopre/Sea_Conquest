@@ -169,6 +169,9 @@
     <ClCompile Include="j1AnimationManager.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1Carrier.cpp">
+      <Filter>Desenvolupament  ========\Entities\Units</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">

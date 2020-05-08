@@ -17,6 +17,7 @@ public:
 	bool CleanUp();
 
 	j1Entity* AddEntity(float x = 0, float y = 0, EntityType = EntityType::NONE, int level = 1, int team = 0);
+	void AddToBuffer(j1Entity*);
 
 	void DeleteEntity(j1Entity*);
 	void DeleteAll();

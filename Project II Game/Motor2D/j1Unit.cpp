@@ -45,6 +45,11 @@ void j1Unit::Primitive_Update(float dt)
 	selectable_area.y = GetRenderPositionY();
 }
 
+void j1Unit::UpdateMap(Node* node)
+{
+	map = &node->island->map;
+}
+
 void j1Unit::GoTo(fPoint destination, NodeType terrain)
 {
 	path.swap(App->pathfinding->PathTo(this->position, destination, terrain, map));
@@ -125,13 +130,11 @@ void j1Unit::NextStep()
 	}
 }
 
-void  j1Unit::SetDestination(NodeType terrain)
+void  j1Unit::SetPosition(fPoint position)
 {
-	iPoint m;
-	App->input->GetMousePosition(m.x, m.y);
-	m.x -= App->render->camera.x / App->win->GetScale();
-	m.y -= App->render->camera.y / App->win->GetScale();
-	GoTo({ (float)m.x, (float)m.y }, terrain);
+	this->position = position;
+	destination = position;
+	path.erase(path.begin(), path.end());
 }
 
 void j1Unit::SelectAnimation()
