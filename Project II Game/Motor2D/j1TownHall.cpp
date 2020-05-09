@@ -11,6 +11,7 @@ j1TownHall::j1TownHall(float x, float y, int team)
 	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 	level = 1;
 	this->team = team;
+	fog_range = 5;
 
 	texture = App->tex->GetTexture("townhall", level, 0);
 	tex_construction = App->tex->GetTexture("cons_medium", 0, 0);
@@ -50,7 +51,8 @@ void j1TownHall::Update(float)
 		else if (team == 2)
 			App->scene->state = WIN;
 
-	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
+	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE)
+		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
 }
 
 void j1TownHall::CleanUp()

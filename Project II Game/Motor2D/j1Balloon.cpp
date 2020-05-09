@@ -12,6 +12,8 @@ j1Balloon::j1Balloon(float x, float y, int level, int team)
 {
 	type = EntityType::BALLOON;
 	terrain = NodeType::ALL;
+	fog_range = 7;
+
 	position.x = x;
 	position.y = y;
 	destination = position;
@@ -62,8 +64,11 @@ void j1Balloon::Update(float dt)
 		}
 	}
 
-	App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY() + 50, rect, false, false, 0, 0, 0, 100);
-	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE)
+	{
+		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY() + 50, rect, false, false, 0, 0, 0, 100);
+		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+	}
 
 	if (health <= 0)
 	{

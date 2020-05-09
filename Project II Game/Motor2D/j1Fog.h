@@ -41,6 +41,7 @@ public:
 
 	void RenderFogTile(int x, int y, int alpha);
 	FogState GetVisibility(int x, int y);
+	FogState GetVisibility(fPoint pos);
 
 	FogTile** map;
 

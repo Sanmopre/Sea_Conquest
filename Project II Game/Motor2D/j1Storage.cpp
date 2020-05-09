@@ -15,6 +15,7 @@ j1Storage::j1Storage(float x, float y, int team)
 	terrain = NodeType::GROUND;
 	level = 1;
 	this->team = team;
+	fog_range = 3;
 
 	texture = App->tex->GetTexture("storage", level, 0);
 	tex_construction = App->tex->GetTexture("cons_medium", 0, 0);
@@ -72,8 +73,8 @@ void j1Storage::Update(float dt)
 	else if (percent >= 100)
 		current_animation = &full;
 	
-
-	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
+	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE)
+		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
 }
 
 void j1Storage::CleanUp()

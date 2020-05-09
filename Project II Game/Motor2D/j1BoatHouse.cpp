@@ -15,6 +15,7 @@ j1BoatHouse::j1BoatHouse(float x, float y, int team)
 	terrain = NodeType::WATER;
 	level = 1;
 	this->team = team;
+	fog_range = 4;
 
 	texture = App->tex->GetTexture("boathouse", level, 0);
 	tex_construction = App->tex->GetTexture("cons_small", 0, 0);
@@ -65,7 +66,8 @@ void j1BoatHouse::Update(float dt)
 		}
 	}
 
-	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+	if(App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE)
+		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 
 	if (health == 0)
 		CleanUp();

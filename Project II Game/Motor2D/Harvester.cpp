@@ -15,6 +15,7 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 {
 	type = EntityType::HARVESTER;
 	terrain = NodeType::GROUND;
+	fog_range = 3;
 
 	state = NOT_BUILDING;
 	position.x = x;
@@ -199,8 +200,12 @@ void j1Harvester::Update(float dt)
 		}
 	}
 
-	App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
-	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE)
+	{
+		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
+		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+	}
 	
 	if (health == 0) {
 		CleanUp();

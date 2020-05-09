@@ -8,6 +8,7 @@ j1Carrier::j1Carrier(float x, float y, int level, int team)
 {
 	type = EntityType::CARRIER;
 	terrain = NodeType::WATER;
+	fog_range = 4;
 	position.x = x;
 	position.y = y;
 	destination = position;
@@ -55,8 +56,11 @@ void j1Carrier::Update(float dt)
 		}
 	}
 
-	App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
-	App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE)
+	{
+		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
+		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+	}
 
 	if (health <= 0)
 	{

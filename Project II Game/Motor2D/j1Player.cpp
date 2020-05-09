@@ -15,6 +15,7 @@
 #include "j1InGameUI.h"
 #include "j1SceneManager.h"
 #include "j1Map.h"
+#include "j1Fog.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -455,7 +456,7 @@ void j1Player::Select_Entitites(SDL_Rect select_area)
 			select_area.y < (*entity)->selectable_area.y + (*entity)->selectable_area.h &&
 			select_area.h + select_area.y >(*entity)->selectable_area.y)
 		{
-			if (!single_click)
+			if (!single_click && App->fog->GetVisibility((*entity)->position) == FogState::VISIBLE)
 			{
 				if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 					(*entity)->selected = false;

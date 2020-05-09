@@ -30,8 +30,8 @@ bool j1Fog::Update(float dt)
 			iPoint tile = App->map->WorldToMap(entity->position.x, entity->position.y - 16);
 			int range = entity->fog_range;
 		
-			for (int y = tile.y - range; y < tile.y + range + 1; y++)
-				for (int x = tile.x - range; x < tile.x + range + 1; x++)
+			for (int y = tile.y - range + 1; y < tile.y + range + 2; y++)
+				for (int x = tile.x - range + 1; x < tile.x + range + 2; x++)
 				{
 					FogTile* fog = &map[x][y];
 		
@@ -81,4 +81,11 @@ void j1Fog::RenderFogTile(int x, int y, int alpha)
 FogState j1Fog::GetVisibility(int x, int y)
 {
 	return map[x][y].state;
+}
+
+FogState j1Fog::GetVisibility(fPoint pos)
+{
+	iPoint tile = App->map->WorldToMap(pos.x, pos.y);
+
+	return map[tile.x][tile.y].state;
 }

@@ -14,6 +14,7 @@
 #include "j1Pathfinding.h"
 #include "j1Audio.h"
 #include "j1Textures.h"
+#include "j1Fog.h"
 
 #define WOOD_MASS 4
 #define COTTON_MASS 1
