@@ -87,6 +87,9 @@ bool j1Button::Start()
 	if (textureType == TEXTURE::BALLOON)
 		texture = App->gui->Load_Texture(TEXTURE::BALLOON);
 
+	if (textureType == TEXTURE::CARRIER)
+		texture = App->gui->Load_Texture(TEXTURE::CARRIER);
+
 	if (textureType == TEXTURE::SHIP)
 		texture = App->gui->Load_Texture(TEXTURE::SHIP);
 

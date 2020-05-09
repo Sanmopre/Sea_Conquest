@@ -84,6 +84,10 @@ bool j1InGameUI::Update(float dt)
 		Update_Resources(selected);
 		Activate_Resource_Menu();
 
+		if (selected->type != EntityType::TOWNHALL) {
+			Deactivate_Quest_Selector();
+		}
+
 	}
 	else {
 		in_trading = false;
@@ -91,6 +95,9 @@ bool j1InGameUI::Update(float dt)
 		Manage_Entity_UI(nullptr);
 		Deactivate_Resource_Menu();
 	}
+
+	if(selected_total == 0)
+		Deactivate_Quest_Selector();
 
 
 	//UPDATE INFORMATION
@@ -298,8 +305,8 @@ void j1InGameUI::Add_UI()
 	entity_ui.trade = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 90,655 }, { 0,0 }, true, true, { 0,0,30,30 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::TRADE);
 	entity_ui.button_1 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 110,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NONE);
 	entity_ui.button_2 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 145,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NONE);
-	entity_ui.button_3 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 190,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NONE);
-	entity_ui.button_4 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 225,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NONE);
+	entity_ui.button_3 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 180,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NONE);
+	entity_ui.button_4 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 215,600 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NONE);
 	entity_ui.button_5 = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW - 180,655 }, { 0,0 }, true, true, { 0,0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::NONE);
 	
 	//QUEST SELECTOR
@@ -528,6 +535,16 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			selected->BuildUnit(EntityType::BOAT, 1);
 		}
 
+		if (element == entity_ui.button_2 && selected->type == EntityType::BOATHOUSE) {
+			if (Cost_Function(selected, 10, 10, 60))
+				selected->BuildUnit(EntityType::CARRIER, 1);
+		}
+
+		if (element == entity_ui.button_3 && selected->type == EntityType::BOATHOUSE) {
+			if (Cost_Function(selected, 60, 40, 10))
+				selected->BuildUnit(EntityType::BALLOON, 1);
+		}
+
 		if (element == entity_ui.button_1 && selected->type == EntityType::STORAGE) {
 			if(Cost_Function(selected, 0, 0, 30))
 			selected->BuildUnit(EntityType::HARVESTER, 1);
@@ -628,6 +645,18 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			metal = 0;
 			if(App->expl->information_mode)
 			App->expl->Show_Label(Text::BOAT);
+		}
+		if (element == entity_ui.button_2 && selected->type == EntityType::BOATHOUSE) {
+			Activate_Cost_Menu();
+			cotton = 10;
+			wood = 10;
+			metal = 60;
+		}
+		if (element == entity_ui.button_3 && selected->type == EntityType::BOATHOUSE) {
+			Activate_Cost_Menu();
+			cotton = 60;
+			wood = 40;
+			metal = 20;
 		}
 		if (element == entity_ui.button_1 && selected->type == EntityType::HARVESTER) {
 			Activate_Cost_Menu();
@@ -859,6 +888,14 @@ void j1InGameUI::Change_Image_Label(j1Entity* entity)
 		entity_ui.name->ChangeLabel("STORAGE");
 		entity_ui.image->texture = App->gui->Load_Texture(TEXTURE::STORAGE);
 		break;
+	case EntityType::BALLOON:
+		entity_ui.name->ChangeLabel("BALLON");
+		entity_ui.image->texture = App->gui->Load_Texture(TEXTURE::BALLOON);
+		break;
+	case EntityType::CARRIER:
+		entity_ui.name->ChangeLabel("CARRIER");
+		entity_ui.image->texture = App->gui->Load_Texture(TEXTURE::CARRIER);
+		break;
 		case EntityType::NONE:
 		entity_ui.name->ChangeLabel("");
 		entity_ui.image->texture = nullptr;
@@ -891,6 +928,14 @@ void j1InGameUI::Change_Image_Label_Trader(j1Entity* entity)
 		case EntityType::STORAGE:
 			Trader_label->ChangeLabel("STORAGE");
 			Trader_image->texture = App->gui->Load_Texture(TEXTURE::STORAGE);
+			break;
+		case EntityType::BALLOON:
+			Trader_label->ChangeLabel("BALLON");
+			Trader_image->texture = App->gui->Load_Texture(TEXTURE::BALLOON);
+			break;
+		case EntityType::CARRIER:
+			Trader_label->ChangeLabel("BALLON");
+			Trader_image->texture = App->gui->Load_Texture(TEXTURE::CARRIER);
 			break;
 		case EntityType::NONE:
 			Trader_label->ChangeLabel("");
@@ -953,8 +998,12 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 			entity_ui.button_1->texture = App->gui->Load_Texture(TEXTURE::BOAT_IMAGE);
 			entity_ui.button_1->enabled = true;
 
-			entity_ui.button_2->enabled = false;
-			entity_ui.button_3->enabled = false;
+			entity_ui.button_2->texture = App->gui->Load_Texture(TEXTURE::CARRIER);
+			entity_ui.button_2->enabled = true;
+
+			entity_ui.button_3->texture = App->gui->Load_Texture(TEXTURE::BALLOON);
+			entity_ui.button_3->enabled = true;
+
 			entity_ui.button_4->enabled = false;
 			entity_ui.button_5->enabled = false;
 			if (in_trading == true) {
@@ -1025,7 +1074,32 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 				Deactivate_Entity_Buttons();
 			}
 			break;
-		
+
+		case EntityType::BALLOON:
+		Change_Image_Label(entity);
+		entity_ui.button_1->enabled = false;
+		entity_ui.button_2->enabled = false;
+		entity_ui.button_3->enabled = false;
+		entity_ui.button_4->enabled = false;
+		entity_ui.button_5->enabled = false;
+		if (in_trading == true) {
+			Deactivate_Entity_Buttons();
+		}
+		break;
+
+		case EntityType::CARRIER:
+			Change_Image_Label(entity);
+			entity_ui.button_1->enabled = false;
+			entity_ui.button_2->enabled = false;
+			entity_ui.button_3->enabled = false;
+			entity_ui.button_4->enabled = false;
+			entity_ui.button_5->enabled = false;
+			if (in_trading == true) {
+				Deactivate_Entity_Buttons();
+			}
+			break;
+
+
 		case EntityType::NONE:
 			break;
 		}
