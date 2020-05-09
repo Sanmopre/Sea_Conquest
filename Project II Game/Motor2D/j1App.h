@@ -34,6 +34,7 @@ class j1Map;
 class j1DialogSystem;
 class j1AnimationManager;
 class j1Explanation;
+class j1Fog;
 
 
 class j1App 
@@ -102,6 +103,7 @@ public:
 	j1DialogSystem*			dialog = NULL; 
 	j1AnimationManager*		anim = NULL;
 	j1Explanation*			expl = NULL;
+	j1Fog*					fog = NULL;
 
 private:
 

@@ -175,6 +175,9 @@
     <ClCompile Include="j1Balloon.cpp">
       <Filter>Desenvolupament  ========\Entities\Units</Filter>
     </ClCompile>
+    <ClCompile Include="j1Fog.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -326,6 +329,9 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1AnimationManager.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fog.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>

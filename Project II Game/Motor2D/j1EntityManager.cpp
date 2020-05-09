@@ -50,10 +50,12 @@ bool j1EntityManager::Start()
 
 bool j1EntityManager::Update(float dt)
 {
-	int n = 0;
 	int counter = 0;
+
+	ally_entities.erase(ally_entities.begin(), ally_entities.end());
 	selected_units.erase(selected_units.begin(), selected_units.end());
 	air_units.erase(air_units.begin(), air_units.end());
+
 	while (counter != entities.size())
 	{
 		vector<j1Entity*>::iterator entity = entities.begin();
@@ -69,8 +71,9 @@ bool j1EntityManager::Update(float dt)
 			{
 				(*entity)->Primitive_Update(dt);
 				(*entity)->Update(dt);
-				if ((*entity)->selected && (*entity)->team == 1)
-					n++;
+
+				if ((*entity)->team == 1)
+					ally_entities.push_back(*entity);
 				if ((*entity)->main_type == EntityType::UNIT && (*entity)->selected && (*entity)->team == 1)
 					selected_units.push_back(*entity);
 				if ((*entity)->main_type == EntityType::UNIT && (*entity)->terrain == NodeType::ALL && (*entity)->team == 1)
@@ -80,7 +83,7 @@ bool j1EntityManager::Update(float dt)
 			counter++;
 		}
 	}
-	selected_n = n;
+
 	if (buffer.size() != 0)
 	{
 		for (vector<j1Entity*>::iterator bufferentity = buffer.begin(); bufferentity != buffer.end(); bufferentity++)

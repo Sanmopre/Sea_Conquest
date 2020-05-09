@@ -32,6 +32,7 @@
 
   <textures>
     <texture name ="tile_highlight"  level ="0" team ="0" source ="maps/tile_highlight.png"/>
+    <texture name ="fog_tile"  level ="0" team ="0" source ="maps/Fog_tile.png"/>
     <!-- Structures -->
     <texture name ="townhall"    level ="1" team ="0" source ="textures/structures/townhall.png"/>
     <texture name ="storage"     level ="1" team ="0" source ="textures/structures/storage.png"/>

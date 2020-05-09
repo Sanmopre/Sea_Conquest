@@ -30,6 +30,7 @@
 #include "j1DialogSystem.h"
 #include "j1AnimationManager.h"
 #include "j1Explanation.h"
+#include "j1Fog.h"
 
 #include <thread>
 
@@ -65,6 +66,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	anim = new j1AnimationManager();
 	dialog = new j1DialogSystem();
 	expl = new j1Explanation();
+	fog = new j1Fog();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -78,6 +80,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(minimap);
 	AddModule(player);	
 	AddModule(map);
+	AddModule(fog);
 	AddModule(scene);
 	AddModule(scene2);
 	AddModule(scene3);

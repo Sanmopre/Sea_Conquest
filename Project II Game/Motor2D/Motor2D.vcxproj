@@ -95,6 +95,7 @@
     <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Explanation.cpp" />
+    <ClCompile Include="j1Fog.cpp" />
     <ClCompile Include="j1Font.cpp" />
     <ClCompile Include="j1Fonts.cpp" />
     <ClCompile Include="j1GUI.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="FadeToColor.h" />
     <ClInclude Include="j1DialogSystem.h" />
     <ClInclude Include="j1Explanation.h" />
+    <ClInclude Include="j1Fog.h" />
     <ClInclude Include="j1LogoScene.h" />
     <ClInclude Include="j1Color.h" />
     <ClInclude Include="j1Entities.h" />

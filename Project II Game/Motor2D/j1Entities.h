@@ -171,7 +171,7 @@ class j1Entity
 {
 public:
 
-	j1Entity() { selected = false; to_delete = false; to_remove = false; }
+	j1Entity() { selected = false; to_delete = false; to_remove = false; fog_range = 3; }
 	virtual ~j1Entity();
 
 	virtual void Primitive_Update(float dt) = 0;
@@ -191,6 +191,7 @@ public:
 	NodeType terrain;
 	bool selected;
 	int level;
+	int fog_range;
 
 	Load load;
 	j1Entity* trading_entity = nullptr;

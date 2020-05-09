@@ -6,6 +6,7 @@
 #include "j1App.h"
 #include "j1Pathfinding.h"
 #include "j1Input.h"
+#include "j1Fog.h"
 
 TileSet::~TileSet()
 {
@@ -137,6 +138,11 @@ void j1Map::LoadLayers(pugi::xml_node& node)
 		}
 
 		mapdata->layers.push_back(layer);
+
+		if (GetLayerProperty(layer->id, "ToDraw").compare("true") == 0)
+		{
+			App->fog->LoadMap(layer_width, layer_height);
+		}
 	}
 }
 
@@ -273,23 +279,41 @@ void j1Map::Draw()
 				for (int y = cam.y; y < cam.h; y++)
 					for (int x = cam.x; x < cam.w; x++)
 					{
-						if ((*layer)->layerdata[x][y] != 0)
+						bool visible = true;
+						switch (App->fog->GetVisibility(x, y))
 						{
-							Tile* tile = GetTile((*layer)->layerdata[x][y]);
-							if (tile != nullptr)
+						case FogState::FOGGED:
+							App->fog->RenderFogTile(x, y, 255);
+							visible = false;
+							break;
+						case FogState::PARTIAL:
+							App->fog->RenderFogTile(x, y, 100);
+							break;
+						case FogState::VISIBLE:
+							break;
+						default:
+							break;
+						}
+						if (visible)
+						{
+							if ((*layer)->layerdata[x][y] != 0)
 							{
-								fPoint position = MapToWorld<fPoint>(x, y);
+								Tile* tile = GetTile((*layer)->layerdata[x][y]);
+								if (tile != nullptr)
+								{
+									fPoint position = MapToWorld<fPoint>(x, y);
 
-								int relative_id = tile->id - tile->tileset->firstgid;
-								SDL_Rect rect;
-								rect.w = tile->tileset->tileswidth;
-								rect.h = tile->tileset->tilesheight;
-								int t = relative_id / tile->tileset->columns;
-								int n = relative_id - (t * tile->tileset->columns);
-								rect.x = rect.w * n;
-								rect.y = rect.h * t;
+									int relative_id = tile->id - tile->tileset->firstgid;
+									SDL_Rect rect;
+									rect.w = tile->tileset->tileswidth;
+									rect.h = tile->tileset->tilesheight;
+									int t = relative_id / tile->tileset->columns;
+									int n = relative_id - (t * tile->tileset->columns);
+									rect.x = rect.w * n;
+									rect.y = rect.h * t;
 
-								App->render->AddBlitEvent(0, tile->tileset->texture, (int)position.x - 32, (int)position.y - 32, rect);
+									App->render->AddBlitEvent(0, tile->tileset->texture, (int)position.x - 32, (int)position.y - 32, rect);
+								}
 							}
 						}
 					}
