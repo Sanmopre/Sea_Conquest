@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "p2Point.h"
 #include "p2Log.h"
+#include "j1Font.h"
 #include "SDL/include/SDL_render.h"
 
 #include "SDL\include\SDL_pixels.h"
@@ -94,7 +95,7 @@ public:
 	virtual bool CleanUp() { return true; };
 
 	bool OnAbove();
-	virtual bool ChangeLabel(char* new_text = nullptr);
+	virtual bool ChangeLabel(names name = names::NO_NAME);
 	virtual void OnClick();
 	virtual void OnLeftClick();
 	virtual void OnRelease();
@@ -205,7 +206,7 @@ public:
 	j1Label();
 	~j1Label();
 
-	bool ChangeLabel(char* new_text = nullptr);
+	bool ChangeLabel(names name = names::NO_NAME);
 	bool Start();
 	bool PreUpdate();
 	bool Update(float dt);

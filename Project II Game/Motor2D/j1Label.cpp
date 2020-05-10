@@ -17,9 +17,9 @@ j1Label::~j1Label() {
 
 }
 
-bool j1Label::ChangeLabel(char* new_text)
+bool j1Label::ChangeLabel(names name)
 {
-	texture = App->font->Print(new_text);
+	texture = App->font->Change_Name(name);
 	return true;
 }
 

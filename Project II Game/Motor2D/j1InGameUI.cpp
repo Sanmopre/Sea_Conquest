@@ -13,6 +13,7 @@
 #include "j1TransitionManager.h"
 #include "j1QuestManager.h"
 #include "j1Explanation.h"
+#include "j1Font.h"
 #include <vector>
 #include <iostream>
 
@@ -869,35 +870,35 @@ void j1InGameUI::Change_Image_Label(j1Entity* entity)
 	switch (entity->type)
 	{
 	case EntityType::BOAT:
-		entity_ui.name->ChangeLabel("BOAT");
+		entity_ui.name->ChangeLabel(names::BOAT);
 		entity_ui.image->texture = App->gui->Load_Texture(TEXTURE::BOAT_IMAGE);
 		break;
 	case EntityType::BOATHOUSE:
-		entity_ui.name->ChangeLabel("BOATHOUSE");
+		entity_ui.name->ChangeLabel(names::BOATHOUSE);
 		entity_ui.image->texture = App->gui->Load_Texture(TEXTURE::BUILDING_IMAGE);
 		break;
 	case EntityType::HARVESTER:
-		entity_ui.name->ChangeLabel("HARVESTER");
+		entity_ui.name->ChangeLabel(names::HARVESTER);
 		entity_ui.image->texture = App->gui->Load_Texture(TEXTURE::HARVESTER);
 		break;
 	case EntityType::TOWNHALL:
-		entity_ui.name->ChangeLabel("TOWNHALL");
+		entity_ui.name->ChangeLabel(names::TOWNHALL);
 		entity_ui.image->texture = App->gui->Load_Texture(TEXTURE::TOWNHALL);
 		break;
 		case EntityType::STORAGE:
-		entity_ui.name->ChangeLabel("STORAGE");
+		entity_ui.name->ChangeLabel(names::STORAGE);
 		entity_ui.image->texture = App->gui->Load_Texture(TEXTURE::STORAGE);
 		break;
 	case EntityType::BALLOON:
-		entity_ui.name->ChangeLabel("BALLON");
+		entity_ui.name->ChangeLabel(names::BALLOON);
 		entity_ui.image->texture = App->gui->Load_Texture(TEXTURE::BALLOON);
 		break;
 	case EntityType::CARRIER:
-		entity_ui.name->ChangeLabel("CARRIER");
+		entity_ui.name->ChangeLabel(names::CARRIER);
 		entity_ui.image->texture = App->gui->Load_Texture(TEXTURE::CARRIER);
 		break;
 		case EntityType::NONE:
-		entity_ui.name->ChangeLabel("");
+		entity_ui.name->ChangeLabel(names::NO_NAME);
 		entity_ui.image->texture = nullptr;
 		break;
 	}
@@ -910,35 +911,35 @@ void j1InGameUI::Change_Image_Label_Trader(j1Entity* entity)
 		switch (entity->type)
 		{
 		case EntityType::BOAT:
-			Trader_label->ChangeLabel("BOAT");
+			Trader_label->ChangeLabel(names::BOAT);
 			Trader_image->texture = App->gui->Load_Texture(TEXTURE::BOAT_IMAGE);
 			break;
 		case EntityType::BOATHOUSE:
-			Trader_label->ChangeLabel("BOATHOUSE");
+			Trader_label->ChangeLabel(names::BOATHOUSE);
 			Trader_image->texture = App->gui->Load_Texture(TEXTURE::BUILDING_IMAGE);
 			break;
 		case EntityType::HARVESTER:
-			Trader_label->ChangeLabel("HARVESTER");
+			Trader_label->ChangeLabel(names::HARVESTER);
 			Trader_image->texture = App->gui->Load_Texture(TEXTURE::HARVESTER);
 			break;
 		case EntityType::TOWNHALL:
-			Trader_label->ChangeLabel("TOWNHALL");
+			Trader_label->ChangeLabel(names::TOWNHALL);
 			Trader_image->texture = App->gui->Load_Texture(TEXTURE::TOWNHALL);
 			break;
 		case EntityType::STORAGE:
-			Trader_label->ChangeLabel("STORAGE");
+			Trader_label->ChangeLabel(names::STORAGE);
 			Trader_image->texture = App->gui->Load_Texture(TEXTURE::STORAGE);
 			break;
 		case EntityType::BALLOON:
-			Trader_label->ChangeLabel("BALLON");
+			Trader_label->ChangeLabel(names::BALLOON);
 			Trader_image->texture = App->gui->Load_Texture(TEXTURE::BALLOON);
 			break;
 		case EntityType::CARRIER:
-			Trader_label->ChangeLabel("BALLON");
+			Trader_label->ChangeLabel(names::CARRIER);
 			Trader_image->texture = App->gui->Load_Texture(TEXTURE::CARRIER);
 			break;
 		case EntityType::NONE:
-			Trader_label->ChangeLabel("");
+			Trader_label->ChangeLabel(names::NO_NAME);
 			Trader_image->texture = nullptr;
 			break;
 		}

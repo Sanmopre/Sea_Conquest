@@ -115,10 +115,10 @@ void j1Explanation::Update_Position(j1Element* element, int pos_x, int pos_y)
 bool j1Explanation::Change_Label_Text(Explanation explanation)
 {
 	bool changed = false;
-	first->ChangeLabel(explanation.first);
-	second->ChangeLabel(explanation.second);
-	third->ChangeLabel(explanation.third);
-	forth->ChangeLabel(explanation.forth);
+	//first->ChangeLabel(explanation.first);
+	//second->ChangeLabel(explanation.second);
+	//third->ChangeLabel(explanation.third);
+	//forth->ChangeLabel(explanation.forth);
 	changed = true;
 	return changed;
 }

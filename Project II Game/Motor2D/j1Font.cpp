@@ -35,17 +35,24 @@ bool j1Font::Awake(pugi::xml_node& conf)
 		default = Load(path, size);
 	}
 
-
-
-	 townhall = Print("TOWNHALL");
-	 boathouse = Print("BOATHOUSE");
-	 storage = Print("STORAGE");
-	 boat = Print("BOAT");
-	 harvester = Print("HARVESTER");
-	 balloon = Print("BALLLOON");
-	 carrier = Print("CARRIER");
-
 	return ret;
+}
+
+bool j1Font::Start()
+{
+	townhall = Print("TOWNHALL");
+	boathouse = Print("BOATHOUSE");
+	storage = Print("STORAGE");
+	boat = Print("BOAT");
+	harvester = Print("HARVESTER");
+	balloon = Print("BALLLOON");
+	carrier = Print("CARRIER");
+	return true;
+}
+
+bool j1Font::Update(float dt)
+{
+	return true;
 }
 
 // Called before quitting

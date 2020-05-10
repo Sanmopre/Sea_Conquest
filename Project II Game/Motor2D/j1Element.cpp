@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Scene.h"
 #include "j1Textures.h"
+#include "j1Font.h"
 
 
 j1Element::~j1Element()
@@ -50,7 +51,7 @@ bool j1Element::OnAbove()
 	return ret;
 }
 
-bool j1Element::ChangeLabel(char* new_text)
+bool j1Element::ChangeLabel(names name)
 {
 	return false;
 }
