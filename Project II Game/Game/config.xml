@@ -60,7 +60,7 @@
     <texture name ="balloon-shadow"   level ="1" team ="0" source ="textures/units/shadow/balloon-shadow.png"/>
     <texture name ="balloon-shadow"   level ="2" team ="0" source ="textures/units/shadow/airship-shadow.png"/>
     <texture name ="carrier-shadow"   level ="0" team ="0" source ="textures/units/shadow/van-shadow.png"/>
-    <!-- UI Icons -->
+    <!-- UI Icons Entities -->
     <texture name ="boat-icon"       level ="0" team ="0" source ="textures/boat_image.png"/>
     <texture name ="harvester-icon"  level ="0" team ="0" source ="textures/harvester.png"/>
     <texture name ="balloon-icon"    level ="0" team ="0" source ="textures/balloon.png"/>
@@ -68,6 +68,10 @@
     <texture name ="townhall-icon"   level ="0" team ="0" source ="textures/townhall.png"/>
     <texture name ="storage-icon"    level ="0" team ="0" source ="textures/storage.png"/>
     <texture name ="boathouse-icon"  level ="0" team ="0" source ="textures/building_image.png"/>
+    <!-- UI Icons -->
+    <texture name ="automatic-icon"  level ="0" team ="0" source ="textures/automatic.png"/>
+    <texture name ="quest-icon"  level ="0" team ="0" source ="textures/quest.png"/>
+    <texture name ="lvlup-icon"  level ="0" team ="0" source ="textures/lvlup.png"/>
   </textures>
   
   <animations>
