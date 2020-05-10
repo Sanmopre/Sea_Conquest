@@ -35,6 +35,16 @@ bool j1Font::Awake(pugi::xml_node& conf)
 		default = Load(path, size);
 	}
 
+
+
+	 townhall = Print("TOWNHALL");
+	 boathouse = Print("BOATHOUSE");
+	 storage = Print("STORAGE");
+	 boat = Print("BOAT");
+	 harvester = Print("HARVESTER");
+	 balloon = Print("BALLLOON");
+	 carrier = Print("CARRIER");
+
 	return ret;
 }
 
@@ -92,6 +102,37 @@ SDL_Texture* j1Font::Print(const char* text, SDL_Color color, _TTF_Font* font)
 		}
 	}
 	return ret;
+}
+
+SDL_Texture* j1Font::Change_Name(names name)
+{
+	SDL_Texture* texture = nullptr;
+
+	switch (name) {
+	case names::TOWNHALL:
+		texture = townhall;
+		break;
+	case names::STORAGE:
+		texture = storage;
+		break;
+	case names::BOATHOUSE:
+		texture = boathouse;
+		break;
+	case names::BOAT:
+		texture = boat;
+		break;
+	case names::HARVESTER:
+		texture = harvester;
+		break;
+	case names::BALLOON:
+		texture = balloon;
+		break;
+	case names::CARRIER:
+		texture = carrier;
+		break;
+	}
+
+	return texture;
 }
 
 // calculate size of a text

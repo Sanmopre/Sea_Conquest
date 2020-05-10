@@ -11,6 +11,24 @@
 struct SDL_Texture;
 struct _TTF_Font;
 
+enum  names {
+	//BUILDINGS
+	BOATHOUSE,
+	TOWNHALL,
+	STORAGE,
+
+	//UNITS
+	BOAT,
+	HARVESTER,
+	BALLOON,
+	CARRIER,
+
+
+
+
+	NO_NAME
+};
+
 class j1Font : public j1Module
 {
 public:
@@ -32,12 +50,24 @@ public:
 	// Create a surface from text
 	SDL_Texture* Print(const char* text, SDL_Color color = { 255, 255, 255, 255 }, _TTF_Font* font = NULL);
 
+	SDL_Texture* Change_Name(names name = names::NO_NAME);
+
 	bool CalcSize(const char* text, int& width, int& height, _TTF_Font* font = NULL) const;
 
 public:
 
 	p2List<_TTF_Font*>	fonts;
 	_TTF_Font* default;
+
+private:
+	SDL_Texture* townhall;
+	SDL_Texture* boathouse;
+	SDL_Texture* storage;
+
+	SDL_Texture* boat;
+	SDL_Texture* harvester;
+	SDL_Texture* balloon;
+	SDL_Texture* carrier;
 };
 
 
