@@ -55,7 +55,10 @@ void j1Boat::Update(float dt)
 {
 	if (dt != 0.0f)
 	{	
-		target = FindTarget(position.x, position.y, range, EntityType::NONE, -1);
+		if(team == 1)
+			target = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, 2);
+		else if(team == 2)
+			target = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, 1);
 
 		if (destination != position)
 			Move(dt);
@@ -104,7 +107,7 @@ void j1Boat::Update(float dt)
 		}	
 	}
 
-	if (App->fog->GetVisibility(position) == FogState::VISIBLE)
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->godmode)
 	{
 		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);

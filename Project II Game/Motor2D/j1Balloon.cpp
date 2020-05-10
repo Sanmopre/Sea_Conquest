@@ -44,7 +44,7 @@ void j1Balloon::Update(float dt)
 {
 	if (dt != 0.0f)
 	{
-		target = FindTarget(position.x, position.y, range, EntityType::NONE, -1);
+		target = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, 2);
 
 		if (destination != position)
 			Move(dt);
@@ -64,7 +64,7 @@ void j1Balloon::Update(float dt)
 		}
 	}
 
-	if (App->fog->GetVisibility(position) == FogState::VISIBLE)
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->godmode)
 	{
 		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY() + 50, rect, false, false, 0, 0, 0, 100);
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);

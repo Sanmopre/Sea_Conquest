@@ -20,7 +20,7 @@ j1Carrier::j1Carrier(float x, float y, int level, int team)
 
 	max_health = 100;
 	health = max_health;
-	load = { 0, 0, 0, 100 };
+	load = { 0, 0, 0, 0 };
 	target = nullptr;
 
 	texture = App->tex->GetTexture("carrier", level, team);
@@ -56,7 +56,7 @@ void j1Carrier::Update(float dt)
 		}
 	}
 
-	if (App->fog->GetVisibility(position) == FogState::VISIBLE)
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->godmode)
 	{
 		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);

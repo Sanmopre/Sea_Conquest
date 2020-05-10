@@ -153,8 +153,6 @@ void ParticleSystem::Update(float dt)
 			{
 				Particle* particle = *(referencesArray + awakeningCounter);
 				particle->awake = true;
-				LOG("particle active");
-
 				awakeningCounter++;
 			}
 			else

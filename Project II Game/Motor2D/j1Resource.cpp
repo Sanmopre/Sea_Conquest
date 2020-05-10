@@ -58,7 +58,7 @@ void j1Resource::Update(float dt)
 	rect.y = GetRenderPositionY();
 
 	selectable_area = rect;
-	if (App->fog->GetVisibility(position) == FogState::VISIBLE)
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->godmode)
 		App->render->AddBlitEvent(0, nullptr, 0, 0, rect, false, false, color.r, color.g, color.b, 255);
 }
 

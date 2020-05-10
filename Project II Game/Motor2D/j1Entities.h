@@ -181,6 +181,7 @@ public:
 
 	bool to_delete;
 	bool to_remove;
+	vector<j1Entity*>::iterator spot;
 
 	int team;
 
@@ -229,7 +230,7 @@ protected:
 
 	void  ShowHPbar(int extra_width, int height, int distance = 0);
 	void Trading();
-	j1Entity* FindTarget(float x, float y, int range, EntityType type, int team);
+	j1Entity* FindTarget(float x, float y, int range, EntityType type, EntityType main_type, int team);
 	
 	bool showing_hpbar;
 	int trading_range;

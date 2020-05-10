@@ -38,7 +38,7 @@ j1BoatHouse::j1BoatHouse(float x, float y, int team)
 
 	current_animation = &basic;
 
-	load = { 0, 0, 0, 1000 };
+	load = { 0, 0, 0, 0 };
 }
 
 j1BoatHouse::~j1BoatHouse()
@@ -66,7 +66,7 @@ void j1BoatHouse::Update(float dt)
 		}
 	}
 
-	if(App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE)
+	if(App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->godmode)
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 
 	if (health == 0)

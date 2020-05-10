@@ -47,7 +47,7 @@ bool j1EntityManager::Start()
 }
 #include "j1Map.h"
 #include "j1Pathfinding.h"
-
+#include "j1Fonts.h"
 bool j1EntityManager::Update(float dt)
 {
 	int counter = 0;
@@ -69,6 +69,7 @@ bool j1EntityManager::Update(float dt)
 			}
 			else
 			{
+				(*entity)->spot = entity;
 				(*entity)->Primitive_Update(dt);
 				(*entity)->Update(dt);
 
@@ -116,7 +117,7 @@ bool j1EntityManager::Update(float dt)
 			test.y -= App->render->camera.y / App->win->GetScale();
 			iPoint placing_tile = App->map->WorldToMap(test.x, test.y);
 			test = App->map->MapToWorld<iPoint>(placing_tile.x, placing_tile.y);
-			AddEntity(test.x, test.y, EntityType::BOAT, 1, 1);
+			AddEntity(test.x, test.y, EntityType::BOAT, 2, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
@@ -127,7 +128,7 @@ bool j1EntityManager::Update(float dt)
 			test.y -= App->render->camera.y / App->win->GetScale();
 			iPoint placing_tile = App->map->WorldToMap(test.x, test.y);
 			test = App->map->MapToWorld<iPoint>(placing_tile.x, placing_tile.y);
-			AddEntity(test.x, test.y, EntityType::BOAT, 1, 2);
+			AddEntity(test.x, test.y, EntityType::BOAT, 2, 2);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)

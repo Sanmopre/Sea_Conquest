@@ -23,7 +23,7 @@ j1TownHall::j1TownHall(float x, float y, int team)
 	under_construction = App->anim->GetAnimation("cons_medium");
 
 	
-	load = { 0,0,0, 100 };
+	load = { 0,0,0, 0 };
 
 	max_health = 250;
 	health = max_health;
@@ -51,7 +51,7 @@ void j1TownHall::Update(float)
 		else if (team == 2)
 			App->scene->state = WIN;
 
-	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE)
+	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->godmode)
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
 }
 

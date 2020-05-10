@@ -98,7 +98,7 @@ void j1Harvester::Update(float dt)
 					App->input->GetMousePosition(m.x, m.y);
 					m.x -= App->render->camera.x / App->win->GetScale();
 					m.y -= App->render->camera.y / App->win->GetScale();
-					if (FindTarget((float)m.x, (float)m.y, range, EntityType::STORAGE, team) != nullptr)
+					if (FindTarget((float)m.x, (float)m.y, range, EntityType::STORAGE, EntityType::NONE, team) != nullptr)
 					{
 						iPoint tile = App->map->WorldToMap((float)m.x, (float)m.y);
 						deposit_destination = App->map->MapToWorld<fPoint>(tile.x, tile.y);
@@ -147,7 +147,7 @@ void j1Harvester::Update(float dt)
 			}
 			else if (deposit_destination == position)
 			{
-				target = FindTarget(position.x, position.y, range, EntityType::STORAGE, team);
+				target = FindTarget(position.x, position.y, range, EntityType::STORAGE, EntityType::NONE, team);
 
 				if (target != nullptr)
 					if (load.Total() == 0 || target->load.Total() == target->load.maxweight)
@@ -201,7 +201,7 @@ void j1Harvester::Update(float dt)
 	}
 
 
-	if (App->fog->GetVisibility(position) == FogState::VISIBLE)
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->godmode)
 	{
 		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
@@ -231,7 +231,7 @@ void j1Harvester::SetAutomatic()
 			iPoint tile = App->map->WorldToMap(position.x, position.y);
 			harvest_destination = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 		}
-		else if (FindTarget(position.x, position.y, range, EntityType::STORAGE, team) != nullptr)
+		else if (FindTarget(position.x, position.y, range, EntityType::STORAGE, EntityType::NONE, team) != nullptr)
 		{
 			iPoint tile = App->map->WorldToMap(position.x, position.y);
 			deposit_destination = App->map->MapToWorld<fPoint>(tile.x, tile.y);

@@ -34,36 +34,38 @@ void  j1Entity::ShowHPbar(int extra_width, int height, int distance)
 		Bcolor.SetColor(0u, 204u, 0u);
 		App->render->AddBlitEvent(2, nullptr, 0, 0, Brect, false, false, Bcolor.r, Bcolor.g, Bcolor.b, Bcolor.a); //health bar
 
-		Brect.y += 10;
+		if (load.maxweight != 0)
+		{
+			Brect.y += 10;
 
-		width = max_w;
-		width /= load.maxweight;
-		width *= load.CottonWeight();
-		Brect.w = width;
-		Bcolor.SetColor(240u, 240u, 240u);
-		App->render->AddBlitEvent(2, nullptr, 0, 0, Brect, false, false, Bcolor.r, Bcolor.g, Bcolor.b, Bcolor.a); // cotton bar
+			width = max_w;
+			width /= load.maxweight;
+			width *= load.CottonWeight();
+			Brect.w = width;
+			Bcolor.SetColor(240u, 240u, 240u);
+			App->render->AddBlitEvent(2, nullptr, 0, 0, Brect, false, false, Bcolor.r, Bcolor.g, Bcolor.b, Bcolor.a); // cotton bar
 
-		Brect.x += Brect.w;
-		width = max_w;
-		width /= load.maxweight;
-		width *= load.WoodWeight();
-		Brect.w = width;
-		Bcolor.SetColor(120u, 72u, 0u);
-		App->render->AddBlitEvent(2, nullptr, 0, 0, Brect, false, false, Bcolor.r, Bcolor.g, Bcolor.b, Bcolor.a); // wood bar
+			Brect.x += Brect.w;
+			width = max_w;
+			width /= load.maxweight;
+			width *= load.WoodWeight();
+			Brect.w = width;
+			Bcolor.SetColor(120u, 72u, 0u);
+			App->render->AddBlitEvent(2, nullptr, 0, 0, Brect, false, false, Bcolor.r, Bcolor.g, Bcolor.b, Bcolor.a); // wood bar
 
-		Brect.x += Brect.w;
-		width = max_w;
-		width /= load.maxweight;
-		width *= load.MetalWeight();
-		Brect.w = width;
-		Bcolor.SetColor(107u, 120u, 119u);
-		App->render->AddBlitEvent(2, nullptr, 0, 0, Brect, false, false, Bcolor.r, Bcolor.g, Bcolor.b, Bcolor.a); // metal bar
+			Brect.x += Brect.w;
+			width = max_w;
+			width /= load.maxweight;
+			width *= load.MetalWeight();
+			Brect.w = width;
+			Bcolor.SetColor(107u, 120u, 119u);
+			App->render->AddBlitEvent(2, nullptr, 0, 0, Brect, false, false, Bcolor.r, Bcolor.g, Bcolor.b, Bcolor.a); // metal bar
+		}
 	}
 }
 
 void j1Entity::Trading()
 {
-	trading_entity = nullptr;
 	tradeable_list.erase(tradeable_list.begin(), tradeable_list.end());
 
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
@@ -72,32 +74,75 @@ void j1Entity::Trading()
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		trading_offset_modifier = 1;
 
-	for (std::vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
-	{
-		if (*e != this && team == (*e)->team && (*e)->type != EntityType::TOWNHALL)
-			if (position.x + trading_range > (*e)->position.x &&
-				position.x - trading_range < (*e)->position.x &&
-				position.y + trading_range >(*e)->position.y &&
-				position.y - trading_range < (*e)->position.y)
-			{
-				float distance = sqrtf((position.x - (*e)->position.x) * (position.x - (*e)->position.x) + (position.y - (*e)->position.y) * (position.y - (*e)->position.y));
+	int i = 1;
+	j1Entity* entity;
 
-				if (distance < trading_range)
+	bool begining = false;
+	bool end = false;
+
+	bool stop = false;
+
+	float distance;
+	float shortest = trading_range;
+	while (!stop)
+	{
+		if (spot + i == App->entitymanager->entities.begin() - 1)
+			begining = true;
+		else if (spot + i == App->entitymanager->entities.end())
+			end = true;
+
+		if (begining && end)
+		{
+			stop = true;
+		}
+		else
+		{
+			if ((begining && i < 0) || (end && i > 0))
+			{
+			}
+			else
+			{
+				bool skip = false;
+				entity = *(spot + i);
+
+				if ((entity->position.y > position.y + trading_range || entity->position.y < position.y - trading_range) ||
+					(entity->position.x > position.x + trading_range || entity->position.x < position.x - trading_range))
 				{
-					ShowHPbar(10, 5);
-					bool found = false;
-					for (std::vector<j1Entity*>::iterator s = tradeable_list.begin(); s != tradeable_list.end(); s++)
-						if (*e == *s)
+					if (i < 0 && (entity->position.y > position.y + trading_range || entity->position.y < position.y - trading_range) &&
+						(entity->position.x > position.x + trading_range || entity->position.x < position.x - trading_range))
+						stop = true;
+					else
+						skip = true;
+				}
+
+				if (!stop)
+				{
+					if (team == entity->team && entity->load.maxweight != 0 && !skip)
+					{
+						distance = sqrtf((position.x - entity->position.x) * (position.x - entity->position.x) + (position.y - entity->position.y) * (position.y - entity->position.y));
+
+						if (distance < trading_range && distance < shortest)
 						{
-							found = true;
-							break;
+							ShowHPbar(10, 5);
+
+							tradeable_list.push_back(entity);
 						}
-					if (!found)
-						tradeable_list.push_back(*e);
+					}
 				}
 			}
+			if (i > 0)
+				i *= -1;
+			else
+			{
+				i *= -1;
+				i++;
+			}
+		}
 	}
 	trading_total = tradeable_list.size();
+
+	if(trading_total == 0)
+		trading_entity = nullptr;
 
 	int counter = 0;
 
@@ -144,35 +189,80 @@ void j1Entity::Trading()
 	}
 }
 
-j1Entity* j1Entity::FindTarget(float x, float y, int range, EntityType type, int team)
+j1Entity* j1Entity::FindTarget(float x, float y, int range, EntityType type, EntityType main_type, int team)
 {
 	j1Entity* ret = nullptr;
 
-	float targetdistance = range;
-	float distance = 0.0f;
+	int i = 1;
+	j1Entity* entity;
 
-	for (std::vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
-		if (*e != this && ((team >= 0 && (*e)->team == team) || (team < 0 && (*e)->team != this->team)))
-			if(type == EntityType::NONE || (*e)->type == type)
-				if (x + range > (*e)->position.x &&
-					x - range < (*e)->position.x &&
-					y + range > (*e)->position.y &&
-					y - range < (*e)->position.y)
+	bool begining = false;
+	bool end = false;
+
+	bool stop = false;
+
+	float distance;
+	float shortest = range;
+	while (!stop)
+	{
+		if (spot + i == App->entitymanager->entities.begin() - 1)
+			begining = true;
+		else if (spot + i == App->entitymanager->entities.end())
+			end = true;
+
+		if (begining && end)
+		{
+			stop = true;
+		}
+		else
+		{
+			if ((begining && i < 0) || (end && i > 0))
+			{
+			}
+			else
+			{
+				bool skip = false;
+				entity = *(spot + i);
+
+				if ((entity->position.y > y + range || entity->position.y < y - range) ||
+					(entity->position.x > x + range || entity->position.x < x - range))
 				{
-					distance = sqrtf((x - (*e)->position.x) * (x - (*e)->position.x) + (y - (*e)->position.y) * (y - (*e)->position.y));
-
-					if (distance < range && distance < targetdistance)
-					{
-						ret = *e;
-						targetdistance = distance;
-					}
-
-					ShowHPbar(10, 5);
+					if (i < 0 && (entity->position.y > y + range || entity->position.y < y - range) &&
+						(entity->position.x > x + range || entity->position.x < x - range))
+						stop = true;
+					else
+						skip = true;
 				}
 
-	if (distance == 0.0f)
-		ret = nullptr;
+				if (!stop)
+				{
+					if ((entity->team == team || team == 0) &&
+						(entity->type == type || type == EntityType::NONE) &&
+						(entity->main_type == main_type || main_type == EntityType::NONE)
+						&& !skip)
+					{
+						distance = sqrtf((x - entity->position.x) * (x - entity->position.x) + (y - entity->position.y) * (y - entity->position.y));
 
+						if (distance < range && distance < shortest)
+						{
+							shortest = distance;
+							ret = entity;
+						}
+					}
+				}
+			}
+			if (i > 0)
+				i *= -1;
+			else
+			{
+				i *= -1;
+				i++;
+			}
+		}
+	}
+
+	if(ret != nullptr)
+		ret->ShowHPbar(10, 3, -10);
 	return ret;
 }
 

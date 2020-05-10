@@ -73,7 +73,7 @@ void j1Storage::Update(float dt)
 	else if (percent >= 100)
 		current_animation = &full;
 	
-	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE)
+	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->godmode)
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
 }
 

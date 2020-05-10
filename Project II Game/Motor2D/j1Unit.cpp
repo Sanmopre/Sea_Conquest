@@ -38,7 +38,7 @@ void j1Unit::Primitive_Update(float dt)
 		ShowHPbar(10, 5, -10);
 
 		if(App->godmode)
-			App->render->AddBlitEvent(0, nullptr, 0, 0, { (int)position.x - trading_range, (int)position.y + 16 - trading_range, trading_range*2, trading_range*2 }, false, false, 255, 0, 0, 50);
+			App->render->AddBlitEvent(0, nullptr, 0, 0, { (int)position.x - range, (int)position.y + 16 - range, range*2, range*2 }, false, false, 255, 0, 0, 50);
 	}
 
 	selectable_area.x = GetRenderPositionX();

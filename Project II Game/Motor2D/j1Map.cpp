@@ -280,7 +280,10 @@ void j1Map::Draw()
 					for (int x = cam.x; x < cam.w; x++)
 					{
 						bool visible = true;
-						switch (App->fog->GetVisibility(x, y))
+						FogState visibility = App->fog->GetVisibility(x, y);
+						if (App->godmode)
+							visibility = FogState::VISIBLE;
+						switch (visibility)
 						{
 						case FogState::FOGGED:
 							App->fog->RenderFogTile(x, y, 255);
@@ -290,8 +293,6 @@ void j1Map::Draw()
 							App->fog->RenderFogTile(x, y, 100);
 							break;
 						case FogState::VISIBLE:
-							break;
-						default:
 							break;
 						}
 						if (visible)
@@ -363,6 +364,7 @@ bool j1Map::CleanUp()
 		mapdata = nullptr;
 	}
 	App->pathfinding->CleanUp();
+	App->fog->CleanUp();
 
 	return true;
 }
