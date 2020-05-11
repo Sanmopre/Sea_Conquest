@@ -53,7 +53,10 @@ void j1Structure::Primitive_Update(float dt)
 			ShowHPbar(10, 5, -20);
 
 			if (this == App->InGameUI->selected)
+			{
 				Trading();
+				App->render->AddBlitEvent(3, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 0, 255, 0, 200);
+			}
 
 			if (App->godmode)
 			{
@@ -61,7 +64,6 @@ void j1Structure::Primitive_Update(float dt)
 					placed = false;
 			}
 
-			App->render->AddBlitEvent(3, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 0, 255, 0);
 		}
 
 		BuildProcces(dt);
@@ -79,8 +81,6 @@ void j1Structure::Primitive_Update(float dt)
 	selectable_area.h /= 2;
 	selectable_area.y += selectable_area.h;
 	
-
-
 	if(health <= 0)
 		App->audio->PlaySpatialFx(App->audio->structure_destroy,
 			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),

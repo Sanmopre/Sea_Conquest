@@ -172,7 +172,7 @@ class j1Entity
 {
 public:
 
-	j1Entity() { selected = false; to_delete = false; to_remove = false; fog_range = 3; }
+	j1Entity();
 	virtual ~j1Entity();
 
 	virtual void Primitive_Update(float dt) = 0;
@@ -200,6 +200,10 @@ public:
 	int trading_entity_offset = 0;
 	int trading_offset_modifier;
 	int trading_total;
+	vector<j1Entity*>* GetStorages()
+	{
+		return &storages;
+	}
 
 	SDL_Rect selectable_area;
 
@@ -225,7 +229,6 @@ public:
 	virtual void ToPlace(bool to_place) {}
 	virtual void SetBuiltState(BuildState state) {}
 	virtual BuildState GetBuiltState() { return NOTHING; }
-	virtual vector<j1Entity*>* GetStorages() { return nullptr; }
 
 protected:
 
@@ -239,6 +242,8 @@ protected:
 	std::vector<j1Entity*> tradeable_list;
 
 	SDL_Texture* LoadTexture(j1Entity* entity, std::vector<TextureInfo>& textureBuffer);
+
+	vector<j1Entity*> storages;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1Unit : public j1Entity
@@ -310,14 +315,6 @@ public:
 	iPoint tile;
 	bool placed;
 	BuildState built_state;
-
-	vector<j1Entity*> storages;
-	vector<j1Entity*>* GetStorages() 
-	{
-		if (type == EntityType::STORAGE)
-			return nullptr;
-		return &storages;
-	}
 
 	void NotPlacedBehaviour();
 	void BuildUnit(EntityType type, int level);

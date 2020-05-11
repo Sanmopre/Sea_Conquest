@@ -76,6 +76,7 @@ void j1Storage::Update(float dt)
 	else if (percent >= 100)
 		current_animation = &full;
 	
+	App->render->AddBlitEvent(0, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 100, 100, 100, 150);
 	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->godmode)
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
 }
@@ -121,9 +122,14 @@ void j1Storage::SearchStructures()
 				if ((entity->position.y > position.y + trading_range || entity->position.y < position.y - trading_range) ||
 					(entity->position.x > position.x + trading_range || entity->position.x < position.x - trading_range))
 				{
-					if (i < 0 && (entity->position.y > position.y + trading_range || entity->position.y < position.y - trading_range) &&
+					if ((entity->position.y > position.y + trading_range || entity->position.y < position.y - trading_range) &&
 						(entity->position.x > position.x + trading_range || entity->position.x < position.x - trading_range))
-						stop = true;
+					{
+						if (i < 0)
+							begining = true;
+						else if (i > 0)
+							end = true;
+					}
 					else
 						skip = true;
 				}
@@ -140,11 +146,9 @@ void j1Storage::SearchStructures()
 								break;
 							}
 
-						if (team == entity->team && entity->load.maxweight == 0 && !skip)
+						if (team == entity->team && !skip)
 						{
-							distance = sqrtf((position.x - entity->position.x) * (position.x - entity->position.x) + (position.y - entity->position.y) * (position.y - entity->position.y));
-
-							if (distance < trading_range && distance < shortest)
+							if (App->entitymanager->InsideElipse(position, entity->position, trading_range))
 							{
 								storages->push_back(this);
 							}

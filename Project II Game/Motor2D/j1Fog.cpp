@@ -33,11 +33,17 @@ bool j1Fog::Update(float dt)
 			for (int y = tile.y - range + 1; y < tile.y + range + 2; y++)
 				for (int x = tile.x - range + 1; x < tile.x + range + 2; x++)
 				{
-					FogTile* fog = &map[x][y];
-		
-					fog->state = FogState::VISIBLE;
-		
-					last_frame.push_back(fog);
+					if (x >= App->map->mapdata->width || y >= App->map->mapdata->height || x < 0 || y < 0)
+					{
+					}
+					else
+					{
+						FogTile* fog = &map[x][y];
+
+						fog->state = FogState::VISIBLE;
+
+						last_frame.push_back(fog);
+					}
 				}
 		}
 	}

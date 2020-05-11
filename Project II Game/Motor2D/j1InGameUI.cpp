@@ -66,7 +66,6 @@ bool j1InGameUI::PreUpdate()
 bool j1InGameUI::Update(float dt)
 {
 	selected_last_frame = selected;
-	selected = nullptr;
 	GetSelectedEntity();
 
 	if (App->scenemanager->In_Main_Menu == false && selected_total != 0) {
@@ -571,10 +570,10 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			Deactivate_Trader();
 		}
 		if (element == trader.button_next) {
-			selected->trading_offset_modifier++;
+			selected->trading_offset_modifier--;
 		}
 		if (element == trader.buton_prev) {
-			selected->trading_offset_modifier--;
+			selected->trading_offset_modifier++;
 		}
 		if (element == manager.buton_prev) {
 
@@ -967,19 +966,7 @@ void j1InGameUI::Deactivate_Entity_Buttons()
 bool j1InGameUI::Cost_Function(j1Entity* entity, int cotton, int wood, int metal)
 {
 	vector<j1Entity*>* storages = entity->GetStorages();
-	if (storages == nullptr)
-	{
-		if (entity->load.cotton >= cotton && entity->load.wood >= wood && entity->load.metal >= metal)
-		{
-			entity->load.cotton = entity->load.cotton - cotton;
-			entity->load.wood = entity->load.wood - wood;
-			entity->load.metal = entity->load.metal - metal;
-			return true;
-		}
-		else
-			return false;
-	}
-	else
+	if (storages != nullptr)
 	{
 		int total_cotton = 0;
 		int wood_cotton = 0;
@@ -1219,6 +1206,9 @@ void j1InGameUI::GetSelectedEntity()
 				}
 	}
 	selected_total = selected_list.size();
+
+	if(selected_total == 0)
+		selected = nullptr;
 
 	int counter = 0;
 

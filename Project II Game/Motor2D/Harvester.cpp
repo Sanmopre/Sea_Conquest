@@ -93,16 +93,21 @@ void j1Harvester::Update(float dt)
 		BuildUpdate(dt);
 
 		if (automating)
+		{
+			iPoint m;
+			App->input->GetMousePosition(m.x, m.y);
+			m.x -= App->render->camera.x / App->win->GetScale();
+			m.y -= App->render->camera.y / App->win->GetScale();
+			iPoint tile = App->map->WorldToMap((float)m.x, (float)m.y);
+			m = App->map->MapToWorld<iPoint>(tile.x, tile.y);
+
+			App->render->AddBlitEvent(3, nullptr, 1, 0, { m.x, m.y, range, 0 }, false, false, 255, 0, 0, 200);
+
 			if (App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->clicking_ui)
 				if (harvest_destination == position)
 				{
-					iPoint m;
-					App->input->GetMousePosition(m.x, m.y);
-					m.x -= App->render->camera.x / App->win->GetScale();
-					m.y -= App->render->camera.y / App->win->GetScale();
 					if (FindTarget((float)m.x, (float)m.y, range, EntityType::STORAGE, EntityType::NONE, team) != nullptr)
 					{
-						iPoint tile = App->map->WorldToMap((float)m.x, (float)m.y);
 						deposit_destination = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 						automating = false;
 						automatic = true;
@@ -115,13 +120,8 @@ void j1Harvester::Update(float dt)
 				}
 				else if (deposit_destination == position)
 				{
-					iPoint m;
-					App->input->GetMousePosition(m.x, m.y);
-					m.x -= App->render->camera.x / App->win->GetScale();
-					m.y -= App->render->camera.y / App->win->GetScale();
 					if (SearchResources((float)m.x, (float)m.y) != nullptr)
 					{
-						iPoint tile = App->map->WorldToMap((float)m.x, (float)m.y);
 						harvest_destination = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 						automating = false;
 						automatic = true;
@@ -132,7 +132,7 @@ void j1Harvester::Update(float dt)
 						automating = false;
 					}
 				}
-
+		}
 		if (automatic)
 		{
 			if (harvest_destination == position)
@@ -326,7 +326,6 @@ j1Entity* j1Harvester::SearchResources(float x, float y)
 
 void j1Harvester::BuildUpdate(float dt)
 {
-	float distance = 0.0f;
 	float x = 0.0f;
 	float y = 0.0f;
 	Color c = {};
@@ -345,11 +344,12 @@ void j1Harvester::BuildUpdate(float dt)
 
 			r = { App->player->building->GetRenderPositionX(), App->player->building->GetRenderPositionY(), App->player->building->rect.w, App->player->building->rect.h };
 
-			x = App->player->building->position.x - position.x;
-			y = App->player->building->position.y - position.y;
-			distance = sqrtf(x * x + y * y);
+			x = App->player->building->position.x;
+			y = App->player->building->position.y;
 
-			if (distance < range)
+			iPoint tile = App->map->WorldToMap(x, y);
+
+			if (App->entitymanager->InsideElipse(position, {x,y}, range) && !(*App->pathfinding->WorldToNode(tile.x, tile.y))->built)
 			{
 				if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 				{
@@ -357,8 +357,7 @@ void j1Harvester::BuildUpdate(float dt)
 						App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
 						App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 					state = BUILDING;
-					float x = App->player->building->position.x;
-					float y = App->player->building->position.y;
+
 					EntityType ty = App->player->building->type;
 					int l = App->player->building->level;
 					int t = App->player->building->team;
@@ -391,11 +390,10 @@ void j1Harvester::BuildUpdate(float dt)
 		break;
 	case BUILDING:
 
-		x = building->position.x - position.x;
-		y = building->position.y - position.y;
-		distance = sqrtf(x * x + y * y);
+		x = building->position.x;
+		y = building->position.y;
 
-		if (distance < range)
+		if (App->entitymanager->InsideElipse(position, { x,y }, range))
 			if (building->health < building->max_health)
 				building->health += dt * 100 * level;
 			else

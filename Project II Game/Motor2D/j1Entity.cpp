@@ -6,12 +6,23 @@
 #include "j1Textures.h"
 #include <vector>
 
+j1Entity::j1Entity() 
+{ 
+	selected = false;
+	to_delete = false;
+	to_remove = false;
+	fog_range = 3;
+
+	storages.push_back(this);
+}
 j1Entity::~j1Entity()
 {
 	trading_entity = nullptr;
 	texture = nullptr;
 	tradeable_list.erase(tradeable_list.begin(), tradeable_list.end());
 	tradeable_list.shrink_to_fit();
+	storages.erase(storages.begin(), storages.end());
+	storages.shrink_to_fit();
 }
 
 void  j1Entity::ShowHPbar(int extra_width, int height, int distance)
@@ -122,7 +133,7 @@ void j1Entity::Trading()
 
 				if (!stop && !skip)
 				{
-					if (team == entity->team && entity->load.maxweight != 0)
+					if (team == entity->team && entity->selected && entity->load.maxweight != 0)
 					{
 						if (App->entitymanager->InsideElipse(position, entity->position, trading_range))
 						{

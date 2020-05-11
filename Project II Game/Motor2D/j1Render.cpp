@@ -382,14 +382,18 @@ bool j1Render::DrawElipse(int x, int y, int range, Uint8 r, Uint8 g, Uint8 b, Ui
 
 	for (int i = 0; i < quality; i++)
 	{
-		float fy = -k + divisions * i;
+		float fy;
+		if (i != quality - 1)
+			fy = -k + divisions * i;
+		else
+			fy = 0;
 
 		float fx = h / k * sqrt(k * k - fy * fy);
 
-		points.push_back({ (int)(x + fx), y + (int)fy });
-		points.push_back({ (int)(x - fx), y + (int)fy });
-		points.push_back({ (int)(x + fx), y - (int)fy });
-		points.push_back({ (int)(x - fx), y - (int)fy });
+		points.push_back({x + (int)(fx), y + (int)fy });
+		points.push_back({x - (int)(fx), y + (int)fy });
+		points.push_back({x + (int)(fx), y - (int)fy });
+		points.push_back({x - (int)(fx), y - (int)fy });
 	}
 
 	int i = 4;
@@ -404,7 +408,7 @@ bool j1Render::DrawElipse(int x, int y, int range, Uint8 r, Uint8 g, Uint8 b, Ui
 
 		last_point = point;
 
-		if (c == quality * 2 - 4)
+		if (c == quality * 4 - 4)
 		{
 			c += i/2;
 			i *= -1;
@@ -414,7 +418,7 @@ bool j1Render::DrawElipse(int x, int y, int range, Uint8 r, Uint8 g, Uint8 b, Ui
 			c++;
 			i *= -1;
 		}
-		else if (c == quality * 2 - 1)
+		else if (c == quality * 4 - 1)
 		{
 			c -= 2;
 			i *= -1;

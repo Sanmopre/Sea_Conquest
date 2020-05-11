@@ -31,13 +31,15 @@ void j1Unit::Primitive_Update(float dt)
 
 	if (selected)
 	{
-		if (team == 1)
-			if (this == App->InGameUI->selected)
-				Trading();
+		if (this == App->InGameUI->selected)
+		{
+			Trading();
+			App->render->AddBlitEvent(3, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 0, 255, 0, 200);
+		}
 		
 		ShowHPbar(10, 5, -10);
 
-		App->render->AddBlitEvent(3, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 0, 255, 0);
+
 		App->render->AddBlitEvent(3, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, range, 0 }, false, false, 255, 0, 0);
 	}
 
