@@ -713,8 +713,8 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 				App->expl->Show_Label(Text::SELECT_QUEST);
 		}
 
-
 		if (element == entity_ui.trade) {
+			if (App->expl->information_mode)
 			App->expl->Show_Label(Text::TRADE);
 		}
 

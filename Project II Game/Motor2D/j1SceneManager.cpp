@@ -150,7 +150,7 @@ int j1SceneManager::ChangeScene(int scene)
 		App->audio->StopFx(-1);
 		//App->audio->PlayFx(App->audio->mainmenu_music, -1);
 		App->audio->PlayMusic(App->audio->mainmenu_music, 0.0f);
-		App->audio->PlayMusic(App->audio->welcome_voice, 0.0f);
+		App->audio->PlayFx(App->audio->welcome_voice, 0.0f);
 		App->render->camera.x = 0;
 		App->render->camera.y = 0;
 		App->win->scale = 1;
