@@ -225,6 +225,7 @@ public:
 	virtual void ToPlace(bool to_place) {}
 	virtual void SetBuiltState(BuildState state) {}
 	virtual BuildState GetBuiltState() { return NOTHING; }
+	virtual vector<j1Entity*>* GetStorages() { return nullptr; }
 
 protected:
 
@@ -309,6 +310,14 @@ public:
 	iPoint tile;
 	bool placed;
 	BuildState built_state;
+
+	vector<j1Entity*> storages;
+	vector<j1Entity*>* GetStorages() 
+	{
+		if (type == EntityType::STORAGE)
+			return nullptr;
+		return &storages;
+	}
 
 	void NotPlacedBehaviour();
 	void BuildUnit(EntityType type, int level);
@@ -457,6 +466,7 @@ public:
 
 private:
 
+	void SearchStructures();
 	Animation low;
 	Animation half;
 	Animation full;

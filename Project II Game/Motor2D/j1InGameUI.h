@@ -199,9 +199,6 @@ public:
 
 
 	void GUI_Event_Manager(GUI_Event type, j1Element* element);
-	
-	
-	bool  clicking_ui = false;
 
 	//COINS
 	int coins = 0;

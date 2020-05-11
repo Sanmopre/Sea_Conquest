@@ -60,8 +60,8 @@ void j1Structure::Primitive_Update(float dt)
 				if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 					placed = false;
 			}
-			if (App->godmode)
-				App->render->AddBlitEvent(0, nullptr, 0, 0, { (int)position.x - trading_range, (int)position.y - trading_range, trading_range*2, trading_range*2 }, false, false, 255, 0, 0, 50);
+
+			App->render->AddBlitEvent(3, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 0, 255, 0);
 		}
 
 		BuildProcces(dt);

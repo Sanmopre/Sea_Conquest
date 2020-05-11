@@ -136,6 +136,7 @@ public:
 
 	bool				game_pause = false;
 	bool				godmode = true;
+	bool				clicking_ui = false;
 
 };
 

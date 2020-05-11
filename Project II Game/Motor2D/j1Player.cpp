@@ -111,7 +111,7 @@ bool j1Player::Update(float dt)
 		Camera_Limit();
 	}
 
-	if (App->InGameUI->clicking_ui == true)
+	if (App->clicking_ui == true)
 		disable_click = true;
 
 	if (App->input->GetMouseButtonDown(3) == KEY_DOWN && !disable_click)

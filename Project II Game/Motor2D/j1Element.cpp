@@ -30,7 +30,6 @@ void j1Element::Draw()
 
 }
 
-
 bool j1Element::OnAbove()
 {
 	bool ret = false;
@@ -40,7 +39,9 @@ bool j1Element::OnAbove()
 
 	SDL_Rect intersect = { map_position.x / App->win->scale , map_position.y / App->win->scale, rect.w / App->win->scale, rect.h / App->win->scale };
 
-	if (SDL_PointInRect(&mouse, &intersect) && this->enabled && this->interactable) {
+	if (SDL_PointInRect(&mouse, &intersect) && this->enabled && this->interactable) 
+	{
+		App->clicking_ui = true;
 		if (listener != nullptr)
 		{
 			this->listener->GUI_Event_Manager(GUI_Event::EVENT_HOVER, this);

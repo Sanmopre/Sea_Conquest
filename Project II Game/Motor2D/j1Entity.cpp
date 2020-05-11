@@ -108,22 +108,25 @@ void j1Entity::Trading()
 				if ((entity->position.y > position.y + trading_range || entity->position.y < position.y - trading_range) ||
 					(entity->position.x > position.x + trading_range || entity->position.x < position.x - trading_range))
 				{
-					if (i < 0 && (entity->position.y > position.y + trading_range || entity->position.y < position.y - trading_range) &&
+					if ((entity->position.y > position.y + trading_range || entity->position.y < position.y - trading_range) &&
 						(entity->position.x > position.x + trading_range || entity->position.x < position.x - trading_range))
-						stop = true;
+					{
+						if (i < 0)
+							begining = true;
+						else if (i > 0)
+							end = true;
+					}
 					else
 						skip = true;
 				}
 
-				if (!stop)
+				if (!stop && !skip)
 				{
-					if (team == entity->team && entity->load.maxweight != 0 && !skip)
+					if (team == entity->team && entity->load.maxweight != 0)
 					{
-						distance = sqrtf((position.x - entity->position.x) * (position.x - entity->position.x) + (position.y - entity->position.y) * (position.y - entity->position.y));
-
-						if (distance < trading_range && distance < shortest)
+						if (App->entitymanager->InsideElipse(position, entity->position, trading_range))
 						{
-							ShowHPbar(10, 5);
+							ShowHPbar(10, 5, -10);
 
 							tradeable_list.push_back(entity);
 						}
@@ -229,7 +232,12 @@ j1Entity* j1Entity::FindTarget(float x, float y, int range, EntityType type, Ent
 				{
 					if (i < 0 && (entity->position.y > y + range || entity->position.y < y - range) &&
 						(entity->position.x > x + range || entity->position.x < x - range))
-						stop = true;
+					{
+						if (i < 0)
+							begining = true;
+						else if (i > 0)
+							end = true;
+					}
 					else
 						skip = true;
 				}
@@ -241,12 +249,14 @@ j1Entity* j1Entity::FindTarget(float x, float y, int range, EntityType type, Ent
 						(entity->main_type == main_type || main_type == EntityType::NONE)
 						&& !skip)
 					{
-						distance = sqrtf((x - entity->position.x) * (x - entity->position.x) + (y - entity->position.y) * (y - entity->position.y));
-
-						if (distance < range && distance < shortest)
+						if (App->entitymanager->InsideElipse({ x,y }, entity->position, range))
 						{
-							shortest = distance;
-							ret = entity;
+							distance = sqrtf((x - entity->position.x) * (x - entity->position.x) + (y - entity->position.y) * (y - entity->position.y));
+							if (distance < shortest)
+							{
+								shortest = distance;
+								ret = entity;
+							}
 						}
 					}
 				}

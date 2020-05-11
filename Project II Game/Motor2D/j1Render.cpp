@@ -4,6 +4,7 @@
 #include "j1Window.h"
 #include "j1Render.h"
 #include "j1Input.h"
+#include <vector>
 
 #define VSYNC true
 
@@ -159,10 +160,11 @@ void j1Render::BlitAll()
 	{
 		SDL_Texture* event_texture = e->second.texture;
 		bool event_ui = e->second.ui;
+		int event_x = e->second.x;
 
 		if (event_texture != nullptr)//differentiate texture blits from quad draws
 		{
-			int event_x = e->second.x;
+			
 			int event_y = e->second.y;
 			const SDL_Rect* event_rect = &e->second.section;
 			bool event_flip = e->second.fliped;
@@ -170,7 +172,7 @@ void j1Render::BlitAll()
 
 			Blit(event_texture, event_x, event_y, event_rect, event_flip, event_ui, 1.0f, event_alpha);
 		}
-		else
+		else if (event_x == 0)
 		{
 			const SDL_Rect& event_rect = e->second.section;
 			uint event_r = e->second.r;
@@ -180,8 +182,17 @@ void j1Render::BlitAll()
 
 			DrawQuad(event_rect, event_r, event_g, event_b, event_a, event_ui);
 		}
-	}
+		else
+		{
+			const SDL_Rect& event_rect = e->second.section;
+			uint event_r = e->second.r;
+			uint event_g = e->second.g;
+			uint event_b = e->second.b;
+			uint event_a = e->second.a;
 
+			DrawElipse(event_rect.x, event_rect.y, event_rect.w, event_r, event_g, event_b, event_a);
+		}
+	}
 	if (blit_queue.size() != 0)
 	{
 		blit_queue.erase(blit_queue.begin(), blit_queue.end());
@@ -356,6 +367,65 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	}
 
 	return ret;
+}
+
+bool j1Render::DrawElipse(int x, int y, int range, Uint8 r, Uint8 g, Uint8 b, Uint8 a) const
+{
+	float quality = 32;
+	vector<iPoint> points;
+
+	float h = range;
+	float k = range / 2.0f;
+	fPoint center = { (float)x, (float)y };
+
+	float divisions = k / quality;
+
+	for (int i = 0; i < quality; i++)
+	{
+		float fy = -k + divisions * i;
+
+		float fx = h / k * sqrt(k * k - fy * fy);
+
+		points.push_back({ (int)(x + fx), y + (int)fy });
+		points.push_back({ (int)(x - fx), y + (int)fy });
+		points.push_back({ (int)(x + fx), y - (int)fy });
+		points.push_back({ (int)(x - fx), y - (int)fy });
+	}
+
+	int i = 4;
+	int c = 4;
+	vector<iPoint>::iterator itr = points.begin();
+	iPoint last_point = *itr;
+	while (c != -3)
+	{
+		iPoint point = *(itr + c);
+
+		DrawLine(last_point.x, last_point.y, point.x, point.y, r, g, b, a);
+
+		last_point = point;
+
+		if (c == quality * 2 - 4)
+		{
+			c += i/2;
+			i *= -1;
+		}
+		else if (c == 2)
+		{
+			c++;
+			i *= -1;
+		}
+		else if (c == quality * 2 - 1)
+		{
+			c -= 2;
+			i *= -1;
+		}
+		else
+		{
+			c += i;
+		}
+	}
+
+	return true;
 }
 
 p2Point<int> j1Render::getCameraPosition()

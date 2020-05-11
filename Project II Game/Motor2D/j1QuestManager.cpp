@@ -249,7 +249,6 @@ void j1QuestManager::Open_Quest_Manager()
 
 void j1QuestManager::GUI_Event_Manager(GUI_Event type, j1Element* element)
 {
-	App->InGameUI->clicking_ui = true;
 	switch (type)
 	{
 

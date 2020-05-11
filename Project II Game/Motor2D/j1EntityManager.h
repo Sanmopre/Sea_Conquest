@@ -28,11 +28,12 @@ public:
 	std::vector<j1Entity*> selected_units;
 	std::vector<j1Entity*> air_units;
 
+	bool InsideElipse(fPoint center, fPoint point, int range);
+
 private:
 
 	std::vector<j1Entity*> buffer;
 	void QuickDeleteEntity(std::vector<j1Entity*>::iterator itr);
-
 };
 
 #endif // __j1EntityManager_H__

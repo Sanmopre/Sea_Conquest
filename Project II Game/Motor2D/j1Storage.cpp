@@ -49,6 +49,9 @@ void j1Storage::Update(float dt)
 	bool flip = false;
 	if (team == 1)
 	{
+		if(built_state == NOT_BUILDING)
+			SearchStructures();
+
 		flip = true;
 		if (selected)
 		{
@@ -80,4 +83,82 @@ void j1Storage::Update(float dt)
 void j1Storage::CleanUp()
 {
 	to_delete = true;
+}
+
+void j1Storage::SearchStructures()
+{
+	int i = 1;
+	j1Entity* entity;
+
+	bool begining = false;
+	bool end = false;
+
+	bool stop = false;
+
+	float distance;
+	float shortest = trading_range;
+	while (!stop)
+	{
+		if (spot + i == App->entitymanager->entities.begin() - 1)
+			begining = true;
+		else if (spot + i == App->entitymanager->entities.end())
+			end = true;
+
+		if (begining && end)
+		{
+			stop = true;
+		}
+		else
+		{
+			if ((begining && i < 0) || (end && i > 0))
+			{
+			}
+			else
+			{
+				bool skip = false;
+				entity = *(spot + i);
+
+				if ((entity->position.y > position.y + trading_range || entity->position.y < position.y - trading_range) ||
+					(entity->position.x > position.x + trading_range || entity->position.x < position.x - trading_range))
+				{
+					if (i < 0 && (entity->position.y > position.y + trading_range || entity->position.y < position.y - trading_range) &&
+						(entity->position.x > position.x + trading_range || entity->position.x < position.x - trading_range))
+						stop = true;
+					else
+						skip = true;
+				}
+
+				if (!stop)
+				{
+					vector<j1Entity*>* storages = entity->GetStorages();
+					if (storages != nullptr)
+					{
+						for(vector<j1Entity*>::iterator itr = storages->begin(); itr != storages->end(); itr++)
+							if (*itr == this)
+							{
+								storages->erase(itr);
+								break;
+							}
+
+						if (team == entity->team && entity->load.maxweight == 0 && !skip)
+						{
+							distance = sqrtf((position.x - entity->position.x) * (position.x - entity->position.x) + (position.y - entity->position.y) * (position.y - entity->position.y));
+
+							if (distance < trading_range && distance < shortest)
+							{
+								storages->push_back(this);
+							}
+						}
+					}
+				}
+			}
+			if (i > 0)
+				i *= -1;
+			else
+			{
+				i *= -1;
+				i++;
+			}
+		}
+	}
 }

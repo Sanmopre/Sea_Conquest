@@ -468,7 +468,6 @@ void j1InGameUI::Deactivate_Trader()
 
 void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 {
- clicking_ui = true;
 	switch (type)
 	{
 
@@ -718,8 +717,6 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 
 bool j1InGameUI::PostUpdate()
 {
-	clicking_ui = false;
-
 	bool ret = true;
 	if (quit == true) {
 		return false;
@@ -969,14 +966,75 @@ void j1InGameUI::Deactivate_Entity_Buttons()
 
 bool j1InGameUI::Cost_Function(j1Entity* entity, int cotton, int wood, int metal)
 {
-	if (entity->load.cotton >= cotton && entity->load.wood >= wood && entity->load.metal >= metal) 
+	vector<j1Entity*>* storages = entity->GetStorages();
+	if (storages == nullptr)
 	{
-		entity->load.cotton = entity->load.cotton - cotton;
-		entity->load.wood = entity->load.wood - wood;
-		entity->load.metal = entity->load.metal - metal;
-		return true;
+		if (entity->load.cotton >= cotton && entity->load.wood >= wood && entity->load.metal >= metal)
+		{
+			entity->load.cotton = entity->load.cotton - cotton;
+			entity->load.wood = entity->load.wood - wood;
+			entity->load.metal = entity->load.metal - metal;
+			return true;
+		}
+		else
+			return false;
 	}
 	else
+	{
+		int total_cotton = 0;
+		int wood_cotton = 0;
+		int metal_cotton = 0;
+		for (vector<j1Entity*>::iterator itr = storages->begin(); itr != storages->end(); itr++)
+		{
+			j1Entity* s = *itr;
+
+			total_cotton += s->load.cotton;
+			wood_cotton += s->load.wood;
+			metal_cotton += s->load.metal;
+
+			if (total_cotton >= cotton && wood_cotton >= wood && metal_cotton >= metal)
+				break;
+			else if (itr == storages->end() - 1)
+				return false;
+		}
+		for (vector<j1Entity*>::iterator itr = storages->begin(); itr != storages->end(); itr++)
+		{
+			j1Entity* s = *itr;
+
+			if (s->load.cotton != 0)
+			{
+				s->load.cotton = s->load.cotton - cotton;
+				if (s->load.cotton < 0)
+				{
+					cotton = -s->load.cotton;
+					s->load.cotton = 0;
+				}
+				cotton = 0;
+			}
+			if (s->load.wood != 0)
+			{
+				s->load.wood = s->load.wood - wood;
+				if (s->load.wood < 0)
+				{
+					wood = -s->load.wood;
+					s->load.wood = 0;
+				}
+				wood = 0;
+			}
+			if (s->load.metal != 0)
+			{
+				s->load.metal = s->load.metal - metal;
+				if (s->load.metal < 0)
+				{
+					metal = -s->load.metal;
+					s->load.metal = 0;
+				}
+				metal = 0;
+			}
+			if (cotton + wood + metal == 0)
+				return true;
+		}
+	}
 	return false;
 }
 

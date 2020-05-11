@@ -9,9 +9,11 @@ j1Carrier::j1Carrier(float x, float y, int level, int team)
 	type = EntityType::CARRIER;
 	terrain = NodeType::WATER;
 	fog_range = 4;
-	position.x = x;
-	position.y = y;
+
+	iPoint tile = App->map->WorldToMap(x, y);
+	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 	destination = position;
+
 	this->level = level;
 	trading_range = 50;
 	this->team = team;

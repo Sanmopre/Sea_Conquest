@@ -18,9 +18,11 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	fog_range = 3;
 
 	state = NOT_BUILDING;
-	position.x = x;
-	position.y = y;
+
+	iPoint tile = App->map->WorldToMap(x, y);
+	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 	destination = position;
+
 	this->level = level;
 	trading_range = 60;
 	this->team = team;
@@ -91,7 +93,7 @@ void j1Harvester::Update(float dt)
 		BuildUpdate(dt);
 
 		if (automating)
-			if (App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->InGameUI->clicking_ui)
+			if (App->input->GetMouseButtonDown(1) == KEY_DOWN && !App->clicking_ui)
 				if (harvest_destination == position)
 				{
 					iPoint m;

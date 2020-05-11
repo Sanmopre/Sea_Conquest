@@ -5,6 +5,7 @@
 #include "j1EntityManager.h"
 #include "j1ParticleManager.h"
 #include "j1Player.h"
+#include "j1Map.h"
 
 #include <vector>
 
@@ -14,8 +15,8 @@ j1Balloon::j1Balloon(float x, float y, int level, int team)
 	terrain = NodeType::ALL;
 	fog_range = 7;
 
-	position.x = x;
-	position.y = y;
+	iPoint tile = App->map->WorldToMap(x, y);
+	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
 	destination = position;
 	this->level = level;
 	trading_range = 10;

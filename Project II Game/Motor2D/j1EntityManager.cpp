@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Pathfinding.h"
+#include "j1Map.h"
 #include <algorithm>
 
 using namespace std;
@@ -45,8 +46,6 @@ bool j1EntityManager::Start()
 	LOG("EntityManager Started");
 	return true;
 }
-#include "j1Map.h"
-#include "j1Pathfinding.h"
 #include "j1Fonts.h"
 bool j1EntityManager::Update(float dt)
 {
@@ -81,7 +80,14 @@ bool j1EntityManager::Update(float dt)
 					air_units.push_back(*entity);
 			}
 
+			
 			counter++;
+			if (App->godmode)
+			{
+				char text[10];
+				sprintf_s(text, 10, "%7d", counter);
+				App->fonts->BlitText((*entity)->position.x - 120 + App->render->camera.x, (*entity)->position.y + App->render->camera.y, 1, text);
+			}
 		}
 	}
 
@@ -98,102 +104,65 @@ bool j1EntityManager::Update(float dt)
 	////////////////////////////////////ENTITIES_DEBUG///////////////////////////////////////////////////
 	if (App->godmode)
 	{
+
+		iPoint test;
+		App->input->GetMousePosition(test.x, test.y);
+		test.x -= App->render->camera.x / App->win->GetScale();
+		test.y -= App->render->camera.y / App->win->GetScale();
+		if (App->map->mapdata != nullptr)
+		{
+			test = App->map->WorldToMap(test.x, test.y);
+			test = App->map->MapToWorld<iPoint>(test.x, test.y);
+		}
+
 		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
 		{
-			iPoint test;
-			App->input->GetMousePosition(test.x, test.y);
-			test.x -= App->render->camera.x / App->win->GetScale();
-			test.y -= App->render->camera.y / App->win->GetScale();
-			iPoint placing_tile = App->map->WorldToMap(test.x, test.y);
-			test = App->map->MapToWorld<iPoint>(placing_tile.x, placing_tile.y);
 			AddEntity(test.x, test.y, EntityType::CARRIER, 1, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		{
-			iPoint test;
-			App->input->GetMousePosition(test.x, test.y);
-			test.x -= App->render->camera.x / App->win->GetScale();
-			test.y -= App->render->camera.y / App->win->GetScale();
-			iPoint placing_tile = App->map->WorldToMap(test.x, test.y);
-			test = App->map->MapToWorld<iPoint>(placing_tile.x, placing_tile.y);
 			AddEntity(test.x, test.y, EntityType::BOAT, 2, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 		{
-			iPoint test;
-			App->input->GetMousePosition(test.x, test.y);
-			test.x -= App->render->camera.x / App->win->GetScale();
-			test.y -= App->render->camera.y / App->win->GetScale();
-			iPoint placing_tile = App->map->WorldToMap(test.x, test.y);
-			test = App->map->MapToWorld<iPoint>(placing_tile.x, placing_tile.y);
 			AddEntity(test.x, test.y, EntityType::BOAT, 2, 2);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 		{	
-			iPoint test;
-			App->input->GetMousePosition(test.x, test.y);
-			test.x -= App->render->camera.x / App->win->GetScale();
-			test.y -= App->render->camera.y / App->win->GetScale();
-
 			AddEntity(test.x, test.y, EntityType::BOATHOUSE, 0, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
 		{
-			iPoint test;
-			App->input->GetMousePosition(test.x, test.y);
-			test.x -= App->render->camera.x / App->win->GetScale();
-			test.y -= App->render->camera.y / App->win->GetScale();
-
 			AddEntity(test.x, test.y, EntityType::BOATHOUSE, 0, 2);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 		{
-			iPoint test;
-			App->input->GetMousePosition(test.x, test.y);
-			test.x -= App->render->camera.x / App->win->GetScale();
-			test.y -= App->render->camera.y / App->win->GetScale();
 			AddEntity(test.x, test.y, EntityType::HARVESTER, 1, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		{
-			iPoint test;
-			App->input->GetMousePosition(test.x, test.y);
-			test.x -= App->render->camera.x / App->win->GetScale();
-			test.y -= App->render->camera.y / App->win->GetScale();
 
 			AddEntity(test.x, test.y, EntityType::STORAGE, 0, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 		{
-			iPoint test;
-			App->input->GetMousePosition(test.x, test.y);
-			test.x -= App->render->camera.x / App->win->GetScale();
-			test.y -= App->render->camera.y / App->win->GetScale();
 			AddEntity(test.x, test.y, EntityType::ALL_COTTON, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
 		{
-			iPoint test;
-			App->input->GetMousePosition(test.x, test.y);
-			test.x -= App->render->camera.x / App->win->GetScale();
-			test.y -= App->render->camera.y / App->win->GetScale();
 			AddEntity(test.x, test.y, EntityType::ALL_WOOD, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
 		{
-			iPoint test;
-			App->input->GetMousePosition(test.x, test.y);
-			test.x -= App->render->camera.x / App->win->GetScale();
-			test.y -= App->render->camera.y / App->win->GetScale();
 			AddEntity(test.x, test.y, EntityType::ALL_METAL, 1);
 		}
 
@@ -205,22 +174,10 @@ bool j1EntityManager::Update(float dt)
 		}
 		if (App->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN)
 		{
-			iPoint test;
-			App->input->GetMousePosition(test.x, test.y);
-			test.x -= App->render->camera.x / App->win->GetScale();
-			test.y -= App->render->camera.y / App->win->GetScale();
-			iPoint placing_tile = App->map->WorldToMap(test.x, test.y);
-			test = App->map->MapToWorld<iPoint>(placing_tile.x, placing_tile.y);
 			AddEntity(test.x, test.y, EntityType::BALLOON, 1, 1);
 		}
 		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
 		{
-			iPoint test;
-			App->input->GetMousePosition(test.x, test.y);
-			test.x -= App->render->camera.x / App->win->GetScale();
-			test.y -= App->render->camera.y / App->win->GetScale();
-			iPoint placing_tile = App->map->WorldToMap(test.x, test.y);
-			test = App->map->MapToWorld<iPoint>(placing_tile.x, placing_tile.y);
 			AddEntity(test.x, test.y, EntityType::BALLOON, 2, 1);
 		}
 
@@ -329,4 +286,15 @@ bool j1EntityManager::CleanUp()
 	DeleteAll();
 
 	return true;
+}
+
+bool j1EntityManager::InsideElipse(fPoint center, fPoint point, int range)
+{
+	float p = (pow((point.x - center.x), 2) / pow(range, 2))
+		+ (pow((point.y - center.y), 2) / pow(range/2, 2));
+
+	if (p > 1)
+		return false;
+	else if (p <= 1)
+		return true;
 }
