@@ -23,8 +23,11 @@ enum  names {
 	BALLOON,
 	CARRIER,
 
-
-
+    //UI BUTTONS
+	WINDOWED,
+	FULLSCREEN,
+	EXPLANATIONS_ON,
+	EXPLANATIONS_OFF,
 
 	NO_NAME
 };
@@ -63,14 +66,23 @@ public:
 	_TTF_Font* default;
 
 private:
+	//buildings
 	SDL_Texture* townhall;
 	SDL_Texture* boathouse;
 	SDL_Texture* storage;
 
+
+	//units
 	SDL_Texture* boat;
 	SDL_Texture* harvester;
 	SDL_Texture* balloon;
 	SDL_Texture* carrier;
+
+	//ui
+	SDL_Texture* windowed;
+	SDL_Texture* fullscreen;
+	SDL_Texture* explanation_on;
+	SDL_Texture* explanation_off;
 };
 
 

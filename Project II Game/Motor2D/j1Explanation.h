@@ -17,6 +17,14 @@ struct Explanation
 	char* forth;
 };
 
+struct Explanation_T
+{
+	SDL_Texture* first;
+	SDL_Texture* second;
+	SDL_Texture* third;
+	SDL_Texture* forth;
+};
+
 enum class Text
 {
 	BOAT,
@@ -50,7 +58,7 @@ public:
 private:
 
 	void Update_Position(j1Element* element = nullptr , int pos_x = 0, int pos_y = 0);
-	bool Change_Label_Text(Explanation explanation);
+	bool Change_Label_Text(Explanation_T explanation);
 	void Activate_Explanation();
 	void Deactivate_Explanation();
 	bool explanation_active = false;
@@ -69,6 +77,14 @@ private:
 	Explanation quest;
 	Explanation trader;
 	Explanation select_quest;
+
+	Explanation_T boat_t;
+	Explanation_T boathouse_t;
+	Explanation_T storage_t;
+	Explanation_T harvester_t;
+	Explanation_T quest_t;
+	Explanation_T trader_t;
+	Explanation_T select_quest_t;
 
 
 
