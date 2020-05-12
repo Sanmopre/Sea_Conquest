@@ -1044,6 +1044,8 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 
 		entity_ui.name->enabled = true;
 		entity_ui.image->enabled = true;
+
+		if(selected_total > 1)
 		entity_ui.trade->enabled = true;
 
 		switch (entity->type)
