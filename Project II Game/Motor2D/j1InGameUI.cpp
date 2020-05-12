@@ -652,12 +652,16 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			cotton = 10;
 			wood = 10;
 			metal = 60;
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::BALLOON);
 		}
 		if (element == entity_ui.button_3 && selected->type == EntityType::BOATHOUSE) {
 			Activate_Cost_Menu();
 			cotton = 60;
 			wood = 40;
 			metal = 20;
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::CARRIER);
 		}
 		if (element == entity_ui.button_1 && selected->type == EntityType::HARVESTER) {
 			Activate_Cost_Menu();

@@ -74,6 +74,16 @@ bool j1Explanation::Start()
 	trader_t.third = App->font->Print("Click to open the");
 	trader_t.forth = App->font->Print("exchange manager.");
 
+	balloon_t.first = App->font->Print("CREATE BALLOON BUTTON:");
+	balloon_t.second = App->font->Print("");
+	balloon_t.third = App->font->Print("Create a level one");
+	balloon_t.forth = App->font->Print("balloon with great speed.");
+
+	carrier_t.first = App->font->Print("CREATE CARRIER BUTTON:");
+	carrier_t.second = App->font->Print("Create a level one");
+	carrier_t.third = App->font->Print("carrier that can");
+	carrier_t.forth = App->font->Print("transport units");
+
 	return true;
 }
 
@@ -185,6 +195,14 @@ void j1Explanation::Show_Label(Text text)
 		break;
 	case Text::TRADE:
 		Change_Label_Text(trader_t);
+		Activate_Explanation();
+		break;
+	case Text::BALLOON:
+		Change_Label_Text(balloon_t);
+		Activate_Explanation();
+		break;
+	case Text::CARRIER:
+		Change_Label_Text(carrier_t);
 		Activate_Explanation();
 		break;
 	case Text::NONE:

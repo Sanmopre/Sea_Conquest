@@ -28,9 +28,11 @@ struct Explanation_T
 enum class Text
 {
 	BOAT,
-	BOATHOUSE,
-	STORAGE,
+	CARRIER,
+	BALLOON,
+	BOATHOUSE,	
 	HARVESTER,
+	STORAGE,
 	QUEST,
 	TRADE,
 	SELECT_QUEST,
@@ -81,6 +83,8 @@ private:
 	Explanation_T boat_t;
 	Explanation_T boathouse_t;
 	Explanation_T storage_t;
+	Explanation_T balloon_t;
+	Explanation_T carrier_t;
 	Explanation_T harvester_t;
 	Explanation_T quest_t;
 	Explanation_T trader_t;
