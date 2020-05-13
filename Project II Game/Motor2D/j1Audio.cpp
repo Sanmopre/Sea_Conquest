@@ -2,7 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Audio.h"
-
+#include <math.h>
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
@@ -336,7 +336,8 @@ bool j1Audio::PlaySpatialFx(uint id, uint channel_angle, uint distance, int repe
 		it = std::next(fx.begin(), id - 1);
 		chunk = *it;
 	}
-	Mix_VolumeChunk(chunk, 127);
+	//LOG("volume of chunk %d", Mix_VolumeChunk(chunk, -1));
+	
 	if (chunk != nullptr)
 	{
 		while (Mix_Playing(channel_angle) == 1)	// If the channel is already playing, choose the next channel that we already allocated with Mix_AllocateChannels()
@@ -346,13 +347,14 @@ bool j1Audio::PlaySpatialFx(uint id, uint channel_angle, uint distance, int repe
 			if (channel_angle > 360)
 				channel_angle = 0;
 		}
-
+		Mix_Volume(channel_angle, (int)(App->mainmenu->GetMenu().fx->Value * 1.28f));
 		// TODO 2 Set a channel in a position given a channel, an angle and a distance, There is SDL_Mixer function already explained 
 		// Play the channel that we already placed with Mix_SetPosition()
-		Mix_SetPosition(channel_angle, channel_angle, distance);	// Set a channel in a position given a channel, an angle and a distance
+		//uint logarithmic_distance = makeLogarithmic();
+		Mix_SetPosition(channel_angle, channel_angle, (uint)((distance * 255)/MAX_DISTANCE));	// Set a channel in a position given a channel, an angle and a distance
 
 		Mix_PlayChannel(channel_angle, chunk, repeat);				// Play the channel that we already placed with Mix_SetPosition()
-
+		LOG("volume of chunk %d", Mix_Volume(channel_angle, -1));
 		ret = true;
 	}
 
@@ -380,9 +382,9 @@ uint j1Audio::GetDistance(iPoint player_pos, iPoint enemy_pos)
 
 	// TODO 3 Calculate the distance between the player and the enemy passed by reference using pythagoras
 	uint distance = sqrt(pow(player_pos.x - enemy_pos.x, 2) + pow(player_pos.y - enemy_pos.y, 2));	// Calculate the distance with Pythagoras
-
+	LOG("Get Distance got %d distance between %s and %s", distance, "player", "enemy");
 	//uint distance_scaled = (distance * MAX_DISTANCE) / scale;										// We can scale the maximum hear distance by modifying scale in the config XML
-	uint distance_scaled = (distance * MAX_DISTANCE);
+	uint distance_scaled = (distance/* * MAX_DISTANCE*/);
 	if (distance_scaled > MAX_DISTANCE)																// If the distance is greater than the MAX_DISTANCE(255), keep it in 255
 		distance_scaled = MAX_DISTANCE;
 
@@ -393,4 +395,11 @@ bool j1Audio::Update(float dt)
 {
 	Mix_VolumeMusic(App->mainmenu->GetMenu().music->Value);
 	return true;
+}
+
+uint j1Audio::makeLogarithmic(uint distance)
+{
+	uint ret;
+	//distance = 
+	return ret;
 }

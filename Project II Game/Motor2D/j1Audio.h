@@ -48,6 +48,7 @@ public:
 	bool PlayMusic(unsigned int id, int volume = 127 ,float fade_time = DEFAULT_MUSIC_FADE_TIME);
 	void PauseMusic(float fade_time = DEFAULT_MUSIC_FADE_TIME);
 	uint LoadMusic(const char* path);
+	uint makeLogarithmic(uint distance);
 
 	uint boat_attack;
 	uint boat_destroy;
