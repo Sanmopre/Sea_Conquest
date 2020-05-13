@@ -284,7 +284,7 @@ void j1InGameUI::Add_UI()
 {
 	//MENU
 	menu.Menu_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, {width -50,10 }, { 0,0 }, true, true, { 0,0,40,40 }, "", this,false, false, SCROLL_TYPE::SCROLL_NONE,true, TEXTURE::OPTIONS);
-	menu.Return_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH-140 }, { 40,30 }, true, false, { 0,0,200,65 }, "ADD RESOURCES", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.Return_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH-140 }, { 40,30 }, true, false, { 0,0,200,65 }, "SHOW.HIDE INFO", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.Resume_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH -60}, { 60,30 }, true, false, { 0,0,200,65 }, "RESUME", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.Exit_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH + 15 }, {60,30 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.Save = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { MiddleScreenW + 25,MiddleScreenH +90 }, { 70,30 }, true, false, { 0,0,200,65 }, "QUIT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
@@ -475,6 +475,8 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		App->audio->PlayFx(App->audio->ui_wood_hit);
 		if (element == menu.Return_button) {
 
+			App->expl->information_mode = !App->expl->information_mode;
+
 			for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
 				if ((*entity)->selected)
 				{
@@ -650,12 +652,16 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			cotton = 10;
 			wood = 10;
 			metal = 60;
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::BALLOON);
 		}
 		if (element == entity_ui.button_3 && selected->type == EntityType::BOATHOUSE) {
 			Activate_Cost_Menu();
 			cotton = 60;
 			wood = 40;
 			metal = 20;
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::CARRIER);
 		}
 		if (element == entity_ui.button_1 && selected->type == EntityType::HARVESTER) {
 			Activate_Cost_Menu();
@@ -709,6 +715,11 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == quest_selector.Quest_3) {
 			if (App->expl->information_mode)
 				App->expl->Show_Label(Text::SELECT_QUEST);
+		}
+
+		if (element == entity_ui.trade) {
+			if (App->expl->information_mode)
+			App->expl->Show_Label(Text::TRADE);
 		}
 
 	}	
@@ -1033,6 +1044,8 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 
 		entity_ui.name->enabled = true;
 		entity_ui.image->enabled = true;
+
+		if(selected_total > 1)
 		entity_ui.trade->enabled = true;
 
 		switch (entity->type)

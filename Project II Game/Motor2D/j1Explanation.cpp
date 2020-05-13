@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Player.h"
+#include "j1Font.h"
 #include "j1Explanation.h"
 
 j1Explanation::j1Explanation()
@@ -38,35 +39,50 @@ bool j1Explanation::Start()
 	boat.forth = "boat.";
 
 
-	boathouse.first = "BUILD BOATHOUSE BUTTON:";
-	boathouse.second = "";
-	boathouse.third = "Build a boathouse";
-	boathouse.forth = "from harvester.";
+	boathouse_t.first = App->font->Print( "BUILD BOATHOUSE BUTTON:");
+	boathouse_t.second = App->font->Print("");
+	boathouse_t.third = App->font->Print("Build a boathouse");
+	boathouse_t.forth = App->font->Print("from harvester.");
 
-	storage.first = "BUILD STORAGE BUTTON";
-	storage.second = "";
-	storage.third = "Build a storage from";
-	storage.forth = "harvester.";
+	boat_t.first = App->font->Print("CREATE BOAT BUTTON:");
+	boat_t.second = App->font->Print("");
+	boat_t.third = App->font->Print("Create a level one");
+	boat_t.forth = App->font->Print("boat");
 
-	harvester.first = "CREATE HARVESTER BUTTON";
-	harvester.second = "";
-	harvester.third = "Create a level one";
-	harvester.forth = "harvester.";
+	storage_t.first = App->font->Print("BUILD STORAGE BUTTON");
+	storage_t.second = App->font->Print("");
+	storage_t.third = App->font->Print("Build a storage from");
+	storage_t.forth = App->font->Print("harvester.");
 
-	quest.first = "QUEST MANAGER:";
-	quest.second = "";
-	quest.third = "Open quest manager";
-	quest.forth = "to select a quest";
+	harvester_t.first = App->font->Print("CREATE HARVESTER BUTTON");
+	harvester_t.second = App->font->Print("");
+	harvester_t.third = App->font->Print("Create a level one");
+	harvester_t.forth = App->font->Print("harvester.");
 
-	select_quest.first = "SELECT QUEST:";
-	select_quest.second = "";
-	select_quest.third = "Click to select this quest.";
-	select_quest.forth = "";
+	quest_t.first = App->font->Print("QUEST MANAGER:");
+	quest_t.second = App->font->Print("");
+	quest_t.third = App->font->Print("Open quest manager");
+	quest_t.forth = App->font->Print("to select a quest");
 
-	trader.first = "EXCHANGE BUTTON:";
-	trader.second = "";
-	trader.third = "Click to open the";
-	trader.forth = "exchange manager.";
+	select_quest_t.first = App->font->Print("SELECT QUEST:");
+	select_quest_t.second = App->font->Print("");
+	select_quest_t.third = App->font->Print("Click to select this quest.");
+	select_quest_t.forth = App->font->Print("");
+
+	trader_t.first = App->font->Print("EXCHANGE BUTTON:");
+	trader_t.second = App->font->Print("");
+	trader_t.third = App->font->Print("Click to open the");
+	trader_t.forth = App->font->Print("exchange manager.");
+
+	balloon_t.first = App->font->Print("CREATE BALLOON BUTTON:");
+	balloon_t.second = App->font->Print("");
+	balloon_t.third = App->font->Print("Create a level one");
+	balloon_t.forth = App->font->Print("balloon with great speed.");
+
+	carrier_t.first = App->font->Print("CREATE CARRIER BUTTON:");
+	carrier_t.second = App->font->Print("Create a level one");
+	carrier_t.third = App->font->Print("carrier that can");
+	carrier_t.forth = App->font->Print("transport units");
 
 	return true;
 }
@@ -112,13 +128,13 @@ void j1Explanation::Update_Position(j1Element* element, int pos_x, int pos_y)
 	element->map_position.y = y - 100 + pos_y;
 }
 
-bool j1Explanation::Change_Label_Text(Explanation explanation)
+bool j1Explanation::Change_Label_Text(Explanation_T explanation)
 {
 	bool changed = false;
-	//first->ChangeLabel(explanation.first);
-	//second->ChangeLabel(explanation.second);
-	//third->ChangeLabel(explanation.third);
-	//forth->ChangeLabel(explanation.forth);
+	first->texture = explanation.first;
+	second->texture = explanation.second;
+	third->texture = explanation.third;
+	forth->texture = explanation.forth;
 	changed = true;
 	return changed;
 }
@@ -154,31 +170,39 @@ void j1Explanation::Show_Label(Text text)
 	switch(text)
 	{
 	case Text::BOAT:
-		Change_Label_Text(boat);
+		Change_Label_Text(boat_t);
 		Activate_Explanation();
 		break;
 	case Text::BOATHOUSE:
-		Change_Label_Text(boathouse);
+		Change_Label_Text(boathouse_t);
 		Activate_Explanation();
 		break;
 	case Text::HARVESTER:
-		Change_Label_Text(harvester);
+		Change_Label_Text(harvester_t);
 		Activate_Explanation();
 		break;
 	case Text::STORAGE:
-		Change_Label_Text(storage);
+		Change_Label_Text(storage_t);
 		Activate_Explanation();
 		break;
 	case Text::QUEST:
-		Change_Label_Text(quest);
+		Change_Label_Text(quest_t);
 		Activate_Explanation();
 		break;
 	case Text::SELECT_QUEST:
-		Change_Label_Text(select_quest);
+		Change_Label_Text(select_quest_t);
 		Activate_Explanation();
 		break;
 	case Text::TRADE:
-		Change_Label_Text(trader);
+		Change_Label_Text(trader_t);
+		Activate_Explanation();
+		break;
+	case Text::BALLOON:
+		Change_Label_Text(balloon_t);
+		Activate_Explanation();
+		break;
+	case Text::CARRIER:
+		Change_Label_Text(carrier_t);
 		Activate_Explanation();
 		break;
 	case Text::NONE:

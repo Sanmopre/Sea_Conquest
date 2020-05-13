@@ -41,6 +41,8 @@
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
+	want_to_save = want_to_load = false;
+
 	input = new j1Input();
 	win = new j1Window();
 	render = new j1Render();
@@ -419,34 +421,23 @@ const char* j1App::GetOrganization() const
 	return organization.GetString();
 }
 
-// Load / Save
-void j1App::LoadGame(const char* file)
+void j1App::LoadGame()
 {
-	// we should be checking if that file actually exist
-	// from the "GetSaveGames" list
 	want_to_load = true;
-	//load_game.create("%s%s", fs->GetSaveDirectory(), file);
 }
 
 // ---------------------------------------
 void j1App::SaveGame(const char* file) const
 {
-	// we should be checking if that file actually exist
-	// from the "GetSaveGames" list ... should we overwrite ?
-
 	want_to_save = true;
 	save_game.create(file);
-}
-
-// ---------------------------------------
-void j1App::GetSaveGames(p2List<p2SString>& list_to_fill) const
-{
-	// need to add functionality to file_system module for this to work
 }
 
 bool j1App::LoadGameNow()
 {
 	bool ret = false;
+
+	load_game.create("save_game.xml");
 
 	pugi::xml_document data;
 	pugi::xml_node root;
@@ -501,15 +492,12 @@ bool j1App::SavegameNow() const
 		item = item->next;
 	}
 
-	if(ret == true)
+	if (ret == true)
 	{
-		std::stringstream stream;
-		data.save(stream);
-
-		// we are done, so write data to disk
-//		fs->Save(save_game.GetString(), stream.str().c_str(), stream.str().length());
-		LOG("... finished saving", save_game.GetString());
+		data.save_file(save_game.GetString());
+		LOG("... finished saving", );
 	}
+
 	else
 		LOG("Save process halted from an error in module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
 

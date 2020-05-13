@@ -86,6 +86,16 @@ bool j1SceneManager::Update(float dt)
 	App->transitions->SquaresAppearing(4, Black, 1.0f, //scene);
 	*/
 
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	{
+		App->SaveGame("save_game.xml");
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	{
+		App->LoadGame();
+	}
+
 	if (In_Main_Menu == true) {
 		App->InGameUI->Deactivate_All_UI();
 		App->InGameUI->CleanUp();
@@ -117,7 +127,6 @@ bool j1SceneManager::Update(float dt)
 	return true;
 }
 
-
 // Called before quitting
 bool j1SceneManager::CleanUp()
 {
@@ -134,9 +143,7 @@ int j1SceneManager::ChangeScene(int scene)
 		App->pathfinding->show = false;
 		App->scene->active = true;
 		App->scene->ChangeScene();
-		//App->audio->PlayMusic("audio/music/Sea_conquest_chill_cutre.wav", 2.0f, App->audio->ingame_chill_music);
 		App->audio->StopFx(-1);
-		//App->audio->PlayFx(App->audio->ingame_chill_music, -1);
 		App->audio->PlayMusic(App->audio->ingame_chill_music, 0.0f);
 		In_Main_Menu = false;
 		In_Logo_Scene = false;
@@ -146,11 +153,9 @@ int j1SceneManager::ChangeScene(int scene)
 		App->pathfinding->show = false;
 		App->scene2->active = true;
 		App->scene2->ChangeScene();
-		//App->audio->PlayMusic("audio/music/Motorista_Reciclista_Shop1_start.wav", 2.0f, App->audio->mainmenu_music);
 		App->audio->StopFx(-1);
-		//App->audio->PlayFx(App->audio->mainmenu_music, -1);
 		App->audio->PlayMusic(App->audio->mainmenu_music, 0.0f);
-		App->audio->PlayMusic(App->audio->welcome_voice, 0.0f);
+		App->audio->PlayFx(App->audio->welcome_voice, 0.0f);
 		App->render->camera.x = 0;
 		App->render->camera.y = 0;
 		App->win->scale = 1;
@@ -171,4 +176,24 @@ int j1SceneManager::ChangeScene(int scene)
 		break;
 	}
 	return 0;
+}
+
+// Load Game State
+bool j1SceneManager::Load(pugi::xml_node& data) 
+{
+	App->render->camera.x = data.child("cameraPos").attribute("x").as_int();
+	App->render->camera.y = data.child("cameraPos").attribute("y").as_int();
+
+	return true;
+}
+
+// Save Game State
+bool j1SceneManager::Save(pugi::xml_node& data) const
+{
+	pugi::xml_node cameraPos = data.append_child("cameraPos");
+
+	cameraPos.append_attribute("x") = App->render->camera.x;
+	cameraPos.append_attribute("y") = App->render->camera.y;
+
+	return true;
 }

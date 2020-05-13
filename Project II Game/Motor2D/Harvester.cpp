@@ -216,6 +216,12 @@ void j1Harvester::Update(float dt)
 			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
 			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		//App->audio->PlaySpatialFx(App->audio->harvester_work,
+		//	App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+		//	App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+		App->audio->PlayFx(App->audio->harvester_work, 1);
 }
 
 void j1Harvester::CleanUp()
@@ -291,6 +297,7 @@ void j1Harvester::Harvest(int power, j1Entity* target)
 	App->audio->PlaySpatialFx(App->audio->harvester_work,
 		App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
 		App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+	
 }
 
 j1Entity* j1Harvester::SearchResources(float x, float y)

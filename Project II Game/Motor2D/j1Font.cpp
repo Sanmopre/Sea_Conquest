@@ -4,6 +4,7 @@
 #include "j1Textures.h"
 #include "j1Font.h"
 
+
 #include "SDL\include\SDL.h"
 #include "SDL_ttf\include\SDL_ttf.h"
 #pragma comment( lib, "SDL_ttf/libx86/SDL2_ttf.lib" )
@@ -43,10 +44,18 @@ bool j1Font::Start()
 	townhall = Print("TOWNHALL");
 	boathouse = Print("BOATHOUSE");
 	storage = Print("STORAGE");
+
+
 	boat = Print("BOAT");
 	harvester = Print("HARVESTER");
 	balloon = Print("BALLLOON");
 	carrier = Print("CARRIER");
+
+	windowed = Print("WINDOWED");
+	fullscreen = Print("FULLSCREEN");
+	explanation_on = Print("SHOW INFO");
+	explanation_off = Print("HIDE INFO");
+
 	return true;
 }
 
@@ -136,6 +145,18 @@ SDL_Texture* j1Font::Change_Name(names name)
 		break;
 	case names::CARRIER:
 		texture = carrier;
+		break;
+	case names::WINDOWED:
+		texture = windowed;
+		break;
+	case names::FULLSCREEN:
+		texture = fullscreen;
+		break;
+	case names::EXPLANATIONS_OFF:
+		texture = explanation_off;
+		break;
+	case names::EXPLANATIONS_ON:
+		texture = explanation_on;
 		break;
 	}
 
