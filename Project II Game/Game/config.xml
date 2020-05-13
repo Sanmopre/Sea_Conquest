@@ -70,23 +70,30 @@
     <texture name ="boathouse-icon"  level ="0" team ="0" source ="textures/building_image.png"/>
     <!-- UI Icons -->
     <texture name ="automatic-icon"  level ="0" team ="0" source ="textures/automatic.png"/>
-    <texture name ="quest-icon"  level ="0" team ="0" source ="textures/quest.png"/>
-    <texture name ="lvlup-icon"  level ="0" team ="0" source ="textures/lvlup.png"/>
+    <texture name ="quest-icon"      level ="0" team ="0" source ="textures/quest.png"/>
+    <texture name ="lvlup-icon"      level ="0" team ="0" source ="textures/lvlup.png"/>
+    <!-- Minimap -->
+    <texture name ="minimap"           level ="0" team ="0" source ="textures/minimap/minimap-2.png"/>
+    <texture name ="minimap-noise"     level ="0" team ="0" source ="textures/minimap/minimap_noise.png"/>
+    <texture name ="fog-chunk"         level ="0" team ="0" source ="textures/minimap/fog-chunk-tile.png"/>
+    <texture name ="fog-sub-chunk"     level ="0" team ="0" source ="textures/minimap/fog-sub-chunk-tile.png"/>
+    <texture name ="fog-sub-sub-chunk" level ="0" team ="0" source ="textures/minimap/fog-sub-sub-chunk-tile.png"/>
+    <texture name ="fog-tile"          level ="0" team ="0" source ="textures/minimap/fog-tile.png"/>
   </textures>
   
   <animations>
     <animation name ="tile_highlight"  coll="0" row="0" width="64" height="64" collumns="1" frames="1" speed="1" loop="false"/>
     <!-- Structures -->
-    <animation name ="ally_townhall"      coll="0" row="0" width="64" height="62" collumns="11" frames="11" speed="5" loop="true"/>
-    <animation name ="enemy_townhall"     coll="0" row="1" width="64" height="64" collumns="11" frames="11" speed="5" loop="true"/>
-    <animation name ="ally_storage_empty" coll="0" row="0" width="64" height="64" collumns="4" frames="1" speed="1" loop="false"/>
-    <animation name ="ally_storage_low"   coll="1" row="0" width="64" height="64" collumns="4" frames="1" speed="1" loop="false"/>
-    <animation name ="ally_storage_half"  coll="2" row="0" width="64" height="64" collumns="4" frames="1" speed="1" loop="false"/>
-    <animation name ="ally_storage_full"  coll="3" row="0" width="64" height="64" collumns="4" frames="1" speed="1" loop="false"/>
-    <animation name ="boathouse"          coll="0" row="0" width="128" height="128" collumns="1" frames="1" speed="1" loop="false"/>
-    <animation name ="cons_big"           coll="0" row="0" width="96" height="64" collumns="1" frames="1" speed="1" loop="false"/>
-    <animation name ="cons_medium"        coll="0" row="0" width="110" height="75" collumns="1" frames="1" speed="1" loop="false"/>
-    <animation name ="cons_small"         coll="0" row="0" width="72" height="41" collumns="1" frames="1" speed="1" loop="false"/>
+    <animation name ="ally_townhall"      coll="0" row="0" width="64"  height="62"  collumns="11" frames="11" speed="5" loop="true"/>
+    <animation name ="enemy_townhall"     coll="0" row="1" width="64"  height="64"  collumns="11" frames="11" speed="5" loop="true"/>
+    <animation name ="ally_storage_empty" coll="0" row="0" width="64"  height="64"  collumns="4"  frames="1"  speed="1" loop="false"/>
+    <animation name ="ally_storage_low"   coll="1" row="0" width="64"  height="64"  collumns="4"  frames="1"  speed="1" loop="false"/>
+    <animation name ="ally_storage_half"  coll="2" row="0" width="64"  height="64"  collumns="4"  frames="1"  speed="1" loop="false"/>
+    <animation name ="ally_storage_full"  coll="3" row="0" width="64"  height="64"  collumns="4"  frames="1"  speed="1" loop="false"/>
+    <animation name ="boathouse"          coll="0" row="0" width="128" height="128" collumns="1"  frames="1"  speed="1" loop="false"/>
+    <animation name ="cons_big"           coll="0" row="0" width="96"  height="64"  collumns="1"  frames="1"  speed="1" loop="false"/>
+    <animation name ="cons_medium"        coll="0" row="0" width="110" height="75"  collumns="1"  frames="1"  speed="1" loop="false"/>
+    <animation name ="cons_small"         coll="0" row="0" width="72"  height="41"  collumns="1"  frames="1"  speed="1" loop="false"/>
     <!-- Units -->
     <animation name ="unit-south"       coll="0" row="0" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
     <animation name ="unit-south_west"  coll="3" row="0" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
@@ -96,6 +103,18 @@
     <animation name ="unit-north_west"  coll="3" row="2" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
     <animation name ="unit-north"       coll="0" row="3" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
     <animation name ="unit-north_east"  coll="3" row="3" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
+    <!-- Minimap -->
+    <animation name ="minimap"            coll="0" row="0" width="240" height="160" collumns="1" frames="1" speed="1" loop="false"/>
+    <animation name ="fog-chunk"          coll="0" row="0" width="120" height="80"  collumns="1" frames="1" speed="1" loop="false"/>
+    <animation name ="fog-sub-chunk"      coll="0" row="0" width="60"  height="40"  collumns="1" frames="1" speed="1" loop="false"/>
+    <animation name ="fog-sub-sub-chunk"  coll="0" row="0" width="30"  height="20"  collumns="1" frames="1" speed="1" loop="false"/>
+    <animation name ="fog-tile"           coll="0" row="0" width="15"   height="10"   collumns="1" frames="1" speed="1" loop="false"/>
   </animations>
+
+  <minimap>
+    <tileset tilewidth="2" tileheight="1" columns="12">
+      <image name="minimap-tiles" width="24" height="5"/>
+    </tileset>
+  </minimap>
 
 </config>

@@ -7,6 +7,7 @@
 #include "j1Pathfinding.h"
 #include "j1Input.h"
 #include "j1Fog.h"
+#include "j1Minimap.h"
 
 TileSet::~TileSet()
 {
@@ -226,7 +227,7 @@ string j1Map::GetLayerProperty(int id, string name)
 	return ret;
 }
 
-SDL_Rect j1Map::MapCulling(iPoint size)
+SDL_Rect j1Map::MapCulling(iPoint size, int extra_x, int extra_y)
 {
 	SDL_Rect ret;
 	iPoint cam = { App->render->camera.x, App->render->camera.y };
@@ -234,16 +235,16 @@ SDL_Rect j1Map::MapCulling(iPoint size)
 	cam.x /= -App->win->GetScale();
 	cam.y /= -App->win->GetScale();
 	cam = WorldToMap(cam.x, cam.y);
-	cam.x -= 10 * App->win->GetScale();
-	cam.y -= 30 * App->win->GetScale();
+	cam.x -= extra_x * App->win->GetScale();
+	cam.y -= extra_y * App->win->GetScale();
 
 	end.x /= -App->win->GetScale();
 	end.y /= -App->win->GetScale();
 	end.x += App->render->camera.w;
 	end.y += App->render->camera.h;
 	end = WorldToMap(end.x, end.y);
-	end.x += 1 * App->win->GetScale();
-	end.y += 30 * App->win->GetScale();
+	end.x += extra_x * App->win->GetScale();
+	end.y += extra_y * App->win->GetScale();
 
 	if (cam.x < 0)
 		cam.x = 0;
@@ -275,7 +276,7 @@ void j1Map::Draw()
 		{	
 			if (GetLayerProperty((*layer)->id, "ToDraw").compare("true") == 0)
 			{
-				SDL_Rect cam = MapCulling({ (*layer)->layer_width, (*layer)->layer_height });
+				SDL_Rect cam = MapCulling({ (*layer)->layer_width, (*layer)->layer_height }, 10, 30);
 				for (int y = cam.y; y < cam.h; y++)
 					for (int x = cam.x; x < cam.w; x++)
 					{

@@ -373,17 +373,6 @@ bool j1Player::Update(float dt)
 	}
 
 	disable_click = false;
-
-
-//////////////////////////////////////
-
-	if (App->scenemanager->In_Logo_Scene != true && App->scenemanager->In_Main_Menu != true) {
-		App->minimap->Draw_entities();
-		App->render->AddBlitEvent(5, App->minimap->minimap_tex, App->minimap->position.x - App->render->camera.x, App->minimap->position.y - App->render->camera.y, App->minimap->rect, false, true, 0u, 0u, 0u, 255, true);
-	   if(App->win->scale == 1.00f)
-		App->minimap->DrawCamera();
-	}
-///////////////////////////////
 	dragging = false;
 	return true;
 }

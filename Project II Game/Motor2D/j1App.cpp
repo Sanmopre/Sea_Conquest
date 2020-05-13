@@ -77,8 +77,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(anim);
 	AddModule(fonts);
 	AddModule(font);
-	AddModule(minimap);
 	AddModule(player);	
+	AddModule(minimap);
 	AddModule(map);
 	AddModule(fog);
 	AddModule(scene);

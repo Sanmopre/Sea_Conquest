@@ -18,13 +18,63 @@ enum class FogState
 	VISIBLE
 };
 
+struct Chunk
+{
+	Chunk() {}
+	Chunk(int id, int sub_chunks, int size, Chunk* parent)
+	{
+		this->id = id;
+		this->parent = parent;
+		this->size = size;
+
+		size /= 2;
+		if (size >= 5)
+		{
+			for (int i = 0; i < 4; i++)
+				this->sub_chunks.push_back(new Chunk(i, sub_chunks, size, this));
+		}
+	}
+
+	~Chunk()
+	{
+		while (sub_chunks.size() != 0)
+		{
+			delete *sub_chunks.begin();
+			sub_chunks.erase(sub_chunks.begin());
+		}
+		vector<Chunk*> v;
+		sub_chunks.swap(v);
+	}
+
+	bool IsComplete()
+	{
+		int counter = 0;
+
+		for (vector<Chunk*>::iterator itr = sub_chunks.begin(); itr != sub_chunks.end(); itr++)
+			if (!(*itr)->complete)
+				return false;
+
+		return true;
+	}
+
+	Chunk* parent;
+	vector<Chunk*> sub_chunks;
+
+	int size;
+
+	int id;
+	int score = 0;
+
+	bool discovered = false;
+	bool complete = false;
+};
+
 struct FogTile
 {
-	FogTile()
-	{
-		state = FogState::FOGGED;
-	}
-	FogState state;
+	FogState state = FogState::FOGGED;
+	bool discovered = false;
+
+	Chunk* chunk;
 };
 
 class j1Fog : public j1Module
@@ -45,7 +95,15 @@ public:
 
 	FogTile** map;
 
+	Chunk* chunk_map;
+
+	iPoint GetChunkRenderTile(Chunk* chunk);
+
 private:
+
+	int GetSubChunkId(int x, int y, iPoint size);
+	Chunk* GetChunk(int x, int y);
+	void AddScore(Chunk* chunk);
 
 	SDL_Texture* fog_texture;
 	Animation fog_anim;
