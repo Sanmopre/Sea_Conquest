@@ -31,6 +31,7 @@ bool j1Fog::Update(float dt)
 		vector<FogTile*> v;
 		last_frame.swap(v);
 		
+		if(App->entitymanager->entities.size() != 0)
 		for (vector<j1Entity*>::iterator e = App->entitymanager->ally_entities.begin(); e != App->entitymanager->ally_entities.end(); e++)
 		{
 			j1Entity* entity = *e;
@@ -46,9 +47,9 @@ bool j1Fog::Update(float dt)
 					else
 					{
 						FogTile* fog = &map[x][y];
-
+		
 						fog->state = FogState::VISIBLE;
-
+		
 						last_frame.push_back(fog);
 					}
 				}
@@ -63,9 +64,13 @@ bool j1Fog::CleanUp()
 	vector<FogTile*> v;
 	last_frame.swap(v);
 
-	for (int i = 0; i < width; ++i)
-		delete[] map[i];
-	delete[] map;
+	if (map != nullptr)
+	{
+		for (int i = 0; i < width; ++i)
+			delete[] map[i];
+		delete[] map;
+	}
+	map = nullptr;
 
 	return true;
 }
@@ -81,7 +86,7 @@ void j1Fog::LoadMap(int width, int height)
 	for (int i = 0; i < width; ++i)
 		map[i] = new FogTile[height];
 
-	chunk_map = new Chunk(0, 4, width / 5, nullptr);
+	chunk_map = new Chunk(0, 4, width / quality, nullptr);
 
 	for (int y = 0; y < height; y++)
 		for (int x = 0; x < width; x++)
@@ -109,10 +114,10 @@ FogState j1Fog::GetVisibility(fPoint pos)
 	return map[tile.x][tile.y].state;
 }
 
-int j1Fog::GetSubChunkId(int x, int y, iPoint size)
+int j1Fog::GetSubChunkId(int x, int y, fPoint size)
 {
-	size.x *= 5;
-	size.y *= 5;
+	size.x *= quality;
+	size.y *= quality;
 
 	if (x >= size.x)
 		if (y >= size.y)
@@ -129,7 +134,7 @@ int j1Fog::GetSubChunkId(int x, int y, iPoint size)
 Chunk* j1Fog::GetChunk(int x, int y)
 {
 	Chunk* chunk = chunk_map;
-	iPoint size = { 0,0 };
+	fPoint size = { 0,0 };
 
 	while (chunk->sub_chunks.size() != 0)
 	{
@@ -149,9 +154,9 @@ Chunk* j1Fog::GetChunk(int x, int y)
 	return chunk;
 }
 
-iPoint j1Fog::GetChunkRenderTile(Chunk* chunk)
+fPoint j1Fog::GetChunkRenderTile(Chunk* chunk)
 {
-	iPoint ret = { 0,0 };
+	fPoint ret = { 0,0 };
 
 	while (chunk->parent != nullptr)
 	{
@@ -166,8 +171,8 @@ iPoint j1Fog::GetChunkRenderTile(Chunk* chunk)
 		chunk = chunk->parent;
 	}
 
-	ret.x *= 5;
-	ret.y *= 5;
+	ret.x *= quality;
+	ret.y *= quality;
 
 	return ret;
 }

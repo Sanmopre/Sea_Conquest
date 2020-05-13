@@ -79,8 +79,9 @@ void j1Minimap::RenderMinimapTile(int x, int y, SDL_Rect r)
 {
 	fPoint pos = MapToMinimap(x, y);
 	//App->render->AddBlitEvent(5, fog_tile_tex, pos.x, pos.y, r);
-	int grey = 60;
-	App->render->AddBlitEvent(8, nullptr, 0, 0, { (int)pos.x - 3,(int)pos.y,6,4 }, false, false, grey, grey, grey);
+	int grey = 100;
+	if (App->input->GetKey(SDL_SCANCODE_0) != KEY_REPEAT)
+		App->render->AddBlitEvent(8, nullptr, 0, 0, { (int)pos.x - 3,(int)pos.y,6,4 }, false, false, grey, grey, grey);
 }
 
 void j1Minimap::RenderMinimapFog(Chunk* chunk)
@@ -90,24 +91,28 @@ void j1Minimap::RenderMinimapFog(Chunk* chunk)
 		Chunk* chunk = *c;
 		if (chunk->score == 0)
 		{
-			iPoint tile = App->fog->GetChunkRenderTile(chunk);
+			fPoint tile = App->fog->GetChunkRenderTile(chunk);
 			fPoint pos = MapToMinimap(tile.x, tile.y);
 
 			SDL_Texture* texture = nullptr;
 			SDL_Rect r = {};
 			switch ((*c)->size)
 			{
-			case 20:
+			case 40:
 				texture = fog_chunk_tex;
 				r = fog_chunk_anim.GetCurrentFrame();
 				break;
-			case 10:
+			case 20:
 				texture = fog_sub_chunk_tex;
 				r = fog_sub_chunk_anim.GetCurrentFrame();
 				break;
-			case 5:
+			case 10:
 				texture = fog_sub_sub_chunk_tex;
 				r = fog_sub_sub_chunk_anim.GetCurrentFrame();
+				break;
+			case 5:
+				texture = fog_tile_tex;
+				r = fog_tile_anim.GetCurrentFrame();
 				break;
 			}
 			App->render->AddBlitEvent(5, texture, pos.x - r.w / 2, pos.y, r);
@@ -118,9 +123,9 @@ void j1Minimap::RenderMinimapFog(Chunk* chunk)
 				RenderMinimapFog(*c);
 			else
 			{
-				iPoint start = App->fog->GetChunkRenderTile(chunk);
-				for (int y = start.y; y < start.y + 25; y += 5)
-					for (int x = start.x; x < start.x + 25; x += 5)
+				fPoint start = App->fog->GetChunkRenderTile(chunk);
+				for (int y = start.y + 1; y < start.y + 12; y += 5)
+					for (int x = start.x + 1; x < start.x + 12; x += 5)
 						if (App->fog->map[x][y].state == FogState::FOGGED)
 							RenderMinimapTile(x, y, tile_rect);
 			}
@@ -139,10 +144,6 @@ bool j1Minimap::Update(float dt)
 			App->render->AddBlitEvent(5, minimap_tex, map_position.x, map_position.y, map_rect, false, true, 0u, 0u, 0u, 255, true);
 
 			RenderMinimapFog(App->fog->chunk_map);
-
-			if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
-			{
-			}
 
 			//App->render->AddBlitEvent(5, noise_tex, position.x - App->render->camera.x + 30, position.y - App->render->camera.y - 40, rect, false, true, 0u, 0u, 0u, 255, true);
 			DrawCamera();

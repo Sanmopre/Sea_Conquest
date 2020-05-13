@@ -197,6 +197,8 @@ private:
 	void LoadPathNodes();
 
 	pugi::xml_document map_data;
+
+	SDL_Texture* dark_tiles;
 };
 
 #endif //_MAP_H_

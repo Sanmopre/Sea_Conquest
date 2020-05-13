@@ -79,6 +79,7 @@
     <texture name ="fog-sub-chunk"     level ="0" team ="0" source ="textures/minimap/fog-sub-chunk-tile.png"/>
     <texture name ="fog-sub-sub-chunk" level ="0" team ="0" source ="textures/minimap/fog-sub-sub-chunk-tile.png"/>
     <texture name ="fog-tile"          level ="0" team ="0" source ="textures/minimap/fog-tile.png"/>
+    <texture name ="dark-tiles"          level ="0" team ="0" source ="maps/dark_Terrain_tiles.png"/>
   </textures>
   
   <animations>
@@ -108,7 +109,7 @@
     <animation name ="fog-chunk"          coll="0" row="0" width="120" height="80"  collumns="1" frames="1" speed="1" loop="false"/>
     <animation name ="fog-sub-chunk"      coll="0" row="0" width="60"  height="40"  collumns="1" frames="1" speed="1" loop="false"/>
     <animation name ="fog-sub-sub-chunk"  coll="0" row="0" width="30"  height="20"  collumns="1" frames="1" speed="1" loop="false"/>
-    <animation name ="fog-tile"           coll="0" row="0" width="15"   height="10"   collumns="1" frames="1" speed="1" loop="false"/>
+    <animation name ="fog-tile"           coll="0" row="0" width="18"   height="12"   collumns="1" frames="1" speed="1" loop="false"/>
   </animations>
 
   <minimap>

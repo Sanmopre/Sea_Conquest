@@ -29,6 +29,8 @@ void j1Map::LoadMap(const char* path)
 {
 	CleanUp();
 
+	dark_tiles = App->tex->GetTexture("dark-tiles", 0, 0);
+
 	pugi::xml_parse_result result = map_data.load_file(path);
 
 	pugi::xml_node node = map_data.first_child();
@@ -284,17 +286,11 @@ void j1Map::Draw()
 						FogState visibility = App->fog->GetVisibility(x, y);
 						if (App->godmode)
 							visibility = FogState::VISIBLE;
-						switch (visibility)
+
+						if (visibility == FogState::FOGGED)
 						{
-						case FogState::FOGGED:
 							App->fog->RenderFogTile(x, y, 255);
 							visible = false;
-							break;
-						case FogState::PARTIAL:
-							App->fog->RenderFogTile(x, y, 100);
-							break;
-						case FogState::VISIBLE:
-							break;
 						}
 						if (visible)
 						{
@@ -314,7 +310,10 @@ void j1Map::Draw()
 									rect.x = rect.w * n;
 									rect.y = rect.h * t;
 
-									App->render->AddBlitEvent(0, tile->tileset->texture, (int)position.x - 32, (int)position.y - 32, rect);
+									SDL_Texture* texture = tile->tileset->texture;
+									if (visibility == FogState::PARTIAL)
+										texture = dark_tiles;
+									App->render->AddBlitEvent(0, texture, (int)position.x - 32, (int)position.y - 32, rect);
 								}
 							}
 						}

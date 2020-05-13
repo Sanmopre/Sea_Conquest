@@ -195,7 +195,7 @@ bool j1Audio::PlayMusic(unsigned int id, int volume, float fade_time)
 		if (App->mainmenu->GetMenu().music != nullptr)
 			vol = App->mainmenu->GetMenu().music->Value;
 	if (volume > 0)
-	vol = volume;
+		vol = volume;
 
 	if (!active)
 		return false;
@@ -225,7 +225,7 @@ bool j1Audio::PlayMusic(unsigned int id, int volume, float fade_time)
 		}
 		else
 		{
-			//Mix_PlayMusic(*it, -1);
+			Mix_PlayMusic(*it, -1);
 		}
 
 	}
@@ -255,7 +255,7 @@ bool j1Audio::PlayFxIntro(unsigned int id, int repeat, int volume)
 {
 	bool ret = false;
 	int vol = 0;
-	//vol = volume;
+	vol = volume;
 	if (id > 0 && id <= fx.size())
 	{
 		std::list<Mix_Chunk*>::iterator it = fx.begin();

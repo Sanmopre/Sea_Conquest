@@ -316,10 +316,13 @@ bool j1PathFinding::CleanUp()
 		(*itr)->map.swap(n);
 		delete* itr;
 	}
+	vector<Island*> v;
+	islands.swap(v);
+
 	for (vector<Node*>::iterator itr = NodeMap.begin(); itr != NodeMap.end(); itr++)
 		delete* itr;
-	NodeMap.erase(NodeMap.begin(), NodeMap.end());
-	NodeMap.shrink_to_fit();
+	vector<Node*> n;
+	NodeMap.swap(n);
 	
 	return true;
 }

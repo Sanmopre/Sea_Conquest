@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Pathfinding.h"
 #include "j1Map.h"
+#include "j1Fog.h"
 #include <algorithm>
 
 using namespace std;

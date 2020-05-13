@@ -114,6 +114,7 @@ bool j1Player::Update(float dt)
 	if (App->clicking_ui == true)
 		disable_click = true;
 
+	if (App->scenemanager->In_Logo_Scene != true && App->scenemanager->In_Main_Menu != true)
 	if (App->input->GetMouseButtonDown(3) == KEY_DOWN && !disable_click)
 	{
 		iPoint m;

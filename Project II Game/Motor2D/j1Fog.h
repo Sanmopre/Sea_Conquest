@@ -97,11 +97,13 @@ public:
 
 	Chunk* chunk_map;
 
-	iPoint GetChunkRenderTile(Chunk* chunk);
+	fPoint GetChunkRenderTile(Chunk* chunk);
+
+	const float quality = 2.5f;
 
 private:
 
-	int GetSubChunkId(int x, int y, iPoint size);
+	int GetSubChunkId(int x, int y, fPoint size);
 	Chunk* GetChunk(int x, int y);
 	void AddScore(Chunk* chunk);
 
