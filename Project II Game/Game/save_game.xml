@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<:anonymous />
+	<:anonymous />
+	<fonts />
+	<minimap />
+	<player />
+	<:anonymous />
+	<:anonymous />
+	<scene />
+	<scene2 />
+	<Logoscene />
+	<InGameUI />
+	<InGameUI />
+	<audio />
+	<gui />
+	<:anonymous />
+	<:anonymous />
+	<fonts />
+	<:anonymous />
+	<:anonymous />
+	<:anonymous />
+	<:anonymous />
+	<scenemanager>
+		<cameraPos x="4696" y="-2853" />
+	</scenemanager>
+	<renderer>
+		<camera x="4696" y="-2853" />
+	</renderer>
+</game_state>

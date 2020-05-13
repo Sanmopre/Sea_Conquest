@@ -33,6 +33,10 @@ public:
 	bool CleanUp();
 
 	int ChangeScene(int scene);
+
+	bool Load(pugi::xml_node& data);
+	bool Save(pugi::xml_node& data) const;
+
 public:
 	int current_scene = 0;
 	bool In_Main_Menu = false;

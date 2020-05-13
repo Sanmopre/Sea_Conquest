@@ -397,9 +397,9 @@ bool j1Audio::Update(float dt)
 	return true;
 }
 
-uint j1Audio::makeLogarithmic(uint distance)
-{
-	uint ret;
-	//distance = 
-	return ret;
-}
+//uint j1Audio::makeLogarithmic(uint distance)
+//{
+//	uint ret;
+//	//distance = 
+//	return ret;
+//}
