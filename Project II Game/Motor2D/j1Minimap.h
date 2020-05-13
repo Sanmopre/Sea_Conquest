@@ -8,6 +8,7 @@
 struct SDL_Texture;
 struct SDL_Rect;
 struct Chunk;
+struct j1Entity;
 
 
 class j1Minimap : public j1Module
@@ -25,6 +26,7 @@ public:
 
 	void RenderMinimapTile(int x, int y, SDL_Rect r);
 	fPoint MapToMinimap(int x, int y);
+	iPoint MinimapToMap(float x, float y);
 
 	void RenderMinimapFog(Chunk* chunk);
 
@@ -36,7 +38,7 @@ public:
 
 	void DrawCamera();
 	void MinimapToWorldCamera();
-	void Draw_entities();
+	void Draw_entities(j1Entity* entity);
 
 	SDL_Texture* minimap_tex = nullptr;
 	SDL_Texture* noise_tex = nullptr;

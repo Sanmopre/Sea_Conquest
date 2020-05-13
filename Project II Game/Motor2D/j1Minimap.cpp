@@ -11,6 +11,7 @@
 #include "j1EntityManager.h"
 #include "j1Map.h"
 #include "j1Fog.h"
+#include "j1Entities.h"
 
 #include "p2Log.h"
 #include <list>
@@ -24,8 +25,8 @@ j1Minimap::~j1Minimap() {}
 
 bool j1Minimap::Awake(pugi::xml_node & config)
 {
-	position.x= config.attribute("position.x").as_int(1013);
-	position.y= config.attribute("position.y").as_int(560);
+	position.x= 1023;
+	position.y= 540;
 
 	return true;
 }
@@ -74,14 +75,26 @@ fPoint j1Minimap::MapToMinimap(int x, int y)
 
 	return ret;
 }
+iPoint j1Minimap::MinimapToMap(float x, float y)
+{
+	iPoint ret;
+	x -= map_position.x;
+	y -= map_position.y;
+
+	ret.x = int((x / 0.6 + y / 0.4) / 2);
+	ret.y = int((y / 0.4 - (x / 0.6)) / 2);
+	
+	return ret;
+}
+
 
 void j1Minimap::RenderMinimapTile(int x, int y, SDL_Rect r)
 {
 	fPoint pos = MapToMinimap(x, y);
-	//App->render->AddBlitEvent(5, fog_tile_tex, pos.x, pos.y, r);
-	int grey = 100;
+
+	int grey = 60;
 	if (App->input->GetKey(SDL_SCANCODE_0) != KEY_REPEAT)
-		App->render->AddBlitEvent(8, nullptr, 0, 0, { (int)pos.x - 3,(int)pos.y,6,4 }, false, false, grey, grey, grey);
+		App->render->AddBlitEvent(5, nullptr, 0, 0, { (int)pos.x - 3,(int)pos.y,6,4 }, false, false, grey, grey, grey);
 }
 
 void j1Minimap::RenderMinimapFog(Chunk* chunk)
@@ -138,14 +151,14 @@ bool j1Minimap::Update(float dt)
 	if (App->scenemanager->In_Logo_Scene != true && App->scenemanager->In_Main_Menu != true) 
 	{
 			MinimapToWorldCamera();
-			map_position.x = position.x - App->render->camera.x - 70;
-			map_position.y = position.y - App->render->camera.y - 190;
+			map_position.x = position.x - App->render->camera.x;
+			map_position.y = position.y - App->render->camera.y;
 
-			App->render->AddBlitEvent(5, minimap_tex, map_position.x, map_position.y, map_rect, false, true, 0u, 0u, 0u, 255, true);
+			App->render->AddBlitEvent(5, minimap_tex, map_position.x, map_position.y, map_rect, false, true);
 
 			RenderMinimapFog(App->fog->chunk_map);
 
-			//App->render->AddBlitEvent(5, noise_tex, position.x - App->render->camera.x + 30, position.y - App->render->camera.y - 40, rect, false, true, 0u, 0u, 0u, 255, true);
+			App->render->AddBlitEvent(5, noise_tex, map_position.x, map_position.y, map_rect, false, true);
 			DrawCamera();
 	}
 	
@@ -169,53 +182,49 @@ void j1Minimap::DrawCamera()
 
 void j1Minimap::MinimapToWorldCamera()
 {
-	//float x, y = 0;
-	//App->input->GetMousePosFloat(x, y);
-	//if (x > position.x&& y > position.y) {
-	//	if (App->input->GetMouseButtonDown(1) == KEY_REPEAT) {
-	//		clicking_map = true;
-	//		App->render->camera.x = - ((x - position.x) * 50 - 6400) + 640;
-	//		App->render->camera.y = - ((y - position.y) * 50 ) + 360;
-	//	}
-	//}
-	//else {
-	//	clicking_map = false;
-	//}
+	iPoint cam_pos;
+	App->input->GetMousePosition(cam_pos.x, cam_pos.y);
+	clicking_map = false;
+	if (cam_pos.x > position.x && cam_pos.y > position.y && !App->player->dragging) 
+		if (App->input->GetMouseButtonDown(1) == KEY_REPEAT) 
+		{
+			clicking_map = true;
+			cam_pos.x += -App->render->camera.x - map_rect.w / 2;
+			cam_pos.y += -App->render->camera.y;
+			
+			cam_pos = MinimapToMap(cam_pos.x, cam_pos.y);
+
+			if (cam_pos.x > 12 && cam_pos.x < App->map->mapdata->width && cam_pos.y > 12 && cam_pos.y < App->map->mapdata->height)
+			{
+
+				cam_pos = App->map->MapToWorld<iPoint>(cam_pos.x, cam_pos.y);
+				cam_pos.x -= App->win->width / 2;
+				cam_pos.y -= App->win->height / 2;
+
+				App->render->camera.x = -cam_pos.x;
+				App->render->camera.y = -cam_pos.y;
+			}
+		}
 }
 
-void j1Minimap::Draw_entities()
+void j1Minimap::Draw_entities(j1Entity* entity)
 {
+	Color color;
+	if (entity->team == 1)
+		color.Green();
+	else if (entity->team == 2) 
+		color.Red();
+	else if (entity->type == EntityType::ALL_COTTON) 
+		color.SetColor(240u, 240u, 240u);
+	else if (entity->type == EntityType::ALL_WOOD) 
+		color.SetColor(120u, 72u, 0u);
+	else if (entity->type == EntityType::ALL_METAL) 
+		color.SetColor(107u, 120u, 119u);
 
-	for (std::vector<j1Entity*>::iterator i = App->entitymanager->entities.begin(); i != App->entitymanager->entities.end(); i++)
-	{
-		if ((*i)->team == 1)
-		{
-			
-			App->render->AddBlitEvent(6, ally,128 +  position.x + (*i)->position.x/50 - App->render->camera.x, position.y + (*i)->position.y / 50 - App->render->camera.y ,unit, false);
+	iPoint tile = App->map->WorldToMap(entity->position.x, entity->position.y);
+	fPoint pos = MapToMinimap(tile.x, tile.y);
 
-		}
-		else if ((*i)->team == 2) {
-
-			App->render->AddBlitEvent(6, enemy, 128 + position.x + (*i)->position.x / 50 - App->render->camera.x, position.y + (*i)->position.y / 50 - App->render->camera.y , unit, false);
-
-		}
-		else if ((*i)->type == EntityType::ALL_COTTON) {
-
-			App->render->AddBlitEvent(6, cotton, 128 + position.x + (*i)->position.x / 50 - App->render->camera.x, position.y + (*i)->position.y / 50 - App->render->camera.y, unit, false);
-
-		}
-		else if ((*i)->type == EntityType::ALL_WOOD) {
-
-			App->render->AddBlitEvent(6, wood, 128 + position.x + (*i)->position.x / 50 - App->render->camera.x, position.y + (*i)->position.y / 50 - App->render->camera.y, unit, false);
-
-		}
-		else if ((*i)->type == EntityType::ALL_METAL) {
-
-			App->render->AddBlitEvent(6, metal, 128 + position.x + (*i)->position.x / 50 - App->render->camera.x, position.y + (*i)->position.y / 50 - App->render->camera.y, unit, false);
-
-		}
-			
-	}
+	App->render->AddBlitEvent(6, nullptr, 0, 0, {(int)pos.x,(int)pos.y, 2, 2}, false, true, color.r, color.g, color.b);
 }
 
 

@@ -7,6 +7,7 @@
 #include "j1EntityManager.h"
 #include "j1InGameUI.h"
 #include "j1Scene.h"
+#include "j1Minimap.h"
 
 j1BoatHouse::j1BoatHouse(float x, float y, int team)
 {
@@ -69,8 +70,11 @@ void j1BoatHouse::Update(float dt)
 	if (built_state != BUILDING && built_state != ON_HOLD)
 		current_animation = &basic;
 
-	if(App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->godmode)
+	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->godmode)
+	{
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+		App->minimap->Draw_entities(this);
+	}
 
 	if (health == 0)
 		CleanUp();

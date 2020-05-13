@@ -73,7 +73,7 @@ bool j1Player::Start()
 	highlight_anim = App->anim->GetAnimation("tile_highlight");
 	App->win->GetWindowSize(win_width, win_height);
 	max_w_group = 7;
-	SDL_ShowCursor(SDL_DISABLE);
+	//SDL_ShowCursor(SDL_DISABLE);
 
 	return ret;
 }
@@ -111,8 +111,21 @@ bool j1Player::Update(float dt)
 		Camera_Limit();
 	}
 
-	if (App->clicking_ui == true)
+	if (App->clicking_ui || App->minimap->clicking_map)
 		disable_click = true;
+	
+	if (disable_click)
+		if (App->input->GetMouseButtonDown(3) == KEY_REPEAT)
+			lock_M2 = true;
+		else if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
+			lock_M1 = true;
+
+	if (lock_M1)
+		if (App->input->GetMouseButtonDown(1) == KEY_UP)
+			lock_M1 = false;
+	if (lock_M2)
+		if (App->input->GetMouseButtonDown(3) == KEY_UP)
+			lock_M2 = false;
 
 	if (App->scenemanager->In_Logo_Scene != true && App->scenemanager->In_Main_Menu != true)
 	if (App->input->GetMouseButtonDown(3) == KEY_DOWN && !disable_click)
@@ -365,16 +378,15 @@ bool j1Player::Update(float dt)
 		}
 	}
 	
+	dragging = false;
 	//This functions should always be last//
 	Mouse_Cursor(dt);
-	if (App->scenemanager->In_Main_Menu == false) {
-		if (!disable_click && !disable_click && App->minimap->clicking_map == false)
-			if (dt != 0.0f)
+	if (!App->scenemanager->In_Main_Menu)
+		if (!disable_click && dt != 0.0f)
 				Drag_Mouse();
-	}
 
-	disable_click = false;
-	dragging = false;
+	if(!lock_M1 && !lock_M2)
+		disable_click = false;
 	return true;
 }
 
@@ -427,18 +439,6 @@ void j1Player::Camera_Control(float dt)
 
 void j1Player::Select_Entitites(SDL_Rect select_area)
 {
-	int buffer;
-	if (select_area.x > select_area.x + select_area.w)
-	{
-		select_area.x = select_area.x + select_area.w;
-		select_area.w *= -1;
-	}
-	if (select_area.y > select_area.y + select_area.h)
-	{
-		select_area.y = select_area.y + select_area.h;
-		select_area.h *= -1;
-	}
-
 	bool single_click = false;
 	for (auto entity = App->entitymanager->entities.end() - 1; entity != App->entitymanager->entities.begin() - 1; entity--)
 		if (select_area.x < (*entity)->selectable_area.x + (*entity)->selectable_area.w &&
@@ -474,7 +474,7 @@ void j1Player::Mouse_Cursor(float dt)
 {
 	mouse_position.x -= App->render->camera.x / App->win->GetScale();
 	mouse_position.y -= App->render->camera.y / App->win->GetScale();
-	App->render->AddBlitEvent(7,Tex_Player, mouse_position.x, mouse_position.y, texture_rect);
+	//App->render->AddBlitEvent(7,Tex_Player, mouse_position.x, mouse_position.y, texture_rect);
 	if (App->map->mapdata != nullptr && dt != 0.0f)
 	{
 		iPoint tile = App->map->WorldToMap((float)mouse_position.x, (float)mouse_position.y);
@@ -496,8 +496,22 @@ void j1Player::Drag_Mouse()
 	if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
 	{
 		selector = { start_mouse_position.x, start_mouse_position.y, mouse_position.x - start_mouse_position.x, mouse_position.y - start_mouse_position.y };
-		App->render->AddBlitEvent(2, nullptr, 0,0, selector, false, false, 0u, 255u, 0u, 25u, true);
-		dragging = true;
+		if (selector.x > selector.x + selector.w)
+		{
+			selector.x = selector.x + selector.w;
+			selector.w *= -1;
+		}
+		if (selector.y > selector.y + selector.h)
+		{
+			selector.y = selector.y + selector.h;
+			selector.h *= -1;
+		}
+
+		if (selector.w * selector.h > 10 )
+		{
+			App->render->AddBlitEvent(4, nullptr, 0, 0, selector, false, false, 0u, 255u, 0u, 25u, true);
+			dragging = true;
+		}
 	}
 
 	if (App->input->GetMouseButtonDown(1) == KEY_UP)

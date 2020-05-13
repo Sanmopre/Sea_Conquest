@@ -4,6 +4,7 @@
 #include "j1Map.h"
 #include "j1EntityManager.h"
 #include "j1Scene.h"
+#include "j1Minimap.h"
 
 j1TownHall::j1TownHall(float x, float y, int team)
 {
@@ -52,7 +53,10 @@ void j1TownHall::Update(float)
 			App->scene->state = WIN;
 
 	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->godmode)
+	{
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
+		App->minimap->Draw_entities(this);
+	}
 }
 
 void j1TownHall::CleanUp()

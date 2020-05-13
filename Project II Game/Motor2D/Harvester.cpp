@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Player.h"
 #include "j1Map.h"
+#include "j1Minimap.h"
 
 #include <vector>
 
@@ -207,6 +208,7 @@ void j1Harvester::Update(float dt)
 	{
 		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+		App->minimap->Draw_entities(this);
 	}
 	
 	if (health == 0) {

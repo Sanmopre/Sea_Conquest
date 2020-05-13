@@ -6,6 +6,7 @@
 #include "j1InGameUI.h"
 #include "j1Input.h"
 #include "j1Scene.h"
+#include "j1Minimap.h"
 
 j1Storage::j1Storage(float x, float y, int team)
 {
@@ -78,7 +79,10 @@ void j1Storage::Update(float dt)
 	
 	App->render->AddBlitEvent(0, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 100, 100, 100, 150);
 	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->godmode)
+	{
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
+		App->minimap->Draw_entities(this);
+	}
 }
 
 void j1Storage::CleanUp()

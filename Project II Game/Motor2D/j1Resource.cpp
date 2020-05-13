@@ -1,6 +1,7 @@
 #include "j1Entities.h"
 #include "j1Render.h"
 #include "j1Map.h"
+#include "j1Minimap.h"
 
 j1Resource::j1Resource(float x, float y, int level,EntityType type)
 {
@@ -59,7 +60,10 @@ void j1Resource::Update(float dt)
 
 	selectable_area = rect;
 	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->godmode)
+	{
 		App->render->AddBlitEvent(0, nullptr, 0, 0, rect, false, false, color.r, color.g, color.b, 255);
+		App->minimap->Draw_entities(this);
+	}
 }
 
 void j1Resource::CleanUp()
