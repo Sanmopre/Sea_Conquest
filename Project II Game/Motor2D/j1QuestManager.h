@@ -10,6 +10,12 @@ enum QUEST {
 	KILL_15_BOATS,
 	DESTROY_ENEMY_STRUCTURE,
 	BUILD_10_BOATS,
+
+
+	//TUTORIAL
+	CREATE_HARVESTER,
+	GATHER_60_METAL,
+	BUILD_BOAT,
 	NONE
 };
 
@@ -70,9 +76,17 @@ private:
 	QuestManagerUI manager;
 	Quest main_quest;
 
+	//NORMAL QUEST
 	j1Element* quest_explanation_build_boat = nullptr;
 	j1Element* quest_explanation_kill_boat = nullptr;
 	j1Element* quest_explanation_destroy_structure = nullptr;
+
+	//TUTORIAL
+	j1Element* build_harvester = nullptr;
+	j1Element* gather_60_metal = nullptr;
+	j1Element* build_boat = nullptr;
+
+
 	j1Element* gold_icon = nullptr;
 };
 
