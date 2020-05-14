@@ -71,12 +71,13 @@ bool j1MainMenuUI::Update(float dt)
 void j1MainMenuUI::Add_UI()
 {
 	//MENU
-	menu.start = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,240 }, { 75,25 }, true, false, { 0,0,200,65 }, "START", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.audio_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540, 325}, { 65,25 }, true, false, { 0,0,200,65 }, "AUDIO OPT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.quit = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,580 }, { 75,25 }, true, false, { 0,0,200,65 }, "QUIT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
-	menu.fullscreen = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,410 }, { 65,25 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.continue_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,300 }, { 75,25 }, true, false, { 0,0,200,65 }, "CONTINUE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.start = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,215 }, { 75,25 }, true, false, { 0,0,200,65 }, "START", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.audio_button = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540, 385}, { 45,25 }, true, false, { 0,0,200,65 }, "AUDIO OPTIONS", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.quit = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,640 }, { 75,25 }, true, false, { 0,0,200,65 }, "QUIT", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.fullscreen = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,470 }, { 65,25 }, true, false, { 0,0,200,65 }, "FULLSCREEN", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	menu.link = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 1220,660 }, { 0,0 }, true, false, { 0,0,60,60 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::LINK);
-	menu.instructions = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,495 }, { 55,25 }, true, false, { 0,0,200,65 }, "INSTRUCTIONS", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
+	menu.instructions = App->gui->AddElement(GUItype::GUI_BUTTON, nullptr, { 540,550 }, { 55,25 }, true, false, { 0,0,200,65 }, "INSTRUCTIONS", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::BUTON);
 	//AUDIO OPTIONS
 	menu.music = App->gui->AddElement(GUItype::GUI_SCROLLBAR, nullptr, { 820, 330 }, { 0,0 }, false, false, { 0, 0, 260, 7 }, nullptr, this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::SCROLL);
 	menu.music_label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 850,300 }, { 0,0 }, true, false, { 0,0,40,40 }, "MUSIC", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
@@ -90,6 +91,7 @@ void j1MainMenuUI::Add_UI()
 
 void j1MainMenuUI::Activate_Menu()
 {
+	menu.continue_button->enabled = true;
 	menu.start->enabled = true;
 	menu.audio_button->enabled = true;
 	menu.quit->enabled = true;
@@ -100,6 +102,7 @@ void j1MainMenuUI::Activate_Menu()
 
 void j1MainMenuUI::Deactivate_Menu()
 {
+	menu.continue_button->enabled = false;
 	menu.start->enabled = false;
 	menu.audio_button->enabled = false;
 	menu.quit->enabled = false;
