@@ -284,7 +284,7 @@ void j1Map::Draw()
 					{
 						bool visible = true;
 						FogState visibility = App->fog->GetVisibility(x, y);
-						if (App->godmode)
+						if (App->ignore_fog)
 							visibility = FogState::VISIBLE;
 
 						if (visibility == FogState::FOGGED)

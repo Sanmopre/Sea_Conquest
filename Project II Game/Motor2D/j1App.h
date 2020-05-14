@@ -134,9 +134,12 @@ public:
 	void setFpsCap(uint32 fps);
 
 	bool				game_pause = false;
-	bool				godmode = true;
 	bool				clicking_ui = false;
 
+	bool godmode = false;
+	bool show_pathnodes = false;
+	bool ignore_fog = false;
+	bool numerate_entities = false;
 };
 
 extern j1App* App;

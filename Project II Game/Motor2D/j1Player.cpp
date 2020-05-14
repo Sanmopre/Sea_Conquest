@@ -448,7 +448,7 @@ void j1Player::Select_Entitites(SDL_Rect select_area)
 			select_area.y < (*entity)->selectable_area.y + (*entity)->selectable_area.h &&
 			select_area.h + select_area.y >(*entity)->selectable_area.y)
 		{
-			if (!single_click && App->fog->GetVisibility((*entity)->position) == FogState::VISIBLE)
+			if (!single_click && (App->ignore_fog || App->fog->GetVisibility((*entity)->position) == FogState::VISIBLE))
 			{
 				if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 					(*entity)->selected = false;

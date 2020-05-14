@@ -301,6 +301,23 @@ void j1App::FinishUpdate()
 	if (input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		godmode = !godmode;
 
+	if (App->godmode)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+			show_pathnodes = !show_pathnodes;
+		if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+			ignore_fog = !ignore_fog;
+		if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
+			numerate_entities = !numerate_entities;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		show_pathnodes = false;
+		ignore_fog = false;
+		numerate_entities = false;
+	}
+
 	clicking_ui = false;
 }
 

@@ -83,7 +83,7 @@ bool j1EntityManager::Update(float dt)
 
 			
 			counter++;
-			if (App->godmode)
+			if (App->numerate_entities)
 			{
 				char text[10];
 				sprintf_s(text, 10, "%7d", counter);

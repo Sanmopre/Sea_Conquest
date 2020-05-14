@@ -156,9 +156,10 @@ bool j1Minimap::Update(float dt)
 
 			App->render->AddBlitEvent(5, minimap_tex, position.x, position.y, map_rect, false, true, 0, 0, 0, 255, true);
 
-			RenderMinimapFog(App->fog->chunk_map);
+			if(!App->ignore_fog)
+				RenderMinimapFog(App->fog->chunk_map);
 
-			App->render->AddBlitEvent(5, noise_tex, position.x, position.y, map_rect, false, true, 0, 0, 0, 255, true);
+			App->render->AddBlitEvent(5, noise_tex, position.x, position.y, map_rect, false, true, 0, 0, 0, 200, true);
 			DrawCamera();
 	}
 	

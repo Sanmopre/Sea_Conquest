@@ -78,7 +78,7 @@ void j1Storage::Update(float dt)
 		current_animation = &full;
 	
 	App->render->AddBlitEvent(0, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 100, 100, 100, 150);
-	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->godmode)
+	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->ignore_fog)
 	{
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
 		App->minimap->Draw_entities(this);

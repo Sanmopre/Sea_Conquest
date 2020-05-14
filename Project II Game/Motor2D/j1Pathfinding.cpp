@@ -15,13 +15,7 @@ bool j1PathFinding::Start()
 
 bool j1PathFinding::Update(float dt)
 {
-	if (App->godmode && App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		show = !show;
-
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-		show = false;
-
-	if (show)
+	if (App->show_pathnodes)
 	{
 		for (auto i = islands.begin(); i != islands.end(); i++)
 			for (auto itr = (*i)->map.begin(); itr != (*i)->map.end(); itr++)
@@ -254,7 +248,7 @@ vector<Node*> j1PathFinding::GetNeighbours(iPoint node)
 vector<Node*>::iterator j1PathFinding::WorldToNode(int x, int y)
 {
 	vector<Node*>::iterator ret;
-	if (x >= App->map->mapdata->width || y >= App->map->mapdata->height || x < 0 || y < 0)
+	if (x > App->map->mapdata->width || y > App->map->mapdata->height || x < 0 || y < 0)
 		return ret;
 	return NodeMap.begin() + (App->map->mapdata->width * y + x);
 }

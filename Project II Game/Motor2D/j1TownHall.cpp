@@ -52,7 +52,7 @@ void j1TownHall::Update(float)
 		else if (team == 2)
 			App->scene->state = WIN;
 
-	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->godmode)
+	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->ignore_fog)
 	{
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
 		App->minimap->Draw_entities(this);

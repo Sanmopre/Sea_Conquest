@@ -66,7 +66,7 @@ void j1Balloon::Update(float dt)
 		}
 	}
 
-	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->godmode)
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->ignore_fog)
 	{
 		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY() + 50, rect, false, false, 0, 0, 0, 100);
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);

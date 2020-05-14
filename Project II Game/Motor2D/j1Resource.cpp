@@ -59,7 +59,7 @@ void j1Resource::Update(float dt)
 	rect.y = GetRenderPositionY();
 
 	selectable_area = rect;
-	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->godmode)
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->ignore_fog)
 	{
 		App->render->AddBlitEvent(0, nullptr, 0, 0, rect, false, false, color.r, color.g, color.b, 255);
 		App->minimap->Draw_entities(this);
