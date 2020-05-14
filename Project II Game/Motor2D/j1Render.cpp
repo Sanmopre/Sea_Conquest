@@ -212,8 +212,8 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	}
 	else
 	{
-		rect.x = (int)(camera.x * speed) + x;
-		rect.y = (int)(camera.y * speed) + y;
+		rect.x = x;
+		rect.y = y;
 	}
 
 	if(section != NULL)
@@ -230,8 +230,9 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	{
 		rect.w *= scale;
 		rect.h *= scale;
-		SDL_SetTextureAlphaMod(texture, alpha);
 	}
+
+	SDL_SetTextureAlphaMod(texture, alpha);
 
 	SDL_Point* p = NULL;
 	SDL_Point pivot;
@@ -291,8 +292,8 @@ bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 	{
 		if (use_camera)
 		{
-			rec.x = (int)(camera.x + rect.x);
-			rec.y = (int)(camera.y + rect.y);
+			rec.x = rect.x;
+			rec.y = rect.y;
 		}
 		else if (guiHitBox)
 		{

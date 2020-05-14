@@ -105,9 +105,10 @@ bool j1Player::Load(pugi::xml_node& data)
 bool j1Player::Update(float dt)
 {
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
-	if (App->scenemanager->In_Main_Menu == false) {
+
+	if (App->scenemanager->In_Main_Menu == false) 
+	{
 		Camera_Control(dt);
-		Zoom();
 		Camera_Limit();
 	}
 
@@ -387,6 +388,7 @@ bool j1Player::Update(float dt)
 
 	if(!lock_M1 && !lock_M2)
 		disable_click = false;
+
 	return true;
 }
 
@@ -474,7 +476,7 @@ void j1Player::Mouse_Cursor(float dt)
 {
 	mouse_position.x -= App->render->camera.x / App->win->GetScale();
 	mouse_position.y -= App->render->camera.y / App->win->GetScale();
-	//App->render->AddBlitEvent(7,Tex_Player, mouse_position.x, mouse_position.y, texture_rect);
+
 	if (App->map->mapdata != nullptr && dt != 0.0f)
 	{
 		iPoint tile = App->map->WorldToMap((float)mouse_position.x, (float)mouse_position.y);

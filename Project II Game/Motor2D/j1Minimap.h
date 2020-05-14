@@ -69,7 +69,7 @@ public:
 	SDL_Rect unit = { 0,0,2,2 };
 	SDL_Rect map_rect;
 	SDL_Rect tile_rect;
-	SDL_Rect cameraminimap = {0,0,26,15};
+	SDL_Rect cameraminimap = {0,0,24,18};
 
 };
 

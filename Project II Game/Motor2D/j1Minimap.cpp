@@ -49,7 +49,7 @@ bool j1Minimap::Start()
 
 	noise_tex = App->tex->GetTexture("minimap-noise", 0, 0);
 
-	minimap_camera = App->tex->Load("textures/minimap_camera.png");
+	minimap_camera = App->tex->GetTexture("minimap-cam", 0, 0);
 
 	map_rect = map_anim.GetCurrentFrame();
 	tile_rect = fog_tile_anim.GetCurrentFrame();
@@ -70,8 +70,8 @@ fPoint j1Minimap::MapToMinimap(int x, int y)
 	ret.x = (x - y) * (0.6) + map_rect.w / 2.0f;
 	ret.y = (x + y) * (0.4);
 
-	ret.x = map_position.x + ret.x;
-	ret.y = map_position.y + ret.y;
+	ret.x = position.x + ret.x;
+	ret.y = position.y + ret.y;
 
 	return ret;
 }
@@ -94,7 +94,7 @@ void j1Minimap::RenderMinimapTile(int x, int y, SDL_Rect r)
 
 	int grey = 60;
 	if (App->input->GetKey(SDL_SCANCODE_0) != KEY_REPEAT)
-		App->render->AddBlitEvent(5, nullptr, 0, 0, { (int)pos.x - 3,(int)pos.y,6,4 }, false, false, grey, grey, grey);
+		App->render->AddBlitEvent(5, nullptr, 0, 0, { (int)pos.x - 3,(int)pos.y,6,4 }, false, true, grey, grey, grey, 255, true);
 }
 
 void j1Minimap::RenderMinimapFog(Chunk* chunk)
@@ -128,7 +128,7 @@ void j1Minimap::RenderMinimapFog(Chunk* chunk)
 				r = fog_tile_anim.GetCurrentFrame();
 				break;
 			}
-			App->render->AddBlitEvent(5, texture, pos.x - r.w / 2, pos.y, r);
+			App->render->AddBlitEvent(5, texture, pos.x - r.w / 2, pos.y, r, false, true, 0, 0, 0, 255, true);
 		}
 		else if (!chunk->complete)
 		{
@@ -154,11 +154,11 @@ bool j1Minimap::Update(float dt)
 			map_position.x = position.x - App->render->camera.x;
 			map_position.y = position.y - App->render->camera.y;
 
-			App->render->AddBlitEvent(5, minimap_tex, map_position.x, map_position.y, map_rect, false, true);
+			App->render->AddBlitEvent(5, minimap_tex, position.x, position.y, map_rect, false, true, 0, 0, 0, 255, true);
 
 			RenderMinimapFog(App->fog->chunk_map);
 
-			App->render->AddBlitEvent(5, noise_tex, map_position.x, map_position.y, map_rect, false, true);
+			App->render->AddBlitEvent(5, noise_tex, position.x, position.y, map_rect, false, true, 0, 0, 0, 255, true);
 			DrawCamera();
 	}
 	
@@ -177,7 +177,10 @@ bool j1Minimap::CleanUp()
 
 void j1Minimap::DrawCamera()
 {
-	App->render->AddBlitEvent(7, minimap_camera, 128 + position.x - App->render->camera.x - (App->render->camera.x / 50), position.y - App->render->camera.y - (App->render->camera.y / 50), cameraminimap, false);
+	iPoint minimap_cam_pos = { -App->render->camera.x, -App->render->camera.y };
+	minimap_cam_pos.x = (minimap_cam_pos.x * 120) / 6400;
+	minimap_cam_pos.y = (minimap_cam_pos.y * 160) / 6400;
+	App->render->AddBlitEvent(10, minimap_camera, position.x + minimap_cam_pos.x + map_rect.w / 2, position.y + minimap_cam_pos.y, cameraminimap, false, true, 0, 0, 0, 255, true);
 }
 
 void j1Minimap::MinimapToWorldCamera()
@@ -224,7 +227,7 @@ void j1Minimap::Draw_entities(j1Entity* entity)
 	iPoint tile = App->map->WorldToMap(entity->position.x, entity->position.y);
 	fPoint pos = MapToMinimap(tile.x, tile.y);
 
-	App->render->AddBlitEvent(6, nullptr, 0, 0, {(int)pos.x,(int)pos.y, 2, 2}, false, true, color.r, color.g, color.b);
+	App->render->AddBlitEvent(6, nullptr, 0, 0, {(int)pos.x,(int)pos.y, 2, 2}, false, true, color.r, color.g, color.b, 255, true);
 }
 
 
