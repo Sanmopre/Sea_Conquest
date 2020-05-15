@@ -348,12 +348,9 @@ bool j1Audio::PlaySpatialFx(uint id, uint channel_angle, uint distance, int repe
 				channel_angle = 0;
 		}
 		Mix_Volume(channel_angle, (int)(App->mainmenu->GetMenu().fx->Value * 1.28f));
-		// TODO 2 Set a channel in a position given a channel, an angle and a distance, There is SDL_Mixer function already explained 
-		// Play the channel that we already placed with Mix_SetPosition()
-		//uint logarithmic_distance = makeLogarithmic();
-		Mix_SetPosition(channel_angle, channel_angle, (uint)((distance * 255)/MAX_DISTANCE));	// Set a channel in a position given a channel, an angle and a distance
+		Mix_SetPosition(channel_angle, channel_angle, (uint)((distance * 255)/MAX_DISTANCE));	
 
-		Mix_PlayChannel(channel_angle, chunk, repeat);				// Play the channel that we already placed with Mix_SetPosition()
+		Mix_PlayChannel(channel_angle, chunk, repeat);	
 		LOG("volume of chunk %d", Mix_Volume(channel_angle, -1));
 		ret = true;
 	}
@@ -363,15 +360,15 @@ bool j1Audio::PlaySpatialFx(uint id, uint channel_angle, uint distance, int repe
 
 uint j1Audio::GetAngle(iPoint player_pos, iPoint enemy_pos)
 {
-	iPoint vector_pos = player_pos - enemy_pos;				// The vector of the player and enemy positions
-	iPoint vector_axis = { 0, 1 };							// We use the this vector because we want the angle that is formed with the Y axis
+	iPoint vector_pos = player_pos - enemy_pos;				
+	iPoint vector_axis = { 0, 1 };							
 
-	double dot_x = vector_axis.y * vector_pos.y;			// Product of the two vectors to get the X position
-	double det_y = -(vector_axis.y * vector_pos.x);			// Determinant of the two vectors to get the Y position
+	double dot_x = vector_axis.y * vector_pos.y;			
+	double det_y = -(vector_axis.y * vector_pos.x);			
 
-	float f_angle = (atan2(det_y, dot_x)) * RAD_TO_DEG;		// Arc tangent of the previous X and Y, multiply the result with RAD_TO_DEG to get the result in degrees instead of radiants
+	float f_angle = (atan2(det_y, dot_x)) * RAD_TO_DEG;		
 
-	if (f_angle < 0)										// If the angle is negative we add +360 because in PlaySpatialFx() we need the channel to be positive
+	if (f_angle < 0)										
 		f_angle += 360;
 
 	return uint(f_angle);
@@ -380,12 +377,10 @@ uint j1Audio::GetAngle(iPoint player_pos, iPoint enemy_pos)
 uint j1Audio::GetDistance(iPoint player_pos, iPoint enemy_pos)
 {
 
-	// TODO 3 Calculate the distance between the player and the enemy passed by reference using pythagoras
-	uint distance = sqrt(pow(player_pos.x - enemy_pos.x, 2) + pow(player_pos.y - enemy_pos.y, 2));	// Calculate the distance with Pythagoras
-	LOG("Get Distance got %d distance between %s and %s", distance, "player", "enemy");
-	//uint distance_scaled = (distance * MAX_DISTANCE) / scale;										// We can scale the maximum hear distance by modifying scale in the config XML
+	uint distance = sqrt(pow(player_pos.x - enemy_pos.x, 2) + pow(player_pos.y - enemy_pos.y, 2));	
+	LOG("Get Distance got %d distance between %s and %s", distance, "player", "enemy");								
 	uint distance_scaled = (distance/* * MAX_DISTANCE*/);
-	if (distance_scaled > MAX_DISTANCE)																// If the distance is greater than the MAX_DISTANCE(255), keep it in 255
+	if (distance_scaled > MAX_DISTANCE)																
 		distance_scaled = MAX_DISTANCE;
 
 	return distance_scaled;
@@ -395,11 +390,4 @@ bool j1Audio::Update(float dt)
 {
 	Mix_VolumeMusic(App->mainmenu->GetMenu().music->Value);
 	return true;
-}
-
-uint j1Audio::makeLogarithmic(uint distance)
-{
-	uint ret;
-	//distance = 
-	return ret;
 }
