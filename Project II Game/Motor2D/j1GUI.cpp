@@ -97,31 +97,31 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	switch (textureType)
 	{
 	case TEXTURE::BUTON:
-		texture_load = App->tex->Load("textures/BOTON.png");
+		texture_load = App->tex->Load("textures/ui/button.png");
 		break;
 	case TEXTURE::IMAGE:
-		texture_load = App->tex->Load("textures/image.png");
+		texture_load = App->tex->Load("textures/ui/image.png");
 		break;
 	case TEXTURE::MANAGER_IMAGE:
-		texture_load = App->tex->Load("textures/MANAGER_IMAGE.png");
+		texture_load = App->tex->Load("textures/ui/manager-image.png");
 		break;
 	case TEXTURE::NEXT:
-		texture_load = App->tex->Load("textures/next.png");
+		texture_load = App->tex->Load("textures/ui/next.png");
 		break;
 	case TEXTURE::PREV:
-		texture_load = App->tex->Load("textures/prev.png");
+		texture_load = App->tex->Load("textures/ui/prev.png");
 		break;
 	case TEXTURE::OPTIONS:
-		texture_load = App->tex->Load("textures/BOTON_2.png");
+		texture_load = App->tex->Load("textures/ui/options.png");
 		break;
 	case TEXTURE::BUTON_HOVER:
-		texture_load = App->tex->Load("textures/BOTON_1.png");
+		texture_load = App->tex->Load("textures/ui/button-1.png");
 		break;
 	case TEXTURE::MAIN_IMAGE:
-		texture_load = App->tex->Load("textures/UIimage.png");
+		texture_load = App->tex->Load("textures/ui/ui-image.png");
 		break;
 	case TEXTURE::RESOURCES_IMAGE:
-		texture_load = App->tex->Load("textures/Recursos.png");
+		texture_load = App->tex->Load("textures/ui/resources.png");
 		break;
 	case TEXTURE::BUILDING_IMAGE:
 		texture_load = App->tex->GetTexture("boathouse-icon", 0,0);
@@ -130,37 +130,37 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 		texture_load = App->tex->GetTexture("boat-icon", 0, 0);
 		break;
 	case TEXTURE::SCROLL:
-		texture_load = App->tex->Load("textures/scroll.png");
+		texture_load = App->tex->Load("textures/ui/scroll.png");
 		break;
 	case TEXTURE::TRADE:
-		texture_load = App->tex->Load("textures/trade.png");
+		texture_load = App->tex->Load("textures/ui/trade.png");
 		break;
 	case TEXTURE::HARVESTER:
 		texture_load = App->tex->GetTexture("harvester-icon", 0, 0);
 		break;
 	case TEXTURE::BOTON_SCROLL:
-		texture_load = App->tex->Load("textures/boton_scroll.png");
+		texture_load = App->tex->Load("textures/ui/scroll-button.png");
 		break;
 	case TEXTURE::AUDIO_IMAGE:
-		texture_load = App->tex->Load("textures/audio_image.png");
+		texture_load = App->tex->Load("textures/ui/audio-image.png");
 		break;
 	case TEXTURE::LINK:
-		texture_load = App->tex->Load("textures/link.png");
+		texture_load = App->tex->Load("textures/ui/link.png");
 		break;
 	case TEXTURE::TRADER_DERECHA:
-		texture_load = App->tex->Load("textures/derecha.png");
+		texture_load = App->tex->Load("textures/ui/right.png");
 		break;
 	case TEXTURE::TRADER_IZQUIERDA:
-		texture_load = App->tex->Load("textures/izquierda.png");
+		texture_load = App->tex->Load("textures/ui/left.png");
 		break;
 	case TEXTURE::COTTON:
-		texture_load = App->tex->Load("textures/cotton.png");
+		texture_load = App->tex->Load("textures/ui/cotton.png");
 		break;
 	case TEXTURE::WOOD:
-		texture_load = App->tex->Load("textures/wood.png");
+		texture_load = App->tex->Load("textures/ui/wood.png");
 		break;
 	case TEXTURE::METAL:
-		texture_load = App->tex->Load("textures/metal.png");
+		texture_load = App->tex->Load("textures/ui/metal.png");
 		break;
 	case TEXTURE::TOWNHALL:
 		texture_load = App->tex->GetTexture("townhall-icon", 0, 0);
@@ -169,43 +169,43 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 		texture_load = App->tex->GetTexture("storage-icon", 0, 0);
 		break;
 	case TEXTURE::COST:
-		texture_load = App->tex->Load("textures/cost.png");
+		texture_load = App->tex->Load("textures/ui/cost.png");
 		break;
 	case TEXTURE::GODMODE:
-		texture_load = App->tex->Load("textures/godmode.png");
+		texture_load = App->tex->Load("textures/ui/godmode.png");
 		break;
 	case TEXTURE::INFO:
-		texture_load = App->tex->Load("textures/info.png");
+		texture_load = App->tex->Load("textures/ui/info.png");
 		break;
 	case TEXTURE::INFO_IMAGE:
-		texture_load = App->tex->Load("textures/info_image.png");
+		texture_load = App->tex->Load("textures/ui/info-image.png");
 		break;
 	case TEXTURE::QUEST_CLOSE:
-		texture_load = App->tex->Load("textures/close_quest.png");
+		texture_load = App->tex->Load("textures/ui/close-quest.png");
 		break;
 	case TEXTURE::QUEST_IMAGE_CLOSE:
-		texture_load = App->tex->Load("textures/quest_close.png");
+		texture_load = App->tex->Load("textures/ui/quest-close.png");
 		break;
 	case TEXTURE::LVLUP:
 		texture_load = App->tex->GetTexture("lvlup-icon", 0, 0);
 		break;
 	case TEXTURE::QUEST_IMAGE_OPEN:
-		texture_load = App->tex->Load("textures/quest_open.png");
+		texture_load = App->tex->Load("textures/ui/quest-open.png");
 		break;
 	case TEXTURE::COIN:
-		texture_load = App->tex->Load("textures/coin.png");
+		texture_load = App->tex->Load("textures/ui/coin.png");
 		break;
 	case TEXTURE::AUTOMATIC:
 		texture_load = App->tex->GetTexture("automatic-icon", 0, 0);
 		break;
 	case TEXTURE::COIN_COST:
-		texture_load = App->tex->Load("textures/coin_cost.png");
+		texture_load = App->tex->Load("textures/ui/coin-cost.png");
 		break;
     case TEXTURE::EXPLANATION:
-		texture_load = App->tex->Load("textures/explanation.png");
+		texture_load = App->tex->Load("textures/ui/explanation.png");
 		break;
 	case TEXTURE::DIALOG:
-		texture_load = App->tex->Load("textures/dialog.png");
+		texture_load = App->tex->Load("textures/ui/dialog.png");
 		break;
 	case TEXTURE::BALLOON:
 		texture_load = App->tex->GetTexture("balloon-icon", 0, 0);
@@ -217,7 +217,7 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 		texture_load = App->tex->GetTexture("quest-icon", 0, 0);
 		break;
 	case TEXTURE::INFORMATION_IMAGE:
-		texture_load = App->tex->Load("textures/information_image.png");
+		texture_load = App->tex->Load("textures/ui/information-image.png");
 		break;
 	case TEXTURE::CARRIER:
 		texture_load = App->tex->GetTexture("carrier-icon", 0, 0);

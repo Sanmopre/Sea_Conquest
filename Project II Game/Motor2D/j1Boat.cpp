@@ -7,6 +7,7 @@
 #include "j1Player.h"
 #include "j1Map.h"
 #include "j1Minimap.h"
+#include "j1QuestManager.h"
 
 #include <vector>
 
@@ -137,6 +138,12 @@ void j1Boat::CleanUp()
 	if (FireSystem != nullptr)
 		FireSystem->toDelete = true;
 	to_delete = true;
+
+	//CHECK QUEST 
+	if (App->quest->current_quest == QUEST::KILL_15_BOATS) {
+		App->quest->main_quest.current++;
+	}
+
 }
 
 void j1Boat::Damage(int damage, j1Entity* target)

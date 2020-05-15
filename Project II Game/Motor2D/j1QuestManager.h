@@ -71,10 +71,11 @@ public:
 public:
 	bool quest_manager_open = false;
 	bool quest_activate = false;
-	QUEST current_quest = QUEST::NONE;
+	QUEST current_quest = QUEST::NONE;	
+	Quest main_quest;
 private:
 	QuestManagerUI manager;
-	Quest main_quest;
+
 
 	//NORMAL QUEST
 	j1Element* quest_explanation_build_boat = nullptr;
