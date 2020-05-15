@@ -46,7 +46,15 @@ void j1Balloon::Update(float dt)
 {
 	if (dt != 0.0f)
 	{
-		target = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, 2);
+		int enemy = 0;
+		if (team == 1)
+			enemy = 2;
+		else if (team == 2)
+			enemy = 1;
+
+		target = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, enemy);
+
+		Chase(range + 200, enemy);
 
 		if (destination != position)
 			Move(dt);

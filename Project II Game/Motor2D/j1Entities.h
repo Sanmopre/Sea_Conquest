@@ -272,6 +272,8 @@ public:
 
 protected:
 
+	bool player_command;
+
 	Animation north;
 	Animation north_east;
 	Animation east;
@@ -284,6 +286,7 @@ protected:
 	vector<Node*>* map = nullptr;
 
 	void GoTo(fPoint destination, NodeType terrain);
+	void Chase(int range, int enemy);
 	void Move(float dt);
 	void NextStep();
 	void SetPosition(fPoint position);
