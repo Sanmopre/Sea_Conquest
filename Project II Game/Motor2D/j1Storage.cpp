@@ -18,7 +18,7 @@ j1Storage::j1Storage(float x, float y, int team)
 	this->team = team;
 	fog_range = 3;
 
-	texture = App->tex->GetTexture("storage", level, 0);
+	texture = App->tex->GetTexture("storage", level, team);
 	tex_construction = App->tex->GetTexture("cons_medium", 0, 0);
 
 	basic = App->anim->GetAnimation("ally_storage_empty");
@@ -36,6 +36,7 @@ j1Storage::j1Storage(float x, float y, int team)
 	{
 		health = max_health;
 		(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = true;
+		load.metal += 30;
 	}
 	type = EntityType::STORAGE;
 }

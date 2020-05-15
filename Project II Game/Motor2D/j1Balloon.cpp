@@ -22,7 +22,9 @@ j1Balloon::j1Balloon(float x, float y, int level, int team)
 	this->level = level;
 	trading_range = 10;
 	this->team = team;
-	speed = 80;
+	int extra = level * 1.5;
+	speed = 80 + 15 * extra;
+	damage = 50 + 10 * extra;
 	range = 10;
 	firerate = { 3 };
 	max_health = 50;
@@ -67,7 +69,7 @@ void j1Balloon::Update(float dt)
 				firerate.counter += dt;
 				if (firerate.counter >= firerate.iterations)
 				{
-					Damage(50, target);
+					Damage(damage, target);
 					firerate.counter = 0;
 				}
 			}

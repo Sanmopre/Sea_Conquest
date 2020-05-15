@@ -18,7 +18,7 @@ j1BoatHouse::j1BoatHouse(float x, float y, int team)
 	this->team = team;
 	fog_range = 4;
 
-	texture = App->tex->GetTexture("boathouse", level, 0);
+	texture = App->tex->GetTexture("boathouse", level, team);
 	tex_construction = App->tex->GetTexture("cons_small", 0, 0);
 
 	basic = App->anim->GetAnimation("boathouse");

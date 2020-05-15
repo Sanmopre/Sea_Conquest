@@ -17,7 +17,7 @@ j1Resource::j1Resource(float x, float y, int level,EntityType type)
 	health = max_health;
 
 
-	load.maxweight = 5000 * level;
+	load.maxweight = 500 * level;
 
 	switch (type)
 	{
@@ -41,8 +41,8 @@ j1Resource::j1Resource(float x, float y, int level,EntityType type)
 		break;
 	}
 
-	rect.w = 10;
-	rect.h = 10;
+	rect.w = 10 * level;
+	rect.h = 10 * level;
 }
 
 void j1Resource::Update(float dt)
@@ -57,6 +57,9 @@ void j1Resource::Update(float dt)
 
 	rect.x = GetRenderPositionX();
 	rect.y = GetRenderPositionY();
+
+	if (load.Total() == 0)
+		color.Black();
 
 	selectable_area = rect;
 	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->ignore_fog)

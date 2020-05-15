@@ -34,9 +34,10 @@
     <texture name ="tile_highlight"  level ="0" team ="0" source ="maps/tile_highlight.png"/>
     <texture name ="fog_tile"  level ="0" team ="0" source ="maps/Fog_tile.png"/>
     <!-- Structures -->
-    <texture name ="townhall"    level ="1" team ="0" source ="textures/structures/townhall.png"/>
-    <texture name ="storage"     level ="1" team ="0" source ="textures/structures/storage.png"/>
-    <texture name ="boathouse"   level ="1" team ="0" source ="textures/structures/boathouse.png"/>
+    <texture name ="townhall"    level ="1" team ="1" source ="textures/structures/ally_townhall.png"/>
+    <texture name ="townhall"    level ="1" team ="2" source ="textures/structures/enemy_townhall.png"/>
+    <texture name ="storage"     level ="1" team ="1" source ="textures/structures/storage.png"/>
+    <texture name ="boathouse"   level ="1" team ="1" source ="textures/structures/boathouse.png"/>
     <texture name ="cons_big"    level ="0" team ="0" source ="textures/structures/cons_big.png"/>
     <texture name ="cons_medium" level ="0" team ="0" source ="textures/structures/cons_medium.png"/>
     <texture name ="cons_small"  level ="0" team ="0" source ="textures/structures/cons_small.png"/>
@@ -86,8 +87,7 @@
   <animations>
     <animation name ="tile_highlight"  coll="0" row="0" width="64" height="64" collumns="1" frames="1" speed="1" loop="false"/>
     <!-- Structures -->
-    <animation name ="ally_townhall"      coll="0" row="0" width="64"  height="62"  collumns="11" frames="11" speed="5" loop="true"/>
-    <animation name ="enemy_townhall"     coll="0" row="1" width="64"  height="64"  collumns="11" frames="11" speed="5" loop="true"/>
+    <animation name ="townhall"           coll="0" row="0" width="64"  height="62"  collumns="11" frames="11" speed="5" loop="true"/>
     <animation name ="ally_storage_empty" coll="0" row="0" width="64"  height="64"  collumns="4"  frames="1"  speed="1" loop="false"/>
     <animation name ="ally_storage_low"   coll="1" row="0" width="64"  height="64"  collumns="4"  frames="1"  speed="1" loop="false"/>
     <animation name ="ally_storage_half"  coll="2" row="0" width="64"  height="64"  collumns="4"  frames="1"  speed="1" loop="false"/>

@@ -23,7 +23,9 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	this->level = level;
 	trading_range = 50;
 	this->team = team;
-	speed = 50;
+	int extra = level * 1.5;
+	speed = 50 + 10 * extra;
+	damage = 10 + 5 * extra;
 	range = 100;
 	firerate = { 1 };
 	max_health = 100;
@@ -79,7 +81,7 @@ void j1Boat::Update(float dt)
 				firerate.counter += dt;
 				if (firerate.counter >= firerate.iterations)
 				{
-					Damage(10, target);
+					Damage(damage, target);
 					firerate.counter = 0;
 				}
 			}

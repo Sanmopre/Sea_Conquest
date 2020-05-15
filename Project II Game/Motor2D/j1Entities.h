@@ -257,6 +257,7 @@ public:
 	void Primitive_Update(float dt);
 	float speed;
 	int range;
+	int damage;
 	Orientation orientation;
 	fPoint destination;
 	vector<fPoint> path;
