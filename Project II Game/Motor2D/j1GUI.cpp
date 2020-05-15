@@ -97,31 +97,31 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	switch (textureType)
 	{
 	case TEXTURE::BUTON:
-		texture_load = App->tex->Load("textures/BOTON.png");
+		texture_load = App->tex->Load("textures/ui/button.png");
 		break;
 	case TEXTURE::IMAGE:
-		texture_load = App->tex->Load("textures/image.png");
+		texture_load = App->tex->Load("textures/ui/image.png");
 		break;
 	case TEXTURE::MANAGER_IMAGE:
-		texture_load = App->tex->Load("textures/MANAGER_IMAGE.png");
+		texture_load = App->tex->Load("textures/ui/manager-image.png");
 		break;
 	case TEXTURE::NEXT:
-		texture_load = App->tex->Load("textures/next.png");
+		texture_load = App->tex->Load("textures/ui/next.png");
 		break;
 	case TEXTURE::PREV:
-		texture_load = App->tex->Load("textures/prev.png");
+		texture_load = App->tex->Load("textures/ui/prev.png");
 		break;
 	case TEXTURE::OPTIONS:
-		texture_load = App->tex->Load("textures/BOTON_2.png");
+		texture_load = App->tex->Load("textures/ui/options.png");
 		break;
 	case TEXTURE::BUTON_HOVER:
-		texture_load = App->tex->Load("textures/BOTON_1.png");
+		texture_load = App->tex->Load("textures/ui/button-1.png");
 		break;
 	case TEXTURE::MAIN_IMAGE:
-		texture_load = App->tex->Load("textures/UIimage.png");
+		texture_load = App->tex->Load("textures/ui/ui-image.png");
 		break;
 	case TEXTURE::RESOURCES_IMAGE:
-		texture_load = App->tex->Load("textures/Recursos.png");
+		texture_load = App->tex->Load("textures/ui/resources.png");
 		break;
 	case TEXTURE::BUILDING_IMAGE:
 		texture_load = App->tex->GetTexture("boathouse-icon", 0,0);
@@ -130,10 +130,10 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 		texture_load = App->tex->GetTexture("boat-icon", 0, 0);
 		break;
 	case TEXTURE::SCROLL:
-		texture_load = App->tex->Load("textures/scroll.png");
+		texture_load = App->tex->Load("textures/ui/scroll.png");
 		break;
 	case TEXTURE::TRADE:
-		texture_load = App->tex->Load("textures/trade.png");
+		texture_load = App->tex->Load("textures/ui/trade.png");
 		break;
 	case TEXTURE::HARVESTER:
 		texture_load = App->tex->GetTexture("harvester-icon", 0, 0);
