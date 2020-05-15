@@ -41,7 +41,7 @@ void j1AnimationManager::Animate(string name, int coll, int row, const int width
 	Animation* anim = new Animation(name, speed, loop);
 	for (int i = 0; i < frames; i++)
 	{
-		anim->PushBack({ width * coll, height * row, width, width });
+		anim->PushBack({ width * coll, height * row, width, height });
 		coll++;
 		if (coll == collumns)
 		{
@@ -56,7 +56,7 @@ void j1AnimationManager::Animate(string name, int coll, int row, const int width
 Animation j1AnimationManager::GetAnimation(string name)
 {
 	for (vector<Animation*>::iterator animation = animations.begin(); animation != animations.end(); animation++)
-		if (name.compare((*animation)->name) == 0)
+		if (name == (*animation)->name)
 			return **animation;
 		
 	return Animation();

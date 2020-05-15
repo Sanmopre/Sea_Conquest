@@ -178,6 +178,9 @@
     <ClCompile Include="j1Fog.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Turret.cpp">
+      <Filter>Desenvolupament  ========\Entities\Structures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">

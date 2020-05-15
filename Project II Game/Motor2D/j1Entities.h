@@ -44,6 +44,7 @@ enum class EntityType
 	BOATHOUSE,
 	STORAGE,
 	TOWNHALL,
+	TURRET,
 	ALL_COTTON,
 	ALL_WOOD,
 	ALL_METAL,
@@ -72,6 +73,7 @@ struct TextureInfo
 
 struct EntityRequest
 {
+	EntityRequest() {}
 	EntityRequest(float x, float y, EntityType type, int level, int team)
 	{
 		this->x = x;
@@ -255,6 +257,7 @@ public:
 	void Primitive_Update(float dt);
 	float speed;
 	int range;
+	int damage;
 	Orientation orientation;
 	fPoint destination;
 	vector<fPoint> path;
@@ -272,6 +275,8 @@ public:
 
 protected:
 
+	bool player_command;
+
 	Animation north;
 	Animation north_east;
 	Animation east;
@@ -284,6 +289,7 @@ protected:
 	vector<Node*>* map = nullptr;
 
 	void GoTo(fPoint destination, NodeType terrain);
+	void Chase(int range, int enemy);
 	void Move(float dt);
 	void NextStep();
 	void SetPosition(fPoint position);
@@ -469,6 +475,24 @@ private:
 	Animation full;
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+class Turret : public j1Structure
+{
+public:
+	Turret(float x, float y, int team = 1);
+	~Turret();
+
+	void Update(float);
+	void CleanUp();
+
+	void Damage(int damage, j1Entity* target);
+
+	int range;
+	int damage;
+	timed_var firerate;
+
+	j1Entity* target;
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1TownHall : public j1Structure
 {
 public:

@@ -8,6 +8,8 @@
 #include "j1Window.h"
 #include "j1Player.h"
 #include "j1Map.h"
+#include "j1Minimap.h"
+#include "j1QuestManager.h"
 
 #include <vector>
 
@@ -48,6 +50,10 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	selectable_area = rect;
 
 	App->audio->PlaySpatialFx(App->audio->harvester_spawn, App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }), App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+
+	//CKECK QUEST
+	if (App->quest->current_quest == QUEST::CREATE_HARVESTER) 
+		App->quest->main_quest.current++;
 }
 
 j1Harvester::~j1Harvester()
@@ -203,10 +209,11 @@ void j1Harvester::Update(float dt)
 	}
 
 
-	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->godmode)
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->ignore_fog)
 	{
 		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+		App->minimap->Draw_entities(this);
 	}
 	
 	if (health == 0) {

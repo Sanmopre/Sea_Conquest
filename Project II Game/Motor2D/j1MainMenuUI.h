@@ -6,6 +6,8 @@
 #include <vector>
 
 struct Main_Menu {
+
+	j1Element* continue_button;
 	j1Element* start;
 	j1Element* quit;
 	j1Element* audio_button;

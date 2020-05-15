@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Pathfinding.h"
 #include "j1Map.h"
+#include "j1Fog.h"
 #include <algorithm>
 
 using namespace std;
@@ -57,36 +58,43 @@ bool j1EntityManager::Update(float dt)
 
 	while (counter != entities.size())
 	{
-		vector<j1Entity*>::iterator entity = entities.begin();
-		entity += counter;
-		for (; entity != entities.end(); entity++)
+		vector<j1Entity*>::iterator e = entities.begin();
+		e += counter;
+		for (; e != entities.end(); e++)
 		{
-			if ((*entity)->to_delete || (*entity)->to_remove)
+			j1Entity* entity = *e; 
+			if (entity->to_delete || entity->to_remove)
 			{
-				QuickDeleteEntity(entity);
+				QuickDeleteEntity(e);
 				break;
 			}
 			else
 			{
-				(*entity)->spot = entity;
-				(*entity)->Primitive_Update(dt);
-				(*entity)->Update(dt);
+				iPoint tile = App->map->WorldToMap(entity->position.x, entity->position.y);
+				FogState visibility = App->fog->GetVisibility(tile.x, tile.y);
+				
+				if (visibility != FogState::FOGGED || entity->team == 1)
+				{
+					entity->spot = e;
+					entity->Primitive_Update(dt);
+					entity->Update(dt);
 
-				if ((*entity)->team == 1)
-					ally_entities.push_back(*entity);
-				if ((*entity)->main_type == EntityType::UNIT && (*entity)->selected && (*entity)->team == 1)
-					selected_units.push_back(*entity);
-				if ((*entity)->main_type == EntityType::UNIT && (*entity)->terrain == NodeType::ALL && (*entity)->team == 1)
-					air_units.push_back(*entity);
+					if (entity->team == 1)
+						ally_entities.push_back(entity);
+					if (entity->main_type == EntityType::UNIT && entity->selected && entity->team == 1)
+						selected_units.push_back(entity);
+					if (entity->main_type == EntityType::UNIT && entity->terrain == NodeType::ALL && entity->team == 1)
+						air_units.push_back(entity);
+				}
 			}
 
 			
 			counter++;
-			if (App->godmode)
+			if (App->numerate_entities)
 			{
 				char text[10];
 				sprintf_s(text, 10, "%7d", counter);
-				App->fonts->BlitText((*entity)->position.x - 120 + App->render->camera.x, (*entity)->position.y + App->render->camera.y, 1, text);
+				App->fonts->BlitText(entity->position.x - 120 + App->render->camera.x, entity->position.y + App->render->camera.y, 1, text);
 			}
 		}
 	}
@@ -216,6 +224,9 @@ j1Entity* j1EntityManager::AddEntity(float x, float y, EntityType type, int leve
 		break;
 	case EntityType::TOWNHALL:
 		buffer.push_back(new j1TownHall(x, y, team));
+		break;
+	case EntityType::TURRET:
+		buffer.push_back(new Turret(x, y, team));
 		break;
 	case EntityType::ALL_COTTON:
 		buffer.push_back(new j1Resource(x, y, level, type));

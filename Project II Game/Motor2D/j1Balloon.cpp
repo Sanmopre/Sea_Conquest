@@ -6,6 +6,7 @@
 #include "j1ParticleManager.h"
 #include "j1Player.h"
 #include "j1Map.h"
+#include "j1Minimap.h"
 
 #include <vector>
 
@@ -21,7 +22,9 @@ j1Balloon::j1Balloon(float x, float y, int level, int team)
 	this->level = level;
 	trading_range = 10;
 	this->team = team;
-	speed = 80;
+	int extra = level * 1.5;
+	speed = 80 + 15 * extra;
+	damage = 50 + 10 * extra;
 	range = 10;
 	firerate = { 3 };
 	max_health = 50;
@@ -45,7 +48,15 @@ void j1Balloon::Update(float dt)
 {
 	if (dt != 0.0f)
 	{
-		target = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, 2);
+		int enemy = 0;
+		if (team == 1)
+			enemy = 2;
+		else if (team == 2)
+			enemy = 1;
+
+		target = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, enemy);
+
+		Chase(range + 200, enemy);
 
 		if (destination != position)
 			Move(dt);
@@ -58,17 +69,18 @@ void j1Balloon::Update(float dt)
 				firerate.counter += dt;
 				if (firerate.counter >= firerate.iterations)
 				{
-					Damage(50, target);
+					Damage(damage, target);
 					firerate.counter = 0;
 				}
 			}
 		}
 	}
 
-	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->godmode)
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->ignore_fog)
 	{
 		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY() + 50, rect, false, false, 0, 0, 0, 100);
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+		App->minimap->Draw_entities(this);
 	}
 
 	if (health <= 0)

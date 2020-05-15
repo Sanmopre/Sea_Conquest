@@ -58,9 +58,8 @@ public:
 	const char* GetOrganization() const;
 	float GetDT() const;
 
-	void LoadGame(const char* file);
+	void LoadGame();
 	void SaveGame(const char* file) const;
-	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
 private:
 
@@ -135,9 +134,13 @@ public:
 	void setFpsCap(uint32 fps);
 
 	bool				game_pause = false;
-	bool				godmode = true;
 	bool				clicking_ui = false;
 
+	bool godmode = false;
+	bool show_pathnodes = false;
+	bool ignore_fog = false;
+	bool numerate_entities = false;
+	bool show_chasing_range = false;
 };
 
 extern j1App* App;

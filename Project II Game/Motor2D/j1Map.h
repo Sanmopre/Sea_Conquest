@@ -181,23 +181,25 @@ public:
 	}
 	iPoint WorldToMap(float x, float y) const;
 
+	string GetTileProperty(int id, string name = "");
+	string GetLayerProperty(int id, string name = "");
+	Tile* GetTile(int id);
+
+	SDL_Rect MapCulling(iPoint size, int extra_x, int extra_y);
+
 	MapData* mapdata = nullptr;
 
 private:
-
-	string GetTileProperty(int id, string name = "");
-	string GetLayerProperty(int id, string name = "");
-
-	Tile* GetTile(int id);
 
 	void LoadTiles(pugi::xml_node& node, TileSet* tileset);
 	void LoadLayers(pugi::xml_node& node);
 	void LoadProperties(pugi::xml_node& node, vector<Property>& properties);
 	void LoadPathNodes();
-
-	SDL_Rect MapCulling(iPoint size);
+	void LoadEntities();
 
 	pugi::xml_document map_data;
+
+	SDL_Texture* dark_tiles;
 };
 
 #endif //_MAP_H_

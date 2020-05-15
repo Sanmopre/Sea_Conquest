@@ -10,6 +10,7 @@ j1Unit::j1Unit()
 { 
 	main_type = EntityType::UNIT;
 	orientation = Orientation::NORTH_WEST; 
+	player_command = false;
 }
 
 j1Unit::~j1Unit()
@@ -34,13 +35,12 @@ void j1Unit::Primitive_Update(float dt)
 		if (this == App->InGameUI->selected)
 		{
 			Trading();
-			App->render->AddBlitEvent(3, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 0, 255, 0, 200);
+			App->render->AddBlitEvent(0, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 0, 255, 0, 200);
 		}
 		
 		ShowHPbar(10, 5, -10);
 
-
-		App->render->AddBlitEvent(3, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, range, 0 }, false, false, 255, 0, 0);
+		App->render->AddBlitEvent(0, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, range, 0 }, false, false, 255, 0, 0);
 	}
 
 	selectable_area.x = GetRenderPositionX();
@@ -59,6 +59,9 @@ void j1Unit::GoTo(fPoint destination, NodeType terrain)
 
 	if(path.size() != 0)
 		this->destination = *path.begin();
+
+	if (team == 1)
+		player_command = true;
 }
 
 void  j1Unit::Move(float dt)
@@ -125,9 +128,10 @@ void  j1Unit::Move(float dt)
 
 void j1Unit::NextStep()
 {
-
 	if (path.size() != 0)
 	{
+		if (path.size() == 1)
+			player_command = false;
 		path.erase(path.begin());
 		destination = *path.begin();
 	}
@@ -211,6 +215,33 @@ SDL_Texture* j1Entity::LoadTexture(j1Entity* entity, std::vector<TextureInfo>& t
 		}
 	}
 	return ret;
+}
+
+void j1Unit::Chase(int range, int enemy)
+{
+	if (target == nullptr)
+	{
+		if (path.size() == 0)
+		{
+			j1Entity* chased = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, enemy);
+			if (chased != nullptr)
+			{
+				GoTo(chased->position, terrain);
+				player_command = false;
+			}
+		}
+	}
+	else
+	{
+		if (path.size() != 0 && !player_command)
+		{
+			destination = *path.begin();
+			path.erase(path.begin(), path.end());
+		}
+	}
+
+	if (selected && App->show_chasing_range)
+		App->render->AddBlitEvent(0, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, range, 0 }, false, false, 0, 0, 255);
 }
 
 void j1Unit::GetBasicAnimations()

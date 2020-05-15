@@ -7,6 +7,9 @@
 #include "j1Pathfinding.h"
 #include "j1Input.h"
 #include "j1Fog.h"
+#include "j1Minimap.h"
+#include "j1EntityManager.h"
+#include "j1Scene.h"
 
 TileSet::~TileSet()
 {
@@ -27,6 +30,8 @@ j1Map::~j1Map()
 void j1Map::LoadMap(const char* path)
 {
 	CleanUp();
+
+	dark_tiles = App->tex->GetTexture("dark-tiles", 0, 0);
 
 	pugi::xml_parse_result result = map_data.load_file(path);
 
@@ -73,6 +78,8 @@ void j1Map::LoadMap(const char* path)
 
 	if(App->input->GetKey(SDL_SCANCODE_F1) != KEY_REPEAT)
 		App->pathfinding->LoadIslands();
+
+	LoadEntities();
 }
 
 void j1Map::LoadTiles(pugi::xml_node& node, TileSet* tileset)
@@ -174,14 +181,74 @@ void j1Map::LoadPathNodes()
 						{
 							NodeType terrain = NodeType::WATER;
 							string prop = GetTileProperty(tile->id, "terrain");
-							if (prop.compare("WATER") == 0)
+							if (prop == "WATER")
 								terrain = NodeType::WATER;
-							else if (prop.compare("GROUND") == 0)
+							else if (prop == "GROUND")
 								terrain = NodeType::GROUND;
 
 							App->pathfinding->NodeMap.push_back(new Node(x, y, terrain));
 						}
 					}
+}
+
+void j1Map::LoadEntities()
+{
+	if (mapdata != nullptr)
+	{
+		App->scene->start = true;
+		for (vector<Layer*>::iterator layer = mapdata->layers.begin(); layer != mapdata->layers.end(); layer++)
+			if (GetLayerProperty((*layer)->id, "Entities").compare("true") == 0)
+				for (int y = 0; y < (*layer)->layer_height; y++)
+					for (int x = 0; x < (*layer)->layer_width; x++)
+					{
+						Tile* tile = GetTile((*layer)->layerdata[x][y]);
+						if (tile != nullptr)
+						{
+							EntityRequest entity;
+
+							fPoint pos = MapToWorld<fPoint>(x, y);
+							entity.x = pos.x;
+							entity.y = pos.y;
+
+							string type = GetTileProperty(tile->id, "type");
+							if (type == "townhall")
+								entity.type = EntityType::TOWNHALL;
+							else if (type == "boathouse")
+								entity.type = EntityType::BOATHOUSE;
+							else if (type == "storage")
+								entity.type = EntityType::STORAGE;
+							else if (type == "turret")
+								entity.type = EntityType::TURRET;
+							else if (type == "all cotton")
+								entity.type = EntityType::ALL_COTTON;
+							else if (type == "all wood")
+								entity.type = EntityType::ALL_WOOD;
+							else if (type == "all metal")
+								entity.type = EntityType::ALL_METAL;
+							else if (type == "boat")
+								entity.type = EntityType::BOAT;
+
+							string level = GetTileProperty(tile->id, "level");
+							if (level == "1")
+								entity.level = 1;
+							else if (level == "2")
+								entity.level = 2;
+							else if (level == "3")
+								entity.level = 3;
+
+							string team = GetTileProperty(tile->id, "team");
+							if (team == "0")
+								entity.team = 0;
+							else if (team == "1")
+								entity.team = 1;
+							else if (team == "2")
+								entity.team = 2;
+
+							App->entitymanager->AddEntity(entity.x, entity.y, entity.type, entity.level, entity.team);
+						}
+					}
+		App->scene->start = false;
+	}
 }
 
 string j1Map::GetTileProperty(int id, string name)
@@ -226,7 +293,7 @@ string j1Map::GetLayerProperty(int id, string name)
 	return ret;
 }
 
-SDL_Rect j1Map::MapCulling(iPoint size)
+SDL_Rect j1Map::MapCulling(iPoint size, int extra_x, int extra_y)
 {
 	SDL_Rect ret;
 	iPoint cam = { App->render->camera.x, App->render->camera.y };
@@ -234,16 +301,16 @@ SDL_Rect j1Map::MapCulling(iPoint size)
 	cam.x /= -App->win->GetScale();
 	cam.y /= -App->win->GetScale();
 	cam = WorldToMap(cam.x, cam.y);
-	cam.x -= 10 * App->win->GetScale();
-	cam.y -= 30 * App->win->GetScale();
+	cam.x -= extra_x * App->win->GetScale();
+	cam.y -= extra_y * App->win->GetScale();
 
 	end.x /= -App->win->GetScale();
 	end.y /= -App->win->GetScale();
 	end.x += App->render->camera.w;
 	end.y += App->render->camera.h;
 	end = WorldToMap(end.x, end.y);
-	end.x += 1 * App->win->GetScale();
-	end.y += 30 * App->win->GetScale();
+	end.x += extra_x * App->win->GetScale();
+	end.y += extra_y * App->win->GetScale();
 
 	if (cam.x < 0)
 		cam.x = 0;
@@ -275,25 +342,19 @@ void j1Map::Draw()
 		{	
 			if (GetLayerProperty((*layer)->id, "ToDraw").compare("true") == 0)
 			{
-				SDL_Rect cam = MapCulling({ (*layer)->layer_width, (*layer)->layer_height });
+				SDL_Rect cam = MapCulling({ (*layer)->layer_width, (*layer)->layer_height }, 10, 30);
 				for (int y = cam.y; y < cam.h; y++)
 					for (int x = cam.x; x < cam.w; x++)
 					{
 						bool visible = true;
 						FogState visibility = App->fog->GetVisibility(x, y);
-						if (App->godmode)
+						if (App->ignore_fog)
 							visibility = FogState::VISIBLE;
-						switch (visibility)
+
+						if (visibility == FogState::FOGGED)
 						{
-						case FogState::FOGGED:
 							App->fog->RenderFogTile(x, y, 255);
 							visible = false;
-							break;
-						case FogState::PARTIAL:
-							App->fog->RenderFogTile(x, y, 100);
-							break;
-						case FogState::VISIBLE:
-							break;
 						}
 						if (visible)
 						{
@@ -313,7 +374,10 @@ void j1Map::Draw()
 									rect.x = rect.w * n;
 									rect.y = rect.h * t;
 
-									App->render->AddBlitEvent(0, tile->tileset->texture, (int)position.x - 32, (int)position.y - 32, rect);
+									SDL_Texture* texture = tile->tileset->texture;
+									if (visibility == FogState::PARTIAL)
+										texture = dark_tiles;
+									App->render->AddBlitEvent(0, texture, (int)position.x - 32, (int)position.y - 32, rect);
 								}
 							}
 						}
@@ -365,6 +429,7 @@ bool j1Map::CleanUp()
 	}
 	App->pathfinding->CleanUp();
 	App->fog->CleanUp();
+	App->entitymanager->CleanUp();
 
 	return true;
 }

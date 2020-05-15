@@ -275,7 +275,7 @@ private:
 
 	j1Element* Trader_image;
 	j1Element* Trader_label;
-
+	j1Element* coin_image;
 	int selected_offset;
 	int offset_modifier;
 	int selected_total;

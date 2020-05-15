@@ -4,6 +4,7 @@
 #include "j1Map.h"
 #include "j1EntityManager.h"
 #include "j1Scene.h"
+#include "j1Minimap.h"
 
 j1TownHall::j1TownHall(float x, float y, int team)
 {
@@ -13,13 +14,11 @@ j1TownHall::j1TownHall(float x, float y, int team)
 	this->team = team;
 	fog_range = 5;
 
-	texture = App->tex->GetTexture("townhall", level, 0);
+	texture = App->tex->GetTexture("townhall", level, team);
 	tex_construction = App->tex->GetTexture("cons_medium", 0, 0);
 
-	if(team == 1)
-		basic = App->anim->GetAnimation("ally_townhall");
-	else if(team == 2)
-		basic = App->anim->GetAnimation("enemy_townhall");
+	basic = App->anim->GetAnimation("townhall");
+
 	under_construction = App->anim->GetAnimation("cons_medium");
 
 	
@@ -41,18 +40,17 @@ j1TownHall::~j1TownHall()
 
 void j1TownHall::Update(float)
 {
-	bool flip = false;
-	if (team == 2)
-		flip = true;
-
 	if (health == 0)
 		if (team == 1)
 			App->scene->state = LOSE;
 		else if (team == 2)
 			App->scene->state = WIN;
 
-	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->godmode)
-		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
+	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->ignore_fog)
+	{
+		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+		App->minimap->Draw_entities(this);
+	}
 }
 
 void j1TownHall::CleanUp()

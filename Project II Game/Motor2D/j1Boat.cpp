@@ -6,6 +6,8 @@
 #include "j1ParticleManager.h"
 #include "j1Player.h"
 #include "j1Map.h"
+#include "j1Minimap.h"
+#include "j1QuestManager.h"
 
 #include <vector>
 
@@ -21,7 +23,9 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	this->level = level;
 	trading_range = 50;
 	this->team = team;
-	speed = 50;
+	int extra = level * 1.5;
+	speed = 50 + 10 * extra;
+	damage = 10 + 5 * extra;
 	range = 100;
 	firerate = { 1 };
 	max_health = 100;
@@ -56,10 +60,15 @@ void j1Boat::Update(float dt)
 {
 	if (dt != 0.0f)
 	{	
-		if(team == 1)
-			target = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, 2);
-		else if(team == 2)
-			target = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, 1);
+		int enemy = 0;
+		if (team == 1)
+			enemy = 2;
+		else if (team == 2)
+			enemy = 1;
+
+		target = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, enemy);
+
+		Chase(range + 50, enemy);
 
 		if (destination != position)
 			Move(dt);
@@ -72,7 +81,7 @@ void j1Boat::Update(float dt)
 				firerate.counter += dt;
 				if (firerate.counter >= firerate.iterations)
 				{
-					Damage(10, target);
+					Damage(damage, target);
 					firerate.counter = 0;
 				}
 			}
@@ -108,10 +117,11 @@ void j1Boat::Update(float dt)
 		}	
 	}
 
-	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->godmode)
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->ignore_fog)
 	{
 		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+		App->minimap->Draw_entities(this);
 	}
 
 	if (health == 0)
@@ -130,6 +140,12 @@ void j1Boat::CleanUp()
 	if (FireSystem != nullptr)
 		FireSystem->toDelete = true;
 	to_delete = true;
+
+	//CHECK QUEST 
+	if (App->quest->current_quest == QUEST::KILL_15_BOATS) {
+		App->quest->main_quest.current++;
+	}
+
 }
 
 void j1Boat::Damage(int damage, j1Entity* target)

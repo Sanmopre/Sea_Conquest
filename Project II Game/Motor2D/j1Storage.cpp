@@ -6,6 +6,7 @@
 #include "j1InGameUI.h"
 #include "j1Input.h"
 #include "j1Scene.h"
+#include "j1Minimap.h"
 
 j1Storage::j1Storage(float x, float y, int team)
 {
@@ -17,7 +18,7 @@ j1Storage::j1Storage(float x, float y, int team)
 	this->team = team;
 	fog_range = 3;
 
-	texture = App->tex->GetTexture("storage", level, 0);
+	texture = App->tex->GetTexture("storage", level, team);
 	tex_construction = App->tex->GetTexture("cons_medium", 0, 0);
 
 	basic = App->anim->GetAnimation("ally_storage_empty");
@@ -35,6 +36,7 @@ j1Storage::j1Storage(float x, float y, int team)
 	{
 		health = max_health;
 		(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = true;
+		load.metal += 30;
 	}
 	type = EntityType::STORAGE;
 }
@@ -77,8 +79,11 @@ void j1Storage::Update(float dt)
 		current_animation = &full;
 	
 	App->render->AddBlitEvent(0, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 100, 100, 100, 150);
-	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->godmode)
+	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->ignore_fog)
+	{
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
+		App->minimap->Draw_entities(this);
+	}
 }
 
 void j1Storage::CleanUp()

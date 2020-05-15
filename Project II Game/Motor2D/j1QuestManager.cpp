@@ -46,7 +46,16 @@ bool j1QuestManager::Start()
 	quest_explanation_build_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 995, 70 }, { 0,0 }, true, true, { 0,0,40,40 }, "BUILD 10 BOATS", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	quest_explanation_kill_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 985, 70 }, { 0,0 }, true, true, { 0,0,40,40 }, "DESTROY 15 ENEMY BOATS", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	quest_explanation_destroy_structure = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 970, 70 }, { 0,0 }, true, true, { 0,0,40,40 }, "DESTROY ENEMY STRUCTURE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+
+	build_harvester = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 970, 70 }, { -10,0 }, true, false, { 0,0,40,40 }, "CREATE HARVESTER AT STORAGE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	gather_60_metal = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 970, 70 }, { -10,0 }, true, false, { 0,0,40,40 }, "GATHER 60 METAL", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	build_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 970, 70 }, { -10,0 }, true, false, { 0,0,40,40 }, "CREATE BOAT AT BOATHOUSE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+
 	gold_icon = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 1090,185 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::COIN);
+
+
+	current_quest = Set_Quest(QUEST::CREATE_HARVESTER);
+
 	return true;
 }
 
@@ -84,6 +93,9 @@ bool j1QuestManager::Update(float dt)
 		quest_explanation_build_boat->enabled = false;
 		quest_explanation_kill_boat->enabled = false;
 		quest_explanation_destroy_structure->enabled = false;
+
+		build_harvester->enabled = false;
+		gather_60_metal->enabled = false;
 	}
 
 	//MANAGES WHEN OPEN AND NO QUEST
@@ -96,6 +108,9 @@ bool j1QuestManager::Update(float dt)
 		quest_explanation_build_boat->enabled = false;
 		quest_explanation_kill_boat->enabled = false;
 		quest_explanation_destroy_structure->enabled = false;
+
+		build_harvester->enabled = false;
+		gather_60_metal->enabled = false;
 	}
 
 
@@ -110,12 +125,22 @@ bool j1QuestManager::Update(float dt)
 		quest_explanation_build_boat->enabled = false;
 		quest_explanation_kill_boat->enabled = false;
 		quest_explanation_destroy_structure->enabled = false;
+		build_harvester->enabled = false;
+
+		gather_60_metal->enabled = false;
 	}
 
 
-	if (Check_Quest_Stat(main_quest)) 
-	current_quest = Set_Quest(QUEST::NONE);
-	
+	if (Check_Quest_Stat(main_quest) && current_quest == QUEST::CREATE_HARVESTER)
+	{
+		current_quest = Set_Quest(QUEST::GATHER_60_METAL);
+	}
+	else if (Check_Quest_Stat(main_quest) && current_quest == QUEST::GATHER_60_METAL) {
+		current_quest = Set_Quest(QUEST::BUILD_BOAT);
+	}
+
+	if(Check_Quest_Stat(main_quest))
+		current_quest = Set_Quest(QUEST::NONE);
 
 	return true;
 }
@@ -160,6 +185,32 @@ QUEST j1QuestManager::Set_Quest(QUEST quest)
 		quest_activate = true;
 		return QUEST::DESTROY_ENEMY_STRUCTURE;
 		break;
+
+
+	//TUTORIAL
+	case QUEST::CREATE_HARVESTER:
+		main_quest.total = 1;
+		main_quest.reward = 5;
+		main_quest.current = 0;
+		quest_activate = true;
+		return QUEST::CREATE_HARVESTER;
+		break;
+
+	case QUEST::GATHER_60_METAL:
+		main_quest.total = 60;
+		main_quest.reward = 5;
+		main_quest.current = 0;
+		quest_activate = true;
+		return QUEST::GATHER_60_METAL;
+		break;
+
+	case QUEST::BUILD_BOAT:
+		main_quest.total = 1;
+		main_quest.reward = 5;
+		main_quest.current = 0;
+		quest_activate = true;
+		return QUEST::BUILD_BOAT;
+		break;
 	}
 
 }
@@ -200,6 +251,9 @@ void j1QuestManager::Quest_Line(QUEST quest)
 		quest_explanation_kill_boat->enabled = false;
 		quest_explanation_destroy_structure->enabled = false;
 		manager.no_quest->enabled = false;
+		build_harvester->enabled = false;
+		gather_60_metal->enabled = false;
+		build_boat->enabled = false;
 		break;
 
 	case QUEST::KILL_15_BOATS:
@@ -207,6 +261,9 @@ void j1QuestManager::Quest_Line(QUEST quest)
 		quest_explanation_kill_boat->enabled = true;
 		quest_explanation_destroy_structure->enabled = false;
 		manager.no_quest->enabled = false;
+		build_harvester->enabled = false;
+		gather_60_metal->enabled = false;
+		build_boat->enabled = false;
 		break;
 
 	case QUEST::DESTROY_ENEMY_STRUCTURE:
@@ -214,9 +271,48 @@ void j1QuestManager::Quest_Line(QUEST quest)
 		quest_explanation_build_boat->enabled = false;
 		quest_explanation_kill_boat->enabled = false;
 		manager.no_quest->enabled = false;
+		build_harvester->enabled = false;
+		gather_60_metal->enabled = false;
+		build_boat->enabled = false;
+		break;
+
+
+	//TUTORIAL
+
+	case QUEST::CREATE_HARVESTER:
+		build_harvester->enabled = true;
+		gather_60_metal->enabled = false;
+		build_boat->enabled = false;
+		quest_explanation_destroy_structure->enabled = false;
+		quest_explanation_build_boat->enabled = false;
+		quest_explanation_kill_boat->enabled = false;
+		manager.no_quest->enabled = false;
+		break;
+
+	case QUEST::BUILD_BOAT:
+		build_harvester->enabled = false;
+		gather_60_metal->enabled = false;
+		build_boat->enabled = true;
+		quest_explanation_destroy_structure->enabled = false;
+		quest_explanation_build_boat->enabled = false;
+		quest_explanation_kill_boat->enabled = false;
+		manager.no_quest->enabled = false;
+		break;
+
+	case QUEST::GATHER_60_METAL:
+		build_harvester->enabled = false;
+		gather_60_metal->enabled = true;
+		build_boat->enabled = false;
+		quest_explanation_destroy_structure->enabled = false;
+		quest_explanation_build_boat->enabled = false;
+		quest_explanation_kill_boat->enabled = false;
+		manager.no_quest->enabled = false;
 		break;
 
 	case QUEST::NONE:
+		build_harvester->enabled = false;
+		gather_60_metal->enabled = false;
+		build_boat->enabled = false;
 		quest_explanation_destroy_structure->enabled = false;
 		quest_explanation_build_boat->enabled = false;
 		quest_explanation_kill_boat->enabled = false;

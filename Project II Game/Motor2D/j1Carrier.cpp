@@ -3,6 +3,7 @@
 #include "j1EntityManager.h"
 #include "j1Input.h"
 #include "j1Map.h"
+#include "j1Minimap.h"
 
 j1Carrier::j1Carrier(float x, float y, int level, int team)
 {
@@ -58,10 +59,11 @@ void j1Carrier::Update(float dt)
 		}
 	}
 
-	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->godmode)
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->ignore_fog)
 	{
 		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+		App->minimap->Draw_entities(this);
 	}
 
 	if (health <= 0)

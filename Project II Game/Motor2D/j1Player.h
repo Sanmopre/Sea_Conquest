@@ -63,6 +63,9 @@ private:
 	int camera_speed;
 	int camera_offset;
 	SDL_Texture* UI_Image;
+
+	bool lock_M1;
+	bool lock_M2;
 };
 
 #endif // __j1PLAYER_H__

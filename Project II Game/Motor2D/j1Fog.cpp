@@ -7,7 +7,6 @@
 
 j1Fog::j1Fog()
 {
-
 }
 
 j1Fog::~j1Fog()
@@ -20,10 +19,19 @@ bool j1Fog::Update(float dt)
 	if (map != nullptr)
 	{
 		for (vector<FogTile*>::iterator itr = last_frame.begin(); itr != last_frame.end(); itr++)
+		{
 			(*itr)->state = FogState::PARTIAL;
+			if (!(*itr)->discovered)
+			{
+				(*itr)->discovered = true;
+				AddScore((*itr)->chunk);
+			}
+		}
+
 		vector<FogTile*> v;
 		last_frame.swap(v);
 		
+		if(App->entitymanager->entities.size() != 0)
 		for (vector<j1Entity*>::iterator e = App->entitymanager->ally_entities.begin(); e != App->entitymanager->ally_entities.end(); e++)
 		{
 			j1Entity* entity = *e;
@@ -39,9 +47,9 @@ bool j1Fog::Update(float dt)
 					else
 					{
 						FogTile* fog = &map[x][y];
-
+		
 						fog->state = FogState::VISIBLE;
-
+		
 						last_frame.push_back(fog);
 					}
 				}
@@ -56,9 +64,13 @@ bool j1Fog::CleanUp()
 	vector<FogTile*> v;
 	last_frame.swap(v);
 
-	for (int i = 0; i < width; ++i)
-		delete[] map[i];
-	delete[] map;
+	if (map != nullptr)
+	{
+		for (int i = 0; i < width; ++i)
+			delete[] map[i];
+		delete[] map;
+	}
+	map = nullptr;
 
 	return true;
 }
@@ -74,6 +86,12 @@ void j1Fog::LoadMap(int width, int height)
 	for (int i = 0; i < width; ++i)
 		map[i] = new FogTile[height];
 
+	chunk_map = new Chunk(0, 4, width / quality, nullptr);
+
+	for (int y = 0; y < height; y++)
+		for (int x = 0; x < width; x++)
+			map[x][y].chunk = GetChunk(x, y);
+	
 	this->width = width;
 }
 
@@ -94,4 +112,95 @@ FogState j1Fog::GetVisibility(fPoint pos)
 	iPoint tile = App->map->WorldToMap(pos.x, pos.y);
 
 	return map[tile.x][tile.y].state;
+}
+
+int j1Fog::GetSubChunkId(int x, int y, fPoint size)
+{
+	size.x *= quality;
+	size.y *= quality;
+
+	if (x >= size.x)
+		if (y >= size.y)
+			return 3;
+		else
+			return 1;
+	else
+		if (y >= size.y)
+			return 2;
+		else
+			return 0;
+}
+
+Chunk* j1Fog::GetChunk(int x, int y)
+{
+	Chunk* chunk = chunk_map;
+	fPoint size = { 0,0 };
+
+	while (chunk->sub_chunks.size() != 0)
+	{
+		size.x += chunk->size / 2;
+		size.y += chunk->size / 2;
+
+		int id = GetSubChunkId(x, y, size);
+
+		if (id == 0 || id == 2)
+			size.x -= chunk->size / 2;
+		if (id == 0 || id == 1)
+			size.y -= chunk->size / 2;
+
+		chunk = *(chunk->sub_chunks.begin() + id);
+	}
+
+	return chunk;
+}
+
+fPoint j1Fog::GetChunkRenderTile(Chunk* chunk)
+{
+	fPoint ret = { 0,0 };
+
+	while (chunk->parent != nullptr)
+	{
+		if (chunk->id == 0 || chunk->id == 1)
+			ret.x += chunk->size * chunk->id;
+		else
+		{
+			ret.x += chunk->size * (chunk->id - 2);
+			ret.y += chunk->size;
+		}
+
+		chunk = chunk->parent;
+	}
+
+	ret.x *= quality;
+	ret.y *= quality;
+
+	return ret;
+}
+
+void j1Fog::AddScore(Chunk* chunk)
+{
+	chunk->score++;
+	if(chunk->score == 625)
+		chunk->complete = true;
+	if (!chunk->discovered)
+	{
+		chunk->discovered = true;
+	
+		chunk->parent->score++;
+	}
+
+	while (chunk->parent->parent != nullptr)
+	{
+		chunk = chunk->parent;
+
+		if (!chunk->discovered)
+		{
+			chunk->discovered = true;
+
+			chunk->parent->score++;
+		}
+
+		if (!chunk->complete && chunk->IsComplete())
+			chunk->complete = true;
+	}
 }
