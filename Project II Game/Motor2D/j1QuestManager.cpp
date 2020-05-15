@@ -47,9 +47,9 @@ bool j1QuestManager::Start()
 	quest_explanation_kill_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 985, 70 }, { 0,0 }, true, true, { 0,0,40,40 }, "DESTROY 15 ENEMY BOATS", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	quest_explanation_destroy_structure = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 970, 70 }, { 0,0 }, true, true, { 0,0,40,40 }, "DESTROY ENEMY STRUCTURE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 
-	build_harvester = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 970, 70 }, { 0,0 }, true, false, { 0,0,40,40 }, "CREATE HARVESTER AT STORAGE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-	gather_60_metal = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 970, 70 }, { 0,0 }, true, false, { 0,0,40,40 }, "GATHER 60 METAL", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-	build_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 970, 70 }, { 0,0 }, true, false, { 0,0,40,40 }, "CREATE BOAT AT BOATHOUSE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	build_harvester = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 970, 70 }, { -10,0 }, true, false, { 0,0,40,40 }, "CREATE HARVESTER AT STORAGE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	gather_60_metal = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 970, 70 }, { -10,0 }, true, false, { 0,0,40,40 }, "GATHER 60 METAL", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	build_boat = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 970, 70 }, { -10,0 }, true, false, { 0,0,40,40 }, "CREATE BOAT AT BOATHOUSE", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 
 	gold_icon = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 1090,185 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::COIN);
 
