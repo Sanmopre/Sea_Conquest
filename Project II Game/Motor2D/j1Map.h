@@ -195,6 +195,7 @@ private:
 	void LoadLayers(pugi::xml_node& node);
 	void LoadProperties(pugi::xml_node& node, vector<Property>& properties);
 	void LoadPathNodes();
+	void LoadEntities();
 
 	pugi::xml_document map_data;
 

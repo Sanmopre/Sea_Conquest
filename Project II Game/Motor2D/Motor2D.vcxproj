@@ -140,6 +140,7 @@
     <ClCompile Include="Squares.cpp" />
     <ClCompile Include="j1Unit.cpp" />
     <ClCompile Include="j1Storage.cpp" />
+    <ClCompile Include="Turret.cpp" />
     <ClCompile Include="Wipe.cpp" />
   </ItemGroup>
   <ItemGroup>

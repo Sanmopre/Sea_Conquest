@@ -44,6 +44,7 @@ enum class EntityType
 	BOATHOUSE,
 	STORAGE,
 	TOWNHALL,
+	TURRET,
 	ALL_COTTON,
 	ALL_WOOD,
 	ALL_METAL,
@@ -72,6 +73,7 @@ struct TextureInfo
 
 struct EntityRequest
 {
+	EntityRequest() {}
 	EntityRequest(float x, float y, EntityType type, int level, int team)
 	{
 		this->x = x;
@@ -472,6 +474,24 @@ private:
 	Animation full;
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+class Turret : public j1Structure
+{
+public:
+	Turret(float x, float y, int team = 1);
+	~Turret();
+
+	void Update(float);
+	void CleanUp();
+
+	void Damage(int damage, j1Entity* target);
+
+	int range;
+	int damage;
+	timed_var firerate;
+
+	j1Entity* target;
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1TownHall : public j1Structure
 {
 public:

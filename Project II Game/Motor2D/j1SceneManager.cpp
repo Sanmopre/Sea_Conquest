@@ -140,7 +140,6 @@ int j1SceneManager::ChangeScene(int scene)
 	switch (scene)
 	{
 	case 1:
-		App->pathfinding->show = false;
 		App->scene->active = true;
 		App->scene->ChangeScene();
 		App->audio->StopFx(-1);
@@ -150,7 +149,6 @@ int j1SceneManager::ChangeScene(int scene)
 		return 1;
 		break;
 	case 2:		
-		App->pathfinding->show = false;
 		App->scene2->active = true;
 		App->scene2->ChangeScene();
 		App->audio->StopFx(-1);
