@@ -140,6 +140,7 @@ public:
 	bool show_pathnodes = false;
 	bool ignore_fog = false;
 	bool numerate_entities = false;
+	bool show_chasing_range = false;
 };
 
 extern j1App* App;

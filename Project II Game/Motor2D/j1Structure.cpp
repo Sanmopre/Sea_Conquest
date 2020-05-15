@@ -26,6 +26,9 @@ j1Structure::j1Structure()
 
 j1Structure::~j1Structure()
 {
+	current_animation = nullptr;
+	texture = nullptr;
+	tex_construction = nullptr;
 	if(App->pathfinding->NodeMap.size() != 0)
 		(*App->pathfinding->WorldToNode(tile.x, tile.y))->built = false;
 	unitqueue.erase(unitqueue.begin(), unitqueue.end());
@@ -55,7 +58,7 @@ void j1Structure::Primitive_Update(float dt)
 			if (this == App->InGameUI->selected)
 			{
 				Trading();
-				App->render->AddBlitEvent(3, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 0, 255, 0, 200);
+				App->render->AddBlitEvent(0, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 0, 255, 0, 200);
 			}
 
 			if (App->godmode)

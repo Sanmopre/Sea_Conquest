@@ -57,10 +57,15 @@ void j1Boat::Update(float dt)
 {
 	if (dt != 0.0f)
 	{	
-		if(team == 1)
-			target = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, 2);
-		else if(team == 2)
-			target = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, 1);
+		int enemy = 0;
+		if (team == 1)
+			enemy = 2;
+		else if (team == 2)
+			enemy = 1;
+
+		target = FindTarget(position.x, position.y, range, EntityType::NONE, EntityType::NONE, enemy);
+
+		Chase(range + 50, enemy);
 
 		if (destination != position)
 			Move(dt);

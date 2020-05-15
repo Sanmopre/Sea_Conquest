@@ -309,6 +309,8 @@ void j1App::FinishUpdate()
 			ignore_fog = !ignore_fog;
 		if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
 			numerate_entities = !numerate_entities;
+		if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+			show_chasing_range = !show_chasing_range;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
