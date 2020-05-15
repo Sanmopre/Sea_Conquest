@@ -131,9 +131,16 @@ bool j1QuestManager::Update(float dt)
 	}
 
 
-	if (Check_Quest_Stat(main_quest)) 
-	current_quest = Set_Quest(QUEST::NONE);
-	
+	if (Check_Quest_Stat(main_quest) && current_quest == QUEST::CREATE_HARVESTER)
+	{
+		current_quest = Set_Quest(QUEST::GATHER_60_METAL);
+	}
+	else if (Check_Quest_Stat(main_quest) && current_quest == QUEST::GATHER_60_METAL) {
+		current_quest = Set_Quest(QUEST::BUILD_BOAT);
+	}
+
+	if(Check_Quest_Stat(main_quest))
+		current_quest = Set_Quest(QUEST::NONE);
 
 	return true;
 }

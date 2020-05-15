@@ -197,7 +197,11 @@ bool j1InGameUI::Update(float dt)
 		}
 
 		if (in_townhall == true) {
+			coin_image->enabled = true;
 			App->fonts->BlitText(105, 660, 1, coins_t);
+		}
+		else {
+			coin_image->enabled = false;
 		}
 	}
 
@@ -268,6 +272,8 @@ bool j1InGameUI::Update(float dt)
 		Trader_image->enabled = false;
 		Trader_label->enabled = false;
 	}
+
+	in_townhall = false;
 
 	return true;
 }
@@ -376,6 +382,8 @@ void j1InGameUI::Add_UI()
 	//COINCOST
 	coincost.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 95,475 }, { 0,0 }, true, true, { 0, 0,100,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::COIN_COST);
 
+	//COIN IIMAGE
+	coin_image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 130,655 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::COIN);
 }
 
 void j1InGameUI::Activate_Menu()
@@ -1129,6 +1137,10 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 			entity_ui.button_3->enabled = false;
 			entity_ui.button_4->enabled = false;
 			entity_ui.button_5->enabled = false;
+			
+			//MANAGE COIN UI
+			in_townhall = true;
+
 			if (in_trading == true) {
 				Deactivate_Entity_Buttons();
 			}
@@ -1278,6 +1290,8 @@ void j1InGameUI::Deactivate_All_UI()
 	menu.Load->enabled = false;
 	menu.Save->enabled = false;
 	menu.Image->enabled = false;
+
+	in_townhall = false;
 
 	basics.Image->enabled = false;
 	menu.Menu_button->enabled = false;
