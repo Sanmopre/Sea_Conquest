@@ -39,9 +39,9 @@ bool j1SceneManager::Awake()
 // Called before the first frame
 bool j1SceneManager::Start()
 {
-	App->scene2->main_texture = App->tex->Load("textures/Main_Screen.png");
-	App->scene3->logo_texture = App->tex->Load("textures/logo.png");
-	logo.iterations = 3.5f;
+	App->scene2->main_texture = App->tex->Load("textures/scenes/main-screen.png");
+	App->scene3->logo_texture = App->tex->Load("textures/scenes/logo.png");
+	logo.iterations = 4.0f;
 	return true;
 }
 

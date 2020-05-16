@@ -41,8 +41,6 @@ bool j1InGameUI::Start()
 	type_1 = 0;
 	type_2 = 0;
 
-	font_name = App->fonts->Load("textures/NameTile.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
-
 	MiddleScreenW = App->win->width/2 - 100;
 	MiddleScreenH = App->win->height/ 2 - 100;
 
