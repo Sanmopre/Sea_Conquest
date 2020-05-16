@@ -6,7 +6,7 @@
 #include "j1Render.h"
 #include "p2Log.h"
 
-#define CANNON_BALLS_SPEED 50
+#define CANNON_BALLS_SPEED 30
  
 ParticleSystem::ParticleSystem(PARTICLE_TYPES _type, p2Point<float> location, int index, float _timer)
 {

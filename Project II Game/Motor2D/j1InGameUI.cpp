@@ -1108,7 +1108,10 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 			entity_ui.button_2->texture = App->gui->Load_Texture(TEXTURE::STORAGE);
 			entity_ui.button_2->enabled = true;
 
-			entity_ui.button_3->enabled = false;
+			entity_ui.button_3->texture = App->gui->Load_Texture(TEXTURE::TURRET_ICON);
+			entity_ui.button_3->enabled = true;
+
+
 			entity_ui.button_4->enabled = false;
 
 			entity_ui.button_5->texture = App->gui->Load_Texture(TEXTURE::AUTOMATIC);
