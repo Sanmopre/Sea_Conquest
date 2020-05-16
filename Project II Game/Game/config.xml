@@ -69,6 +69,7 @@
     <texture name ="townhall-icon"   level ="0" team ="0" source ="textures/townhall.png"/>
     <texture name ="storage-icon"    level ="0" team ="0" source ="textures/storage.png"/>
     <texture name ="boathouse-icon"  level ="0" team ="0" source ="textures/building_image.png"/>
+    <texture name ="turret-icon"  level ="0" team ="0" source ="textures/ui/turret-icon.png"/>
     <!-- UI Icons -->
     <texture name ="automatic-icon"  level ="0" team ="0" source ="textures/automatic.png"/>
     <texture name ="quest-icon"      level ="0" team ="0" source ="textures/quest.png"/>

@@ -16,6 +16,7 @@ enum  names {
 	BOATHOUSE,
 	TOWNHALL,
 	STORAGE,
+	TURRET,
 
 	//UNITS
 	BOAT,
@@ -70,6 +71,7 @@ private:
 	SDL_Texture* townhall;
 	SDL_Texture* boathouse;
 	SDL_Texture* storage;
+	SDL_Texture* turret;
 
 
 	//units

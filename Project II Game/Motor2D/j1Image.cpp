@@ -83,6 +83,9 @@ bool j1Image::Start()
 	if (textureType == TEXTURE::SHIP)
 		texture = App->gui->Load_Texture(TEXTURE::SHIP);
 
+	if (textureType == TEXTURE::TURRET_ICON)
+		texture = App->gui->Load_Texture(TEXTURE::TURRET_ICON);
+
 	if (textureType == TEXTURE::INFORMATION_IMAGE)
 		texture = App->gui->Load_Texture(TEXTURE::INFORMATION_IMAGE);
 

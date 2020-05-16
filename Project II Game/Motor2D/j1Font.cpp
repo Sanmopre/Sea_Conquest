@@ -44,7 +44,7 @@ bool j1Font::Start()
 	townhall = Print("TOWNHALL");
 	boathouse = Print("BOATHOUSE");
 	storage = Print("STORAGE");
-
+	turret = Print("TURRET");
 
 	boat = Print("BOAT");
 	harvester = Print("HARVESTER");
@@ -133,6 +133,9 @@ SDL_Texture* j1Font::Change_Name(names name)
 		break;
 	case names::BOATHOUSE:
 		texture = boathouse;
+		break;
+	case names::TURRET:
+		texture = turret;
 		break;
 	case names::BOAT:
 		texture = boat;

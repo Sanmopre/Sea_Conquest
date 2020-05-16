@@ -892,6 +892,10 @@ void j1InGameUI::Change_Image_Label(j1Entity* entity)
 		entity_ui.name->ChangeLabel(names::BOATHOUSE);
 		entity_ui.image->texture = App->gui->Load_Texture(TEXTURE::BUILDING_IMAGE);
 		break;
+	case EntityType::TURRET:
+		entity_ui.name->ChangeLabel(names::TURRET);
+		entity_ui.image->texture = App->gui->Load_Texture(TEXTURE::TURRET_ICON);
+		break;
 	case EntityType::HARVESTER:
 		entity_ui.name->ChangeLabel(names::HARVESTER);
 		entity_ui.image->texture = App->gui->Load_Texture(TEXTURE::HARVESTER);
@@ -932,6 +936,10 @@ void j1InGameUI::Change_Image_Label_Trader(j1Entity* entity)
 		case EntityType::BOATHOUSE:
 			Trader_label->ChangeLabel(names::BOATHOUSE);
 			Trader_image->texture = App->gui->Load_Texture(TEXTURE::BUILDING_IMAGE);
+			break;
+		case EntityType::TURRET:
+			Trader_label->ChangeLabel(names::TURRET);
+			Trader_image->texture = App->gui->Load_Texture(TEXTURE::TURRET_ICON);
 			break;
 		case EntityType::HARVESTER:
 			Trader_label->ChangeLabel(names::HARVESTER);
@@ -1157,6 +1165,18 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 			Deactivate_Entity_Buttons();
 		}
 		break;
+
+		case EntityType::TURRET:
+			Change_Image_Label(entity);
+			entity_ui.button_1->enabled = false;
+			entity_ui.button_2->enabled = false;
+			entity_ui.button_3->enabled = false;
+			entity_ui.button_4->enabled = false;
+			entity_ui.button_5->enabled = false;
+			if (in_trading == true) {
+				Deactivate_Entity_Buttons();
+			}
+			break;
 
 		case EntityType::CARRIER:
 			Change_Image_Label(entity);
