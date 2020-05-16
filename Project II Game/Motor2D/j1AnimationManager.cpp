@@ -46,6 +46,8 @@ bool j1AnimationManager::CleanUp()
 
 	vector<Animation*> a;
 	animations.swap(a);
+
+	return true;
 }
 
 void j1AnimationManager::Animate(string name, int coll, int row, const int width, const int height, const int collumns, const int frames, float speed, bool loop)
