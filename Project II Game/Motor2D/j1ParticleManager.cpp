@@ -35,12 +35,12 @@ j1ParticleManager::~j1ParticleManager()
 
 bool j1ParticleManager::Start()
 {
-	smokeTexture = App->tex->Load("textures/Smoke_Texture_7x7px.png");
-	cloudTexture = App->tex->Load("textures/Cloud_Texture_2_270x270px.png");
-	fireTexture = App->tex->Load("textures/Fire_Texture_7x7px.png");
-	explosionTexture = App->tex->Load("textures/Explosion_Texture_2_7x7px.png");
-	dustTexture = App->tex->Load("textures/Dust_Texture_25x20px.png");
-	projectileTexture = App->tex->Load("textures/CannonBall_Texture_7x7px.png");
+	projectileTexture = App->tex->Load("textures/particles/cannonball-texture.png");
+	cloudTexture = App->tex->Load("textures/particles/cloud-texture.png");
+	dustTexture = App->tex->Load("textures/particles/dust-texture.png");
+	explosionTexture = App->tex->Load("textures/particles/explosion-texture.png");
+	fireTexture = App->tex->Load("textures/particles/fire-texture.png");
+	smokeTexture = App->tex->Load("textures/particles/smoke-texture.png");
 
 	return true;
 }
@@ -108,7 +108,7 @@ bool j1ParticleManager::Update(float dt)
 		test.x -= App->render->camera.x / App->win->GetScale();
 		test.y -= App->render->camera.y / App->win->GetScale();
 
-		TheCannonSystem->shootCannonBall({ (float)test.x, (float)test.y }, { 0,0 });
+		App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, { (float)test.x, (float)test.y }, 0);
 		LOG("BALL CREATED AT  X:%.2f Y:%.2f", (float)test.x, (float)test.y);
 	}
 

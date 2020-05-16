@@ -6,6 +6,8 @@
 #include "j1Render.h"
 #include "p2Log.h"
 
+#define CANNON_BALLS_SPEED 50
+ 
 ParticleSystem::ParticleSystem(PARTICLE_TYPES _type, p2Point<float> location, int index, float _timer)
 {
 	systemProps.Location = location;
@@ -261,7 +263,7 @@ void ParticleSystem::shootCannonBall(fPoint pos1, fPoint pos2)
 			{
 				particle->pLocation = pos1;
 				particle->pDestination = pos2;
-				particle->pVelocity = { (float)((pos2.x - pos1.x) / 90), (float)((pos2.y - pos1.y) / 90) };
+				particle->pVelocity = { (float)((pos2.x - pos1.x) / CANNON_BALLS_SPEED), (float)((pos2.y - pos1.y) / CANNON_BALLS_SPEED) };
 				particle->awake = true;
 				LOG("cannon ball number:%d shoot", i);
 				break;
