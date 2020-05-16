@@ -234,7 +234,7 @@ bool j1ParticleManager::updateIndex()
 
 		if (counter == 1500)
 		{
-			LOG("The unexpected happened. We ran out of particles");
+			//LOG("The unexpected happened. We ran out of particles");
 			ret = false;
 			break;
 		}
