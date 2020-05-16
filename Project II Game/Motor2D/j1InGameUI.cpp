@@ -49,6 +49,8 @@ bool j1InGameUI::Start()
 	selected_offset = 0;
 	selected_total = 0;
 
+	font_name = App->fonts->Load("textures/ui/font.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
+
 	//CREATES UI
 	Add_UI();
 
@@ -100,11 +102,12 @@ bool j1InGameUI::Update(float dt)
 
 	//UPDATE INFORMATION
 	if (selected != nullptr) {
-		sprintf_s(information.attack_text, 10, "%7d", 50);
-		information.health = selected->max_health;
-		sprintf_s(information.health_text, 10, "%7d", information.health);
-		sprintf_s(information.max_resource_text, 10, "%7d", selected->load.maxweight);
-		sprintf_s(information.speed_text, 10, "%7d", 100);
+
+		selected->GetStats(information.attack, information.health, information.max_health, information.speed,information.max_resource);
+		sprintf_s(information.attack_text, 10, "%7d", information.attack);
+		sprintf_s(information.health_text, 10, "%7d", information.max_health);
+		sprintf_s(information.max_resource_text, 10, "%7d", information.max_resource);
+		sprintf_s(information.speed_text, 10, "%7d", information.speed);
 	}
 
 	//UPDATE RESOURCES
