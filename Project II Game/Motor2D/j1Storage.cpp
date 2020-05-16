@@ -27,7 +27,8 @@ j1Storage::j1Storage(float x, float y, int team)
 	full = App->anim->GetAnimation("ally_storage_full");
 	under_construction = App->anim->GetAnimation("cons_small");
 
-	
+	current_animation = &basic;
+
 	load = { 0,0,0,2000 };
 	int range = 100;
 	trading_range = 200;
