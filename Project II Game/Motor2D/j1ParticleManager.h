@@ -9,13 +9,13 @@
 class SDL_Texture;
 enum class PARTICLE_TYPES;
 
-class j1ParticleManager : public j1Module 
+class j1ParticleManager : public j1Module
 {
 public:
 
 	j1ParticleManager();
 	~j1ParticleManager();
-	
+
 	bool		Start();
 	bool		Update(float dt);
 	bool		CleanUp();
@@ -39,6 +39,9 @@ public:
 	SDL_Texture* fireTexture;
 	SDL_Texture* explosionTexture;
 	SDL_Texture* dustTexture;
+	SDL_Texture* projectileTexture;
+
+	ParticleSystem* TheCannonSystem;
 
 private:
 
@@ -47,7 +50,7 @@ private:
 	float CloudTimer;
 	int cloudVariableY;
 	int cloudVariableX;
-	
+	bool FirstClouds;
 };
 
 #endif // __PARTICLESYSTEM_H__

@@ -11,9 +11,9 @@ public:
 	void loadSystem(); //maybe we should load each effect properties from an xml
 	bool activateSystem(int index);
 	void Update(float dt);
-	void deactivateParticle(Particle* particle);
 	void deactivateAllParticles();
 	void changePosition(fPoint location);
+	void shootCannonBall(fPoint pos1, fPoint pos2);
 
 	float timer;
 	float countDown;
@@ -29,7 +29,7 @@ public:
 private:
 
 	PARTICLE_TYPES systemType;
-	Particle* referencesArray[20];
+	Particle* referencesArray[50];
 	int numberOfParticles;
 
 };
