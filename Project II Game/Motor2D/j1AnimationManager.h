@@ -71,6 +71,7 @@ public:
 	virtual ~j1AnimationManager();
 
 	bool Start();
+	bool CleanUp();
 
 	Animation GetAnimation(string name);
 

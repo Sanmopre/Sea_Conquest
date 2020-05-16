@@ -31,6 +31,7 @@ j1Structure::~j1Structure()
 		App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 
 	current_animation = nullptr;
+	current_tex = nullptr;
 	texture = nullptr;
 	tex_construction = nullptr;
 	if(App->pathfinding->NodeMap.size() != 0)
@@ -77,7 +78,12 @@ void j1Structure::Primitive_Update(float dt)
 	}
 
 	if (built_state == BUILDING || built_state == ON_HOLD)
+	{
 		current_animation = &under_construction;
+		current_tex = tex_construction;
+	}
+	else
+		current_tex = texture;
 
 	if(current_animation != nullptr)
 		rect = current_animation->GetCurrentFrame();

@@ -7,6 +7,7 @@
 	<:anonymous />
 	<fonts />
 	<player />
+	<:anonymous />
 	<minimap />
 	<:anonymous />
 	<:anonymous />
@@ -23,11 +24,10 @@
 	<:anonymous />
 	<:anonymous />
 	<:anonymous />
-	<:anonymous />
 	<scenemanager>
-		<cameraPos x="4696" y="-2853" />
+		<cameraPos x="5364" y="-2870" />
 	</scenemanager>
 	<renderer>
-		<camera x="4696" y="-2853" />
+		<camera x="5364" y="-2870" />
 	</renderer>
 </game_state>

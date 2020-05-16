@@ -66,6 +66,7 @@ bool j1Textures::CleanUp()
 
 	for(vector<Texture*>::iterator tex = textures.begin(); tex != textures.end(); tex++)
 	{
+		UnLoad((*tex)->texture);
 		delete* tex;
 	}
 

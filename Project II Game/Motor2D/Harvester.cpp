@@ -51,7 +51,7 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 
 	App->audio->PlaySpatialFx(App->audio->harvester_spawn, App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }), App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 
-	//CKECK QUEST
+	//CHECK QUEST
 	if (App->quest->current_quest == QUEST::CREATE_HARVESTER) 
 		App->quest->main_quest.current++;
 }
@@ -270,6 +270,9 @@ void j1Harvester::BuildStructure(EntityType type)
 			break;
 		case EntityType::STORAGE:
 			App->player->building = new j1Storage(0, 0, team);
+			break;
+		case EntityType::TURRET:
+			App->player->building = new Turret(0, 0, team);
 			break;
 		}
 

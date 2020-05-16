@@ -19,13 +19,13 @@ j1Storage::j1Storage(float x, float y, int team)
 	fog_range = 3;
 
 	texture = App->tex->GetTexture("storage", level, team);
-	tex_construction = App->tex->GetTexture("cons_medium", 0, 0);
+	tex_construction = App->tex->GetTexture("cons_small", 0, 0);
 
 	basic = App->anim->GetAnimation("ally_storage_empty");
 	low = App->anim->GetAnimation("ally_storage_low");
 	half = App->anim->GetAnimation("ally_storage_half");
 	full = App->anim->GetAnimation("ally_storage_full");
-	under_construction = App->anim->GetAnimation("cons_medium");
+	under_construction = App->anim->GetAnimation("cons_small");
 
 	
 	load = { 0,0,0,2000 };
@@ -79,9 +79,11 @@ void j1Storage::Update(float dt)
 		current_animation = &full;
 	
 	App->render->AddBlitEvent(0, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 100, 100, 100, 150);
-	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->ignore_fog)
+	iPoint p = App->map->WorldToMap(position.x, position.y);
+	FogState s = App->fog->GetVisibility(p.x, p.y);
+	if (s == FogState::VISIBLE || App->ignore_fog)
 	{
-		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
+		App->render->AddBlitEvent(1, current_tex, GetRenderPositionX(), GetRenderPositionY(), rect, flip);
 		App->minimap->Draw_entities(this);
 	}
 }

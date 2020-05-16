@@ -33,10 +33,10 @@ Turret::Turret(float x, float y, int team)
 	target = nullptr;
 
 	texture = App->tex->GetTexture("boat", level, team);
-	tex_construction = App->tex->GetTexture("cons_medium", 0, 0);
+	tex_construction = App->tex->GetTexture("cons_small", 0, 0);
 
 	basic = App->anim->GetAnimation("boathouse");
-	under_construction = App->anim->GetAnimation("cons_medium");
+	under_construction = App->anim->GetAnimation("cons_small");
 
 	selectable_area = rect;
 
@@ -78,7 +78,7 @@ void Turret::Update(float dt)
 
 	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->ignore_fog)
 	{
-		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+		App->render->AddBlitEvent(1, current_tex, GetRenderPositionX(), GetRenderPositionY(), rect);
 		App->minimap->Draw_entities(this);
 	}
 }

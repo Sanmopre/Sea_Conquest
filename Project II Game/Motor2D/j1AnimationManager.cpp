@@ -36,6 +36,18 @@ bool j1AnimationManager::Start()
 	return true;
 }
 
+bool j1AnimationManager::CleanUp()
+{
+	while (animations.size() != 0)
+	{
+		delete* animations.begin();
+		animations.erase(animations.begin(), animations.end());
+	}
+
+	vector<Animation*> a;
+	animations.swap(a);
+}
+
 void j1AnimationManager::Animate(string name, int coll, int row, const int width, const int height, const int collumns, const int frames, float speed, bool loop)
 {
 	Animation* anim = new Animation(name, speed, loop);

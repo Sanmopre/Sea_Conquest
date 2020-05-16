@@ -325,6 +325,7 @@ public:
 	BuildState GetBuiltState() { return built_state; }
 
 	Animation* current_animation;
+	SDL_Texture* current_tex;
 
 	virtual void GetStats(int& attack, int& health, int& maxhealth, int& speed, int& maxresources);
 

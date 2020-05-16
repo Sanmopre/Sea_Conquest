@@ -15,11 +15,11 @@ j1TownHall::j1TownHall(float x, float y, int team)
 	fog_range = 5;
 
 	texture = App->tex->GetTexture("townhall", level, team);
-	tex_construction = App->tex->GetTexture("cons_medium", 0, 0);
+	tex_construction = App->tex->GetTexture("cons_small", 0, 0);
 
 	basic = App->anim->GetAnimation("townhall");
 
-	under_construction = App->anim->GetAnimation("cons_medium");
+	under_construction = App->anim->GetAnimation("cons_small");
 
 	
 	load = { 0,0,0, 0 };
@@ -42,7 +42,7 @@ void j1TownHall::Update(float)
 {
 	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->ignore_fog)
 	{
-		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+		App->render->AddBlitEvent(1, current_tex, GetRenderPositionX(), GetRenderPositionY(), rect);
 		App->minimap->Draw_entities(this);
 	}
 }

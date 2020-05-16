@@ -19,11 +19,11 @@ j1BoatHouse::j1BoatHouse(float x, float y, int team)
 	fog_range = 4;
 
 	texture = App->tex->GetTexture("boathouse", level, team);
-	tex_construction = App->tex->GetTexture("cons_small", 0, 0);
+	tex_construction = App->tex->GetTexture("cons_medium", 0, 0);
 
 	basic = App->anim->GetAnimation("boathouse");
 
-	under_construction = App->anim->GetAnimation("cons_small");
+	under_construction = App->anim->GetAnimation("cons_medium");
 
 	tile = App->map->WorldToMap(x, y);
 	position = App->map->MapToWorld<fPoint>(tile.x, tile.y);
@@ -72,7 +72,7 @@ void j1BoatHouse::Update(float dt)
 
 	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->ignore_fog)
 	{
-		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+		App->render->AddBlitEvent(1, current_tex, GetRenderPositionX(), GetRenderPositionY(), rect);
 		App->minimap->Draw_entities(this);
 	}
 }
