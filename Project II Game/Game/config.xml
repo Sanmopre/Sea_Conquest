@@ -62,18 +62,18 @@
     <texture name ="balloon-shadow"   level ="2" team ="0" source ="textures/units/shadow/airship-shadow.png"/>
     <texture name ="carrier-shadow"   level ="0" team ="0" source ="textures/units/shadow/van-shadow.png"/>
     <!-- UI Icons Entities -->
-    <texture name ="boat-icon"       level ="0" team ="0" source ="textures/boat_image.png"/>
-    <texture name ="harvester-icon"  level ="0" team ="0" source ="textures/harvester.png"/>
-    <texture name ="balloon-icon"    level ="0" team ="0" source ="textures/balloon.png"/>
-    <texture name ="carrier-icon"    level ="0" team ="0" source ="textures/carrier.png"/>
-    <texture name ="townhall-icon"   level ="0" team ="0" source ="textures/townhall.png"/>
-    <texture name ="storage-icon"    level ="0" team ="0" source ="textures/storage.png"/>
-    <texture name ="boathouse-icon"  level ="0" team ="0" source ="textures/building_image.png"/>
+    <texture name ="boat-icon"       level ="0" team ="0" source ="textures/ui/boat-image.png"/>
+    <texture name ="harvester-icon"  level ="0" team ="0" source ="textures/ui/harvester.png"/>
+    <texture name ="balloon-icon"    level ="0" team ="0" source ="textures/ui/balloon.png"/>
+    <texture name ="carrier-icon"    level ="0" team ="0" source ="textures/ui/carrier.png"/>
+    <texture name ="townhall-icon"   level ="0" team ="0" source ="textures/ui/townhall.png"/>
+    <texture name ="storage-icon"    level ="0" team ="0" source ="textures/ui/storage.png"/>
+    <texture name ="boathouse-icon"  level ="0" team ="0" source ="textures/ui/building-image.png"/>
     <texture name ="turret-icon"  level ="0" team ="0" source ="textures/ui/turret-icon.png"/>
     <!-- UI Icons -->
-    <texture name ="automatic-icon"  level ="0" team ="0" source ="textures/automatic.png"/>
-    <texture name ="quest-icon"      level ="0" team ="0" source ="textures/quest.png"/>
-    <texture name ="lvlup-icon"      level ="0" team ="0" source ="textures/lvlup.png"/>
+    <texture name ="automatic-icon"  level ="0" team ="0" source ="textures/ui/automatic.png"/>
+    <texture name ="quest-icon"      level ="0" team ="0" source ="textures/ui/quest.png"/>
+    <texture name ="lvlup-icon"      level ="0" team ="0" source ="textures/ui/lvlup.png"/>
     <!-- Minimap -->
     <texture name ="minimap"           level ="0" team ="0" source ="textures/minimap/minimap-2.png"/>
     <texture name ="minimap-noise"     level ="0" team ="0" source ="textures/minimap/minimap-noise.png"/>

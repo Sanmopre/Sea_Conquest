@@ -54,12 +54,6 @@ bool j1Minimap::Start()
 	map_rect = map_anim.GetCurrentFrame();
 	tile_rect = fog_tile_anim.GetCurrentFrame();
 
-	enemy = App->tex->Load("textures/enemy_unit.png");
-	ally = App->tex->Load("textures/friend_unit.png");
-
-	cotton = App->tex->Load("textures/cotton_mini.png");
-	metal = App->tex->Load("textures/metal_mini.png");
-	wood = App->tex->Load("textures/wood_mini.png");
 	return true;
 }
 
