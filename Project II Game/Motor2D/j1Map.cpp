@@ -76,8 +76,7 @@ void j1Map::LoadMap(const char* path)
 
 	LoadPathNodes();
 
-	if(App->input->GetKey(SDL_SCANCODE_F1) != KEY_REPEAT)
-		App->pathfinding->LoadIslands();
+	App->pathfinding->LoadIslands();
 
 	LoadEntities();
 }

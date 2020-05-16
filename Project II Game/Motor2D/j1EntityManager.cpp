@@ -186,7 +186,21 @@ bool j1EntityManager::Update(float dt)
 		{
 			AddEntity(test.x, test.y, EntityType::BALLOON, 2, 1);
 		}
+		if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
+		{
+			for (vector<j1Entity*>::iterator entity = entities.begin(); entity != entities.end(); entity++)
+				if ((*entity)->selected)
+				{
+					int d;
+					int h;
+					int m;
+					int s;
+					int r;
 
+					(*entity)->GetStats(d, h, m, s, r);
+					LOG("Damage: %d, Health: %d, MaxHealth: %d, Speed: %d, MaxResources: %d", d, h, m, s, r);
+				}
+		}
 		if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
 		{
 			DeleteAll();

@@ -104,3 +104,12 @@ void Turret::Damage(int damage, j1Entity* target)
 		this->target = nullptr;
 	}
 }
+
+void Turret::GetStats(int& attack, int& health, int& maxhealth, int& speed, int& maxresources)
+{
+	attack = damage;
+	health = this->health;
+	maxhealth = max_health;
+	speed = 0;
+	maxresources = load.maxweight;
+}

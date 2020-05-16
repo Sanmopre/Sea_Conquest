@@ -239,3 +239,12 @@ void j1Structure::BuildProcces(float dt)
 		}
 	}
 }
+
+void j1Structure::GetStats(int& attack, int& health, int& maxhealth, int& speed, int& maxresources)
+{
+	attack = 0;
+	health = this->health;
+	maxhealth = max_health;
+	speed = 0;
+	maxresources = load.maxweight;
+}

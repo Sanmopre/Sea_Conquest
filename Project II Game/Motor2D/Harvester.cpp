@@ -30,7 +30,7 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	this->team = team;
 	speed = 30;
 	range = 50;
-	power = 30;
+	damage = 30;
 	harvestrate = { 2 };
 	transferrate = { 0.5 };
 	max_health = 50;
@@ -186,7 +186,7 @@ void j1Harvester::Update(float dt)
 					harvestrate.counter += dt;
 					if (harvestrate.counter >= harvestrate.iterations)
 					{
-						Harvest(power, target);
+						Harvest(damage, target);
 						harvestrate.counter = 0;
 					}
 				}

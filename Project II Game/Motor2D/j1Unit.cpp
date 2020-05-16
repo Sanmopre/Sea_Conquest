@@ -54,13 +54,17 @@ void j1Unit::UpdateMap(Node* node)
 
 void j1Unit::GoTo(fPoint destination, NodeType terrain)
 {
-	path.swap(App->pathfinding->PathTo(this->position, destination, terrain, map));
+	vector<fPoint> p = App->pathfinding->PathTo(this->position, destination, terrain, map);
+	if (p.size() != 0)
+	{
+		path.swap(p);
 
-	if(path.size() != 0)
 		this->destination = *path.begin();
-
-	if (team == 1)
-		player_command = true;
+		if (team == 1)
+			player_command = true;
+	}
+	else
+		this->destination = position;
 }
 
 void  j1Unit::Move(float dt)
@@ -227,4 +231,13 @@ void j1Unit::GetBasicAnimations()
 	west = App->anim->GetAnimation("unit-west");
 
 	rect = north.GetCurrentFrame();
+}
+
+void j1Unit::GetStats(int& attack, int& health, int& maxhealth, int& speed, int& maxresources)
+{
+	attack = damage;
+	health = this->health;
+	maxhealth = max_health;
+	speed = this->speed;
+	maxresources = load.maxweight;
 }

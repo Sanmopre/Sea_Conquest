@@ -224,6 +224,8 @@ public:
 	virtual void SetBuiltState(BuildState state) {}
 	virtual BuildState GetBuiltState() { return NOTHING; }
 
+	virtual void GetStats(int &attack, int &health, int &maxhealth, int &speed, int &maxresources) {}
+
 protected:
 
 	void  ShowHPbar(int extra_width, int height, int distance = 0);
@@ -285,6 +287,9 @@ protected:
 	void SetPosition(fPoint position);
 	void SelectAnimation();
 	void GetBasicAnimations();
+
+	virtual void GetStats(int& attack, int& health, int& maxhealth, int& speed, int& maxresources);
+
 	fPoint GetDestination() 
 	{ 
 		if(path.size() != 0)
@@ -320,6 +325,8 @@ public:
 	BuildState GetBuiltState() { return built_state; }
 
 	Animation* current_animation;
+
+	virtual void GetStats(int& attack, int& health, int& maxhealth, int& speed, int& maxresources);
 
 protected:
 
@@ -412,7 +419,6 @@ private:
 
 	timed_var harvestrate;
 	timed_var transferrate;
-	int power;
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class j1Carrier : public j1Unit
@@ -473,6 +479,8 @@ public:
 
 	void Update(float);
 	void CleanUp();
+
+	void GetStats(int& attack, int& health, int& maxhealth, int& speed, int& maxresources);
 
 	void Damage(int damage, j1Entity* target);
 
