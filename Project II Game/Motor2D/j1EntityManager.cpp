@@ -56,58 +56,56 @@ bool j1EntityManager::Update(float dt)
 	selected_units.erase(selected_units.begin(), selected_units.end());
 	air_units.erase(air_units.begin(), air_units.end());
 
-	while (counter != entities.size())
+	for (vector<j1Entity*>::iterator e = entities.begin(); e != entities.end(); e++)
 	{
-		vector<j1Entity*>::iterator e = entities.begin();
-		e += counter;
-		for (; e != entities.end(); e++)
+		j1Entity* entity = *e; 
+
+		if (entity->health == 0 || entity->to_delete || entity->to_remove)
 		{
-			j1Entity* entity = *e; 
-			if (entity->to_delete || entity->to_remove)
-			{
-				QuickDeleteEntity(e);
-				break;
-			}
-			else
-			{
-				iPoint tile = App->map->WorldToMap(entity->position.x, entity->position.y);
-				FogState visibility = App->fog->GetVisibility(tile.x, tile.y);
-				
-				if (visibility != FogState::FOGGED || entity->team == 1)
-				{
-					entity->spot = e;
-					entity->Primitive_Update(dt);
-					entity->Update(dt);
+			if(!entity->to_remove)
+				entity->CleanUp();
+			for_deletion.push_back(entity);
+		}
+		else
+		{
+			iPoint tile = App->map->WorldToMap(entity->position.x, entity->position.y);
+			FogState visibility = App->fog->GetVisibility(tile.x, tile.y);
 
-					if (entity->team == 1)
-						ally_entities.push_back(entity);
-					if (entity->main_type == EntityType::UNIT && entity->selected && entity->team == 1)
-						selected_units.push_back(entity);
-					if (entity->main_type == EntityType::UNIT && entity->terrain == NodeType::ALL && entity->team == 1)
-						air_units.push_back(entity);
-				}
-			}
-
-			
-			counter++;
-			if (App->numerate_entities)
+			if (visibility != FogState::FOGGED || entity->team == 1)
 			{
-				char text[10];
-				sprintf_s(text, 10, "%7d", counter);
-				App->fonts->BlitText(entity->position.x - 120 + App->render->camera.x, entity->position.y + App->render->camera.y, 1, text);
+				entity->spot = e;
+				entity->Primitive_Update(dt);
+				entity->Update(dt);
+
+				if (entity->team == 1)
+					ally_entities.push_back(entity);
+				if (entity->main_type == EntityType::UNIT && entity->selected && entity->team == 1)
+					selected_units.push_back(entity);
+				if (entity->main_type == EntityType::UNIT && entity->terrain == NodeType::ALL && entity->team == 1)
+					air_units.push_back(entity);
 			}
 		}
-	}
-
-	if (buffer.size() != 0)
-	{
-		for (vector<j1Entity*>::iterator bufferentity = buffer.begin(); bufferentity != buffer.end(); bufferentity++)
+		
+		counter++;
+		if (App->numerate_entities)
 		{
-			entities.push_back(*bufferentity);
+			char text[10];
+			sprintf_s(text, 10, "%7d", counter);
+			App->fonts->BlitText(entity->position.x - 120 + App->render->camera.x, entity->position.y + App->render->camera.y, 1, text);
 		}
-		buffer.erase(buffer.begin(), buffer.end());
-		buffer.shrink_to_fit();
 	}
+	
+	for (vector<j1Entity*>::iterator deleted_entity = for_deletion.begin(); deleted_entity != for_deletion.end(); deleted_entity++)
+		DeleteEntity(*deleted_entity);
+	for_deletion.erase(for_deletion.begin(), for_deletion.end());
+	
+	for (vector<j1Entity*>::iterator bufferentity = buffer.begin(); bufferentity != buffer.end(); bufferentity++)
+	{
+		entities.push_back(*bufferentity);
+	}
+	buffer.erase(buffer.begin(), buffer.end());
+	buffer.shrink_to_fit();
+
 	std::sort(entities.begin(), entities.end(), customLess);
 	////////////////////////////////////ENTITIES_DEBUG///////////////////////////////////////////////////
 	if (App->godmode)
@@ -178,7 +176,7 @@ bool j1EntityManager::Update(float dt)
 		{
 			for (vector<j1Entity*>::iterator entity = entities.begin(); entity != entities.end(); entity++)
 				if ((*entity)->selected)
-					(*entity)->CleanUp();
+					(*entity)->to_delete = true;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN)
 		{
@@ -252,13 +250,10 @@ void j1EntityManager::DeleteEntity(j1Entity* entity_)
 	if(entities.size() != 0)
 		for (auto entity = entities.begin(); entity != entities.end(); entity++)
 		{
-			if ((*entity) == entity_)
+			if (*entity == entity_)
 			{
-				(*entity)->CleanUp();
 				delete (*entity);
-				entities.erase(entity, entity + 1);
-				if(entities.size() <= entities.capacity()/2)
-					entities.shrink_to_fit();
+				entities.erase(entity);
 				break;
 			}
 		}
@@ -266,11 +261,14 @@ void j1EntityManager::DeleteEntity(j1Entity* entity_)
 
 void j1EntityManager::QuickDeleteEntity(std::vector<j1Entity*>::iterator entity)
 {
+	if (entity < entities.begin())
+		entity = entities.begin();
+	else if (entity >= entities.end())
+		entity = entities.end() - 1;
+
 	if((*entity)->to_delete)
 		delete (*entity);
-	entities.erase(entity, entity + 1);
-	if (entities.size() <= entities.capacity() / 2)
-		entities.shrink_to_fit();
+	entities.erase(entity);
 }
 
 void j1EntityManager::DeleteAll()
@@ -281,7 +279,6 @@ void j1EntityManager::DeleteAll()
 		delete (*entities.begin());
 		entities.erase(entities.begin(), entities.begin() + 1);
 	}
-	entities.shrink_to_fit();
 
 	while (buffer.size() != 0)
 	{
@@ -289,12 +286,24 @@ void j1EntityManager::DeleteAll()
 		delete (*buffer.begin());
 		buffer.erase(buffer.begin(), buffer.begin() + 1);
 	}
-	buffer.shrink_to_fit();
 }
 
 bool j1EntityManager::CleanUp()
 {
 	DeleteAll();
+
+	vector<j1Entity*> e;
+	entities.swap(e);
+	vector<j1Entity*> a;
+	ally_entities.swap(a);
+	vector<j1Entity*> s;
+	selected_units.swap(s);
+	vector<j1Entity*> i;
+	air_units.swap(i);
+	vector<j1Entity*> b;
+	buffer.swap(b);
+	vector<j1Entity*> f;
+	for_deletion.swap(f);
 
 	return true;
 }

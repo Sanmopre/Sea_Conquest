@@ -215,14 +215,6 @@ void j1Harvester::Update(float dt)
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 		App->minimap->Draw_entities(this);
 	}
-	
-	if (health == 0) {
-		CleanUp();
-
-		App->audio->PlaySpatialFx(App->audio->harvester_destroy,
-			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
-			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
-	}
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		//App->audio->PlaySpatialFx(App->audio->harvester_work,
@@ -234,6 +226,10 @@ void j1Harvester::Update(float dt)
 void j1Harvester::CleanUp()
 {
 	to_delete = true;
+
+	App->audio->PlaySpatialFx(App->audio->harvester_destroy,
+		App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+		App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 }
 
 void j1Harvester::SetAutomatic()

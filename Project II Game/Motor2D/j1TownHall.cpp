@@ -40,12 +40,6 @@ j1TownHall::~j1TownHall()
 
 void j1TownHall::Update(float)
 {
-	if (health == 0)
-		if (team == 1)
-			App->scene->state = LOSE;
-		else if (team == 2)
-			App->scene->state = WIN;
-
 	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->ignore_fog)
 	{
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
@@ -55,5 +49,10 @@ void j1TownHall::Update(float)
 
 void j1TownHall::CleanUp()
 {
+	if (team == 1)
+		App->scene->state = LOSE;
+	else if (team == 2)
+		App->scene->state = WIN;
+
 	to_delete = true;
 }

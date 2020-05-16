@@ -82,16 +82,12 @@ void j1Balloon::Update(float dt)
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 		App->minimap->Draw_entities(this);
 	}
-
-	if (health <= 0)
-	{
-		CleanUp();
-		App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, position, 0.9);
-	}
 }
 
 void j1Balloon::CleanUp()
 {
+	App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, position, 0.9);
+
 	path.erase(path.begin(), path.end());
 	path.shrink_to_fit();
 
@@ -106,5 +102,7 @@ void j1Balloon::Damage(int damage, j1Entity* target)
 
 		if (target->health < 0)
 			target->health = 0;
+
+		this->target = nullptr;
 	}
 }

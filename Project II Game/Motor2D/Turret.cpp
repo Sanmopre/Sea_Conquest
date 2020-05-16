@@ -81,9 +81,6 @@ void Turret::Update(float dt)
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 		App->minimap->Draw_entities(this);
 	}
-
-	if (health == 0)
-		CleanUp();
 }
 
 void Turret::CleanUp()
@@ -103,5 +100,7 @@ void Turret::Damage(int damage, j1Entity* target)
 
 		if (target->health < 0)
 			target->health = 0;
+
+		this->target = nullptr;
 	}
 }

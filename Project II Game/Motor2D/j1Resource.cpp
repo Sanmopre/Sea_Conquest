@@ -49,9 +49,6 @@ void j1Resource::Update(float dt)
 {
 	showing_hpbar = false;
 
-	if (health == 0)
-		CleanUp();
-
 	if (selected)
 		ShowHPbar(10, 5);
 

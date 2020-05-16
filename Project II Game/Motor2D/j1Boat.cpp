@@ -59,7 +59,7 @@ j1Boat::~j1Boat()
 void j1Boat::Update(float dt)
 {
 	if (dt != 0.0f)
-	{	
+	{
 		int enemy = 0;
 		if (team == 1)
 			enemy = 2;
@@ -88,33 +88,22 @@ void j1Boat::Update(float dt)
 		}
 
 		//PARTICLES
-		if (health < 0)
+		if (health < max_health / 2 && !Smoke)
 		{
-			health = 0;
-			App->audio->PlaySpatialFx(App->audio->boat_destroy,
-				App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
-				App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+			SmokeSystem = App->pmanager->createSystem(PARTICLE_TYPES::SMOKE, position, 0);
+			Smoke = true;
+		}
+		if (health < max_health / 5 && !Fire)
+		{
+			FireSystem = App->pmanager->createSystem(PARTICLE_TYPES::FIRE, position, 0);
+			Fire = true;
 		}
 
-		if (health != 0.0f)
-		if (health != 0)
-		{
-			if (health < max_health / 2 && !Smoke)
-			{
-				SmokeSystem = App->pmanager->createSystem(PARTICLE_TYPES::SMOKE, position, 0);
-				Smoke = true;
-			}
-			if (health < max_health / 5 && !Fire)
-			{
-				FireSystem = App->pmanager->createSystem(PARTICLE_TYPES::FIRE, position, 0);
-				Fire = true;
-			}
-
-			if (Smoke)
-				SmokeSystem->changePosition(position);
-			if (Fire)
-				FireSystem->changePosition(position);
-		}	
+		if (Smoke)
+			SmokeSystem->changePosition(position);
+		if (Fire)
+			FireSystem->changePosition(position);
+		
 	}
 
 	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->ignore_fog)
@@ -123,16 +112,16 @@ void j1Boat::Update(float dt)
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 		App->minimap->Draw_entities(this);
 	}
-
-	if (health == 0)
-	{
-		CleanUp();
-		App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, position, 0.9);
-	}
 }
 
 void j1Boat::CleanUp()
 {
+	App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, position, 0.9);
+
+	App->audio->PlaySpatialFx(App->audio->boat_destroy,
+		App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+		App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+
 	path.erase(path.begin(), path.end());
 	path.shrink_to_fit();
 	if(SmokeSystem != nullptr)
@@ -153,10 +142,14 @@ void j1Boat::Damage(int damage, j1Entity* target)
 	if (target->health != 0)
 	{
 		target->health -= damage;
+
 		App->audio->PlaySpatialFx(App->audio->boat_attack,
 			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
 			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+
 		if (target->health < 0)
 			target->health = 0;
+	
+		this->target = nullptr;
 	}
 }

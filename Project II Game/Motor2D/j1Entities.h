@@ -63,14 +63,6 @@ enum BuildState
 	NOTHING
 };
 
-struct TextureInfo
-{
-	int level;
-	EntityType type;
-	SDL_Texture* texture;
-	int team;
-};
-
 struct EntityRequest
 {
 	EntityRequest() {}
@@ -242,8 +234,6 @@ protected:
 	int trading_range;
 
 	std::vector<j1Entity*> tradeable_list;
-
-	SDL_Texture* LoadTexture(j1Entity* entity, std::vector<TextureInfo>& textureBuffer);
 
 	vector<j1Entity*> storages;
 };

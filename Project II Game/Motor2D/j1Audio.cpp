@@ -348,10 +348,11 @@ bool j1Audio::PlaySpatialFx(uint id, uint channel_angle, uint distance, int repe
 				channel_angle = 0;
 		}
 		Mix_Volume(channel_angle, (int)(App->mainmenu->GetMenu().fx->Value * 1.28f));
-		Mix_SetPosition(channel_angle, channel_angle, (uint)((distance * 255)/MAX_DISTANCE));	
 
-		Mix_PlayChannel(channel_angle, chunk, repeat);	
-		LOG("volume of chunk %d", Mix_Volume(channel_angle, -1));
+		Mix_SetPosition(channel_angle, channel_angle, (uint)((distance * 255)/MAX_DISTANCE));
+
+		//Mix_PlayChannel(channel_angle, chunk, repeat);	
+		//LOG("volume of chunk %d", Mix_Volume(channel_angle, -1));
 		ret = true;
 	}
 
@@ -378,7 +379,7 @@ uint j1Audio::GetDistance(iPoint player_pos, iPoint enemy_pos)
 {
 
 	uint distance = sqrt(pow(player_pos.x - enemy_pos.x, 2) + pow(player_pos.y - enemy_pos.y, 2));	
-	LOG("Get Distance got %d distance between %s and %s", distance, "player", "enemy");								
+	//LOG("Get Distance got %d distance between %s and %s", distance, "player", "enemy");								
 	uint distance_scaled = (distance/* * MAX_DISTANCE*/);
 	if (distance_scaled > MAX_DISTANCE)																
 		distance_scaled = MAX_DISTANCE;

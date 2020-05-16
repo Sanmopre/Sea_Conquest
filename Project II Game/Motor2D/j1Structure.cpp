@@ -26,6 +26,10 @@ j1Structure::j1Structure()
 
 j1Structure::~j1Structure()
 {
+	App->audio->PlaySpatialFx(App->audio->structure_destroy,
+		App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+		App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+
 	current_animation = nullptr;
 	texture = nullptr;
 	tex_construction = nullptr;
@@ -83,11 +87,6 @@ void j1Structure::Primitive_Update(float dt)
 	selectable_area.y = GetRenderPositionY();
 	selectable_area.h /= 2;
 	selectable_area.y += selectable_area.h;
-	
-	if(health <= 0)
-		App->audio->PlaySpatialFx(App->audio->structure_destroy,
-			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
-			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 }
 
 void j1Structure::NotPlacedBehaviour()

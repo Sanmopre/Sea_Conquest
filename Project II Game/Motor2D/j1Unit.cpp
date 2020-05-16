@@ -37,7 +37,7 @@ void j1Unit::Primitive_Update(float dt)
 			Trading();
 			App->render->AddBlitEvent(0, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, trading_range, 0 }, false, false, 0, 255, 0, 200);
 		}
-		
+
 		ShowHPbar(10, 5, -10);
 
 		App->render->AddBlitEvent(0, nullptr, 1, 0, { (int)position.x,(int)position.y + 16, range, 0 }, false, false, 255, 0, 0);
@@ -45,7 +45,6 @@ void j1Unit::Primitive_Update(float dt)
 
 	selectable_area.x = GetRenderPositionX();
 	selectable_area.y = GetRenderPositionY();
-
 }
 
 void j1Unit::UpdateMap(Node* node)
@@ -187,34 +186,6 @@ void j1Unit::SelectAnimation()
 
 		break;
 	}
-}
-
-SDL_Texture* j1Entity::LoadTexture(j1Entity* entity, std::vector<TextureInfo>& textureBuffer)
-{
-	SDL_Texture* ret = nullptr;
-	if (entity->main_type == EntityType::STRUCTURE)
-	{
-		for (std::vector<TextureInfo>::iterator e = textureBuffer.begin(); e != textureBuffer.end(); e++)
-		{
-			if (entity->main_type == e->type && entity->team == e->team)
-			{
-				ret = e->texture;
-				break;
-			}
-		}
-	}
-	else if (entity->main_type == EntityType::UNIT)
-	{
-		for (std::vector<TextureInfo>::iterator e = textureBuffer.begin(); e != textureBuffer.end(); e++)
-		{
-			if (entity->type == e->type && entity->level == e->level)
-			{
-				ret = e->texture;
-				break;
-			}
-		}
-	}
-	return ret;
 }
 
 void j1Unit::Chase(int range, int enemy)

@@ -80,6 +80,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fonts);
 	AddModule(font);
 	AddModule(player);
+	AddModule(entitymanager);
 	AddModule(minimap);
 	AddModule(map);
 	AddModule(fog);
@@ -95,7 +96,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(expl);
 	AddModule(transitions);
 	AddModule(quest);
-	AddModule(entitymanager);
 	AddModule(pathfinding);
 	AddModule(dialog);
 	AddModule(pmanager);

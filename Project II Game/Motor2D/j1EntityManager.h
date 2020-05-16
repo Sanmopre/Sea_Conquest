@@ -22,17 +22,18 @@ public:
 	void DeleteEntity(j1Entity*);
 	void DeleteAll();
 
-	std::vector<j1Entity*> entities;
+	vector<j1Entity*> entities;
 
-	std::vector<j1Entity*> ally_entities;
-	std::vector<j1Entity*> selected_units;
-	std::vector<j1Entity*> air_units;
+	vector<j1Entity*> ally_entities;
+	vector<j1Entity*> selected_units;
+	vector<j1Entity*> air_units;
 
 	bool InsideElipse(fPoint center, fPoint point, int range);
 
 private:
 
-	std::vector<j1Entity*> buffer;
+	vector<j1Entity*> buffer;
+	vector<j1Entity*> for_deletion;
 	void QuickDeleteEntity(std::vector<j1Entity*>::iterator itr);
 };
 

@@ -75,9 +75,6 @@ void j1BoatHouse::Update(float dt)
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 		App->minimap->Draw_entities(this);
 	}
-
-	if (health == 0)
-		CleanUp();
 }
 
 
