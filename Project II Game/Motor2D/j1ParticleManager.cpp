@@ -18,8 +18,13 @@ j1ParticleManager::j1ParticleManager()
 	CloudsActive = true;
 	CloudTimer = CLOUD_MAX_TIME;
 	cloudVariableX = 0;
-	cloudVariableY = 0; 
+	cloudVariableY = 0;
+	FirstClouds = true;
 	smokeTexture = nullptr;
+	cloudTexture = nullptr;
+	fireTexture = nullptr;
+	explosionTexture = nullptr;
+	dustTexture = nullptr;
 }
 
 j1ParticleManager::~j1ParticleManager()
@@ -35,13 +40,14 @@ bool j1ParticleManager::Start()
 	fireTexture = App->tex->Load("textures/Fire_Texture_7x7px.png");
 	explosionTexture = App->tex->Load("textures/Explosion_Texture_2_7x7px.png");
 	dustTexture = App->tex->Load("textures/Dust_Texture_25x20px.png");
+	projectileTexture = App->tex->Load("textures/CannonBall_Texture_7x7px.png");
 
 	return true;
 }
 
 bool j1ParticleManager::Update(float dt)
 {
-////////////////////PARTICLES UPDATE
+	////////////////////PARTICLES UPDATE
 
 	int counter = 0;
 
@@ -59,14 +65,14 @@ bool j1ParticleManager::Update(float dt)
 		}
 	}
 
-////////////////////PARTICLE SYSTEMS UPDATE
+	////////////////////PARTICLE SYSTEMS UPDATE
 
-	counter = 0; 
+	counter = 0;
 
 	while (counter != systems.size())
 	{
 		vector<ParticleSystem*>::iterator system = systems.begin();
-		
+
 		system += counter;
 		for (; system != systems.end(); system++)
 		{
@@ -82,7 +88,7 @@ bool j1ParticleManager::Update(float dt)
 		}
 	}
 
-//////////////////////DEBUG ("O" TO ACTIVATE/DEACTIVATE CLOUDS & "P" TO START AN EXPLOSION AT THE MOUSE COORDS)
+	//////////////////////DEBUG ("O" TO ACTIVATE/DEACTIVATE CLOUDS & "P" TO START AN EXPLOSION AT THE MOUSE COORDS)
 
 	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
 	{
@@ -102,32 +108,51 @@ bool j1ParticleManager::Update(float dt)
 		test.x -= App->render->camera.x / App->win->GetScale();
 		test.y -= App->render->camera.y / App->win->GetScale();
 
-		App->pmanager->createSystem(PARTICLE_TYPES::SMOKE, { (float)test.x, (float)test.y }, 0);
-		//LOG("CLOUD CREATED AT  X:%.2f Y:%.2f", (float)test.x, (float)test.y);
+		TheCannonSystem->shootCannonBall({ (float)test.x, (float)test.y }, { 0,0 });
+		LOG("BALL CREATED AT  X:%.2f Y:%.2f", (float)test.x, (float)test.y);
 	}
 
-///////////////////////CLOUDS SPAWN PARAMETERS
+	///////////////////////CLOUDS SPAWN PARAMETERS
 
-	if(CloudsActive == true)
+	if (CloudsActive == true)
 	{
+		if (FirstClouds == true)
+		{
+			for (int CloudsCounter = 0; CloudsCounter < 40; CloudsCounter++)
+			{
+				cloudVariableY = (3200 * (2 * (Random::Randomize() - 0.5)));
+				cloudVariableX = (3200 * (2 * (Random::Randomize() - 0.5)));
+
+				iPoint pos = { 3200 + cloudVariableX, 3200 + cloudVariableY };
+				App->render->ScreenToWorld(pos.x, pos.y);
+
+				fPoint fpos = { (float)pos.x,  (float)pos.y };
+				App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, fpos, 300);
+			}
+
+			TheCannonSystem = createSystem(PARTICLE_TYPES::CANNONBALL, { 0, 0 }, 0);
+
+			FirstClouds = false;
+		}
+
 		CloudTimer -= dt;
-	
+
 		if (CloudTimer <= 0)
 		{
 			cloudVariableY = (3200 * (2 * (Random::Randomize() - 0.5)));
-	
+
 			if (cloudVariableY < 0)
 				cloudVariableX = -cloudVariableY;
 			else
 				cloudVariableX = cloudVariableY;
-	
+
 			iPoint pos = { 6300 - cloudVariableX, 3200 + cloudVariableY };
 			App->render->ScreenToWorld(pos.x, pos.y);
 
 			fPoint fpos = { (float)pos.x,  (float)pos.y };
 			App->pmanager->createSystem(PARTICLE_TYPES::CLOUD, fpos, 300);
 			//LOG("CLOUD CREATED AT  X:%.2f Y:%.2f", fpos.x, fpos.y);
-	
+
 			CloudTimer = CLOUD_MAX_TIME;
 		}
 
@@ -229,6 +254,5 @@ void j1ParticleManager::changeIndex(int newIndex)
 {
 	Index = newIndex;
 }
-
 
 

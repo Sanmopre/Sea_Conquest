@@ -147,6 +147,8 @@ void j1Boat::Damage(int damage, j1Entity* target)
 			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
 			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 
+		App->pmanager->TheCannonSystem->shootCannonBall(position, target->position);
+
 		if (target->health < 0)
 			target->health = 0;
 	
