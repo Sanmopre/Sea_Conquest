@@ -271,7 +271,10 @@ void j1EntityManager::DeleteEntity(j1Entity* entity_)
 			if (*entity == entity_)
 			{
 				if (!(*entity)->to_remove)
+				{
+					(*entity)->CleanUp();
 					delete (*entity);
+				}
 				entities.erase(entity);
 				break;
 			}

@@ -52,6 +52,9 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 
 	if (App->quest->current_quest == QUEST::BUILD_BOAT)
 		App->quest->main_quest.current++;
+
+	if (App->quest->current_quest == QUEST::BUILD_10_BOATS)
+		App->quest->main_quest.current++;
 }
 
 j1Boat::~j1Boat()
@@ -121,10 +124,12 @@ void j1Boat::CleanUp()
 {
 	App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, position, 0.9);
 
-	App->audio->PlaySpatialFx(App->audio->boat_destroy,
-		App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
-		App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
-
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE)
+	{
+		App->audio->PlaySpatialFx(App->audio->boat_destroy,
+			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+	}
 	path.erase(path.begin(), path.end());
 	path.shrink_to_fit();
 	if(SmokeSystem != nullptr)
@@ -134,10 +139,8 @@ void j1Boat::CleanUp()
 	to_delete = true;
 
 	//CHECK QUEST 
-	if (App->quest->current_quest == QUEST::KILL_15_BOATS) {
+	if (App->quest->current_quest == QUEST::KILL_15_BOATS && team == 2) 
 		App->quest->main_quest.current++;
-	}
-
 }
 
 void j1Boat::Damage(int damage, j1Entity* target)
