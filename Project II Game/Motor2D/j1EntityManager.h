@@ -30,6 +30,8 @@ public:
 
 	bool InsideElipse(fPoint center, fPoint point, int range);
 
+	int townhall_level;
+
 private:
 
 	vector<j1Entity*> buffer;

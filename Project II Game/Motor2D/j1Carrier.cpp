@@ -16,9 +16,12 @@ j1Carrier::j1Carrier(float x, float y, int level, int team)
 	destination = position;
 
 	this->level = level;
-	trading_range = 50;
+
 	this->team = team;
-	speed = 40;
+
+	int extra = level * 1.5;
+	trading_range = 50 + 13 * extra;
+	speed = 30 + 10 * extra;
 	range = 60;
 
 	stored_units = 0;
@@ -45,6 +48,7 @@ void j1Carrier::Update(float dt)
 {
 	if (dt != 0.0f)
 	{
+
 		if (selected)
 		{
 			if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)

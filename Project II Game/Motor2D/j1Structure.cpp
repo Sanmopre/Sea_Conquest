@@ -204,15 +204,24 @@ void j1Structure::BuildProcces(float dt)
 {
 	if (unitqueue.size() != 0)
 	{
+		int l = App->entitymanager->townhall_level;
 		switch (unitqueue.begin()->type)
 		{
 		case EntityType::BOAT:
 			building_time.iterations = 5 * level / 2;
 			break;
 		case EntityType::BALLOON:
+			if (l < 3)
+				l = 1;
+			else
+				l = 2;
 			building_time.iterations = 10 * level / 2;
 			break;
 		case EntityType::HARVESTER:
+			if (l < 3)
+				l = 1;
+			else
+				l = 2;
 			building_time.iterations = 8 * level / 2;
 			break;
 		case EntityType::CARRIER:
@@ -237,7 +246,7 @@ void j1Structure::BuildProcces(float dt)
 
 		if (building_time.counter >= building_time.iterations)
 		{
-			App->entitymanager->AddEntity(unitqueue.begin()->x, unitqueue.begin()->y, unitqueue.begin()->type, unitqueue.begin()->level, unitqueue.begin()->team);
+			App->entitymanager->AddEntity(unitqueue.begin()->x, unitqueue.begin()->y, unitqueue.begin()->type, l, unitqueue.begin()->team);
 			unitqueue.erase(unitqueue.begin());
 			if (unitqueue.size() <= unitqueue.capacity() / 2)
 				unitqueue.shrink_to_fit();

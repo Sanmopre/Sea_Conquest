@@ -27,7 +27,7 @@ j1Balloon::j1Balloon(float x, float y, int level, int team)
 	damage = 50 + 10 * extra;
 	range = 10;
 	firerate = { 3 };
-	max_health = 50;
+	max_health = 50 + 25 * extra;
 	health = max_health;
 	load = { 0, 0, 0, 50 };
 	target = nullptr;

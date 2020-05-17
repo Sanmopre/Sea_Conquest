@@ -57,7 +57,9 @@
     <texture name ="balloon"    level ="2" team ="1" source ="textures/units/pipo-airship2.png"/>
     <texture name ="balloon"    level ="1" team ="2" source ="textures/units/pipo-balloon_c.png"/>
     <texture name ="balloon"    level ="2" team ="2" source ="textures/units/pipo-airship2_b.png"/>
-    <texture name ="carrier"    level ="1" team ="1" source ="textures/units/pipo-van.png"/>
+    <texture name ="carrier"    level ="1" team ="1" source ="textures/units/pipo-van_b.png"/>
+    <texture name ="carrier"    level ="2" team ="1" source ="textures/units/pipo-van_c.png"/>
+    <texture name ="carrier"    level ="3" team ="1" source ="textures/units/pipo-van.png"/>
     <texture name ="boat-shadow"      level ="0" team ="0" source ="textures/units/shadow/boat-shadow.png"/>
     <texture name ="harvester-shadow" level ="0" team ="0" source ="textures/units/shadow/drilltank-shadow.png"/>
     <texture name ="balloon-shadow"   level ="1" team ="0" source ="textures/units/shadow/balloon-shadow.png"/>

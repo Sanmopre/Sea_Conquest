@@ -26,16 +26,17 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	destination = position;
 
 	this->level = level;
+	int extra = level * 1.5;
 	trading_range = 60;
 	this->team = team;
-	speed = 30;
+	speed = 30 + 10 * extra;
 	range = 50;
-	damage = 30;
+	damage = 30 + 15 * extra;
 	harvestrate = { 2 };
 	transferrate = { 0.5 };
-	max_health = 50;
+	max_health = 50 + 10 * extra;
 	health = max_health;
-	load = { 0, 0, 0, 600 };
+	load = { 0, 0, 0, 600 + (50 * extra) * (level - 1) };
 	target = nullptr;
 
 	automatic = false;

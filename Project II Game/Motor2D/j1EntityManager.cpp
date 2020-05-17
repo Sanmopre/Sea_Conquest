@@ -146,7 +146,7 @@ bool j1EntityManager::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 		{
-			AddEntity(test.x, test.y, EntityType::HARVESTER, 1, 1);
+			AddEntity(test.x, test.y, EntityType::HARVESTER, 2, 1);
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
@@ -209,7 +209,7 @@ bool j1EntityManager::Update(float dt)
 }
 
 //Schedules an entity creation in the next iteration, however the entity can be modified in the iteration of cretion with out problem. 
-//Types: BOAT, HARVESTER, BOATHOUSE, STORAGE, STORAGE, TOWNHALL, ALL_COTTON, ALL_WOOD, ALL_METAL
+//Types: BOAT, BALOON, HARVESTER, CARRIER, BOATHOUSE, STORAGE, STORAGE, TOWNHALL, TURRET, ALL_COTTON, ALL_WOOD, ALL_METAL
 j1Entity* j1EntityManager::AddEntity(float x, float y, EntityType type, int level, int team)
 {
 	iPoint tile = App->map->WorldToMap(x, y);
