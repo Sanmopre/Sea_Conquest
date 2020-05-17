@@ -117,6 +117,11 @@ bool j1InGameUI::Update(float dt)
 		sprintf_s(metal_resource, 10, "%7d", selected->load.metal);
 	}
 
+	//UPDATE RESOURCES
+	if (selected != nullptr) {
+		sprintf_s(carrier_cap.capacity, 10, "%7d", 0);
+	}
+
 	//COST_UPDATE
 	if (in_hover == true) {
 		sprintf_s(cotton_t, 10, "%7d", cotton);
@@ -164,6 +169,10 @@ bool j1InGameUI::Update(float dt)
 			App->fonts->BlitText(0, 8, 1, cotton_resource);
 			App->fonts->BlitText(120, 8, 1, wood_resource);
 			App->fonts->BlitText(245, 8, 1, metal_resource);
+		}
+
+		if (Carrier_cap == true && in_trading == false) {
+			App->fonts->BlitText(180, 646, 1, carrier_cap.capacity);
 		}
 
 		if (in_trading == true) {
@@ -276,6 +285,14 @@ bool j1InGameUI::Update(float dt)
 
 	in_townhall = false;
 
+	if (selected != nullptr) {
+		if(selected->type != EntityType::CARRIER )
+		Deactivate_Carrier_Cap();
+	}
+
+	if (selected_total == 0) 
+		Deactivate_Carrier_Cap();
+
 	return true;
 }
 
@@ -385,6 +402,9 @@ void j1InGameUI::Add_UI()
 
 	//COIN IIMAGE
 	coin_image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 130,655 }, { 0,0 }, true, false, { 0, 0,30,30 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::COIN);
+
+    //CARRIER CAP
+	carrier_cap.image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 220,635 }, { 0,0 }, true, false, { 0, 0,80,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::CARRIER_CAP);
 }
 
 void j1InGameUI::Activate_Menu()
@@ -831,6 +851,18 @@ void j1InGameUI::Deactivate_Information()
 	in_hover_info = false;
 }
 
+void j1InGameUI::Activate_Carrier_Cap()
+{
+	carrier_cap.image->enabled = true;
+	Carrier_cap = true;
+}
+
+void j1InGameUI::Deactivate_Carrier_Cap()
+{
+	carrier_cap.image->enabled = false;
+	Carrier_cap = false;
+}
+
 
 void j1InGameUI::Activate_Quest_Selector()
 {
@@ -1215,7 +1247,11 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 			entity_ui.button_3->enabled = false;
 			entity_ui.button_4->enabled = false;
 			entity_ui.button_5->enabled = false;
+
+			Activate_Carrier_Cap();
+
 			if (in_trading == true) {
+				Deactivate_Carrier_Cap();
 				Deactivate_Entity_Buttons();
 			}
 			break;
