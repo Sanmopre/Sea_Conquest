@@ -399,8 +399,8 @@ void j1InGameUI::Add_UI()
 	cost.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 95,475 }, { 0,0 }, true, true, { 0, 0,300,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::COST);
 
 	//GODMODE
-	godmode.Godmode_Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 25, 78 }, { 0,0 }, true, true, { 0,0,40,40 }, "GOD MODE ACTIVATED!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-	godmode.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 10,63 }, { 0,0 }, true, false, { 0, 0,145,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::GODMODE);
+	godmode.Godmode_Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 425, 18 }, { 0,0 }, true, true, { 0,0,40,40 }, "GOD MODE ACTIVATED!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	godmode.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 410,03 }, { 0,0 }, true, false, { 0, 0,145,40 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::GODMODE);
 
 	//INFORMATION
 	information.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {20,50 }, { 0,0 }, true, false, { 0, 0,200,200 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::INFO_IMAGE);
@@ -721,6 +721,19 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			if(App->expl->information_mode)
 			App->expl->Show_Label(Text::BOAT);
 		}
+
+		if (element == entity_ui.button_1 && selected->type == EntityType::CARRIER) {
+
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::CARRIER_IN);
+		}
+
+		if (element == entity_ui.button_2 && selected->type == EntityType::CARRIER) {
+
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::CARRIER_OUT);
+		}
+
 		if (element == entity_ui.button_2 && selected->type == EntityType::BOATHOUSE) {
 			Activate_Cost_Menu();
 			cotton = 10;
