@@ -6,6 +6,7 @@
 #include "j1Scene.h"
 #include "j1Minimap.h"
 #include "j1Input.h"
+#include "j1InGameUI.h"
 
 j1TownHall::j1TownHall(float x, float y, int team)
 {
@@ -44,9 +45,8 @@ j1TownHall::~j1TownHall()
 
 void j1TownHall::Update(float)
 {
-	if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
-		if(App->entitymanager->townhall_level < 3)
-			App->entitymanager->townhall_level++;
+	if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN && App->godmode)
+		App->InGameUI->coins += 25;
 
 	if (App->fog->GetVisibility(tile.x, tile.y) == FogState::VISIBLE || App->ignore_fog)
 	{

@@ -49,6 +49,9 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	App->audio->PlaySpatialFx(App->audio->boat_spawn,
 		App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
 		App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+
+	if (App->quest->current_quest == QUEST::BUILD_BOAT)
+		App->quest->main_quest.current++;
 }
 
 j1Boat::~j1Boat()

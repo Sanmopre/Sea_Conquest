@@ -55,6 +55,8 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	//CHECK QUEST
 	if (App->quest->current_quest == QUEST::CREATE_HARVESTER) 
 		App->quest->main_quest.current++;
+
+	metal_quest = 60;
 }
 
 j1Harvester::~j1Harvester()
@@ -65,7 +67,7 @@ j1Harvester::~j1Harvester()
 }
 
 void j1Harvester::Update(float dt)
-{
+{	
 	if (dt != 0.0f)
 	{
 		if (selected)
@@ -309,6 +311,8 @@ void j1Harvester::Harvest(int power, j1Entity* target)
 	else if (target->load.metal != 0)
 	{
 		load.Transfer(METAL, &target->load.metal, power);
+		if (App->quest->current_quest == QUEST::GATHER_60_METAL)
+			App->quest->main_quest.current += power;
 	}
 
 	App->audio->PlaySpatialFx(App->audio->harvester_work,

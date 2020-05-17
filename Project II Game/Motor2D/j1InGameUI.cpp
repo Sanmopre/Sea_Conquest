@@ -546,6 +546,22 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == entity_ui.button_1 && selected->type == EntityType::TOWNHALL) {
 		
 			//LVLUP BUTTON
+			if (App->entitymanager->townhall_level == 1)
+			{
+				if (coins >= 20)
+				{
+					coins -= 20;
+					App->entitymanager->townhall_level++;
+				}
+			} 
+			else if (App->entitymanager->townhall_level == 2)
+			{
+				if (coins >= 50)
+				{
+					coins -= 50;
+					App->entitymanager->townhall_level++;
+				}
+			}
 		}
 
 
@@ -647,6 +663,13 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		}
 		if (element == entity_ui.button_5 && selected->type == EntityType::HARVESTER) {
 			selected->SetAutomatic();
+		}
+
+		if (element == entity_ui.button_1 && selected->type == EntityType::CARRIER) {
+			selected->Store();
+		}
+		if (element == entity_ui.button_2 && selected->type == EntityType::CARRIER) {
+			selected->Deploy();
 		}
 
 		if (element == trader.button_trade_1) {
@@ -758,11 +781,21 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		}
 		
 		if (element == entity_ui.button_1 && selected->type == EntityType::TOWNHALL) {
-			Activate_Coin_Cost();
-			coin_cost = 10;
 
-			if (App->expl->information_mode)
-				App->expl->Show_Label(Text::LVLUP);
+			if (App->entitymanager->townhall_level == 1)
+				coin_cost = 20;
+			else if (App->entitymanager->townhall_level == 2)
+				coin_cost = 50;
+			else
+				coin_cost = 0;
+		
+			if (coin_cost != 0)
+			{
+				Activate_Coin_Cost();
+
+				if (App->expl->information_mode)
+					App->expl->Show_Label(Text::LVLUP);
+			}
 		}
 
 		if (element == entity_ui.button_2 && selected->type == EntityType::TOWNHALL) {
