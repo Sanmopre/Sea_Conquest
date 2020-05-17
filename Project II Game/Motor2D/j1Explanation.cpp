@@ -84,6 +84,22 @@ bool j1Explanation::Start()
 	carrier_t.third = App->font->Print("carrier that can");
 	carrier_t.forth = App->font->Print("transport units");
 
+	turret_t.first = App->font->Print("BUILD TURRET BUTTON");
+	turret_t.second = App->font->Print("");
+	turret_t.third = App->font->Print("Build a turret from");
+	turret_t.forth = App->font->Print("harvester.");
+
+	automatic_t.first = App->font->Print("HARVESTER AUTO MODE");
+	automatic_t.second = App->font->Print("");
+	automatic_t.third = App->font->Print("Click to set the harvester to");
+	automatic_t.forth = App->font->Print("gather resources on its own");
+
+
+	lvlup_t.first = App->font->Print("UPGRADE UNITS");
+	lvlup_t.second = App->font->Print("");
+	lvlup_t.third = App->font->Print("Click on the button to ");
+	lvlup_t.forth = App->font->Print("upgrade your units 1 lvl.");
+
 	return true;
 }
 
@@ -203,6 +219,18 @@ void j1Explanation::Show_Label(Text text)
 		break;
 	case Text::CARRIER:
 		Change_Label_Text(carrier_t);
+		Activate_Explanation();
+		break;
+	case Text::TURRET:
+		Change_Label_Text(turret_t);
+		Activate_Explanation();
+		break;
+	case Text::AUTOMATIC:
+		Change_Label_Text(automatic_t);
+		Activate_Explanation();
+		break;
+	case Text::LVLUP:
+		Change_Label_Text(lvlup_t);
 		Activate_Explanation();
 		break;
 	case Text::NONE:

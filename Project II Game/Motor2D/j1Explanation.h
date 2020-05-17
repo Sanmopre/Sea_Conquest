@@ -36,6 +36,9 @@ enum class Text
 	QUEST,
 	TRADE,
 	SELECT_QUEST,
+	AUTOMATIC,
+	TURRET,
+	LVLUP,
 	NONE
 };
 
@@ -79,6 +82,8 @@ private:
 	Explanation quest;
 	Explanation trader;
 	Explanation select_quest;
+	Explanation turret;
+	Explanation automatic;
 
 	Explanation_T boat_t;
 	Explanation_T boathouse_t;
@@ -89,6 +94,10 @@ private:
 	Explanation_T quest_t;
 	Explanation_T trader_t;
 	Explanation_T select_quest_t;
+	Explanation_T turret_t;
+	Explanation_T automatic_t;
+	Explanation_T lvlup_t;
+
 
 
 

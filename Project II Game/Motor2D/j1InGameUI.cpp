@@ -510,6 +510,11 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == quest_selector.Quest_3)
 			App->quest->current_quest = App->quest->Set_Quest(QUEST::BUILD_10_BOATS);
 
+		if (element == entity_ui.button_1 && selected->type == EntityType::TOWNHALL) {
+		
+			//LVLUP BUTTON
+		}
+
 
 		if (element == entity_ui.button_2 && selected->type == EntityType::TOWNHALL) {
 			if (in_quest_manager == false)
@@ -689,6 +694,20 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			App->expl->Show_Label(Text::STORAGE);
 		}
 
+		if (element == entity_ui.button_3 && selected->type == EntityType::HARVESTER) {
+			Activate_Cost_Menu();
+			cotton = 0;
+			wood = 60;
+			metal = 10;
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::TURRET);
+		}
+
+		if (element == entity_ui.button_5 && selected->type == EntityType::HARVESTER) {
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::AUTOMATIC);
+		}
+
 		if (element == entity_ui.button_1 && selected->type == EntityType::STORAGE) {
 			Activate_Cost_Menu();
 			cotton = 0;
@@ -704,6 +723,9 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == entity_ui.button_1 && selected->type == EntityType::TOWNHALL) {
 			Activate_Coin_Cost();
 			coin_cost = 10;
+
+			if (App->expl->information_mode)
+				App->expl->Show_Label(Text::LVLUP);
 		}
 
 		if (element == entity_ui.button_2 && selected->type == EntityType::TOWNHALL) {
