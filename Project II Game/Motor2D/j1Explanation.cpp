@@ -44,50 +44,60 @@ bool j1Explanation::Start()
 	boathouse_t.third = App->font->Print("Build a boathouse");
 	boathouse_t.forth = App->font->Print("from harvester.");
 
+
 	boat_t.first = App->font->Print("CREATE BOAT BUTTON:");
 	boat_t.second = App->font->Print("");
 	boat_t.third = App->font->Print("Create a level one");
 	boat_t.forth = App->font->Print("boat");
+
 
 	storage_t.first = App->font->Print("BUILD STORAGE BUTTON");
 	storage_t.second = App->font->Print("");
 	storage_t.third = App->font->Print("Build a storage from");
 	storage_t.forth = App->font->Print("harvester.");
 
+
 	harvester_t.first = App->font->Print("CREATE HARVESTER BUTTON");
 	harvester_t.second = App->font->Print("");
 	harvester_t.third = App->font->Print("Create a level one");
 	harvester_t.forth = App->font->Print("harvester.");
+
 
 	quest_t.first = App->font->Print("QUEST MANAGER:");
 	quest_t.second = App->font->Print("");
 	quest_t.third = App->font->Print("Open quest manager");
 	quest_t.forth = App->font->Print("to select a quest");
 
+
 	select_quest_t.first = App->font->Print("SELECT QUEST:");
 	select_quest_t.second = App->font->Print("");
 	select_quest_t.third = App->font->Print("Click to select this quest.");
 	select_quest_t.forth = App->font->Print("");
+
 
 	trader_t.first = App->font->Print("EXCHANGE BUTTON:");
 	trader_t.second = App->font->Print("");
 	trader_t.third = App->font->Print("Click to open the");
 	trader_t.forth = App->font->Print("exchange manager.");
 
+
 	balloon_t.first = App->font->Print("CREATE BALLOON BUTTON:");
 	balloon_t.second = App->font->Print("");
 	balloon_t.third = App->font->Print("Create a level one");
 	balloon_t.forth = App->font->Print("balloon with great speed.");
+
 
 	carrier_t.first = App->font->Print("CREATE CARRIER BUTTON:");
 	carrier_t.second = App->font->Print("Create a level one");
 	carrier_t.third = App->font->Print("carrier that can");
 	carrier_t.forth = App->font->Print("transport units");
 
+
 	turret_t.first = App->font->Print("BUILD TURRET BUTTON");
 	turret_t.second = App->font->Print("");
 	turret_t.third = App->font->Print("Build a turret from");
 	turret_t.forth = App->font->Print("harvester.");
+
 
 	automatic_t.first = App->font->Print("HARVESTER AUTO MODE");
 	automatic_t.second = App->font->Print("");
@@ -99,6 +109,20 @@ bool j1Explanation::Start()
 	lvlup_t.second = App->font->Print("");
 	lvlup_t.third = App->font->Print("Click on the button to ");
 	lvlup_t.forth = App->font->Print("upgrade your units 1 lvl.");
+
+
+	carrier_in_t.first = App->font->Print("STORE UNIT BUTTON");
+	carrier_in_t.second = App->font->Print("");
+	carrier_in_t.third = App->font->Print("CLICK TO STORE A NERBY");
+	carrier_in_t.forth = App->font->Print("UNIT INSDE THE CARRIER");
+
+
+	carrier_out_t.first = App->font->Print("DEPLOY UNIT BUTTON");
+	carrier_out_t.second = App->font->Print("");
+	carrier_out_t.third = App->font->Print("CLICK TO DEPLOY");
+	carrier_out_t.forth = App->font->Print("THE STORED UNIT");
+
+
 
 	return true;
 }
@@ -231,6 +255,14 @@ void j1Explanation::Show_Label(Text text)
 		break;
 	case Text::LVLUP:
 		Change_Label_Text(lvlup_t);
+		Activate_Explanation();
+		break;
+	case Text::CARRIER_IN:
+		Change_Label_Text(carrier_in_t);
+		Activate_Explanation();
+		break;
+	case Text::CARRIER_OUT:
+		Change_Label_Text(carrier_out_t);
 		Activate_Explanation();
 		break;
 	case Text::NONE:
