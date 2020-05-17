@@ -172,7 +172,7 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		}
 		if (element == menu.instructions)
 		{
-			ShellExecuteA(NULL, "open", "https://www.youtube.com/watch?v=FTQbiNvZqaY", NULL, NULL, SW_SHOWNORMAL);
+			ShellExecuteA(NULL, "open", "https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/README.md", NULL, NULL, SW_SHOWNORMAL);
 		}
 		
 	}

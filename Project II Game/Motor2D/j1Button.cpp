@@ -102,6 +102,13 @@ bool j1Button::Start()
 	if (textureType == TEXTURE::TURRET_ICON)
 		texture = App->gui->Load_Texture(TEXTURE::TURRET_ICON);
 
+	if (textureType == TEXTURE::CARRIER_IN)
+		texture = App->gui->Load_Texture(TEXTURE::CARRIER_IN);
+
+	if (textureType == TEXTURE::CARRIER_OUT)
+		texture = App->gui->Load_Texture(TEXTURE::CARRIER_OUT);
+
+
 	if (text != nullptr)
 		label = App->gui->AddElement(GUItype::GUI_LABEL, this, map_position, inside_position, true, true, { 0,0,0,0 }, text);
 
