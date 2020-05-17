@@ -178,3 +178,21 @@ void j1Carrier::Deploy()
 		}
 	}
 }
+
+void j1Carrier::GetUnitsInfo(int& harvesters, int& tanks, int& capacity)
+{
+	int h = 0;
+	int t = 0;
+	for (vector<j1Entity*>::iterator itr = units.begin(); itr != units.end(); itr++)
+	{
+		j1Entity* entity = *itr;
+		if (entity->type == EntityType::HARVESTER)
+			h++;
+		else if (entity->type == EntityType::TANK)
+			t++;
+	}
+
+	harvesters = h;
+	tanks = t;
+	capacity = this->capacity;
+}

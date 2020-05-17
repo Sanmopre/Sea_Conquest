@@ -212,44 +212,50 @@ bool j1EntityManager::Update(float dt)
 //Types: BOAT, HARVESTER, BOATHOUSE, STORAGE, STORAGE, TOWNHALL, ALL_COTTON, ALL_WOOD, ALL_METAL
 j1Entity* j1EntityManager::AddEntity(float x, float y, EntityType type, int level, int team)
 {
-	switch (type)
+	iPoint tile = App->map->WorldToMap(x, y);
+	if (tile.x >= 0 && tile.x < App->map->mapdata->width && tile.y >= 0 && tile.y < App->map->mapdata->height)
 	{
-	case EntityType::BOAT:
-		buffer.push_back(new j1Boat(x, y, level, team));
-		break;
-	case EntityType::BALLOON:
-		buffer.push_back(new j1Balloon(x, y, level, team));
-		break;
-	case EntityType::HARVESTER:
-		buffer.push_back(new j1Harvester(x, y, level, team));
-		break;
-	case EntityType::CARRIER:
-		buffer.push_back(new j1Carrier(x, y, level, team));
-		break;
-	case EntityType::BOATHOUSE:
-		buffer.push_back(new j1BoatHouse(x, y, team));
-		break;
-	case EntityType::STORAGE:
-		buffer.push_back(new j1Storage(x, y, team));
-		break;
-	case EntityType::TOWNHALL:
-		buffer.push_back(new j1TownHall(x, y, team));
-		break;
-	case EntityType::TURRET:
-		buffer.push_back(new Turret(x, y, team));
-		break;
-	case EntityType::ALL_COTTON:
-		buffer.push_back(new j1Resource(x, y, level, type));
-		break;
-	case EntityType::ALL_WOOD:
-		buffer.push_back(new j1Resource(x, y, level, type));
-		break;
-	case EntityType::ALL_METAL:
-		buffer.push_back(new j1Resource(x, y, level, type));
-		break;
-	}	
+		switch (type)
+		{
+		case EntityType::BOAT:
+			buffer.push_back(new j1Boat(x, y, level, team));
+			break;
+		case EntityType::BALLOON:
+			buffer.push_back(new j1Balloon(x, y, level, team));
+			break;
+		case EntityType::HARVESTER:
+			buffer.push_back(new j1Harvester(x, y, level, team));
+			break;
+		case EntityType::CARRIER:
+			buffer.push_back(new j1Carrier(x, y, level, team));
+			break;
+		case EntityType::BOATHOUSE:
+			buffer.push_back(new j1BoatHouse(x, y, team));
+			break;
+		case EntityType::STORAGE:
+			buffer.push_back(new j1Storage(x, y, team));
+			break;
+		case EntityType::TOWNHALL:
+			buffer.push_back(new j1TownHall(x, y, team));
+			break;
+		case EntityType::TURRET:
+			buffer.push_back(new Turret(x, y, team));
+			break;
+		case EntityType::ALL_COTTON:
+			buffer.push_back(new j1Resource(x, y, level, type));
+			break;
+		case EntityType::ALL_WOOD:
+			buffer.push_back(new j1Resource(x, y, level, type));
+			break;
+		case EntityType::ALL_METAL:
+			buffer.push_back(new j1Resource(x, y, level, type));
+			break;
+		}
 
-	return *(buffer.end() - 1);
+		return *(buffer.end() - 1);
+	}
+
+	return nullptr;
 }
 
 void j1EntityManager::AddToBuffer(j1Entity* entity)
