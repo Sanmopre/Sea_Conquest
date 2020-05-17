@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Audio.h"
 #include <math.h>
+
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
@@ -98,6 +99,12 @@ bool j1Audio::CleanUp()
 
 	fx.clear();
 
+	//int chToFree = 0;
+	//for (; chToFree = 360; chToFree++)	// If the channel is already playing, choose the next channel that we already allocated with Mix_AllocateChannels()
+	//{
+	//	if (!(Mix_Playing(chToFree) == 1))
+	//		Mix_AllocateChannels()
+	//}
 	Mix_CloseAudio();
 	Mix_Quit();
 	SDL_QuitSubSystem(SDL_INIT_AUDIO);
@@ -321,7 +328,7 @@ void j1Audio::StopFx(int channel)
 	return;
 }
 
-bool j1Audio::PlaySpatialFx(uint id, uint channel_angle, uint distance, int repeat)
+bool j1Audio::PlaySpatialFx(uint id, uint channel_angle, uint distance, int repeat, int ms)
 {
 	bool ret = false;
 
@@ -344,14 +351,23 @@ bool j1Audio::PlaySpatialFx(uint id, uint channel_angle, uint distance, int repe
 		{
 			channel_angle++;
 
-			if (channel_angle > 360)
+			if (channel_angle >= 360)
 				channel_angle = 0;
 		}
 		Mix_Volume(channel_angle, (int)(App->mainmenu->GetMenu().fx->Value * 1.28f));
+		int distance_setposition = ((distance * 255) / MAX_DISTANCE);
+		//LOG("Distance_setposition %d", distance_setposition);
+		if (distance_setposition < 255 && distance_setposition >= 0)
+		{
+			//if (Mix_SetPosition(channel_angle, channel_angle, (uint8_t)distance_setposition) == 0)
+				//LOG("PETA EL AUDIO WeirdChamp %s", Mix_GetError());
+			int channelplayed = Mix_PlayChannelTimed(channel_angle, chunk, repeat, ms);
+			if (channelplayed == -1)
+				LOG("PETA EL AUDIO WeirdChamp %s", Mix_GetError());
+			//LOG("channel played %d", channelplayed);
+			//LOG("Allocated channels %d ", Mix_AllocateChannels(-1));
+		}
 
-		Mix_SetPosition(channel_angle, channel_angle, (uint)((distance * 255)/MAX_DISTANCE));
-
-		//Mix_PlayChannel(channel_angle, chunk, repeat);	
 		//LOG("volume of chunk %d", Mix_Volume(channel_angle, -1));
 		ret = true;
 	}

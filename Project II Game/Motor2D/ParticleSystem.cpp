@@ -166,7 +166,7 @@ void ParticleSystem::Update(float dt)
 				{
 					Particle* particle = *(referencesArray + awakeningCounter);
 					particle->awake = true;
-					LOG("particle active");
+					//LOG("particle active");
 
 					awakeningCounter++;
 				}
@@ -265,7 +265,7 @@ void ParticleSystem::shootCannonBall(fPoint pos1, fPoint pos2)
 				particle->pDestination = pos2;
 				particle->pVelocity = { (float)((pos2.x - pos1.x) / CANNON_BALLS_SPEED), (float)((pos2.y - pos1.y) / CANNON_BALLS_SPEED) };
 				particle->awake = true;
-				LOG("cannon ball number:%d shoot", i);
+				//LOG("cannon ball number:%d shoot", i);
 				break;
 			}
 		}

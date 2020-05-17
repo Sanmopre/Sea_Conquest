@@ -42,7 +42,7 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0, int volume = -1);
 	void StopFx(int channel = -1);
-	bool PlaySpatialFx(uint id, uint channel_angle = 1, uint distance = 1, int repeat = 0);
+	bool PlaySpatialFx(uint id, uint channel_angle = 1, uint distance = 1, int repeat = 0, int ms = 2000);
 	uint GetAngle(iPoint player_pos, iPoint enemy_pos);
 	uint GetDistance(iPoint player_pos, iPoint enemy_pos);
 	bool PlayMusic(unsigned int id, int volume = 127 ,float fade_time = DEFAULT_MUSIC_FADE_TIME);
