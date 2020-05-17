@@ -21,6 +21,9 @@ j1Carrier::j1Carrier(float x, float y, int level, int team)
 	speed = 40;
 	range = 60;
 
+	stored_units = 0;
+	capacity = level;
+
 	max_health = 100;
 	health = max_health;
 	load = { 0, 0, 0, 0 };
@@ -81,12 +84,14 @@ void j1Carrier::CleanUp()
 
 void j1Carrier::Store()
 {
+	if(units.size() < capacity)
 	if(trading_entity != nullptr)
 		if (trading_entity->main_type == EntityType::UNIT && trading_entity->terrain == NodeType::GROUND)
 		{
 			units.push_back(trading_entity);
 			trading_entity->to_remove = true;
 			trading_entity = nullptr;
+			stored_units++;
 		}
 }
 
@@ -168,6 +173,7 @@ void j1Carrier::Deploy()
 
 			App->entitymanager->AddToBuffer(entity);
 			units.erase(units.begin());
+			stored_units--;
 			break;
 		}
 	}

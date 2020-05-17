@@ -111,10 +111,23 @@ bool j1InGameUI::Update(float dt)
 	}
 
 	//UPDATE RESOURCES
-	if (selected != nullptr) {
-		sprintf_s(cotton_resource, 10, "%7d", selected->load.cotton);
-		sprintf_s(wood_resource, 10, "%7d", selected->load.wood);
-		sprintf_s(metal_resource, 10, "%7d", selected->load.metal);
+
+	if (selected != nullptr) 
+	{
+		int c = 0;
+		int w = 0;
+		int m = 0;
+
+		for (vector<j1Entity*>::iterator itr = selected->GetStorages()->begin(); itr != selected->GetStorages()->end(); itr++)
+		{
+			j1Entity* entity = *itr;
+			c += entity->load.cotton;
+			w += entity->load.wood;
+			m += entity->load.metal;
+		}
+		sprintf_s(cotton_resource, 10, "%7d", c);
+		sprintf_s(wood_resource, 10, "%7d", w);
+		sprintf_s(metal_resource, 10, "%7d", m);
 	}
 
 	//COST_UPDATE
@@ -607,6 +620,10 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		if (element == entity_ui.button_2 && selected->type == EntityType::HARVESTER) {
 			if (Cost_Function(selected, 0, 50, 10))
 				selected->BuildStructure(EntityType::STORAGE);
+		}
+		if (element == entity_ui.button_3 && selected->type == EntityType::HARVESTER) {
+			if (Cost_Function(selected, 0, 60, 10))
+				selected->BuildStructure(EntityType::TURRET);
 		}
 		if (element == entity_ui.button_5 && selected->type == EntityType::HARVESTER) {
 			selected->SetAutomatic();
