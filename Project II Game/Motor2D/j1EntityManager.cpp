@@ -62,8 +62,6 @@ bool j1EntityManager::Update(float dt)
 
 		if (entity->health == 0 || entity->to_delete || entity->to_remove)
 		{
-			if(!entity->to_remove)
-				entity->CleanUp();
 			for_deletion.push_back(entity);
 		}
 		else
@@ -266,7 +264,8 @@ void j1EntityManager::DeleteEntity(j1Entity* entity_)
 		{
 			if (*entity == entity_)
 			{
-				delete (*entity);
+				if (!(*entity)->to_remove)
+					delete (*entity);
 				entities.erase(entity);
 				break;
 			}
