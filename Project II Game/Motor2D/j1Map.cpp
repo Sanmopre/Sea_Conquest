@@ -420,6 +420,8 @@ iPoint j1Map::WorldToMap(float x, float y) const
 
 bool j1Map::CleanUp()
 {
+	App->entitymanager->CleanUp();
+
 	map_data.reset();
 	if (mapdata != nullptr)
 	{
@@ -428,7 +430,6 @@ bool j1Map::CleanUp()
 	}
 	App->pathfinding->CleanUp();
 	App->fog->CleanUp();
-	App->entitymanager->CleanUp();
 
 	return true;
 }

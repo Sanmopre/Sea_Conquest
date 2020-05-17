@@ -91,7 +91,7 @@ void Turret::CleanUp()
 	to_delete = true;
 
 	//CHECK QUEST 
-	if (App->quest->current_quest == QUEST::DESTROY_ENEMY_STRUCTURE) 
+	if (App->quest->current_quest == QUEST::DESTROY_ENEMY_STRUCTURE && team == 2) 
 		App->quest->main_quest.current++;
 }
 
