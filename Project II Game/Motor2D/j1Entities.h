@@ -41,6 +41,7 @@ enum class EntityType
 	BALLOON,
 	HARVESTER,
 	CARRIER,
+	TANK,
 	BOATHOUSE,
 	STORAGE,
 	TOWNHALL,
@@ -221,6 +222,7 @@ public:
 		//CARRIER
 		virtual void Store() {}
 		virtual void Deploy() {}
+		virtual void GetUnitsInfo(int &harvesters, int &tanks, int &capacity) {}
 	//STRUCTURES
 	virtual void BuildStructure(EntityType type) {}
 	virtual void ToPlace(bool to_place) {}
@@ -438,6 +440,8 @@ public:
 
 	void Store();
 	void Deploy();
+
+	void GetUnitsInfo(int& harvesters, int& tanks, int& capacity);
 
 	int stored_units;
 	int capacity;

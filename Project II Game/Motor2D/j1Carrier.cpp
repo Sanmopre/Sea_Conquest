@@ -21,6 +21,9 @@ j1Carrier::j1Carrier(float x, float y, int level, int team)
 	speed = 40;
 	range = 60;
 
+	stored_units = 0;
+	capacity = level;
+
 	max_health = 100;
 	health = max_health;
 	load = { 0, 0, 0, 0 };
@@ -81,12 +84,14 @@ void j1Carrier::CleanUp()
 
 void j1Carrier::Store()
 {
+	if(units.size() < capacity)
 	if(trading_entity != nullptr)
 		if (trading_entity->main_type == EntityType::UNIT && trading_entity->terrain == NodeType::GROUND)
 		{
 			units.push_back(trading_entity);
 			trading_entity->to_remove = true;
 			trading_entity = nullptr;
+			stored_units++;
 		}
 }
 
@@ -168,7 +173,26 @@ void j1Carrier::Deploy()
 
 			App->entitymanager->AddToBuffer(entity);
 			units.erase(units.begin());
+			stored_units--;
 			break;
 		}
 	}
+}
+
+void j1Carrier::GetUnitsInfo(int& harvesters, int& tanks, int& capacity)
+{
+	int h = 0;
+	int t = 0;
+	for (vector<j1Entity*>::iterator itr = units.begin(); itr != units.end(); itr++)
+	{
+		j1Entity* entity = *itr;
+		if (entity->type == EntityType::HARVESTER)
+			h++;
+		else if (entity->type == EntityType::TANK)
+			t++;
+	}
+
+	harvesters = h;
+	tanks = t;
+	capacity = this->capacity;
 }

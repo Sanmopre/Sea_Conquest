@@ -146,12 +146,22 @@ void j1Harvester::Update(float dt)
 				target = SearchResources(position.x, position.y);
 
 				if (target != nullptr)
+				{
 					if (load.Weight() == load.maxweight || target->load.Total() == 0)
 					{
 						GoTo(deposit_destination, terrain);
 						if (target->load.Total() == 0)
+						{
 							automatic = false;
+							target->to_delete = true;
+						}
 					}
+				}
+				else
+				{
+					GoTo(deposit_destination, terrain);
+					automatic = false;
+				}
 			}
 			else if (deposit_destination == position)
 			{
@@ -314,7 +324,7 @@ j1Entity* j1Harvester::SearchResources(float x, float y)
 	float distance = 0.0f;
 
 	for (std::vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
-		if (*e != this && (*e)->main_type == EntityType::RESOURCE && (*e)->load.Total() > 0)
+		if (*e != this && (*e)->main_type == EntityType::RESOURCE)
 				if (x + range > (*e)->position.x &&
 					x - range < (*e)->position.x &&
 					y + range >(*e)->position.y &&

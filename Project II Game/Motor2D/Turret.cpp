@@ -55,7 +55,7 @@ Turret::~Turret()
 
 void Turret::Update(float dt)
 {
-	if (dt != 0.0f)
+	if (dt != 0.0f && built_state != BUILDING && built_state != ON_HOLD && built_state != TO_BUILD)
 	{
 		int enemy = 0;
 		if (team == 1)
