@@ -120,7 +120,10 @@ struct Information {
 	bool in_info = false;
 };
 
-
+struct Carrier_Capacity {
+	j1Element* image;
+	char capacity[10];
+};
 
 struct SDL_Texture;
 class j1Entity;
@@ -175,6 +178,9 @@ public:
 	void Activate_Information();
 	void Deactivate_Information();
 
+	//ACTIVATE CARRIER CAP MENU
+	void Activate_Carrier_Cap();
+	void Deactivate_Carrier_Cap();
 
 	//QUEST SELECTOR
 	void Activate_Quest_Selector();
@@ -274,6 +280,7 @@ private:
 	Information information;
 	CoinCost coincost;
 	Quest_selector quest_selector;
+	Carrier_Capacity carrier_cap;
 
 	
 	Entity_UI entity_ui;
@@ -291,6 +298,8 @@ private:
 	bool in_trader = false;
 	int font_name = -1;
 	bool quit = false;
+
+	bool Carrier_cap = false;
 
 	j1Entity* selected_last_frame;
 };

@@ -231,7 +231,9 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::CARRIER_OUT:
 		texture_load = App->tex->GetTexture("carrier-out", 0, 0);
 		break;
-
+	case TEXTURE::CARRIER_CAP:
+		texture_load = App->tex->Load("textures/ui/carrier-cap.png");
+		break;
 	}
 
 	return texture_load;

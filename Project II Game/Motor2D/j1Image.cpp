@@ -89,7 +89,10 @@ bool j1Image::Start()
 	if (textureType == TEXTURE::INFORMATION_IMAGE)
 		texture = App->gui->Load_Texture(TEXTURE::INFORMATION_IMAGE);
 
-	return true;
+	if (textureType == TEXTURE::CARRIER_CAP)
+		texture = App->gui->Load_Texture(TEXTURE::CARRIER_CAP);
+
+	return true; 
 }
 
 bool j1Image::PreUpdate()
