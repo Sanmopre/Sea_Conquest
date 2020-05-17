@@ -38,6 +38,8 @@
     <texture name ="townhall"    level ="1" team ="2" source ="textures/structures/enemy_townhall.png"/>
     <texture name ="storage"     level ="1" team ="1" source ="textures/structures/storage.png"/>
     <texture name ="boathouse"   level ="1" team ="1" source ="textures/structures/boathouse.png"/>
+    <texture name ="turret"      level ="1" team ="1" source ="textures/structures/ally-tower.png"/>
+    <texture name ="turret"      level ="1" team ="2" source ="textures/structures/enemy-tower.png"/>
     <texture name ="cons_big"    level ="0" team ="0" source ="textures/structures/cons_big.png"/>
     <texture name ="cons_medium" level ="0" team ="0" source ="textures/structures/cons_medium.png"/>
     <texture name ="cons_small"  level ="0" team ="0" source ="textures/structures/cons_small.png"/>
@@ -61,6 +63,16 @@
     <texture name ="balloon-shadow"   level ="1" team ="0" source ="textures/units/shadow/balloon-shadow.png"/>
     <texture name ="balloon-shadow"   level ="2" team ="0" source ="textures/units/shadow/airship-shadow.png"/>
     <texture name ="carrier-shadow"   level ="0" team ="0" source ="textures/units/shadow/van-shadow.png"/>
+    <!-- Resources -->
+    <texture name ="cotton"   level ="1" team ="0" source ="textures/resources/cotton-1.png"/>
+    <texture name ="cotton"   level ="2" team ="0" source ="textures/resources/cotton-2.png"/>
+    <texture name ="cotton"   level ="3" team ="0" source ="textures/resources/cotton-3.png"/>
+    <texture name ="wood"     level ="1" team ="0" source ="textures/resources/wood-1.png"/>
+    <texture name ="wood"     level ="2" team ="0" source ="textures/resources/wood-2.png"/>
+    <texture name ="wood"     level ="3" team ="0" source ="textures/resources/wood-3.png"/>
+    <texture name ="metal"    level ="1" team ="0" source ="textures/resources/metal-1.png"/>
+    <texture name ="metal"    level ="2" team ="0" source ="textures/resources/metal-2.png"/>
+    <texture name ="metal"    level ="3" team ="0" source ="textures/resources/metal-3.png"/>
     <!-- UI Icons Entities -->
     <texture name ="boat-icon"       level ="0" team ="0" source ="textures/ui/boat-image.png"/>
     <texture name ="harvester-icon"  level ="0" team ="0" source ="textures/ui/harvester.png"/>
@@ -94,6 +106,7 @@
     <animation name ="ally_storage_half"  coll="2" row="0" width="64"  height="64"  collumns="4"  frames="1"  speed="1" loop="false"/>
     <animation name ="ally_storage_full"  coll="3" row="0" width="64"  height="64"  collumns="4"  frames="1"  speed="1" loop="false"/>
     <animation name ="boathouse"          coll="0" row="0" width="128" height="128" collumns="1"  frames="1"  speed="1" loop="false"/>
+    <animation name ="turret"             coll="0" row="0" width="64"  height="64"  collumns="4"  frames="4"  speed="5" loop="true"/>
     <animation name ="cons_big"           coll="0" row="0" width="96"  height="64"  collumns="1"  frames="1"  speed="1" loop="false"/>
     <animation name ="cons_medium"        coll="0" row="0" width="128" height="128" collumns="1"  frames="1"  speed="1" loop="false"/>
     <animation name ="cons_small"         coll="0" row="0" width="64"  height="64"  collumns="1"  frames="1"  speed="1" loop="false"/>
@@ -106,6 +119,8 @@
     <animation name ="unit-north_west"  coll="3" row="2" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
     <animation name ="unit-north"       coll="0" row="3" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
     <animation name ="unit-north_east"  coll="3" row="3" width="32" height="32" collumns="6" frames="2" speed="2" loop="true"/>
+    <!-- Resources -->
+    <animation name ="resource"         coll="0" row="0" width="64" height="64" collumns="1" frames="1" speed="1" loop="false"/>
     <!-- Minimap -->
     <animation name ="minimap"            coll="0" row="0" width="240" height="160" collumns="1" frames="1" speed="1" loop="false"/>
     <animation name ="fog-chunk"          coll="0" row="0" width="120" height="80"  collumns="1" frames="1" speed="1" loop="false"/>

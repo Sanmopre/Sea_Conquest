@@ -27,15 +27,18 @@ Turret::Turret(float x, float y, int team)
 	damage = 20;
 	range = 150;
 	firerate = { 0.25 };
+
 	max_health = 500;
-	health = max_health;
+	if (built_state != BUILDING)
+		health = max_health;
+
 	load = { 0, 0, 0, 0 };
 	target = nullptr;
 
-	texture = App->tex->GetTexture("boat", level, team);
+	texture = App->tex->GetTexture("turret", level, team);
 	tex_construction = App->tex->GetTexture("cons_small", 0, 0);
 
-	basic = App->anim->GetAnimation("boathouse");
+	basic = App->anim->GetAnimation("turret");
 	under_construction = App->anim->GetAnimation("cons_small");
 
 	selectable_area = rect;

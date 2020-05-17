@@ -218,6 +218,9 @@ public:
 		//HARVESTER
 		virtual void SetAutomatic() {}
 		virtual void BuildUnit(EntityType type, int level) {}
+		//CARRIER
+		virtual void Store() {}
+		virtual void Deploy() {}
 	//STRUCTURES
 	virtual void BuildStructure(EntityType type) {}
 	virtual void ToPlace(bool to_place) {}
@@ -352,6 +355,7 @@ public:
 	void Primitive_Update(float dt) {}
 
 	Color color;
+	Animation anim;
 
 	void Update(float dt);
 	void CleanUp();

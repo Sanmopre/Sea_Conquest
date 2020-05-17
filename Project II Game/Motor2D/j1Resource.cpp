@@ -16,8 +16,10 @@ j1Resource::j1Resource(float x, float y, int level,EntityType type)
 	max_health = 1000;
 	health = max_health;
 
+	anim = App->anim->GetAnimation("resource");
+	rect = anim.GetCurrentFrame();
 
-	load.maxweight = 500 * level;
+	load.maxweight = 1000 * level;
 
 	switch (type)
 	{
@@ -26,23 +28,23 @@ j1Resource::j1Resource(float x, float y, int level,EntityType type)
 		load.cotton = load.maxweight / COTTON_MASS;
 		load.metal = 0;
 		color.SetColor(240u, 240u, 240u);
+		texture = App->tex->GetTexture("cotton", level, 0);
 		break;
 	case EntityType::ALL_WOOD:
 		load.wood = load.maxweight / WOOD_MASS;
 		load.cotton = 0;
 		load.metal = 0;
 		color.SetColor(120u, 72u, 0u);
+		texture = App->tex->GetTexture("wood", level, 0);
 		break;
 	case EntityType::ALL_METAL:
 		load.wood = 0;
 		load.cotton = 0;
 		load.metal = load.maxweight / METAL_MASS;
 		color.SetColor(107u, 120u, 119u);
+		texture = App->tex->GetTexture("metal", level, 0);
 		break;
 	}
-
-	rect.w = 10 * level;
-	rect.h = 10 * level;
 }
 
 void j1Resource::Update(float dt)
@@ -50,18 +52,20 @@ void j1Resource::Update(float dt)
 	showing_hpbar = false;
 
 	if (selected)
-		ShowHPbar(10, 5);
-
-	rect.x = GetRenderPositionX();
-	rect.y = GetRenderPositionY();
+		ShowHPbar(0, 5, -20);
 
 	if (load.Total() == 0)
 		color.Black();
 
 	selectable_area = rect;
+	selectable_area.x = GetRenderPositionX();
+	selectable_area.y = GetRenderPositionY();
+	selectable_area.h /= 2;
+	selectable_area.y += selectable_area.h;
+
 	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->ignore_fog)
 	{
-		App->render->AddBlitEvent(0, nullptr, 0, 0, rect, false, false, color.r, color.g, color.b, 255);
+		App->render->AddBlitEvent(0, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 		App->minimap->Draw_entities(this);
 	}
 }
