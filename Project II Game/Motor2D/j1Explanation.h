@@ -39,6 +39,8 @@ enum class Text
 	AUTOMATIC,
 	TURRET,
 	LVLUP,
+	CARRIER_IN,
+	CARRIER_OUT,
 	NONE
 };
 
@@ -67,6 +69,7 @@ private:
 	void Activate_Explanation();
 	void Deactivate_Explanation();
 	bool explanation_active = false;
+
 	j1Element* first = nullptr;
 	j1Element* second = nullptr;
 	j1Element* third = nullptr;
@@ -97,9 +100,8 @@ private:
 	Explanation_T turret_t;
 	Explanation_T automatic_t;
 	Explanation_T lvlup_t;
-
-
-
+	Explanation_T carrier_in_t;
+	Explanation_T carrier_out_t;
 
 };
 
