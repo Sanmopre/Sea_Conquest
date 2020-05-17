@@ -225,6 +225,12 @@ SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 	case TEXTURE::TURRET_ICON:
 		texture_load = App->tex->GetTexture("turret-icon", 0, 0);
 		break;
+	case TEXTURE::CARRIER_IN:
+		texture_load = App->tex->GetTexture("carrier-in", 0, 0);
+		break;
+	case TEXTURE::CARRIER_OUT:
+		texture_load = App->tex->GetTexture("carrier-out", 0, 0);
+		break;
 
 	}
 

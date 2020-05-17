@@ -1223,8 +1223,12 @@ void j1InGameUI::Manage_Entity_UI(j1Entity* entity)
 
 		case EntityType::CARRIER:
 			Change_Image_Label(entity);
-			entity_ui.button_1->enabled = false;
-			entity_ui.button_2->enabled = false;
+			entity_ui.button_1->texture = App->gui->Load_Texture(TEXTURE::CARRIER_IN);
+			entity_ui.button_1->enabled = true;
+
+			entity_ui.button_2->texture = App->gui->Load_Texture(TEXTURE::CARRIER_OUT);
+			entity_ui.button_2->enabled = true;
+
 			entity_ui.button_3->enabled = false;
 			entity_ui.button_4->enabled = false;
 			entity_ui.button_5->enabled = false;

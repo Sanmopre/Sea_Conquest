@@ -82,6 +82,8 @@
     <texture name ="storage-icon"    level ="0" team ="0" source ="textures/ui/storage.png"/>
     <texture name ="boathouse-icon"  level ="0" team ="0" source ="textures/ui/building-image.png"/>
     <texture name ="turret-icon"  level ="0" team ="0" source ="textures/ui/turret-icon.png"/>
+    <texture name ="carrier-in"  level ="0" team ="0" source ="textures/ui/carrier-in.png"/>
+    <texture name ="carrier-out"  level ="0" team ="0" source ="textures/ui/carrier-out.png"/>
     <!-- UI Icons -->
     <texture name ="automatic-icon"  level ="0" team ="0" source ="textures/ui/automatic.png"/>
     <texture name ="quest-icon"      level ="0" team ="0" source ="textures/ui/quest.png"/>
