@@ -26,7 +26,7 @@ j1Boat::j1Boat(float x, float y, int level, int team)
 	int extra = level * 1.5;
 	speed = 50 + 10 * extra;
 	damage = 10 + 5 * extra;
-	range = 100 + 20 * extra;
+	range = 100;
 	firerate = { 1 };
 	max_health = 100;
 	health = max_health;

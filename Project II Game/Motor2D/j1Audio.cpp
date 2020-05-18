@@ -232,12 +232,12 @@ bool j1Audio::PlayMusic(unsigned int id, int volume, float fade_time)
 		}
 		if (fade_time > 0.0f)
 		{
-			Mix_FadeInMusic(*it, -1, (int)(fade_time * 1000.0f));
+			Mix_FadeInMusic(*it, 0, (int)(fade_time * 1000.0f));
 			//Mix_PlayMusic(*it, -1);
 		}
 		else
 		{
-			Mix_PlayMusic(*it, -1);
+			Mix_PlayMusic(*it, 0);
 		}
 
 	}
