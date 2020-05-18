@@ -388,14 +388,14 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Game\maps\Mapa definitivo.tmx">
-      <Filter>Desenvolupament  ========</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="Development - Class 12 Handout.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Game\textures\Captura.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Game\assets\maps\Mapa definitivo.tmx">
+      <Filter>Desenvolupament  ========</Filter>
+    </None>
   </ItemGroup>
 </Project>

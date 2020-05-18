@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.5" orientation="isometric" renderorder="right-down" width="200" height="200" tilewidth="64" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
  <tileset firstgid="1" name="Final_Terrain_tiles" tilewidth="64" tileheight="64" tilecount="55" columns="12">
-  <image source="maps/Terrain_tiles.png" width="768" height="320"/>
+  <image source="assets/maps/Terrain_tiles.png" width="768" height="320"/>
   <tile id="0">
    <properties>
     <property name="terrain" value="GROUND"/>
