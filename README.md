@@ -1,4 +1,4 @@
-# Sea Conquest (Vertical Slice)
+# Sea Conquest (Alpha Assignmet)
 
 ## Description:
 
