@@ -52,28 +52,28 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	}
 	Mix_AllocateChannels(360);
 
-	boat_attack = App->audio->LoadFx("audio/fx/boat_attack.wav");
-	boat_destroy = App->audio->LoadFx("audio/fx/boat_destroy.wav");
-	boat_spawn = App->audio->LoadFx("audio/fx/boat_spawn.wav");
-	harvester_destroy = App->audio->LoadFx("audio/fx/harvester_destroy.wav");
-	harvester_spawn = App->audio->LoadFx("audio/fx/harvester_spawn.wav");
-	harvester_work = App->audio->LoadFx("audio/fx/harvester_work.wav");
-	structure_build = App->audio->LoadFx("audio/fx/structure_build.wav");
-	structure_destroy = App->audio->LoadFx("audio/fx/structure_destroy.wav");
-	ui_open = App->audio->LoadFx("audio/fx/ui_open.wav");
-	ui_purchase = App->audio->LoadFx("audio/fx/ui_purchase.wav");
-	ui_wood_hit = App->audio->LoadFx("audio/fx/uiclick.wav");
-	logo_audio = App->audio->LoadFx("audio/fx/logo_intro.wav");
+	boat_attack = App->audio->LoadFx("audio/fx/boat-attack.wav");
+	boat_destroy = App->audio->LoadFx("audio/fx/boat-destroy.wav");
+	boat_spawn = App->audio->LoadFx("audio/fx/boat-spawn.wav");
+	harvester_destroy = App->audio->LoadFx("audio/fx/harvester-destroy.wav");
+	harvester_spawn = App->audio->LoadFx("audio/fx/harvester-spawn.wav");
+	harvester_work = App->audio->LoadFx("audio/fx/harvester-work.wav");
+	structure_build = App->audio->LoadFx("audio/fx/structure-build.wav");
+	structure_destroy = App->audio->LoadFx("audio/fx/structure-destroy.wav");
+	ui_open = App->audio->LoadFx("audio/fx/ui-open.wav");
+	ui_purchase = App->audio->LoadFx("audio/fx/ui-purchase.wav");
+	ui_wood_hit = App->audio->LoadFx("audio/fx/ui-click.wav");
+	logo_audio = App->audio->LoadFx("audio/fx/logo-intro.wav");
 	welcome_voice = App->audio->LoadFx("audio/fx/welcome.wav");
-	start = App->audio->LoadFx("audio/fx/start_game.wav");
-	you_are_not_prepared = App->audio->LoadFx("audio/fx/you_are_not_prepared.wav");
-	this_will_be_fun = App->audio->LoadFx("audio/fx/this_will_be_fun.wav");	
-	such_arrogance = LoadFx("audio/fx/such_arrogance.wav");
+	start = App->audio->LoadFx("audio/fx/start-game.wav");
+	you_are_not_prepared = App->audio->LoadFx("audio/fx/you-are-not-prepared.wav");
+	this_will_be_fun = App->audio->LoadFx("audio/fx/this-will-be-fun.wav");	
+	such_arrogance = LoadFx("audio/fx/such-arrogance.wav");
 	ha = LoadFx("audio/fx/ha.wav");
 	no = LoadFx("audio/fx/no.wav");
-	//mainmenu_music = Mix_LoadMUS("audio/music/Motorista_Reciclista_Shop1_start.wav");
+	//mainmenu_music = Mix_LoadMUS("audio/music/start-song.wav");
 	//ingame_chill_music = Mix_LoadMUS("audio/music/Sea_conquest_chill_cutre.wav");
-	mainmenu_music = LoadMusic("audio/music/tavern_song.wav");
+	mainmenu_music = LoadMusic("audio/music/tavern-song.wav");
 	ingame_chill_music = LoadMusic("audio/music/song.wav");
 
 	
