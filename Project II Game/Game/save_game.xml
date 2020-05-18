@@ -7,7 +7,6 @@
 	<:anonymous />
 	<fonts />
 	<player />
-	<:anonymous />
 	<minimap />
 	<:anonymous />
 	<:anonymous />
@@ -17,6 +16,7 @@
 	<InGameUI />
 	<InGameUI />
 	<audio />
+	<:anonymous />
 	<gui />
 	<:anonymous />
 	<:anonymous />

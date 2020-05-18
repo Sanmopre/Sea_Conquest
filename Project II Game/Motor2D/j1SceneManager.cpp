@@ -86,15 +86,15 @@ bool j1SceneManager::Update(float dt)
 	App->transitions->SquaresAppearing(4, Black, 1.0f, //scene);
 	*/
 
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-	{
-		App->SaveGame("save_game.xml");
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-	{
-		App->LoadGame();
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	//{
+	//	App->SaveGame("save_game.xml");
+	//}
+	//
+	//if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	//{
+	//	App->LoadGame();
+	//}
 
 	if (In_Main_Menu == true) {
 		App->InGameUI->Deactivate_All_UI();

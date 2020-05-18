@@ -54,8 +54,7 @@ void j1Carrier::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
 				Store();
 			if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-				if (units.size() != 0)
-					Deploy();
+				Deploy();
 		}
 
 		if (destination != position)
@@ -101,84 +100,87 @@ void j1Carrier::Store()
 
 void j1Carrier::Deploy()
 {
-	iPoint tile = App->map->WorldToMap(position.x, position.y);
-	int x = tile.x;
-	int y = tile.y;
-	j1Entity* entity = *units.begin();
-
-	int i = 3;
-	SpreadState state = UP;
-	int limit = 5;
-	while (i <= limit)
+	if (units.size() != 0)
 	{
-		switch (state)
-		{
-		case UP:
-			y -= i / 2;
-			if (i != 1)
-				state = RIGHT;
-			else
-				i += 2;
-			break;
-		case RIGHT:
-			x++;
-			if (x == tile.x + i / 2)
-				state = DOWN;
-			break;
-		case DOWN:
-			y++;
-			if (y == tile.y + i / 2)
-				state = LEFT;
-			break;
-		case LEFT:
-			x--;
-			if (x == tile.x - i / 2)
-				state = UP2;
-			break;
-		case UP2:
-			y--;
-			if (y == tile.y - i / 2)
-				state = RIGHT2;
-			break;
-		case RIGHT2:
-			if (x == tile.x - 1)
-			{
-				i += 2;
-				x = tile.x;
-				y = tile.y;
-				state = UP;
-			}
-			else
-				x++;
-			break;
-		}
-		bool can = false;
-		fPoint pos = {};
-		Node* node = *App->pathfinding->WorldToNode(x, y);
-		if (node->type == entity->terrain)
-		{
-			can = true;
-			pos = App->map->MapToWorld<fPoint>(x, y);
-			for (vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
-			{
-				if ((*e)->main_type == EntityType::UNIT)
-					if ((*e)->position == pos)
-					{
-						can = false;
-						break;
-					}
-			}
-		}
-		if (can)
-		{
-			entity->SetPosition(pos);
-			entity->UpdateMap(node);
-			entity->to_remove = false;
+		iPoint tile = App->map->WorldToMap(position.x, position.y);
+		int x = tile.x;
+		int y = tile.y;
+		j1Entity* entity = *units.begin();
 
-			App->entitymanager->AddToBuffer(entity);
-			units.erase(units.begin());
-			stored_units--;
-			break;
+		int i = 3;
+		SpreadState state = UP;
+		int limit = 5;
+		while (i <= limit)
+		{
+			switch (state)
+			{
+			case UP:
+				y -= i / 2;
+				if (i != 1)
+					state = RIGHT;
+				else
+					i += 2;
+				break;
+			case RIGHT:
+				x++;
+				if (x == tile.x + i / 2)
+					state = DOWN;
+				break;
+			case DOWN:
+				y++;
+				if (y == tile.y + i / 2)
+					state = LEFT;
+				break;
+			case LEFT:
+				x--;
+				if (x == tile.x - i / 2)
+					state = UP2;
+				break;
+			case UP2:
+				y--;
+				if (y == tile.y - i / 2)
+					state = RIGHT2;
+				break;
+			case RIGHT2:
+				if (x == tile.x - 1)
+				{
+					i += 2;
+					x = tile.x;
+					y = tile.y;
+					state = UP;
+				}
+				else
+					x++;
+				break;
+			}
+			bool can = false;
+			fPoint pos = {};
+			Node* node = *App->pathfinding->WorldToNode(x, y);
+			if (node->type == entity->terrain)
+			{
+				can = true;
+				pos = App->map->MapToWorld<fPoint>(x, y);
+				for (vector<j1Entity*>::iterator e = App->entitymanager->entities.begin(); e != App->entitymanager->entities.end(); e++)
+				{
+					if ((*e)->main_type == EntityType::UNIT)
+						if ((*e)->position == pos)
+						{
+							can = false;
+							break;
+						}
+				}
+			}
+			if (can)
+			{
+				entity->SetPosition(pos);
+				entity->UpdateMap(node);
+				entity->to_remove = false;
+
+				App->entitymanager->AddToBuffer(entity);
+				units.erase(units.begin());
+				stored_units--;
+				break;
+			}
 		}
 	}
 }

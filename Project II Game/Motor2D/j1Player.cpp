@@ -73,6 +73,8 @@ bool j1Player::Start()
 	highlight_anim = App->anim->GetAnimation("tile_highlight");
 	App->win->GetWindowSize(win_width, win_height);
 	max_w_group = 7;
+	lock_M1 = false;
+	lock_M2 = false;
 	//SDL_ShowCursor(SDL_DISABLE);
 
 	return ret;
@@ -116,10 +118,12 @@ bool j1Player::Update(float dt)
 		disable_click = true;
 	
 	if (disable_click)
+	{
 		if (App->input->GetMouseButtonDown(3) == KEY_REPEAT)
 			lock_M2 = true;
-		else if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
+		if (App->input->GetMouseButtonDown(1) == KEY_REPEAT)
 			lock_M1 = true;
+	}
 
 	if (lock_M1)
 		if (App->input->GetMouseButtonDown(1) == KEY_UP)

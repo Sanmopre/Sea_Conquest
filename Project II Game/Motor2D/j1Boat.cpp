@@ -91,8 +91,11 @@ void j1Boat::Update(float dt)
 					firerate.counter = 0;
 				}
 			}
-		}
+		}	
+	}
 
+	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->ignore_fog)
+	{
 		//PARTICLES
 		if (health < max_health / 2 && !Smoke)
 		{
@@ -109,11 +112,7 @@ void j1Boat::Update(float dt)
 			SmokeSystem->changePosition(position);
 		if (Fire)
 			FireSystem->changePosition(position);
-		
-	}
 
-	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->ignore_fog)
-	{
 		App->render->AddBlitEvent(1, shadow, GetRenderPositionX(), GetRenderPositionY(), rect, false, false, 0, 0, 0, 100);
 		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 		App->minimap->Draw_entities(this);
@@ -122,10 +121,10 @@ void j1Boat::Update(float dt)
 
 void j1Boat::CleanUp()
 {
-	App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, position, 0.9);
-
 	if (App->entitymanager->townhall_level != 0)
 	{
+		App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, position, 0.9);
+
 		App->audio->PlaySpatialFx(App->audio->boat_destroy,
 			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
 			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));

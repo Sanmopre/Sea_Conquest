@@ -173,7 +173,7 @@ void j1Structure::BuildUnit(EntityType type, int level)
 		}
 		bool can = false;
 		fPoint pos = {};
-		if ((*App->pathfinding->WorldToNode(x, y))->type == terrain)
+		if (((*App->pathfinding->WorldToNode(x, y))->type == terrain && (*App->pathfinding->WorldToNode(x, y))->built == false) || type == EntityType::BALLOON)
 		{
 			can = true;
 			pos = App->map->MapToWorld<fPoint>(x, y);

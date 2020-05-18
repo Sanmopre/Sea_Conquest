@@ -31,7 +31,7 @@ j1Harvester::j1Harvester(float x, float y, int level, int team)
 	this->team = team;
 	speed = 30 + 10 * extra;
 	range = 50;
-	damage = 30 + 15 * extra;
+	damage = 30 + (15 * extra) * (level - 1);
 	harvestrate = { 2 };
 	transferrate = { 0.5 };
 	max_health = 50 + 10 * extra;

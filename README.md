@@ -25,27 +25,79 @@ To draw a clear path towards the game we would like to do, we will state our gam
  - F10 : Godmode
 	while in Gogmode:
 		- F9 : Show walkability map
+		- F8 : Ignore Fog
+		- F7 : Numerate entities
+		- F6 : Show chasing range
+
+		- Q  : Spawn carrier
 		- E  : Spawn ally Harvester
 		- F  : Spawn ally boat 
 		- D  : Spawn enemy boat
 		- C  : Spawn ally boathouse
 		- X  : Spawn enemy boathouse
+		- U  : Spawn lvl 1 balloon
+		- I  : Spawn lvl 2 balloon
+
 		- R  : Spawn cotton resource
 		- T  : Spawn wood resource
 		- Y  : Spawn metal resource
 		- G  : Delete all selected units
 		- H  : Delete all units
-  - Mouse : -Holding right click and moving it will create a square that selects all entities inside, if holding the Left-Shift 
-		button the entities inside the square will be selected in addition to the previously selected ones and if holding 
-		the Left-Alt button  the entities inside the square will be unselected.
-	    -To interact with UI right click.
-	    -Leftclick in the trading menu will exchange all the rosurce material form one unit to the other and move selected 
-		units to the clicked position.
-  
-  - Zoom options:("This options still need work and improvement, they may cause gamebugs")
-		- A  : Zoom in
-		- S  : Zoom out
-		- SPACE  : Set camera to original size 
+
+  - Mouse : 
+	- Use mouse left click to interact with UI
+	- Use mouse left click to select units:
+		- Single click selects the entities closer to the camera
+		- Dragging selects all entities in the rectangle
+	- Use mouse right click to schedule paths for the selected units
+
+ - Trading System: In the game all entities have an internal storage of resources which they use to perform their tasks, entities like the storages are able to share their
+		   resources in a given area. The resources available to the main selected entity appear in the top left corner of the screen.
+		   To trade between entities they have to be both selected.
+		   Both the UI selected unit and the trading entity are highlighted with a purple and cyan rectangle respectively.
+		   The trade button is always available in any entity as long as more than 1 entity is selected.
+		   Clicking the arrows in the sides of the entities UI cycles them through the selected entities and the tradable entities.
+		   Left clicking the middle arrows will transfer 5 of the resource.
+		   Right clicking the middle arrow will transfer all of the resource to the other entity.
+
+  - Entities: apart from trading each entity has different special actions and qualities.
+
+	- Boat:
+		Description: Offensive water unit, attacks enemies at sea level and can carry a little bit of resources.
+		Mechanics: Can chase nearby enemies.
+		UI use: No additional buttons. 
+	- Balloon:
+		Description: Very fast offensive air unit, attacks enemies at sea level slow powerfull attacks.
+		Mechanics: Can chase nearby enemies, clears big range of fog.
+		UI use: No additional buttons. 
+	- Harvester:
+		Description: Slow ground unit, gathers resources.
+		Mechanics: Can build structures and has automatic mode.
+		UI use:	
+			Button 1: Build BoatHouse.
+			Button 2: Build Storage.
+			Button 3: Build Turret.
+	- Boat:
+		Description: 
+		Mechanics: 
+		UI use:	
+	- Boat:
+		Description: 
+		Mechanics: 	
+		UI use:
+	- Boat:
+		Description: 
+		Mechanics: 	
+		UI use:
+	- Boat:
+		Description: 
+		Mechanics: 	
+		UI use:
+	- Boat:
+		Description: 
+		Mechanics: 	
+		UI use:		
+
   - P : Spawn a cloud particle
 
 ## Developers
