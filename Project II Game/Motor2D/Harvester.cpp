@@ -240,9 +240,12 @@ void j1Harvester::CleanUp()
 {
 	to_delete = true;
 
-	App->audio->PlaySpatialFx(App->audio->harvester_destroy,
-		App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
-		App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+	if (App->entitymanager->townhall_level != 0)
+	{
+		App->audio->PlaySpatialFx(App->audio->harvester_destroy,
+			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+	}
 }
 
 void j1Harvester::SetAutomatic()

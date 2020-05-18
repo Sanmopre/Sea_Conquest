@@ -312,6 +312,7 @@ void j1EntityManager::DeleteAll()
 
 bool j1EntityManager::CleanUp()
 {
+	townhall_level = 0;
 	DeleteAll();
 
 	vector<j1Entity*> e;

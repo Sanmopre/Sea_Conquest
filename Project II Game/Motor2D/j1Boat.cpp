@@ -124,12 +124,13 @@ void j1Boat::CleanUp()
 {
 	App->pmanager->createSystem(PARTICLE_TYPES::EXPLOSION, position, 0.9);
 
-	if (App->fog->GetVisibility(position) == FogState::VISIBLE)
+	if (App->entitymanager->townhall_level != 0)
 	{
 		App->audio->PlaySpatialFx(App->audio->boat_destroy,
 			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
 			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
 	}
+
 	path.erase(path.begin(), path.end());
 	path.shrink_to_fit();
 	if(SmokeSystem != nullptr)

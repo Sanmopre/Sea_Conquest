@@ -26,9 +26,12 @@ j1Structure::j1Structure()
 
 j1Structure::~j1Structure()
 {
-	App->audio->PlaySpatialFx(App->audio->structure_destroy,
-		App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
-		App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+	if (App->entitymanager->townhall_level != 0)
+	{
+		App->audio->PlaySpatialFx(App->audio->structure_destroy,
+			App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),
+			App->audio->GetDistance(App->render->getCameraPosition(), { (int)position.x, (int)position.y }));
+	}
 
 	current_animation = nullptr;
 	current_tex = nullptr;
