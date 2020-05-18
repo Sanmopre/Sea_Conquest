@@ -518,15 +518,6 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 
 			App->expl->information_mode = !App->expl->information_mode;
 
-			for (std::vector<j1Entity*>::iterator entity = App->entitymanager->entities.begin(); entity != App->entitymanager->entities.end(); entity++)
-				if ((*entity)->selected)
-				{
-					if ((*entity)->load.maxweight > (*entity)->load.Weight()) {
-						(*entity)->load.cotton += 10;
-						(*entity)->load.wood += 10;
-						(*entity)->load.metal += 10;
-					}
-				}
 		}
 		if (element == menu.Exit_button) {
 			App->win->Fullscreen();
