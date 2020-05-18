@@ -69,7 +69,7 @@ public:
 
 
 public:
-	bool quest_manager_open = false;
+	bool quest_manager_open = true;
 	bool quest_activate = false;
 	QUEST current_quest = QUEST::NONE;	
 	Quest main_quest;

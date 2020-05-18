@@ -136,6 +136,7 @@ public:
 	bool				game_pause = false;
 	bool				clicking_ui = false;
 
+	int font_name = -1;
 	bool godmode = false;
 	bool show_pathnodes = false;
 	bool ignore_fog = false;

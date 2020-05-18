@@ -299,6 +299,11 @@ private:
 	int font_name = -1;
 	bool quit = false;
 
+	//carrier
+	int harvesters;
+	int tanks;
+	int carrier_capa;
+
 	bool Carrier_cap = false;
 
 	j1Entity* selected_last_frame;

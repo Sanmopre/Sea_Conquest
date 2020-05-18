@@ -71,6 +71,11 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	such_arrogance = LoadFx("audio/fx/such-arrogance.wav");
 	ha = LoadFx("audio/fx/ha.wav");
 	no = LoadFx("audio/fx/no.wav");
+	quest_start = App->audio->LoadFx("audio/fx/quest-start.wav");
+	quest_completed = App->audio->LoadFx("audio/fx/quest-completed.wav");
+	carrier_spawn = App->audio->LoadFx("audio/fx/carrier-spawn.wav");
+	carrier_raise = App->audio->LoadFx("audio/fx/carrier-raise.wav");
+	carrier_descend = App->audio->LoadFx("audio/fx/carrier-descend.wav");
 	//mainmenu_music = Mix_LoadMUS("audio/music/start-song.wav");
 	//ingame_chill_music = Mix_LoadMUS("audio/music/Sea_conquest_chill_cutre.wav");
 	mainmenu_music = LoadMusic("audio/music/tavern-song.wav");

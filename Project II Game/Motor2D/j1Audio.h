@@ -68,7 +68,11 @@ public:
 	uint such_arrogance;
 	uint ha;
 	uint no;
-
+	uint quest_start;
+	uint quest_completed;
+	uint carrier_spawn;
+	uint carrier_descend;
+	uint carrier_raise;
 	
 	//_Mix_Music* mainmenu_music;
 	//_Mix_Music* ingame_chill_music;

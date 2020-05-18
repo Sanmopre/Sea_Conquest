@@ -168,6 +168,8 @@ bool j1App::Start()
 	////
 	App->scenemanager->ChangeScene(3);
 	App->audio->PlayFxIntro(App->audio->logo_audio,0,100);
+
+	font_name = App->fonts->Load("textures/ui/font.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
 	////
 	p2List_item<j1Module*>* item;
 	item = modules.start;

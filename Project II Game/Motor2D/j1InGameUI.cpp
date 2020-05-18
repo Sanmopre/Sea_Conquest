@@ -49,8 +49,6 @@ bool j1InGameUI::Start()
 	selected_offset = 0;
 	selected_total = 0;
 
-	font_name = App->fonts->Load("textures/ui/font.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
-
 	//CREATES UI
 	Add_UI();
 
@@ -132,7 +130,8 @@ bool j1InGameUI::Update(float dt)
 
 	//UPDATE RESOURCES
 	if (selected != nullptr) {
-		sprintf_s(carrier_cap.capacity, 10, "%7d", 0);
+		selected->GetUnitsInfo(harvesters, tanks,carrier_capa);
+		sprintf_s(carrier_cap.capacity, 10, "%7d", harvesters);
 	}
 
 	//COST_UPDATE
@@ -179,49 +178,49 @@ bool j1InGameUI::Update(float dt)
 	if (App->scenemanager->In_Main_Menu == false) {
 
 		if (selected_total != 0) {
-			App->fonts->BlitText(0, 8, 1, cotton_resource);
-			App->fonts->BlitText(120, 8, 1, wood_resource);
-			App->fonts->BlitText(245, 8, 1, metal_resource);
+			App->fonts->BlitText(0, 8, App->font_name, cotton_resource);
+			App->fonts->BlitText(120, 8, App->font_name, wood_resource);
+			App->fonts->BlitText(245, 8, App->font_name, metal_resource);
 		}
 
 		if (Carrier_cap == true && in_trading == false) {
-			App->fonts->BlitText(180, 646, 1, carrier_cap.capacity);
+			App->fonts->BlitText(180, 646, App->font_name, carrier_cap.capacity);
 		}
 
 		if (in_trading == true) {
-			App->fonts->BlitText( 75, 658, 1, text_max);
-			App->fonts->BlitText(265, 560, 1, text_type_0);
-			App->fonts->BlitText(265, 590, 1, text_type_1);
-			App->fonts->BlitText(265, 620, 1, text_type_2);
+			App->fonts->BlitText( 75, 658, App->font_name, text_max);
+			App->fonts->BlitText(265, 560, App->font_name, text_type_0);
+			App->fonts->BlitText(265, 590, App->font_name, text_type_1);
+			App->fonts->BlitText(265, 620, App->font_name, text_type_2);
 		}
 
 		if (in_trader == true) {
-			App->fonts->BlitText(635, 658, 1, trader_max_text);
-			App->fonts->BlitText(810, 560, 1, trader_text_type_0);
-			App->fonts->BlitText(810, 590, 1, trader_text_type_1);
-			App->fonts->BlitText(810, 620, 1, trader_text_type_2);
+			App->fonts->BlitText(635, 658, App->font_name, trader_max_text);
+			App->fonts->BlitText(810, 560, App->font_name, trader_text_type_0);
+			App->fonts->BlitText(810, 590, App->font_name, trader_text_type_1);
+			App->fonts->BlitText(810, 620, App->font_name, trader_text_type_2);
 		}
 
 		if (in_hover == true) {
-			App->fonts->BlitText(75, 485, 1, cotton_t);
-			App->fonts->BlitText(170, 485, 1, wood_t);
-			App->fonts->BlitText(270, 485, 1, metal_t);
+			App->fonts->BlitText(75, 485, App->font_name, cotton_t);
+			App->fonts->BlitText(170, 485, App->font_name, wood_t);
+			App->fonts->BlitText(270, 485, App->font_name, metal_t);
 		}
 
 		if (information.in_info == true) {
-			App->fonts->BlitText(100, 120, 1,information.attack_text);
-			App->fonts->BlitText(100, 150, 1, information.health_text);
-			App->fonts->BlitText(100, 180, 1, information.speed_text);
-			App->fonts->BlitText(100, 210, 1, information.max_resource_text);
+			App->fonts->BlitText(100, 120, App->font_name,information.attack_text);
+			App->fonts->BlitText(100, 150, App->font_name, information.health_text);
+			App->fonts->BlitText(100, 180, App->font_name, information.speed_text);
+			App->fonts->BlitText(100, 210, App->font_name, information.max_resource_text);
 		}
 
 		if (in_hover_coin_cost == true) {
-			App->fonts->BlitText(70, 485, 1, coin_cost_t);
+			App->fonts->BlitText(70, 485, App->font_name, coin_cost_t);
 		}
 
 		if (in_townhall == true) {
 			coin_image->enabled = true;
-			App->fonts->BlitText(105, 660, 1, coins_t);
+			App->fonts->BlitText(105, 660, App->font_name, coins_t);
 		}
 		else {
 			coin_image->enabled = false;
