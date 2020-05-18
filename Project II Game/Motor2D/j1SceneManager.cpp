@@ -42,8 +42,8 @@ bool j1SceneManager::Awake()
 // Called before the first frame
 bool j1SceneManager::Start()
 {
-	App->scene2->main_texture = App->tex->Load("textures/scenes/main-screen.png");
-	App->scene3->logo_texture = App->tex->Load("textures/scenes/logo.png");
+	App->scene2->main_texture = App->tex->Load("assets/textures/scenes/main-screen.png");
+	App->scene3->logo_texture = App->tex->Load("assets/textures/scenes/logo.png");
 	logo.iterations = 4.0f;
 	return true;
 }
@@ -149,7 +149,7 @@ int j1SceneManager::ChangeScene(int scene)
 		App->scene->ChangeScene();
 		App->audio->StopFx(-1);
 		App->audio->PlayMusic(App->audio->ingame_chill_music, 0.0f);
-		App->font_name = App->fonts->Load("textures/ui/font.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
+		App->font_name = App->fonts->Load("assets/textures/ui/font.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
 		App->expl->information_mode = true;
 		In_Main_Menu = false;
 		In_Logo_Scene = false;
