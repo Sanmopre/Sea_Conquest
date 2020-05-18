@@ -255,7 +255,7 @@ j1Entity* j1Entity::FindTarget(float x, float y, int range, EntityType type, Ent
 
 				if (!stop)
 				{
-					if (this->terrain == NodeType::WATER && entity->terrain == NodeType::ALL)
+					if (this->terrain == NodeType::WATER && entity->terrain == NodeType::ALL && entity->main_type != EntityType::STRUCTURE)
 					{
 					}
 					else

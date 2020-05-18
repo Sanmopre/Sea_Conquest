@@ -22,6 +22,8 @@ To draw a clear path towards the game we would like to do, we will state our gam
  
 ## Controls
 
+ - Dialogs: Keys from 5 to 9 trigger a dialog.
+
  - F10 : Godmode
 	while in Gogmode:
 		- F9 : Show walkability map
@@ -51,14 +53,17 @@ To draw a clear path towards the game we would like to do, we will state our gam
 		- Dragging selects all entities in the rectangle
 	- Use mouse right click to schedule paths for the selected units
 
- - Trading System: In the game all entities have an internal storage of resources which they use to perform their tasks, entities like the storages are able to share their
-		   resources in a given area. The resources available to the main selected entity appear in the top left corner of the screen.
-		   To trade between entities they have to be both selected.
-		   Both the UI selected unit and the trading entity are highlighted with a purple and cyan rectangle respectively.
-		   The trade button is always available in any entity as long as more than 1 entity is selected.
-		   Clicking the arrows in the sides of the entities UI cycles them through the selected entities and the tradable entities.
-		   Left clicking the middle arrows will transfer 5 of the resource.
-		   Right clicking the middle arrow will transfer all of the resource to the other entity.
+ - Trading System: - In the game all entities have an internal storage of resources which they use to perform their tasks, 
+		     entities like the storages are able to share their resources in a given area. 
+		   - The resources available to the main selected entity appear in the top left corner of the screen.
+		   - To trade between entities they have to be both selected.
+		   - Both the UI selected unit and the trading entity are highlighted with a purple and cyan rectangle 
+		     respectively.
+		   - The trade button is always available in any entity as long as more than 1 entity is selected.
+		   - Clicking the arrows in the sides of the entities UI cycles them through the selected entities and the 
+		     tradable entities.
+		   - Left clicking the middle arrows will transfer 5 of the resource.
+		   - Right clicking the middle arrow will transfer all of the resource to the other entity.
 
   - Entities: apart from trading each entity has different special actions and qualities.
 
@@ -77,26 +82,38 @@ To draw a clear path towards the game we would like to do, we will state our gam
 			Button 1: Build BoatHouse.
 			Button 2: Build Storage.
 			Button 3: Build Turret.
-	- Boat:
-		Description: 
-		Mechanics: 
+			Button 4 (right-bottom corner of the UI): starts the automatic mode, to use click the button 
+				  at range of a storage and right click the resource you want to gather, it also
+				  works the other way around.
+	- Carrier:
+		Description: Slow water unit, can transport ground units through water. (THE SPRITE IS A PLACEHOLDER)
+		Mechanics: Can pick up ground units and deploy them afterwards.
 		UI use:	
-	- Boat:
-		Description: 
-		Mechanics: 	
+			Button 1: Pick up the trading unit.
+			Button 2: Deploy one of the stored units.
+	- BoatHouse:
+		Description: Medium size structure that creates water units.
+		Mechanics: Creates water units, has no resource storage so it needs a storage entity nearby. 	
 		UI use:
-	- Boat:
-		Description: 
-		Mechanics: 	
+			Button 1: Build Boat.
+			Button 2: Build Carrier.
+			Button 3: Build Balloon.
+	- Storage:
+		Description: Stores large amounts of resources.
+		Mechanics: Can share it's resources with any ally entity in a given radius (represented by a grey line).
 		UI use:
-	- Boat:
-		Description: 
-		Mechanics: 	
-		UI use:
-	- Boat:
-		Description: 
-		Mechanics: 	
-		UI use:		
+			Button 1: Build Harvester.
+	- TownHall:
+		Description: Main structure that you have to protect.
+		Mechanics: Manages quests and unit level.
+		UI use: 
+			Button 1: Spend gold points to upgrade your units (lvl 2 -> 20 coins | lvl 3 -> 50 coins).
+			Button 2: Opens quest selection menu.
+			Quest Selection: click the button of the quest you want to do.
+	- Turret:
+		Description: Defensive structure that attacks enemy units.
+		Mechanics: Shoots air and ground units.	
+		UI use: No additional buttons. 	
 
   - P : Spawn a cloud particle
 
