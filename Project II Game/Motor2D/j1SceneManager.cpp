@@ -16,6 +16,7 @@
 #include "j1MainMenuUI.h"
 #include "j1TransitionManager.h"
 #include "j1Audio.h"
+#include "j1Fonts.h"
 #include "j1Player.h"
 #include "j1Pathfinding.h"
 #include "j1Map.h"
@@ -144,6 +145,7 @@ int j1SceneManager::ChangeScene(int scene)
 		App->scene->ChangeScene();
 		App->audio->StopFx(-1);
 		App->audio->PlayMusic(App->audio->ingame_chill_music, 0.0f);
+		App->font_name = App->fonts->Load("textures/ui/font.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
 		In_Main_Menu = false;
 		In_Logo_Scene = false;
 		return 1;
