@@ -130,7 +130,8 @@ bool j1InGameUI::Update(float dt)
 
 	//UPDATE RESOURCES
 	if (selected != nullptr) {
-		sprintf_s(carrier_cap.capacity, 10, "%7d", 0);
+		selected->GetUnitsInfo(harvesters, tanks,carrier_capa);
+		sprintf_s(carrier_cap.capacity, 10, "%7d", harvesters);
 	}
 
 	//COST_UPDATE
