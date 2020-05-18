@@ -68,7 +68,7 @@ bool j1Player::Start()
 {
 	bool ret = true;
 	LOG("Player Started");
-	Tex_Player = App->tex->Load("textures/test2.png");
+	Tex_Player = App->tex->Load("assets/textures/test2.png");
 	highlight = App->tex->GetTexture("tile_highlight", 0, 0);
 	highlight_anim = App->anim->GetAnimation("tile_highlight");
 	App->win->GetWindowSize(win_width, win_height);
