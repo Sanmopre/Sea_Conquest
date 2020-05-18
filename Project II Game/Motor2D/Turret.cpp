@@ -26,7 +26,7 @@ Turret::Turret(float x, float y, int team)
 
 	damage = 20;
 	range = 150;
-	firerate = { 0.75 };
+	firerate = { 0.5 };
 
 	max_health = 500;
 	if (built_state != BUILDING)

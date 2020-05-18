@@ -133,16 +133,15 @@ bool j1QuestManager::Update(float dt)
 		build_boat->enabled = false;
 	}
 
-
-	if (Check_Quest_Stat(main_quest) && current_quest == QUEST::CREATE_HARVESTER)
+	bool check = Check_Quest_Stat(main_quest);
+	if (check && current_quest == QUEST::CREATE_HARVESTER)
 	{
 		current_quest = Set_Quest(QUEST::GATHER_60_METAL);
 	}
-	else if (Check_Quest_Stat(main_quest) && current_quest == QUEST::GATHER_60_METAL) {
+	else if (check && current_quest == QUEST::GATHER_60_METAL) {
 		current_quest = Set_Quest(QUEST::BUILD_BOAT);
 	}
-
-	if(Check_Quest_Stat(main_quest))
+	else if(check)
 		current_quest = Set_Quest(QUEST::NONE);
 
 	return true;

@@ -65,7 +65,7 @@ void j1Resource::Update(float dt)
 
 	if (App->fog->GetVisibility(position) == FogState::VISIBLE || App->ignore_fog)
 	{
-		App->render->AddBlitEvent(0, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
+		App->render->AddBlitEvent(1, texture, GetRenderPositionX(), GetRenderPositionY(), rect);
 		App->minimap->Draw_entities(this);
 	}
 }

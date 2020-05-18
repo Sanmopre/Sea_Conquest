@@ -75,7 +75,7 @@ bool j1Player::Start()
 	max_w_group = 7;
 	lock_M1 = false;
 	lock_M2 = false;
-	//SDL_ShowCursor(SDL_DISABLE);
+	SDL_ShowCursor(SDL_DISABLE);
 
 	return ret;
 }
@@ -480,6 +480,10 @@ void j1Player::Mouse_Cursor(float dt)
 {
 	mouse_position.x -= App->render->camera.x / App->win->GetScale();
 	mouse_position.y -= App->render->camera.y / App->win->GetScale();
+
+	iPoint pos;
+	App->input->GetMousePosition(pos.x, pos.y);
+	App->render->AddBlitEvent(70, Tex_Player, pos.x, pos.y, texture_rect, false, true, 0, 0, 0, 255, true);
 
 	if (App->map->mapdata != nullptr && dt != 0.0f)
 	{

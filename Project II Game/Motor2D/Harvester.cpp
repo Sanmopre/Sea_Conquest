@@ -150,15 +150,10 @@ void j1Harvester::Update(float dt)
 
 				if (target != nullptr)
 				{
-					if (load.Weight() == load.maxweight || target->load.Total() == 0)
-					{
+					if (load.Weight() >= load.maxweight)
 						GoTo(deposit_destination, terrain);
-						if (target->load.Total() == 0)
-						{
-							automatic = false;
-							target->to_delete = true;
-						}
-					}
+					if (target->load.Total() == 0)
+						automatic = false;
 				}
 				else
 				{
@@ -317,6 +312,9 @@ void j1Harvester::Harvest(int power, j1Entity* target)
 		if (App->quest->current_quest == QUEST::GATHER_60_METAL)
 			App->quest->main_quest.current += power;
 	}
+
+	if (target->load.Total() <= 0)
+		target->to_delete = true;
 
 	App->audio->PlaySpatialFx(App->audio->harvester_work,
 		App->audio->GetAngle(App->render->getCameraPosition(), { (int)position.x, (int)position.y }),

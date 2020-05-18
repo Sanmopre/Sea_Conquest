@@ -144,6 +144,8 @@ int j1SceneManager::ChangeScene(int scene)
 	{
 	case 1:
 		App->scene->active = true;
+		App->player->lock_M1 = false;
+		App->player->lock_M2 = false;
 		App->scene->ChangeScene();
 		App->audio->StopFx(-1);
 		App->audio->PlayMusic(App->audio->ingame_chill_music, 0.0f);
