@@ -96,6 +96,7 @@ bool j1QuestManager::Update(float dt)
 
 		build_harvester->enabled = false;
 		gather_60_metal->enabled = false;
+		build_boat->enabled = false;
 	}
 
 	//MANAGES WHEN OPEN AND NO QUEST
@@ -111,6 +112,7 @@ bool j1QuestManager::Update(float dt)
 
 		build_harvester->enabled = false;
 		gather_60_metal->enabled = false;
+		build_boat->enabled = false;
 	}
 
 
@@ -125,9 +127,10 @@ bool j1QuestManager::Update(float dt)
 		quest_explanation_build_boat->enabled = false;
 		quest_explanation_kill_boat->enabled = false;
 		quest_explanation_destroy_structure->enabled = false;
+		
 		build_harvester->enabled = false;
-
 		gather_60_metal->enabled = false;
+		build_boat->enabled = false;
 	}
 
 
@@ -226,14 +229,18 @@ void j1QuestManager::Select_Quest_Text(QUEST quest)
 
 }
 
-bool j1QuestManager::Check_Quest_Stat(Quest quest)
-{
-	if (quest.current >= quest.total) {
-		Claim_Reward(quest);
-		return true;
+bool j1QuestManager::Check_Quest_Stat(Quest quest){
+
+	if (current_quest != QUEST::NONE) {
+		if (quest.current >= quest.total) {
+			App->audio->PlayFx(App->audio->quest_completed, 0);
+			Claim_Reward(quest);
+			return true;
+		}
+		else
+			return false;
 	}
-	else
-		return false;
+	return false;
 }
 
 void j1QuestManager::Claim_Reward(Quest quest)

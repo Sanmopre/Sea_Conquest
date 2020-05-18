@@ -25,20 +25,20 @@ bool j1DialogSystem::Awake(pugi::xml_node& config)
 
 bool j1DialogSystem::Start()
 {
-	pirate.Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 990,200 }, { 0,0 }, true, false, { 0,0,40,40 }, "YOU ARE NOT PREPARED!!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-	pirate.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 900,170 }, { 0,0 }, true, false, { 0, 0,300,80 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::DIALOG);
+	pirate.Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 1040,450 }, { 0,0 }, true, false, { 0,0,40,40 }, "YOU ARE NOT PREPARED!!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	pirate.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 950,420 }, { 0,0 }, true, false, { 0, 0,300,80 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::DIALOG);
 	
-	pirate_fun.Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 990,200 }, { 0,0 }, true, false, { 0,0,40,40 }, "THIS WILL BE FUN!!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-	pirate_fun.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 900,170 }, { 0,0 }, true, false, { 0, 0,300,80 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::DIALOG);
+	pirate_fun.Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 1040,450 }, { 0,0 }, true, false, { 0,0,40,40 }, "THIS WILL BE FUN!!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	pirate_fun.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 950,420 }, { 0,0 }, true, false, { 0, 0,300,80 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::DIALOG);
 
-	no.Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 990,200 }, { 0,0 }, true, false, { 0,0,40,40 }, "NOOOOOO!!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-	no.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 900,170 }, { 0,0 }, true, false, { 0, 0,300,80 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::DIALOG);
+	no.Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 1040,450 }, { 0,0 }, true, false, { 0,0,40,40 }, "NOOOOOO!!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	no.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 950,420 }, { 0,0 }, true, false, { 0, 0,300,80 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::DIALOG);
 
-	arrogance.Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 990,200 }, { 0,0 }, true, false, { 0,0,40,40 }, "SUCH ARROGANCE!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-	arrogance.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 900,170 }, { 0,0 }, true, false, { 0, 0,300,80 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::DIALOG);
+	arrogance.Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 1040,450 }, { 0,0 }, true, false, { 0,0,40,40 }, "SUCH ARROGANCE!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	arrogance.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 950,420 }, { 0,0 }, true, false, { 0, 0,300,80 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::DIALOG);
 
-	haha.Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 990,200 }, { 0,0 }, true, false, { 0,0,40,40 }, "HAHAHAHA!!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
-	haha.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 900,170 }, { 0,0 }, true, false, { 0, 0,300,80 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::DIALOG);
+	haha.Label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 1040,450 }, { 0,0 }, true, false, { 0,0,40,40 }, "HAHAHAHA!!", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
+	haha.Image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, { 950,420 }, { 0,0 }, true, false, { 0, 0,300,80 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::DIALOG);
 	return true;
 }
 
