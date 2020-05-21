@@ -286,8 +286,8 @@ void j1App::FinishUpdate()
 	////////t2.join();												   Thread optimization testing, do not touch
 	////////t3.join();												   Thread optimization testing, do not touch
 	////////t4.join();												   Thread optimization testing, do not touch
-	sprintf_s(title, 256, "Sea Conquest || FPS: %02u / EstFPS: %02u/ Av.FPS: %.2f / Last Frame Ms: %02u / Cap: %s / Vsync: -- / dt: %f / Camera.x: %d / Camera.y: %d",
-		frames_on_last_update, framerate_cap, avg_fps, last_frame_ms, cap,/* vsync,*/ dt,App->render->camera.x, App->render->camera.y);
+	sprintf_s(title, 256, "Sea Conquest || FPS: %02u / EstFPS: %02u/ Av.FPS: %.2f / Last Frame Ms: %02u / Cap: %s / dt: %f / Camera.x: %d / Camera.y: %d",
+		frames_on_last_update, framerate_cap, avg_fps, last_frame_ms, cap, dt,App->render->camera.x, App->render->camera.y);
 
 	App->win->SetTitle(title);
 

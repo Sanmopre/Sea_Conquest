@@ -20,17 +20,11 @@ int j1Fonts::Load(const char* texture_path, const char* characters, uint rows)
 	int id = -1;
 
 	if (texture_path == nullptr || characters == nullptr || rows == 0)
-	{
-	
 		return id;
-	}
 
 	SDL_Texture* tex = App->tex->Load(texture_path);
 	if (tex == nullptr || strlen(characters) >= MAX_FONT_CHARS)
-	{
-	
 		return id;
-	}
 
 	id = 0;
 	for (; id < MAX_FONTS; ++id)
@@ -38,10 +32,7 @@ int j1Fonts::Load(const char* texture_path, const char* characters, uint rows)
 			break;
 
 	if (id == MAX_FONTS)
-	{
-		
 		return id;
-	}
 
 	uint texturew, textureh;
 	fonts[id].graphic = tex; // graphic: pointer to the texture
@@ -56,24 +47,30 @@ int j1Fonts::Load(const char* texture_path, const char* characters, uint rows)
 	return id;
 }
 
-void j1Fonts::UnLoad(int font_id)
+bool j1Fonts::CleanUp()
 {
-	if (font_id >= 0 && font_id < MAX_FONTS && fonts[font_id].graphic != nullptr)
+	for (int id = 0; id < MAX_FONTS; id++)
 	{
-		App->tex->UnLoad(fonts[font_id].graphic);
-		fonts[font_id].graphic = nullptr;
-
+		fonts[id].rows = 0u;
+		fonts[id].len = 0u;
+		fonts[id].char_w = 0u;
+		fonts[id].char_h = 0u;
+		fonts[id].row_chars = 0u;
+		for (int i = 0; i < MAX_FONT_CHARS; i++)
+		{
+			fonts[id].table[i] = ' ';
+		}
 	}
+
+	return true;
 }
 
 // Render text using a bitmap font
 void j1Fonts::BlitText(int x, int y, int font_id, const char* text) const
 {
 	if (text == nullptr || font_id < 0 || font_id >= MAX_FONTS || fonts[font_id].graphic == nullptr)
-	{
-	
 		return;
-	}
+
 	int charPosX = 0;
 	const Font* font = &fonts[font_id];
 	SDL_Rect rect;

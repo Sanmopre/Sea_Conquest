@@ -45,7 +45,7 @@ public:
 	SDL_Texture* const Load(const char* path, string name = "", int level = 0, int team = 0);
 	bool UnLoad(SDL_Texture* texture);
 
-	SDL_Texture* const GetTexture(string name, int level, int team);
+	SDL_Texture* const GetTexture(string name, int level = 0, int team = 0);
 
 	SDL_Texture* const LoadSurface(SDL_Surface* surface);
 	void GetSize(const SDL_Texture* texture, uint& width, uint& height) const;

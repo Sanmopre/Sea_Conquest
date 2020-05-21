@@ -23,17 +23,15 @@ public:
 	j1Fonts();
 	~j1Fonts();
 
-	// Load Font
-	int Load(const char* texture_path, const char* characters, uint rows = 1);
-	void UnLoad(int font_id);
+	bool CleanUp();
 
-	// Create a surface from text
+	int Load(const char* texture_path, const char* characters, uint rows = 1);
+
 	void BlitText(int x, int y, int bmp_font_id, const char* text) const;
 
-
 private:
-	Font	 fonts[MAX_FONTS];
 
+	Font	 fonts[MAX_FONTS];
 };
 
 

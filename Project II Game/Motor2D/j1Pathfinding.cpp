@@ -9,7 +9,6 @@
 
 bool j1PathFinding::Start()
 {
-	show = false;
 	return true;
 }
 

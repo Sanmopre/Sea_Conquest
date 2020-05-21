@@ -76,8 +76,6 @@ public:
 	int DistanceTo(Node* A, Node* B);
 	vector<fPoint> CreatePath(Node* end, fPoint end_pos, NodeType terrain);
 
-	bool show;
-
 private:
 
 	void CreateIsland(iPoint position, NodeType terrain = NodeType::GROUND);
