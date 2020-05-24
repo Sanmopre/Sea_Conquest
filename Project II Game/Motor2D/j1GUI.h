@@ -28,6 +28,7 @@ public:
 	bool CleanUp();
 
 	void Spining_UI();
+	void Reset_UI_Pos();
 	
 	SDL_Texture* Load_Texture(TEXTURE textureType = TEXTURE::NONE);
 

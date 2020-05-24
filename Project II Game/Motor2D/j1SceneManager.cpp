@@ -22,6 +22,7 @@
 #include "j1Player.h"
 #include "j1Pathfinding.h"
 #include "j1Map.h"
+#include "j1GUI.h"
 
 j1SceneManager::j1SceneManager() : j1Module()
 {
@@ -161,6 +162,7 @@ int j1SceneManager::ChangeScene(int scene)
 		App->audio->StopFx(-1);
 		App->audio->PlayMusic(App->audio->mainmenu_music, 0.0f);
 		App->audio->PlayFx(App->audio->welcome_voice, 0.0f);
+		App->gui->Reset_UI_Pos();
 		App->render->camera.x = 0;
 		App->render->camera.y = 0;
 		App->win->scale = 1;

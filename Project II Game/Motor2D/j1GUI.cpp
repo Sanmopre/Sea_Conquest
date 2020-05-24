@@ -128,6 +128,16 @@ void j1GUI::Spining_UI()
 	}
 }
 
+void j1GUI::Reset_UI_Pos()
+{
+	App->mainmenu->menu.continue_button->map_position.x = 0;
+	App->mainmenu->menu.start->map_position.x = 0;
+	App->mainmenu->menu.quit->map_position.x = 0;
+	App->mainmenu->menu.audio_button->map_position.x = 0;
+	App->mainmenu->menu.fullscreen->map_position.x = 0;
+	App->mainmenu->menu.instructions->map_position.x = 0;
+}
+
 SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
 {
 	switch (textureType)

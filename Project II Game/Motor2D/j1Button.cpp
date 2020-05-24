@@ -201,11 +201,15 @@ bool j1Button::Update(float dt)
 
 		}
 	
+
 	return true;
 }
 
 bool j1Button::PostUpdate()
 {
+	if(label != nullptr)
+	label->map_position = map_position;
+
 
 	return true;
 }
