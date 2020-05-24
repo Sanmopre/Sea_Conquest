@@ -61,6 +61,7 @@ bool j1MainMenuUI::Update(float dt)
 {
 		
 	App->gui->Spining_UI();
+
 	return true;
 
 }

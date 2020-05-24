@@ -126,6 +126,24 @@ void j1GUI::Spining_UI()
 		Move_Ui_Element(1, 0, App->mainmenu->menu.fullscreen);
 		Move_Ui_Element(1, 0, App->mainmenu->menu.instructions);
 	}
+
+	if(!Correct_y(App->mainmenu->menu.continue_button->map_position.y,215))
+		Move_Ui_Element(0, 1, App->mainmenu->menu.continue_button);
+
+	if (!Correct_y(App->mainmenu->menu.start->map_position.y, 300))
+		Move_Ui_Element(0, 1, App->mainmenu->menu.start);
+
+	if (!Correct_y(App->mainmenu->menu.quit->map_position.y, 640))
+		Move_Ui_Element(0, 1, App->mainmenu->menu.quit);
+
+	if (!Correct_y(App->mainmenu->menu.audio_button->map_position.y, 385))
+		Move_Ui_Element(0, 1, App->mainmenu->menu.audio_button);
+
+	if (!Correct_y(App->mainmenu->menu.fullscreen->map_position.y, 470))
+		Move_Ui_Element(0, 1, App->mainmenu->menu.fullscreen);
+
+	if (!Correct_y(App->mainmenu->menu.instructions->map_position.y, 550))
+		Move_Ui_Element(0, 1, App->mainmenu->menu.instructions);
 }
 
 void j1GUI::Reset_UI_Pos()
@@ -136,6 +154,13 @@ void j1GUI::Reset_UI_Pos()
 	App->mainmenu->menu.audio_button->map_position.x = 0;
 	App->mainmenu->menu.fullscreen->map_position.x = 0;
 	App->mainmenu->menu.instructions->map_position.x = 0;
+
+	App->mainmenu->menu.continue_button->map_position.y = 0;
+	App->mainmenu->menu.start->map_position.y = 0;
+	App->mainmenu->menu.quit->map_position.y = 0;
+	App->mainmenu->menu.audio_button->map_position.y = 0;
+	App->mainmenu->menu.fullscreen->map_position.y = 0;
+	App->mainmenu->menu.instructions->map_position.y = 0;
 }
 
 SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)
