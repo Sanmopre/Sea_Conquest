@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Fonts.h"
 #include "j1Input.h"
+#include "j1MainMenuUI.h"
 
 
 j1GUI::j1GUI() : j1Module()
@@ -90,6 +91,41 @@ bool j1GUI::CleanUp()
 	}
 	GUI_ELEMENTS.clear();
 	return true;
+}
+
+void j1GUI::Move_Ui_Element(int x, int y, j1Element* element)
+{
+	element->map_position.x = element->map_position.x + x;
+	element->map_position.y = element->map_position.y + y;
+}
+
+bool j1GUI::Correct_x(int x)
+{
+	if (x != 540)
+		return false;
+	else
+	return true;
+}
+
+bool j1GUI::Correct_y(int y, int y_1)
+{
+	if (y != y_1)
+		return false;
+	else
+		return true;
+}
+
+void j1GUI::Spining_UI()
+{
+	if (!Correct_x(App->mainmenu->menu.continue_button->map_position.x))
+	{
+		Move_Ui_Element(1, 0, App->mainmenu->menu.continue_button);
+		Move_Ui_Element(1, 0, App->mainmenu->menu.start);
+		Move_Ui_Element(1, 0, App->mainmenu->menu.quit);
+		Move_Ui_Element(1, 0, App->mainmenu->menu.audio_button);
+		Move_Ui_Element(1, 0, App->mainmenu->menu.fullscreen);
+		Move_Ui_Element(1, 0, App->mainmenu->menu.instructions);
+	}
 }
 
 SDL_Texture* j1GUI::Load_Texture(TEXTURE textureType)

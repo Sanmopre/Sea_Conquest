@@ -42,11 +42,11 @@ public:
 	void GUI_Event_Manager(GUI_Event type, j1Element* element);
 	Main_Menu GetMenu();
 	bool  clicking_ui = false;
-
+	Main_Menu menu;
 private:
 	bool quit = true;
 	bool audioopt = false;
-	Main_Menu menu;
+
 };
 
 #endif // __j1MAINMENUUI_H__

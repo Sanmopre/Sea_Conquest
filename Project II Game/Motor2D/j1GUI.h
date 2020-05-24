@@ -27,6 +27,8 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
+	void Spining_UI();
+	
 	SDL_Texture* Load_Texture(TEXTURE textureType = TEXTURE::NONE);
 
 	bool Save(pugi::xml_node&) const;
@@ -40,6 +42,12 @@ public:
 public:
 	//TEXTURES FOR UI
 	SDL_Texture* texture_load = nullptr;
+
+private:
+	//MOVING FUNCTIONS
+	void Move_Ui_Element(int x, int y, j1Element* element = nullptr);
+	bool Correct_x(int x);
+	bool Correct_y(int y, int y_1);
 };
 
 #endif //  __j1GUI_H__
