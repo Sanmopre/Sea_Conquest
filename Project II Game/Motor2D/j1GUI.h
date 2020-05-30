@@ -46,7 +46,7 @@ public:
 
 private:
 	//MOVING FUNCTIONS
-	void Move_Ui_Element(int x, int y, j1Element* element = nullptr);
+	void Move_Ui_Element(float x, float y, j1Element* element = nullptr);
 	bool Correct_x(int x);
 	bool Correct_y(int y, int y_1);
 };
