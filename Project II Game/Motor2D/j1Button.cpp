@@ -175,7 +175,7 @@ bool j1Button::Update(float dt)
 		if (textureType == TEXTURE::BUTON) {
 			if (above && interactable)
 			{
-				App->render->AddBlitEvent(5, texture_hover, map_position.x, map_position.y, rect, false, true, 0u, 0u, 0u, 255, true);
+				App->render->AddBlitEvent(5, texture_hover, map_position.x - 10, map_position.y -3, { 0,0,220,72 }, false, true, 0u, 0u, 0u, 255, true);
 			}
 			else {
 				App->render->AddBlitEvent(5, texture, map_position.x, map_position.y, rect, false, true, 0u, 0u, 0u, 255, true);
