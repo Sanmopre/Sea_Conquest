@@ -90,6 +90,7 @@
     <texture name ="automatic-icon"  level ="0" team ="0" source ="assets/textures/ui/automatic.png"/>
     <texture name ="quest-icon"      level ="0" team ="0" source ="assets/textures/ui/quest.png"/>
     <texture name ="lvlup-icon"      level ="0" team ="0" source ="assets/textures/ui/lvlup.png"/>
+    <texture name ="hover-button"      level ="0" team ="0" source ="assets/textures/ui/hover-button.png"/>
     <!-- Minimap -->
     <texture name ="minimap"           level ="0" team ="0" source ="assets/textures/minimap/minimap-2.png"/>
     <texture name ="minimap-noise"     level ="0" team ="0" source ="assets/textures/minimap/minimap-noise.png"/>

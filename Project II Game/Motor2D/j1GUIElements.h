@@ -137,6 +137,7 @@ public:
 
 	SDL_Texture* texture = nullptr;
 	SDL_Texture* texture_hover = nullptr;
+	SDL_Texture* texture_hover_2 = nullptr;
 };
 ///////////////////////////////////////////////////////////////////
 class j1Button : public j1Element

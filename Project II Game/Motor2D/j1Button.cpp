@@ -19,6 +19,8 @@ j1Button::~j1Button() {
 
 bool j1Button::Start()
 {
+	texture_hover_2 = App->tex->GetTexture("hover-button", 0, 0);
+
 	if (textureType == TEXTURE::BUTON) {
 		texture = App->gui->Load_Texture(TEXTURE::BUTON);
 		texture_hover = App->gui->Load_Texture(TEXTURE::BUTON_HOVER);
@@ -197,7 +199,9 @@ bool j1Button::Update(float dt)
 		}
 
 
-
+		if (above) {
+			App->render->AddBlitEvent(6, texture_hover_2, map_position.x, map_position.y, rect, false, true, 0u, 0u, 0u, 255, true);
+		}
 
 		}
 	
