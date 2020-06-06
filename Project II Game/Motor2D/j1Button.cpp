@@ -146,7 +146,7 @@ bool j1Button::Update(float dt)
 				if (X_drag || Y_drag)
 					dragging = true;
 
-				if(textureType != TEXTURE::BUTON)
+				if(textureType != TEXTURE::BUTON && textureType != TEXTURE::OPTIONS && textureType != TEXTURE::QUEST_CLOSE && textureType != TEXTURE::BOTON_SCROLL)
 				App->render->AddBlitEvent(6, texture_click, map_position.x, map_position.y, rect, false, true, 0u, 0u, 0u, 255, true);
 
 				iPoint mouseClick = { 0,0 };
@@ -203,7 +203,7 @@ bool j1Button::Update(float dt)
 		}
 
 
-		if (above && textureType != TEXTURE::BUTON && App->input->GetMouseButtonDown(1) != KEY_REPEAT) {
+		if (above && textureType != TEXTURE::BUTON && textureType != TEXTURE::OPTIONS && textureType != TEXTURE::QUEST_CLOSE && textureType != TEXTURE::BOTON_SCROLL && App->input->GetMouseButtonDown(1) != KEY_REPEAT) {
 			App->render->AddBlitEvent(6, texture_hover_2, map_position.x, map_position.y, rect, false, true, 0u, 0u, 0u, 255, true);
 		}
 
