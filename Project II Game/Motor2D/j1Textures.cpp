@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1AssetManager.h"
 
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
@@ -79,7 +80,8 @@ bool j1Textures::CleanUp()
 SDL_Texture* const j1Textures::Load(const char* path, string name, int level, int team)
 {
 	SDL_Texture* texture = NULL;
-	SDL_Surface* surface = IMG_Load(path);
+	//SDL_Surface* surface = IMG_Load(path);
+	SDL_Surface* surface = IMG_Load_RW(App->assets->Load(path), 1);
 
 	if(surface == NULL)
 		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());

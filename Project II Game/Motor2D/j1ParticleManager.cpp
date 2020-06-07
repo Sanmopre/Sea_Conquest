@@ -35,12 +35,12 @@ j1ParticleManager::~j1ParticleManager()
 
 bool j1ParticleManager::Start()
 {
-	projectileTexture = App->tex->Load("assets/textures/particles/cannonball-texture.png");
-	cloudTexture = App->tex->Load("assets/textures/particles/cloud-texture.png");
-	dustTexture = App->tex->Load("assets/textures/particles/dust-texture.png");
-	explosionTexture = App->tex->Load("assets/textures/particles/explosion-texture.png");
-	fireTexture = App->tex->Load("assets/textures/particles/fire-texture.png");
-	smokeTexture = App->tex->Load("assets/textures/particles/smoke-texture.png");
+	projectileTexture = App->tex->Load("textures/particles/cannonball-texture.png");
+	cloudTexture = App->tex->Load("textures/particles/cloud-texture.png");
+	dustTexture = App->tex->Load("textures/particles/dust-texture.png");
+	explosionTexture = App->tex->Load("textures/particles/explosion-texture.png");
+	fireTexture = App->tex->Load("textures/particles/fire-texture.png");
+	smokeTexture = App->tex->Load("textures/particles/smoke-texture.png");
 
 	return true;
 }

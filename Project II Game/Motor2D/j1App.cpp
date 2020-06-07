@@ -31,6 +31,7 @@
 #include "j1AnimationManager.h"
 #include "j1Explanation.h"
 #include "j1Fog.h"
+#include "j1AssetManager.h"
 
 #include <thread>
 
@@ -69,10 +70,12 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	dialog = new j1DialogSystem();
 	expl = new j1Explanation();
 	fog = new j1Fog();
+	assets = new j1AssetManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	
+	AddModule(assets);
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
@@ -169,7 +172,7 @@ bool j1App::Start()
 	App->scenemanager->ChangeScene(3);
 	App->audio->PlayFxIntro(App->audio->logo_audio,0,100);
 
-	font_name = App->fonts->Load("assets/textures/ui/font.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
+	font_name = App->fonts->Load("textures/ui/font.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
 	////
 	p2List_item<j1Module*>* item;
 	item = modules.start;

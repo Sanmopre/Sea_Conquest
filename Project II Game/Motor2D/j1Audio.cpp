@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Audio.h"
+#include "j1AssetManager.h"
 #include <math.h>
 
 #include "SDL/include/SDL.h"
@@ -183,7 +184,8 @@ uint j1Audio::LoadMusic(const char* path) // Loads the audio on the Mix_Music*
 		return 0;
 
 	//TODO 5 load the audio path given into a Mix_Music variable
-	Mix_Music* music_chunk = Mix_LoadMUS(path);
+	//Mix_Music* music_chunk = Mix_LoadMUS(path);
+	Mix_Music* music_chunk = Mix_LoadMUS_RW(App->assets->Load(path), 1);
 
 	if (music_chunk == NULL)
 	{
@@ -288,7 +290,8 @@ unsigned int j1Audio::LoadFx(const char* path)
 	if(!active)
 		return 0;
 
-	Mix_Chunk* chunk = Mix_LoadWAV(path);
+	//Mix_Chunk* chunk = Mix_LoadWAV(path);
+	Mix_Chunk* chunk = Mix_LoadWAV_RW(App->assets->Load(path), 1);
 
 	if(chunk == NULL)
 	{

@@ -85,6 +85,7 @@
     <ClCompile Include="FadeToColor.cpp" />
     <ClCompile Include="Harvester.cpp" />
     <ClCompile Include="j1AnimationManager.cpp" />
+    <ClCompile Include="j1AssetManager.cpp" />
     <ClCompile Include="j1Balloon.cpp" />
     <ClCompile Include="j1Boat.cpp" />
     <ClCompile Include="j1BoatHouse.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="j1AnimationManager.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="FadeToColor.h" />
+    <ClInclude Include="j1AssetManager.h" />
     <ClInclude Include="j1DialogSystem.h" />
     <ClInclude Include="j1Explanation.h" />
     <ClInclude Include="j1Fog.h" />

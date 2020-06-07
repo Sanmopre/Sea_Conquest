@@ -10,6 +10,7 @@
 #include "j1Minimap.h"
 #include "j1EntityManager.h"
 #include "j1Scene.h"
+#include "j1AssetManager.h"
 
 TileSet::~TileSet()
 {
@@ -33,7 +34,8 @@ void j1Map::LoadMap(const char* path)
 
 	dark_tiles = App->tex->GetTexture("dark-tiles", 0, 0);
 
-	pugi::xml_parse_result result = map_data.load_file(path);
+	//pugi::xml_parse_result result = map_data.load_file(path);
+	pugi::xml_parse_result result = App->assets->LoadXML(map_data, path);
 
 	pugi::xml_node node = map_data.first_child();
 

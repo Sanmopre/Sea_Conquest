@@ -35,6 +35,7 @@ class j1DialogSystem;
 class j1AnimationManager;
 class j1Explanation;
 class j1Fog;
+class j1AssetManager;
 
 
 class j1App 
@@ -103,6 +104,7 @@ public:
 	j1AnimationManager*		anim = NULL;
 	j1Explanation*			expl = NULL;
 	j1Fog*					fog = NULL;
+	j1AssetManager*			assets = NULL;
 
 private:
 
