@@ -27,6 +27,7 @@ bool j1AssetManager::Awake(pugi::xml_node& config)
 
 
 	PHYSFS_addToSearchPath("Assets.zip", 1);	//Set the archive that we will read from
+	PHYSFS_addToSearchPath("Assets2.zip", 1);
 
 	return true;
 }
