@@ -1417,8 +1417,6 @@ void j1InGameUI::GetSelectedEntity()
 void j1InGameUI::Deactivate_All_UI()
 {
 	Deactivate_Manager();
-	Deactivate_Defeat_Menu();
-	Deactivate_Win_Menu();
 	Deactivate_Resource_Menu();
 	Deactivate_Quest_Selector();
 	App->quest->Close_Quest_Manager();
