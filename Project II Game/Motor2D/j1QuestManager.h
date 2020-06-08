@@ -73,8 +73,9 @@ public:
 	bool quest_activate = false;
 	QUEST current_quest = QUEST::NONE;	
 	Quest main_quest;
-private:
 	QuestManagerUI manager;
+private:
+
 
 
 	//NORMAL QUEST

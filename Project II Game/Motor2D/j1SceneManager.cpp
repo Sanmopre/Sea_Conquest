@@ -154,6 +154,8 @@ int j1SceneManager::ChangeScene(int scene)
 		App->expl->information_mode = true;
 		In_Main_Menu = false;
 		In_Logo_Scene = false;
+		App->quest->quest_manager_open = true;
+		App->quest->manager.image_open->enabled = true;
 		return 1;
 		break;
 	case 2:		
