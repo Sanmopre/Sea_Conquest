@@ -50,6 +50,7 @@ bool j1GUI::PreUpdate()
 
 bool j1GUI::Update(float dt)
 {
+	s = s + 0.010;
 
 	bool ret = true;
 	p2List_item<j1Element*>* tmp = GUI_ELEMENTS.start;
@@ -101,7 +102,7 @@ void j1GUI::Move_Ui_Element(float x, float y, j1Element* element)
 
 bool j1GUI::Correct_x(int x)
 {
-	if (x != 540)
+	if (x <= 540)
 		return false;
 	else
 	return true;
@@ -109,7 +110,7 @@ bool j1GUI::Correct_x(int x)
 
 bool j1GUI::Correct_y(int y, int y_1)
 {
-	if (y != y_1 || y > y_1)
+	if ( y < y_1)
 		return false;
 	else
 		return true;
@@ -119,48 +120,53 @@ void j1GUI::Spining_UI()
 {
 	if (!Correct_x(App->mainmenu->menu.continue_button->map_position.x))
 	{
-		Move_Ui_Element(2, 0, App->mainmenu->menu.continue_button);
+		Move_Ui_Element(4 - s, 0, App->mainmenu->menu.continue_button);
 	}
+
 	if (!Correct_x(App->mainmenu->menu.start->map_position.x))
 	{
-		Move_Ui_Element(2, 0, App->mainmenu->menu.start);
+		Move_Ui_Element(4 - s, 0, App->mainmenu->menu.start);
 	}
+
 	if (!Correct_x(App->mainmenu->menu.audio_button->map_position.x))
 	{
-		Move_Ui_Element(2.5, 0, App->mainmenu->menu.audio_button);
+		Move_Ui_Element(4 - s, 0, App->mainmenu->menu.audio_button);
 	}
+
 	if (!Correct_x(App->mainmenu->menu.fullscreen->map_position.x))
 	{
-		Move_Ui_Element(2.5, 0, App->mainmenu->menu.fullscreen);
+		Move_Ui_Element( 4 - s, 0, App->mainmenu->menu.fullscreen);
 	}
+
 	if (!Correct_x(App->mainmenu->menu.instructions->map_position.x))
 	{
-		Move_Ui_Element(5, 0, App->mainmenu->menu.instructions);
+		Move_Ui_Element( 4 - s, 0, App->mainmenu->menu.instructions);
 	}	
+
 	if (!Correct_x(App->mainmenu->menu.quit->map_position.x))
 	{
-		Move_Ui_Element(5, 0, App->mainmenu->menu.quit);
+		Move_Ui_Element( 4 - s, 0, App->mainmenu->menu.quit);
 	}
 
 	
 
 	if(!Correct_y(App->mainmenu->menu.continue_button->map_position.y,215))
-		Move_Ui_Element(0, 1, App->mainmenu->menu.continue_button);
+		Move_Ui_Element(0, 4 - s, App->mainmenu->menu.continue_button);
 
 	if (!Correct_y(App->mainmenu->menu.start->map_position.y, 300))
-		Move_Ui_Element(0, 1.5, App->mainmenu->menu.start);	
+		Move_Ui_Element(0, 4 - s, App->mainmenu->menu.start);
 	
 	if (!Correct_y(App->mainmenu->menu.audio_button->map_position.y, 385))
-		Move_Ui_Element(0, 2.5, App->mainmenu->menu.audio_button);	
+		Move_Ui_Element(0, 4 - s, App->mainmenu->menu.audio_button);
 	
 	if (!Correct_y(App->mainmenu->menu.fullscreen->map_position.y, 470))
-		Move_Ui_Element(0, 2.5, App->mainmenu->menu.fullscreen);	
+		Move_Ui_Element(0,  4 - s, App->mainmenu->menu.fullscreen);
 	
 	if (!Correct_y(App->mainmenu->menu.instructions->map_position.y, 550))
-		Move_Ui_Element(0, 5, App->mainmenu->menu.instructions);
+		Move_Ui_Element(0, 4 - s, App->mainmenu->menu.instructions);
 
 	if (!Correct_y(App->mainmenu->menu.quit->map_position.y, 640))
-		Move_Ui_Element(0, 5, App->mainmenu->menu.quit);
+		Move_Ui_Element(0, 4 - s, App->mainmenu->menu.quit);
 
 
 
@@ -171,6 +177,7 @@ void j1GUI::Spining_UI()
 
 void j1GUI::Reset_UI_Pos()
 {
+	s = 0;
 	App->mainmenu->menu.continue_button->map_position.x = 0;
 	App->mainmenu->menu.start->map_position.x = 0;
 	App->mainmenu->menu.quit->map_position.x = 0;

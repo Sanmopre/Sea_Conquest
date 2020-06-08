@@ -49,6 +49,8 @@ private:
 	void Move_Ui_Element(float x, float y, j1Element* element = nullptr);
 	bool Correct_x(int x);
 	bool Correct_y(int y, int y_1);
+
+	float s = 0;
 };
 
 #endif //  __j1GUI_H__
