@@ -31,7 +31,7 @@
   </camera>
 
   <textures>
-    <texture name ="tile_highlight"  level ="0" team ="0" source ="maps/tile_highlight.png"/>
+    <texture name ="tile_highlight"  level ="0" team ="0" source ="maps/Tile_highlight.png"/>
     <texture name ="fog_tile"  level ="0" team ="0" source ="maps/Fog_tile.png"/>
     <!-- Structures -->
     <texture name ="townhall"    level ="1" team ="1" source ="textures/structures/ally_townhall.png"/>
@@ -40,7 +40,6 @@
     <texture name ="boathouse"   level ="1" team ="1" source ="textures/structures/boathouse.png"/>
     <texture name ="turret"      level ="1" team ="1" source ="textures/structures/ally-tower.png"/>
     <texture name ="turret"      level ="1" team ="2" source ="textures/structures/enemy-tower.png"/>
-    <texture name ="cons_big"    level ="0" team ="0" source ="textures/structures/cons_big.png"/>
     <texture name ="cons_medium" level ="0" team ="0" source ="textures/structures/cons_medium.png"/>
     <texture name ="cons_small"  level ="0" team ="0" source ="textures/structures/cons_small.png"/>
     <!-- Units -->
@@ -87,11 +86,11 @@
     <texture name ="carrier-in"  level ="0" team ="0" source ="textures/ui/carrier-in.png"/>
     <texture name ="carrier-out"  level ="0" team ="0" source ="textures/ui/carrier-out.png"/>
     <!-- UI Icons -->
-    <texture name ="automatic-icon"  level ="0" team ="0" source ="assets/textures/ui/automatic.png"/>
-    <texture name ="quest-icon"      level ="0" team ="0" source ="assets/textures/ui/quest.png"/>
-    <texture name ="lvlup-icon"      level ="0" team ="0" source ="assets/textures/ui/lvlup.png"/>
-    <texture name ="hover-button"      level ="0" team ="0" source ="assets/textures/ui/hover-button.png"/>
-    <texture name ="click-button"      level ="0" team ="0" source ="assets/textures/ui/click-button.png"/>
+    <texture name ="automatic-icon"  level ="0" team ="0" source ="textures/ui/automatic.png"/>
+    <texture name ="quest-icon"      level ="0" team ="0" source ="textures/ui/quest.png"/>
+    <texture name ="lvlup-icon"      level ="0" team ="0" source ="textures/ui/lvlup.png"/>
+    <texture name ="hover-button"      level ="0" team ="0" source ="textures/ui/hover-button.png"/>
+    <texture name ="click-button"      level ="0" team ="0" source ="textures/ui/click-button.png"/>
     <!-- Minimap -->
     <texture name ="minimap"           level ="0" team ="0" source ="textures/minimap/minimap-2.png"/>
     <texture name ="minimap-noise"     level ="0" team ="0" source ="textures/minimap/minimap-noise.png"/>
