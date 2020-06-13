@@ -202,3 +202,33 @@ void j1Carrier::GetUnitsInfo(int& harvesters, int& tanks, int& capacity)
 	tanks = t;
 	capacity = this->capacity;
 }
+
+void j1Carrier::DeepSave(pugi::xml_node& data)
+{
+	pugi::xml_node node = data.append_child("deep");
+
+	node.append_attribute("stored_units").set_value(stored_units);
+	node.append_attribute("capacity").set_value(capacity);
+
+	node = node.append_child("units");
+	for (auto e = units.begin(); e != units.end(); e++)
+	{
+		j1Entity* entity = *e;
+
+		pugi::xml_node ent_node = node.append_child("entity");
+
+		pugi::xml_node create = ent_node.append_child("create");
+		create.append_attribute("type").set_value((int)entity->type);
+		create.append_attribute("level").set_value(entity->level);
+		create.append_attribute("team").set_value(entity->team);
+
+		pugi::xml_node restore = ent_node.append_child("restore");
+		restore.append_attribute("health").set_value(entity->health);
+
+		pugi::xml_node load = restore.append_child("load");
+		load.append_attribute("cotton").set_value(entity->load.cotton);
+		load.append_attribute("wood").set_value(entity->load.wood);
+		load.append_attribute("metal").set_value(entity->load.metal);
+		load.append_attribute("maxweight").set_value(entity->load.maxweight);
+	}
+}

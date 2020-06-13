@@ -386,16 +386,14 @@
     <Xml Include="..\Game\config.xml">
       <Filter>Desenvolupament  ========</Filter>
     </Xml>
+    <Xml Include="..\Game\save_game.xml">
+      <Filter>Desenvolupament  ========</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Development - Class 12 Handout.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Game\textures\Captura.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Game\assets\maps\Mapa definitivo.tmx">
-      <Filter>Desenvolupament  ========</Filter>
-    </None>
   </ItemGroup>
 </Project>

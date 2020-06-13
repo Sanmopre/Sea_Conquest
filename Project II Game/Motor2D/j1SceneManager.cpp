@@ -190,8 +190,6 @@ int j1SceneManager::ChangeScene(int scene)
 // Load Game State
 bool j1SceneManager::Load(pugi::xml_node& data) 
 {
-	App->render->camera.x = data.child("cameraPos").attribute("x").as_int();
-	App->render->camera.y = data.child("cameraPos").attribute("y").as_int();
 
 	return true;
 }
@@ -199,10 +197,7 @@ bool j1SceneManager::Load(pugi::xml_node& data)
 // Save Game State
 bool j1SceneManager::Save(pugi::xml_node& data) const
 {
-	pugi::xml_node cameraPos = data.append_child("cameraPos");
 
-	cameraPos.append_attribute("x") = App->render->camera.x;
-	cameraPos.append_attribute("y") = App->render->camera.y;
 
 	return true;
 }

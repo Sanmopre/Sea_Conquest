@@ -16,6 +16,9 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 
+	bool Load(pugi::xml_node& data);
+	bool Save(pugi::xml_node& data) const;
+
 	j1Entity* AddEntity(float x = 0, float y = 0, EntityType = EntityType::NONE, int level = 1, int team = 0);
 	void AddToBuffer(j1Entity*);
 

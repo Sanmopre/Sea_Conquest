@@ -341,3 +341,45 @@ bool j1EntityManager::InsideElipse(fPoint center, fPoint point, int range)
 	else if (p <= 1)
 		return true;
 }
+
+bool j1EntityManager::Load(pugi::xml_node& data)
+{
+	pugi::xml_node node = data.child("entity_manager");
+
+	return true;
+}
+
+bool j1EntityManager::Save(pugi::xml_node& data) const
+{
+	pugi::xml_node node = data.append_child("entity_manager");
+
+	for (auto e = entities.begin(); e != entities.end(); e++)
+	{
+		j1Entity* entity = *e;
+
+		pugi::xml_node ent_node = node.append_child("entity");
+
+		pugi::xml_node create = ent_node.append_child("create");
+		create.append_attribute("x").set_value(entity->position.x);
+		create.append_attribute("y").set_value(entity->position.y);
+		create.append_attribute("type").set_value((int)entity->type);
+		create.append_attribute("level").set_value(entity->level);
+		create.append_attribute("team").set_value(entity->team);
+
+		pugi::xml_node restore = ent_node.append_child("restore");
+		restore.append_attribute("to_delete").set_value(entity->to_delete);
+		restore.append_attribute("to_remove").set_value(entity->to_remove);
+		restore.append_attribute("health").set_value(entity->health);
+		restore.append_attribute("selected").set_value(entity->selected);
+
+		pugi::xml_node load = restore.append_child("load");
+		load.append_attribute("cotton").set_value(entity->load.cotton);
+		load.append_attribute("wood").set_value(entity->load.wood);
+		load.append_attribute("metal").set_value(entity->load.metal);
+		load.append_attribute("maxweight").set_value(entity->load.maxweight);
+
+		entity->Save(restore);
+	}
+
+	return true;
+}

@@ -90,8 +90,7 @@ bool j1Player::Save(pugi::xml_node& data)
 {
 	//PLAYER POSITION
 	LOG("Loading player state");
-	mouse_position.x = data.child("position").attribute("X").as_int();
-	mouse_position.y = data.child("position").attribute("Y").as_int();
+
 	return true;
 }
 
@@ -99,8 +98,7 @@ bool j1Player::Load(pugi::xml_node& data)
 {
 	//PLAYER POSITION
 	LOG("Loading player state");
-	mouse_position.x = data.child("position").attribute("X").as_int();
-	mouse_position.y = data.child("position").attribute("Y").as_int();
+
 	return true;
 }
 

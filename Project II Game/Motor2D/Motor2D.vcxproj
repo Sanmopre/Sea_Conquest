@@ -199,15 +199,13 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\config.xml" />
+    <Xml Include="..\Game\save_game.xml" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Development - Class 12 Handout.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Game\textures\Captura.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Game\assets\maps\Mapa definitivo.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

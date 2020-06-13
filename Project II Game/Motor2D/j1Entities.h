@@ -37,22 +37,22 @@ enum class Orientation
 
 enum class EntityType
 {
-	BOAT,
-	BALLOON,
-	HARVESTER,
-	CARRIER,
-	TANK,
-	BOATHOUSE,
-	STORAGE,
-	TOWNHALL,
-	TURRET,
-	ALL_COTTON,
-	ALL_WOOD,
-	ALL_METAL,
-	UNIT,
-	STRUCTURE,
-	RESOURCE,
-	NONE
+	BOAT = 1,
+	BALLOON = 2,
+	HARVESTER = 3,
+	CARRIER = 4,
+	TANK = 5,
+	BOATHOUSE = 6,
+	STORAGE = 7,
+	TOWNHALL = 8,
+	TURRET  = 9,
+	ALL_COTTON = 10,
+	ALL_WOOD = 11,
+	ALL_METAL = 12,
+	UNIT = 13,
+	STRUCTURE = 14,
+	RESOURCE = 15,
+	NONE = 0
 };
 
 enum BuildState
@@ -174,6 +174,8 @@ public:
 	virtual void Update(float dt) = 0;
 	virtual void CleanUp() = 0;
 
+	virtual void Save(pugi::xml_node& data) {}
+
 	bool to_delete;
 	bool to_remove;
 	vector<j1Entity*>::iterator spot;
@@ -252,6 +254,10 @@ public:
 	j1Unit();
 	virtual ~j1Unit();
 	void Primitive_Update(float dt);
+
+	void Save(pugi::xml_node& data);
+	virtual void DeepSave(pugi::xml_node& data) {}
+
 	float speed;
 	int range;
 	int damage;
@@ -317,6 +323,8 @@ public:
 	j1Structure();
 	virtual ~j1Structure();
 	void Primitive_Update(float dt);
+
+	void Save(pugi::xml_node& data);
 
 	iPoint tile;
 	bool placed;
@@ -404,6 +412,8 @@ public:
 	void Update(float);
 	void CleanUp();
 
+	void DeepSave(pugi::xml_node& data);
+
 	void SetAutomatic();
 
 	void BuildStructure(EntityType type);
@@ -439,6 +449,8 @@ public:
 
 	void Update(float);
 	void CleanUp();
+
+	void DeepSave(pugi::xml_node& data);
 
 	void Store();
 	void Deploy();

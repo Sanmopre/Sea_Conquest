@@ -303,6 +303,9 @@ void j1App::FinishUpdate()
 		}
 	}
 
+	if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		SaveGame("save_game.xml");
+
 	if (input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		godmode = !godmode;
 
@@ -461,71 +464,43 @@ bool j1App::LoadGameNow()
 {
 	bool ret = false;
 
-	load_game.create("save_game.xml");
+	pugi::xml_document save_doc;
+	pugi::xml_parse_result result = save_doc.load("save_game.xml");
 
-	pugi::xml_document data;
-	pugi::xml_node root;
+	pugi::xml_node node = save_doc.child("game");
 
-	pugi::xml_parse_result result = data.load_file(load_game.GetString());
+	p2List_item<j1Module*>* item;
+	item = modules.end;
 
-	if(result != NULL)
+	while (item != NULL && ret == true)
 	{
-		LOG("Loading new Game State from %s...", load_game.GetString());
-
-		root = data.child("game_state");
-
-		p2List_item<j1Module*>* item = modules.start;
-		ret = true;
-
-		while(item != NULL && ret == true)
-		{
-			ret = item->data->Load(root.child(item->data->name.GetString()));
-			item = item->next;
-		}
-
-		data.reset();
-		if(ret == true)
-			LOG("...finished loading");
-		else
-			LOG("...loading process interrupted with error on module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
+		ret = item->data->Load(node);
+		item = item->prev;
 	}
-	else
-		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.GetString(), result.description());
 
-	want_to_load = false;
 	return ret;
 }
 
 bool j1App::SavegameNow() const
 {
 	bool ret = true;
-
-	LOG("Saving Game State to %s...", save_game.GetString());
-
-	// xml object were we will store all data
-	pugi::xml_document data;
-	pugi::xml_node root;
 	
-	root = data.append_child("game_state");
+	pugi::xml_document save_doc;
+	pugi::xml_parse_result result = save_doc.load("save_game.xml");
+	save_doc.reset();
+	pugi::xml_node node = save_doc.append_child("game");
 
-	p2List_item<j1Module*>* item = modules.start;
-
-	while(item != NULL && ret == true)
+	p2List_item<j1Module*>* item;
+	item = modules.end;
+	
+	while (item != NULL && ret == true)
 	{
-		ret = item->data->Save(root.append_child(item->data->name.GetString()));
-		item = item->next;
+		ret = item->data->Save(node);
+		item = item->prev;
 	}
-
-	if (ret == true)
-	{
-		data.save_file(save_game.GetString());
-		LOG("... finished saving", );
-	}
-
-	else
-		LOG("Save process halted from an error in module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
-
-	data.reset();
+	
+	save_doc.save_file("save_game.xml");
 	want_to_save = false;
+	
 	return ret;
 }

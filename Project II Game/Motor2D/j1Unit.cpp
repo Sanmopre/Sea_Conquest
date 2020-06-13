@@ -241,3 +241,23 @@ void j1Unit::GetStats(int& attack, int& health, int& maxhealth, int& speed, int&
 	speed = this->speed;
 	maxresources = load.maxweight;
 }
+
+void j1Unit::Save(pugi::xml_node& data)
+{
+	pugi::xml_node node = data.append_child("unit");
+
+	pugi::xml_node pos = node.append_child("destination");
+	pos.append_attribute("x").set_value(destination.x);
+	pos.append_attribute("y").set_value(destination.y);
+
+	pugi::xml_node p_node = node.append_child("path");
+	p_node.append_attribute("player_command").set_value(player_command);
+	for (auto p = path.begin(); p != path.end(); p++)
+	{
+		pos = p_node.append_child("step");
+		pos.append_attribute("x").set_value((*p).x);
+		pos.append_attribute("y").set_value((*p).y);
+	}
+
+	DeepSave(node);
+}

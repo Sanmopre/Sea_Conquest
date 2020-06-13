@@ -90,6 +90,8 @@ bool j1Render::CleanUp()
 
 bool j1Render::Load(pugi::xml_node& data)
 {
+	pugi::xml_node node = data.child("render");
+
 	camera.x = data.child("camera").attribute("x").as_int();
 	camera.y = data.child("camera").attribute("y").as_int();
 
@@ -98,10 +100,14 @@ bool j1Render::Load(pugi::xml_node& data)
 
 bool j1Render::Save(pugi::xml_node& data) const
 {
-	pugi::xml_node cam = data.append_child("camera");
-
-	cam.append_attribute("x") = camera.x;
-	cam.append_attribute("y") = camera.y;
+	pugi::xml_node node = data.append_child("render");
+	
+	node = node.append_child("camera");
+	
+	pugi::xml_attribute attr = node.append_attribute("x");
+	attr.set_value(camera.x);
+	attr = node.append_attribute("y");
+	attr.set_value(camera.y);
 
 	return true;
 }

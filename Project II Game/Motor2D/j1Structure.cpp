@@ -266,3 +266,25 @@ void j1Structure::GetStats(int& attack, int& health, int& maxhealth, int& speed,
 	speed = 0;
 	maxresources = load.maxweight;
 }
+
+void j1Structure::Save(pugi::xml_node& data)
+{
+	pugi::xml_node node = data.append_child("structure");
+
+	node.append_attribute("build_state").set_value(built_state);
+
+	pugi::xml_node timer = node.append_child("timer");
+	timer.append_attribute("iterations").set_value(building_time.iterations);
+	timer.append_attribute("counter").set_value(building_time.counter);
+
+	node = node.append_child("unitqueue");
+	for (auto u = unitqueue.begin(); u != unitqueue.end(); u++)
+	{
+		pugi::xml_node pos = node.append_child("unit");
+		pos.append_attribute("x").set_value(u->x);
+		pos.append_attribute("y").set_value(u->y);
+		pos.append_attribute("type").set_value((int)u->type);
+		pos.append_attribute("level").set_value(u->level);
+		pos.append_attribute("team").set_value(u->team);
+	}
+}

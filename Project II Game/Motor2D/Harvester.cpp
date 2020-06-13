@@ -444,3 +444,20 @@ void j1Harvester::BuildUpdate(float dt)
 		deposit_destination = {};
 	}
 }
+
+void j1Harvester::DeepSave(pugi::xml_node& data)
+{
+	pugi::xml_node node = data.append_child("deep");
+
+	node.append_attribute("automatic").set_value(automatic);
+	node.append_attribute("automating").set_value(automating);
+	node.append_attribute("metal_quest").set_value(metal_quest);
+
+	pugi::xml_node h_node = node.append_child("harvest_destination");
+	h_node.append_attribute("x").set_value(harvest_destination.x);
+	h_node.append_attribute("y").set_value(harvest_destination.y);
+
+	pugi::xml_node d_node = node.append_child("deposit_destination");
+	d_node.append_attribute("x").set_value(deposit_destination.x);
+	d_node.append_attribute("y").set_value(deposit_destination.y);
+}
