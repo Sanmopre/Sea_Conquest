@@ -1,6 +1,9 @@
-# Sea Conquest (Alpha Assignmet)
+# Sea Conquest
+by DoLime
 
-## Description:
+
+
+## Game information:
 
 Sea Conquest is a 2D naval RTS game, centered on resource management and unit control. The action happens in an archipelago surrounded by brave seas and powerful pirates who also inhabit the islands. 
 Your objective in this game is to take down all the pirates, conquering their islands and sinking their ships. To accomplish this task you will have to develop a strong economy and build and upgrade great fleet.
@@ -12,7 +15,21 @@ To draw a clear path towards the game we would like to do, we will state our gam
 -   Feeling powerful.
 -   Freedom of Strategy.
 
-## Key Features
+## Developing Team
+
+<p align="center">
+  <img  src="https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GDD%20Pictures/logo%20dolime.png" width ="400">
+</p>
+
+We are an indie game development team formed by 7 students taking the bachelor’s degree in Videogame design and development in the UPC. The game will be developed for the subject Project II.
+
+<p align="center">
+  <img  src="https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GDD%20Pictures/Team_photo.png" width ="600">
+</p>
+
+## About the game
+
+### Key Features
 
  - Base Building
  - Resource Trading
@@ -20,7 +37,7 @@ To draw a clear path towards the game we would like to do, we will state our gam
  - Group Movement
  - Particle System
  
-## Controls
+### Controls
 
  - Dialogs: Keys from 5 to 9 trigger a dialog.
 
@@ -117,7 +134,7 @@ To draw a clear path towards the game we would like to do, we will state our gam
 
   - P : Spawn a cloud particle
 
-## Developers
+### About us
  - {Moliner Préjano, Santiago} - {Lead}        - {[GitHub account](https://github.com/Sanmopre)}
  - {Rami Rodríguez, David}     - {Programming} - {[GitHub account](https://github.com/Paideieitor)}
  - {Quintana Griera, Miquel}   - {Art/Audio}   - {[GitHub account](https://github.com/Leukino)}
