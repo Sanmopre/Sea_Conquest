@@ -484,14 +484,8 @@ bool j1App::SavegameNow() const
 	save_doc.reset();
 	pugi::xml_node node = save_doc.append_child("game");
 
-	p2List_item<j1Module*>* item;
-	item = modules.end;
-	
-	while (item != NULL && ret == true)
-	{
-		ret = item->data->Save(node);
-		item = item->prev;
-	}
+	App->render->Save(node);
+	App->entitymanager->Save(node);
 	
 	save_doc.save_file("save_game.xml");
 	want_to_save = false;

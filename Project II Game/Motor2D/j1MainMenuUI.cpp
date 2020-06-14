@@ -143,12 +143,17 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		App->audio->PlayFx(App->audio->ui_wood_hit);
 		if (element == menu.continue_button)
 		{
-			App->audio->PlayFx(App->audio->start, 0);
-			App->transitions->LinesAppearing(Black, 0.75f, 1);
-			App->scene->start = true;
-			Deactivate_Audio_Options();
-			App->game_pause = false;
-			App->restart = false;
+			pugi::xml_document save_doc;
+			pugi::xml_parse_result result = save_doc.load_file("save_game.xml");
+			if (save_doc.child("game").child("entity_manager").child("entity") != NULL)
+			{
+				App->audio->PlayFx(App->audio->start, 0);
+				App->transitions->LinesAppearing(Black, 0.75f, 1);
+				App->scene->start = true;
+				Deactivate_Audio_Options();
+				App->game_pause = false;
+				App->restart = false;
+			}
 		}
 
 		if (element == menu.start) 

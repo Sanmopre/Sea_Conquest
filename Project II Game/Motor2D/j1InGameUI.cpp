@@ -564,21 +564,32 @@ void j1InGameUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 
 		if (element == menu.Save) {
 			quit = true;
+			App->SaveGame("save_game.xml");
 		}
 		if (element == menu.Load) {
+			App->SaveGame("save_game.xml");
 			App->transitions->LinesAppearing(Black, 0.75f, 2);
 		}
 
 		if (element == win.Back_button) {
+			pugi::xml_document save_doc;
+			pugi::xml_parse_result result = save_doc.load("save_game.xml");
+			save_doc.reset();
+			pugi::xml_node node = save_doc.append_child("game");
 			App->transitions->LinesAppearing(Black, 0.75f, 2);
 		}
 
 		if (element == defeat.Back_button) {
+			pugi::xml_document save_doc;
+			pugi::xml_parse_result result = save_doc.load("save_game.xml");
+			save_doc.reset();
+			pugi::xml_node node = save_doc.append_child("game");
 			App->transitions->LinesAppearing(Black, 0.75f, 2);
 		}
 
 		if (element == menu.Resume_button) {
 			Activate_Menu();
+			App->SaveGame("save_game.xml");
 		}
 		if (element == menu.Menu_button) {
 			
