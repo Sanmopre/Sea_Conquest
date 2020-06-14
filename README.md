@@ -32,7 +32,7 @@ We are an indie game development team formed by 7 students taking the bachelorâ€
 ## About the game
 
 Game Trailer
-<iframe width="560" height="315" src="https://www.youtube.com/embed/F1w-qCbYVe8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=UiBjzSkU5Vs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Key Features
 
