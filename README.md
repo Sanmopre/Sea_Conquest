@@ -15,6 +15,8 @@ To draw a clear path towards the game we would like to do, we will state our gam
 -   Feeling powerful.
 -   Freedom of Strategy.
 
+You can play our game by downloading the latest release of our repository {[here](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/releases)} and clicking the executable.
+
 ## Developing Team
 
 <p align="center">
