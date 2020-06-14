@@ -104,7 +104,7 @@ bool j1Scene::CleanUp()
 void j1Scene::ChangeScene()
 {
 	this->active = true;
-	App->map->LoadMap("maps/Mapa definitivo.tmx");
+	App->map->LoadMap("maps/final_map.tmx");
 	App->scene2->active = false;
 	App->scene3->active = false;
 	App->scene->Start();
