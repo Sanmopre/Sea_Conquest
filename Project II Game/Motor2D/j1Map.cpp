@@ -80,7 +80,10 @@ void j1Map::LoadMap(const char* path)
 
 	App->pathfinding->LoadIslands();
 
-	LoadEntities();
+	if (App->restart == true)
+		LoadEntities();
+	else
+		App->LoadGame();
 }
 
 void j1Map::LoadTiles(pugi::xml_node& node, TileSet* tileset)

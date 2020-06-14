@@ -84,6 +84,9 @@ public:
 	j1Fog();
 	~j1Fog();
 
+	bool Load(pugi::xml_node& data);
+	bool Save(pugi::xml_node& data) const;
+
 	bool Update(float dt);
 	bool CleanUp();
 

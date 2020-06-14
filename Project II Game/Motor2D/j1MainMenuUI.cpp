@@ -141,6 +141,16 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 	case GUI_Event::EVENT_ONCLICK:
 	{
 		App->audio->PlayFx(App->audio->ui_wood_hit);
+		if (element == menu.continue_button)
+		{
+			App->audio->PlayFx(App->audio->start, 0);
+			App->transitions->LinesAppearing(Black, 0.75f, 1);
+			App->scene->start = true;
+			Deactivate_Audio_Options();
+			App->game_pause = false;
+			App->restart = false;
+		}
+
 		if (element == menu.start) 
 		{
 			App->audio->PlayFx(App->audio->start, 0);
@@ -148,6 +158,7 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 			App->scene->start = true;
 			Deactivate_Audio_Options();
 			App->game_pause = false;
+			App->restart = true;
 		}
 			
 		if (element == menu.audio_button) 

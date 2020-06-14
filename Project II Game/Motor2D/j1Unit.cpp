@@ -242,6 +242,27 @@ void j1Unit::GetStats(int& attack, int& health, int& maxhealth, int& speed, int&
 	maxresources = load.maxweight;
 }
 
+void j1Unit::InfoLoad(pugi::xml_node& data)
+{
+	pugi::xml_node node = data.child("unit");
+
+	destination.x = node.child("destination").attribute("x").as_float();
+	destination.y = node.child("destination").attribute("y").as_float();
+
+	pugi::xml_node p_node = node.child("path");
+
+	player_command = p_node.attribute("player_command").as_bool();
+
+	for (pugi::xml_node step = p_node.child("step"); step != NULL; step = step.next_sibling("step"))
+	{
+		fPoint s = { step.attribute("x").as_float(),step.attribute("y").as_float() };
+
+		path.push_back(s);
+	}
+
+	DeepInfoLoad(node);
+}
+
 void j1Unit::Save(pugi::xml_node& data)
 {
 	pugi::xml_node node = data.append_child("unit");

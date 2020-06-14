@@ -204,3 +204,19 @@ void j1Fog::AddScore(Chunk* chunk)
 			chunk->complete = true;
 	}
 }
+
+bool j1Fog::Load(pugi::xml_node& data)
+{
+	pugi::xml_node node = data.child("fog");
+
+	return true;
+}
+
+bool j1Fog::Save(pugi::xml_node& data) const
+{
+	pugi::xml_node node = data.append_child("fog");
+
+
+
+	return true;
+}

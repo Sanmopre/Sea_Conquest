@@ -39,8 +39,14 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	state = ONGOING;
-	App->render->camera.x = 5192;
-	App->render->camera.y = -2904;
+
+	if (App->restart == true)
+	{
+		App->render->camera.x = 5192;
+		App->render->camera.y = -2904;
+	}
+	App->restart = true;
+
 	return true;
 }
 

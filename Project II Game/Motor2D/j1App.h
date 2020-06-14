@@ -144,6 +144,8 @@ public:
 	bool ignore_fog = false;
 	bool numerate_entities = false;
 	bool show_chasing_range = false;
+
+	bool restart = true;
 };
 
 extern j1App* App;

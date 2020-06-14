@@ -174,6 +174,7 @@ public:
 	virtual void Update(float dt) = 0;
 	virtual void CleanUp() = 0;
 
+	virtual void InfoLoad(pugi::xml_node& data) {}
 	virtual void Save(pugi::xml_node& data) {}
 
 	bool to_delete;
@@ -255,6 +256,8 @@ public:
 	virtual ~j1Unit();
 	void Primitive_Update(float dt);
 
+	void InfoLoad(pugi::xml_node& data);
+	virtual void DeepInfoLoad(pugi::xml_node& data) {}
 	void Save(pugi::xml_node& data);
 	virtual void DeepSave(pugi::xml_node& data) {}
 
@@ -324,6 +327,7 @@ public:
 	virtual ~j1Structure();
 	void Primitive_Update(float dt);
 
+	void InfoLoad(pugi::xml_node& data);
 	void Save(pugi::xml_node& data);
 
 	iPoint tile;
@@ -412,6 +416,7 @@ public:
 	void Update(float);
 	void CleanUp();
 
+	void DeepInfoLoad(pugi::xml_node& data);
 	void DeepSave(pugi::xml_node& data);
 
 	void SetAutomatic();
@@ -450,6 +455,7 @@ public:
 	void Update(float);
 	void CleanUp();
 
+	void DeepInfoLoad(pugi::xml_node& data);
 	void DeepSave(pugi::xml_node& data);
 
 	void Store();

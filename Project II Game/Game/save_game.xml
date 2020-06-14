@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <game>
 	<render>
-		<camera x="5192" y="-2956" />
+		<camera x="5192" y="-2904" />
 	</render>
 	<entity_manager>
 		<entity>
@@ -1785,13 +1785,27 @@
 		<entity>
 			<create x="-4480" y="3072" type="10" level="1" team="0" />
 			<restore to_delete="false" to_remove="false" health="1000" selected="false">
-				<load cotton="910" wood="0" metal="0" maxweight="1000" />
+				<load cotton="460" wood="0" metal="0" maxweight="1000" />
 			</restore>
 		</entity>
 		<entity>
 			<create x="-5088" y="3088" type="12" level="2" team="0" />
 			<restore to_delete="false" to_remove="false" health="1000" selected="false">
 				<load cotton="0" wood="0" metal="200" maxweight="2000" />
+			</restore>
+		</entity>
+		<entity>
+			<create x="-4512" y="3088" type="3" level="1" team="1" />
+			<restore to_delete="false" to_remove="false" health="60" selected="false">
+				<load cotton="510" wood="0" metal="0" maxweight="600" />
+				<unit>
+					<destination x="-4512" y="3088" />
+					<path player_command="false" />
+					<deep automatic="true" automating="false" metal_quest="60">
+						<harvest_destination x="-4512" y="3088" />
+						<deposit_destination x="-4544" y="3200" />
+					</deep>
+				</unit>
 			</restore>
 		</entity>
 		<entity>
@@ -1822,6 +1836,12 @@
 					<timer iterations="0" counter="0" />
 					<unitqueue />
 				</structure>
+			</restore>
+		</entity>
+		<entity>
+			<create x="-4672" y="3104" type="12" level="1" team="0" />
+			<restore to_delete="false" to_remove="false" health="1000" selected="false">
+				<load cotton="0" wood="0" metal="40" maxweight="1000" />
 			</restore>
 		</entity>
 		<entity>
@@ -1897,9 +1917,9 @@
 		<entity>
 			<create x="-4576" y="3216" type="7" level="1" team="1" />
 			<restore to_delete="false" to_remove="false" health="250" selected="false">
-				<load cotton="80" wood="20" metal="20" maxweight="2000" />
+				<load cotton="20" wood="250" metal="0" maxweight="2000" />
 				<structure build_state="3">
-					<timer iterations="4" counter="0" />
+					<timer iterations="0" counter="0" />
 					<unitqueue />
 				</structure>
 			</restore>
@@ -1912,12 +1932,6 @@
 					<destination x="-480" y="3216" />
 					<path player_command="false" />
 				</unit>
-			</restore>
-		</entity>
-		<entity>
-			<create x="-4736" y="3232" type="11" level="1" team="0" />
-			<restore to_delete="false" to_remove="false" health="1000" selected="false">
-				<load cotton="0" wood="160" metal="0" maxweight="1000" />
 			</restore>
 		</entity>
 		<entity>
@@ -1941,25 +1955,11 @@
 			</restore>
 		</entity>
 		<entity>
-			<create x="-4704" y="3248" type="3" level="1" team="1" />
-			<restore to_delete="false" to_remove="false" health="60" selected="false">
-				<load cotton="0" wood="30" metal="0" maxweight="600" />
-				<unit>
-					<destination x="-4704" y="3248" />
-					<path player_command="false" />
-					<deep automatic="true" automating="false" metal_quest="60">
-						<harvest_destination x="-4704" y="3248" />
-						<deposit_destination x="-4608" y="3232" />
-					</deep>
-				</unit>
-			</restore>
-		</entity>
-		<entity>
 			<create x="-4512" y="3248" type="6" level="1" team="1" />
 			<restore to_delete="false" to_remove="false" health="500" selected="false">
 				<load cotton="0" wood="0" metal="0" maxweight="0" />
 				<structure build_state="3">
-					<timer iterations="7" counter="0" />
+					<timer iterations="0" counter="0" />
 					<unitqueue />
 				</structure>
 			</restore>
@@ -2005,6 +2005,19 @@
 			</restore>
 		</entity>
 		<entity>
+			<create x="-4544" y="3296" type="4" level="1" team="1" />
+			<restore to_delete="false" to_remove="false" health="100" selected="false">
+				<load cotton="0" wood="0" metal="0" maxweight="0" />
+				<unit>
+					<destination x="-4544" y="3296" />
+					<path player_command="false" />
+					<deep stored_units="0" capacity="1">
+						<units />
+					</deep>
+				</unit>
+			</restore>
+		</entity>
+		<entity>
 			<create x="5600" y="3312" type="9" level="1" team="2" />
 			<restore to_delete="false" to_remove="false" health="500" selected="false">
 				<load cotton="0" wood="0" metal="0" maxweight="0" />
@@ -2012,31 +2025,6 @@
 					<timer iterations="0" counter="0" />
 					<unitqueue />
 				</structure>
-			</restore>
-		</entity>
-		<entity>
-			<create x="-4438.67773" y="3328" type="4" level="1" team="1" />
-			<restore to_delete="false" to_remove="false" health="100" selected="true">
-				<load cotton="0" wood="0" metal="0" maxweight="0" />
-				<unit>
-					<destination x="-4416" y="3328" />
-					<path player_command="true">
-						<step x="-4416" y="3328" />
-						<step x="-4352" y="3328" />
-						<step x="-4288" y="3328" />
-						<step x="-4256" y="3312" />
-					</path>
-					<deep stored_units="1" capacity="1">
-						<units>
-							<entity>
-								<create x="-4576" y="3312" type="3" level="1" team="1" />
-								<restore health="60">
-									<load cotton="0" wood="30" metal="0" maxweight="600" />
-								</restore>
-							</entity>
-						</units>
-					</deep>
-				</unit>
 			</restore>
 		</entity>
 		<entity>
@@ -3756,4 +3744,5 @@
 			</restore>
 		</entity>
 	</entity_manager>
+	<fog />
 </game>

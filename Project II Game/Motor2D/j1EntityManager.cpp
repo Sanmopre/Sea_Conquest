@@ -344,7 +344,35 @@ bool j1EntityManager::InsideElipse(fPoint center, fPoint point, int range)
 
 bool j1EntityManager::Load(pugi::xml_node& data)
 {
-	pugi::xml_node node = data.child("entity_manager");
+	pugi::xml_node node = data.child("entity_manager").child("entity");
+
+	for (node; node != NULL; node = node.next_sibling("entity"))
+	{
+		pugi::xml_node create = node.child("create");
+
+		float x = create.attribute("x").as_float();
+		float y = create.attribute("y").as_float();
+		EntityType type = (EntityType)create.attribute("type").as_int();
+		int level = create.attribute("level").as_int();
+		int team = create.attribute("team").as_int();
+
+		j1Entity* entity = AddEntity(x, y, type, level, team);
+		
+		pugi::xml_node restore = node.child("restore");
+		
+		entity->to_delete = restore.attribute("to_delete").as_bool();
+		entity->to_remove = restore.attribute("to_remove").as_bool();
+		entity->health = restore.attribute("health").as_float();
+		entity->selected = restore.attribute("selected").as_bool();
+		
+		pugi::xml_node load = restore.child("load");
+		entity->load.cotton = load.attribute("cotton").as_int();
+		entity->load.wood = load.attribute("wood").as_int();
+		entity->load.metal = load.attribute("metal").as_int();
+		entity->load.maxweight = load.attribute("maxweight").as_int();
+
+		entity->InfoLoad(restore);
+	}
 
 	return true;
 }

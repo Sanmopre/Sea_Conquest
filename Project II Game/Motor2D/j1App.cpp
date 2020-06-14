@@ -450,7 +450,7 @@ const char* j1App::GetOrganization() const
 
 void j1App::LoadGame()
 {
-	want_to_load = true;
+	LoadGameNow();
 }
 
 // ---------------------------------------
@@ -465,18 +465,12 @@ bool j1App::LoadGameNow()
 	bool ret = false;
 
 	pugi::xml_document save_doc;
-	pugi::xml_parse_result result = save_doc.load("save_game.xml");
+	pugi::xml_parse_result result = save_doc.load_file("save_game.xml");
 
 	pugi::xml_node node = save_doc.child("game");
 
-	p2List_item<j1Module*>* item;
-	item = modules.end;
-
-	while (item != NULL && ret == true)
-	{
-		ret = item->data->Load(node);
-		item = item->prev;
-	}
+	App->render->Load(node);
+	App->entitymanager->Load(node);
 
 	return ret;
 }

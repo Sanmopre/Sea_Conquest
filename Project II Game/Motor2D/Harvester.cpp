@@ -445,6 +445,18 @@ void j1Harvester::BuildUpdate(float dt)
 	}
 }
 
+void j1Harvester::DeepInfoLoad(pugi::xml_node& data)
+{
+	pugi::xml_node deep = data.child("deep");
+
+	automatic = deep.attribute("automatic").as_bool();
+	automating = deep.attribute("automating").as_bool();
+	metal_quest = deep.attribute("metal_quest").as_int();
+	
+	harvest_destination = { deep.child("harvest_destination").attribute("x").as_float(), deep.child("harvest_destination").attribute("y").as_float() };
+	deposit_destination = { deep.child("deposit_destination").attribute("x").as_float(), deep.child("deposit_destination").attribute("y").as_float() };
+}
+
 void j1Harvester::DeepSave(pugi::xml_node& data)
 {
 	pugi::xml_node node = data.append_child("deep");

@@ -90,10 +90,10 @@ bool j1Render::CleanUp()
 
 bool j1Render::Load(pugi::xml_node& data)
 {
-	pugi::xml_node node = data.child("render");
+	pugi::xml_node node = data.child("render").child("camera");
 
-	camera.x = data.child("camera").attribute("x").as_int();
-	camera.y = data.child("camera").attribute("y").as_int();
+	camera.x = node.attribute("x").as_int();
+	camera.y = node.attribute("y").as_int();
 
 	return true;
 }

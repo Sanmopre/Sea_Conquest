@@ -203,6 +203,49 @@ void j1Carrier::GetUnitsInfo(int& harvesters, int& tanks, int& capacity)
 	capacity = this->capacity;
 }
 
+void j1Carrier::DeepInfoLoad(pugi::xml_node& data)
+{
+	//<deep stored_units = "1" capacity = "1">
+	//	<units>
+	//		<entity>
+	//			<create type = "3" level = "1" team = "1" / >
+	//			<restore health = "60">
+	//				<load cotton = "0" wood = "90" metal = "0" maxweight = "600" / >
+	pugi::xml_node deep = data.child("deep");
+
+	stored_units = deep.attribute("stored_units").as_int();
+	capacity = deep.attribute("capacity").as_int();
+
+	pugi::xml_node entity = deep.child("units").child("entity");
+
+	for (entity; entity != NULL; entity = entity.next_sibling("entity"))
+	{
+		pugi::xml_node create = entity.child("create");
+
+		float x = 0;
+		float y = 0;
+		EntityType type = (EntityType)create.attribute("type").as_int();
+		int level = create.attribute("level").as_int();
+		int team = create.attribute("team").as_int();
+
+		j1Entity* ent = App->entitymanager->AddEntity(x, y, type, level, team);
+
+		pugi::xml_node restore = entity.child("restore");
+
+		ent->to_delete = false;
+		ent->to_remove = true;
+		ent->health = restore.attribute("health").as_float();
+
+		pugi::xml_node load = restore.child("load");
+		ent->load.cotton = load.attribute("cotton").as_int();
+		ent->load.wood = load.attribute("wood").as_int();
+		ent->load.metal = load.attribute("metal").as_int();
+		ent->load.maxweight = load.attribute("maxweight").as_int();
+
+		units.push_back(ent);
+	}
+}
+
 void j1Carrier::DeepSave(pugi::xml_node& data)
 {
 	pugi::xml_node node = data.append_child("deep");
