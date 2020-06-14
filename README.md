@@ -15,6 +15,8 @@ To draw a clear path towards the game we would like to do, we will state our gam
 -   Feeling powerful.
 -   Freedom of Strategy.
 
+You can play our game by downloading the latest release of our repository {[here](https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/releases)} and clicking the executable.
+
 ## Developing Team
 
 <p align="center">
@@ -28,6 +30,9 @@ We are an indie game development team formed by 7 students taking the bachelorâ€
 </p>
 
 ## About the game
+
+Game Trailer
+<iframe width="560" height="315" src="https://www.youtube.com/embed/F1w-qCbYVe8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Key Features
 
