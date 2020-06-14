@@ -148,6 +148,10 @@ Game Trailer
  - {Espinosa Castillo, Albert} - {Programming} - {[GitHub account](https://github.com/albertec1)}
  - {Gallardo Quesada, Marc}    - {Design}      - {[GitHub account](https://github.com/Marchusky)}
 
+## How to Contact us
+
+We have a team [twitter](https://twitter.com/DoLime9) account for any doubts you may have.
+
 ## License
 
 This software is provided 'as-is', without any express or implied
