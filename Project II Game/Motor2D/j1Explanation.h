@@ -60,7 +60,7 @@ public:
 
     void Show_Label(Text text = Text::NONE);
 	
-	bool information_mode = false;
+	bool information_mode = true;
 
 private:
 
