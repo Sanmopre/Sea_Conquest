@@ -33,9 +33,7 @@ We are an indie game development team formed by 7 students taking the bachelorâ€
 
 Game Trailer
 
-<p align="center">
-  [![IMAGE ALT TEXT](http://img.youtube.com/vi/UiBjzSkU5Vs/0.jpg)](http://www.youtube.com/watch?v==UiBjzSkU5Vs "Video Title")
-</p>
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/UiBjzSkU5Vs/0.jpg)](http://www.youtube.com/watch?v==UiBjzSkU5Vs "Video Title")
 
 ### Key Features
 
