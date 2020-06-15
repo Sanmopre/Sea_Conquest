@@ -26,7 +26,7 @@ You can play our game by downloading the latest release of our repository {[here
 We are an indie game development team formed by 7 students taking the bachelor’s degree in Videogame design and development in the UPC. The game will be developed for the subject Project II.
 
 <p align="center">
-  <img src="https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/Docs/GDD%20Pictures/Team_photo.png" width ="600">
+  <img src="Docs/GDD%20Pictures/Team_photo.png" width ="600">
 </p>
 
 ## About the game
