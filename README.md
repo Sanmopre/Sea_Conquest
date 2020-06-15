@@ -20,7 +20,7 @@ You can play our game by downloading the latest release of our repository {[here
 ## Developing Team
 
 <p align="center">
-  <img src="Docs/GDD%20Pictures/logo%20dolime.png" alt="" class="inline"/>
+  <img src="Docs/GDD%20Pictures/logo%20dolime.PNG" alt="" class="inline"/>
 </p>
 
 We are an indie game development team formed by 7 students taking the bachelor’s degree in Videogame design and development in the UPC. The game will be developed for the subject Project II.
