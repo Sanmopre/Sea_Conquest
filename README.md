@@ -141,13 +141,13 @@ Game Trailer
   - P : Spawn a cloud particle
 
 ### About us
- - {Moliner Préjano, Santiago} - {Lead}        - {[GitHub account](https://github.com/Sanmopre)}
- - {Rami Rodríguez, David}     - {Programming} - {[GitHub account](https://github.com/Paideieitor)}
- - {Quintana Griera, Miquel}   - {Art/Audio}   - {[GitHub account](https://github.com/Leukino)}
- - {Tarrés Amselem, Oscar}     - {Management}  - {[GitHub account](https://github.com/oscarta3)}
- - {Robles Muñoz, Albert}      - {QA}          - {[GitHub account](https://github.com/Albertito029)}
- - {Espinosa Castillo, Albert} - {Programming} - {[GitHub account](https://github.com/albertec1)}
- - {Gallardo Quesada, Marc}    - {Design}      - {[GitHub account](https://github.com/Marchusky)}
+ - {Moliner Préjano, Santiago} - {Lead}        - [GitHub account](https://github.com/Sanmopre)
+ - {Rami Rodríguez, David}     - {Programming} - [GitHub account](https://github.com/Paideieitor)
+ - {Quintana Griera, Miquel}   - {Art/Audio}   - [GitHub account](https://github.com/Leukino)
+ - {Tarrés Amselem, Oscar}     - {Management}  - [GitHub account](https://github.com/oscarta3)
+ - {Robles Muñoz, Albert}      - {QA}          - [GitHub account](https://github.com/Albertito029)
+ - {Espinosa Castillo, Albert} - {Programming} - [GitHub account](https://github.com/albertec1)
+ - {Gallardo Quesada, Marc}    - {Design}      - [GitHub account](https://github.com/Marchusky)
 
 ## How to Contact us
 
@@ -170,5 +170,3 @@ freely, subject to the following restrictions:
 2. Altered source versions must be plainly marked as such, and must not be
    misrepresented as being the original software.
 3. This notice may not be removed or altered from any source distribution.
-
-{AdditionalLicenses}
