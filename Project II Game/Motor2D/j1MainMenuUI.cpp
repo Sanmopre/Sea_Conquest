@@ -37,15 +37,13 @@ bool j1MainMenuUI::Awake(pugi::xml_node& config)
 
 bool j1MainMenuUI::Start()
 {
-
 	Add_UI();
 
 	//SETTING AUDIO IN THE CORRECT STARTING VOLUME
-	menu.music->Button->map_position.x = 830 + 186;
-	menu.music->Button->inside_position.x = -186;
-	menu.fx->Button->map_position.x = 830 + 186;
-	menu.fx->Button->inside_position.x = -186;
-	
+	//menu.music->Button->map_position.x = 830 + 186;
+	//menu.music->Button->inside_position.x = -186;
+	//menu.fx->Button->map_position.x = 830 + 186;
+	//menu.fx->Button->inside_position.x = -186;
 	
 	return true;
 }
@@ -58,12 +56,10 @@ bool j1MainMenuUI::PreUpdate()
 
 
 bool j1MainMenuUI::Update(float dt)
-{
-		
+{	
 	App->gui->Spining_UI();
 
 	return true;
-
 }
 
 
@@ -87,9 +83,6 @@ void j1MainMenuUI::Add_UI()
 	menu.fx_label = App->gui->AddElement(GUItype::GUI_LABEL, nullptr, { 850,380 }, { 0,0 }, true, false, { 0,0,40,40 }, "EFFECTS", this, false, false, SCROLL_TYPE::SCROLL_NONE, true);
 	menu.audio_image = App->gui->AddElement(GUItype::GUI_IMAGE, nullptr, {  800,270 }, { 0,0 }, true, false, { 0, 0,300,200 }, "", this, false, false, SCROLL_TYPE::SCROLL_NONE, true, TEXTURE::AUDIO_IMAGE);
 }
-
-
-
 
 void j1MainMenuUI::Activate_Menu()
 {
@@ -140,17 +133,17 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 	{
 	case GUI_Event::EVENT_ONCLICK:
 	{
-		App->audio->PlayFx(App->audio->ui_wood_hit);
+		//App->audio->PlayFx(App->audio->ui_wood_hit);
 		if (element == menu.continue_button)
 		{
 			pugi::xml_document save_doc;
 			pugi::xml_parse_result result = save_doc.load_file("save_game.xml");
 			if (save_doc.child("game").child("entity_manager").child("entity") != NULL)
 			{
-				App->audio->PlayFx(App->audio->start, 0);
+				//App->audio->PlayFx(App->audio->start, 0);
 				App->transitions->LinesAppearing(Black, 0.75f, 1);
 				App->scene->start = true;
-				Deactivate_Audio_Options();
+				//Deactivate_Audio_Options();
 				App->game_pause = false;
 				App->restart = false;
 			}
@@ -158,10 +151,10 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 
 		if (element == menu.start) 
 		{
-			App->audio->PlayFx(App->audio->start, 0);
+			//App->audio->PlayFx(App->audio->start, 0);
 			App->transitions->LinesAppearing(Black, 0.75f, 1);
 			App->scene->start = true;
-			Deactivate_Audio_Options();
+			//Deactivate_Audio_Options();
 			App->game_pause = false;
 			App->restart = true;
 		}
