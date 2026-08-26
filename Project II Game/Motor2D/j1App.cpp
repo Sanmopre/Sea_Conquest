@@ -36,8 +36,7 @@
 #include <thread>
 
 
-#include "SDL_image/include/SDL_image.h"
-#pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
+#include <SDL_image.h>
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)

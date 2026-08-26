@@ -4,7 +4,7 @@
 #include "j1Module.h"
 #include "j1MainMenuUI.h"
 #include "j1GUIElements.h"
-#include "SDL_mixer/include/SDL_mixer.h"
+#include <SDL_mixer.h>
 #include <list>
 #include <iterator>
 #define DEFAULT_MUSIC_FADE_TIME 0.0f

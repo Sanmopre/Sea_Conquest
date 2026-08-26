@@ -4,7 +4,7 @@
 // ----------------------------------------------------
 
 #include "j1Timer.h"
-#include "SDL\include\SDL_timer.h"
+#include <SDL_timer.h>
 #include "p2Defs.h"
 
 j1Timer::j1Timer()

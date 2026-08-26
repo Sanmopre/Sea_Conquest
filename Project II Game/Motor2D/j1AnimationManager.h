@@ -1,7 +1,7 @@
 #ifndef __ANIMATION_H__
 #define __ANIMATION_H__
 
-#include "SDL/include/SDL_rect.h"
+#include <SDL_rect.h>
 #include "j1Module.h"
 #include "j1App.h"
 

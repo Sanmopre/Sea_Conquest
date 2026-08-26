@@ -13,7 +13,7 @@
 #include "j1Fonts.h"
 #include "j1Input.h"
 #include "j1InGameUI.h"
-#include "SDL\include\SDL.h"
+#include <SDL.h>
 
 
 j1QuestManager::j1QuestManager() : j1Module()

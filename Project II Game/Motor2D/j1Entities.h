@@ -4,7 +4,7 @@
 #include "p2Point.h"
 #include "p2Log.h"
 #include "j1App.h"
-#include "SDL/include/SDL.h"
+#include <SDL.h>
 #include <vector>
 
 #include "j1Render.h"

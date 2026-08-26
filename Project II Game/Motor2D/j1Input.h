@@ -3,7 +3,7 @@
 
 #include "j1Module.h"
 #include "p2Point.h"
-#include "SDL/include/SDL.h"
+#include <SDL.h>
 
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5

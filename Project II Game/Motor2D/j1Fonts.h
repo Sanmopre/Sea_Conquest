@@ -2,7 +2,7 @@
 #define __J1FONTS_H__
 
 #include "j1Module.h"
-#include "SDL\include\SDL_pixels.h"
+#include <SDL_pixels.h>
 
 #define MAX_FONTS 11
 #define MAX_FONT_CHARS 256

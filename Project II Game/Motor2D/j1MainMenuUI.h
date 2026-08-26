@@ -2,7 +2,7 @@
 #define __j1MAINMENUUI_H__
 
 #include "j1Module.h"
-#include "SDL/include/SDL_rect.h"
+#include <SDL_rect.h>
 #include <vector>
 
 struct Main_Menu {

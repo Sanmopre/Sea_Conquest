@@ -3,7 +3,7 @@
 
 #include "p2List.h"
 #include "j1Module.h"
-#include "PugiXml\src\pugixml.hpp"
+#include "PugiXml/src/pugixml.hpp"
 #include "j1Timer.h"
 #include "j1PerfTimer.h"
 

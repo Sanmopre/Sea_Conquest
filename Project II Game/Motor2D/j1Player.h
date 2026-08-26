@@ -5,7 +5,7 @@
 #include "p2Point.h"
 #include "p2Log.h"
 #include "j1Entities.h"
-#include "SDL/include/SDL_rect.h"
+#include <SDL_rect.h>
 
 struct SDL_Texture;
 

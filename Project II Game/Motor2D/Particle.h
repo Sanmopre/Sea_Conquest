@@ -4,7 +4,7 @@
 #define MAX_PARTICLE_LIFESPAN 255
 
 #include "j1App.h"
-#include "SDL/include/SDL.h"
+#include <SDL.h>
 #include <vector>
 #include "p2Point.h"
 

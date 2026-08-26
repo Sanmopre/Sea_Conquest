@@ -3,7 +3,7 @@
 
 #include "j1Module.h"
 #include "j1Entities.h"
-#include "SDL/include/SDL_rect.h"
+#include <SDL_rect.h>
 #include <vector>
 
 struct Game_Menu {

@@ -5,9 +5,9 @@
 #include "p2Point.h"
 #include "p2Log.h"
 #include "j1Font.h"
-#include "SDL/include/SDL_render.h"
+#include <SDL_render.h>
 
-#include "SDL\include\SDL_pixels.h"
+#include <SDL_pixels.h>
 
 struct SDL_Texture;
 

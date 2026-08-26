@@ -1,4 +1,4 @@
-#include "SDL\include\SDL.h"
+#include <SDL.h>
 #include "j1App.h"
 #include "j1Module.h"
 #include "p2Point.h"

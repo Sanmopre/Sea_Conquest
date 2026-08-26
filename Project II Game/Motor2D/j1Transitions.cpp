@@ -6,8 +6,8 @@
 #include "j1Render.h"
 #include "j1TransitionManager.h"
 #include "j1Window.h"
-#include "SDL/include/SDL_render.h"
-#include "SDL/include/SDL_timer.h"
+#include <SDL_render.h>
+#include <SDL_timer.h>
 
 // This module controls each single transitions, with a start, 
 // a change of scenes, and the exit of the transition

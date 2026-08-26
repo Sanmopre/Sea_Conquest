@@ -4,7 +4,7 @@
 #include "j1Module.h"
 #include "j1Color.h"
 #include "j1Timer.h"
-#include "SDL/include/SDL_rect.h"
+#include <SDL_rect.h>
 #include "p2Point.h"
 
 class j1Transitions 
