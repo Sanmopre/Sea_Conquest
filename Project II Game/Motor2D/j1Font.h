@@ -9,7 +9,7 @@
 #define DEFAULT_FONT_SIZE 20
 
 struct SDL_Texture;
-struct _TTF_Font;
+struct TTF_Font;
 
 enum  names {
 	//BUILDINGS
@@ -52,19 +52,19 @@ public:
 	bool CleanUp();
 
 	// Load Font
-	_TTF_Font* const Load(const char* path, int size = 12);
+	TTF_Font* const Load(const char* path, int size = 12);
 
 	// Create a surface from text
-	SDL_Texture* Print(const char* text, SDL_Color color = { 255, 255, 255, 255 }, _TTF_Font* font = NULL);
+	SDL_Texture* Print(const char* text, SDL_Color color = { 255, 255, 255, 255 }, TTF_Font* font = NULL);
 
 	SDL_Texture* Change_Name(names name = names::NO_NAME);
 
-	bool CalcSize(const char* text, int& width, int& height, _TTF_Font* font = NULL) const;
+	bool CalcSize(const char* text, int& width, int& height, TTF_Font* font = NULL) const;
 
 public:
 
-	p2List<_TTF_Font*>	fonts;
-	_TTF_Font* default;
+	p2List<TTF_Font*>	fonts;
+	TTF_Font* default_font;
 
 private:
 	//buildings

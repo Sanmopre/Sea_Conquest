@@ -32,7 +32,7 @@ bool j1Font::Awake(pugi::xml_node& conf)
 	{
 		const char* path = conf.child("default_font").attribute("file").as_string(DEFAULT_FONT);
 		int size = conf.child("default_font").attribute("size").as_int(DEFAULT_FONT_SIZE);
-		default = Load(path, size);
+		default_font = Load(path, size);
 	}
 
 	return ret;
@@ -98,10 +98,10 @@ TTF_Font* const j1Font::Load(const char* path, int size)
 }
 
 // Print text using font
-SDL_Texture* j1Font::Print(const char* text, SDL_Color color, _TTF_Font* font)
+SDL_Texture* j1Font::Print(const char* text, SDL_Color color, TTF_Font* font)
 {
 	SDL_Texture* ret = nullptr;
-	SDL_Surface* surface = TTF_RenderText_Blended((font) ? font : default, text, color);
+	SDL_Surface* surface = TTF_RenderText_Blended((font) ? font : default_font, text, color);
 
 	if (text == "") {
 		return ret;
@@ -167,11 +167,11 @@ SDL_Texture* j1Font::Change_Name(names name)
 }
 
 // calculate size of a text
-bool j1Font::CalcSize(const char* text, int& width, int& height, _TTF_Font* font) const
+bool j1Font::CalcSize(const char* text, int& width, int& height, TTF_Font* font) const
 {
 	bool ret = false;
 
-	if (TTF_SizeText((font) ? font : default, text, & width, & height) != 0)
+	if (TTF_SizeText((font) ? font : default_font, text, & width, & height) != 0)
 		LOG("Unable to calc size of text surface! SDL_ttf Error: %s\n", TTF_GetError());
 	else
 		ret = true;

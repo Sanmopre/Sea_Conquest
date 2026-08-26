@@ -186,11 +186,19 @@ void j1MainMenuUI::GUI_Event_Manager(GUI_Event type, j1Element* element)
 		}
 		if (element == menu.link)
 		{
+#ifdef _WIN32
 			ShellExecuteA(NULL, "open", "https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II", NULL, NULL, SW_SHOWNORMAL);
+#else
+			system("xdg-open https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II");
+#endif
 		}
 		if (element == menu.instructions)
 		{
+#ifdef _WIN32
 			ShellExecuteA(NULL, "open", "https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/README.md", NULL, NULL, SW_SHOWNORMAL);
+#else
+			system("xdg-open https://github.com/Sanmopre/DOLIME-CORP-PROJECT-II/blob/master/README.md");
+#endif
 		}
 		
 	}

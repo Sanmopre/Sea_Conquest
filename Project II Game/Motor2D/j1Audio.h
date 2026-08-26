@@ -10,7 +10,7 @@
 #define DEFAULT_MUSIC_FADE_TIME 0.0f
 #define RAD_TO_DEG 57.32f				// The result of 180 / 3.14 for pass radiants to degrees
 #define MAX_DISTANCE 1000				// The maximum distance where you can listen
-struct _Mix_Music;
+struct Mix_Music;
 struct Mix_Chunk;
 typedef unsigned int uint;
 class j1Audio : public j1Module
@@ -81,7 +81,7 @@ public:
 
 private:
 	
-	_Mix_Music*			music = NULL;
+	Mix_Music*			music = NULL;
 	//Mix_Music* music;
 	std::list<Mix_Music*>	musics;
 	std::list<Mix_Chunk*>	fx;

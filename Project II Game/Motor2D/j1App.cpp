@@ -155,7 +155,8 @@ bool j1App::Awake()
 
 		while(item != NULL && ret == true)
 		{
-			ret = item->data->Awake(config.child(item->data->name.GetString()));
+			pugi::xml_node module_config = config.child(item->data->name.GetString());
+			ret = item->data->Awake(module_config);
 			item = item->next;
 		}
 	}

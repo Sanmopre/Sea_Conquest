@@ -5,6 +5,7 @@
 #include "p2Point.h"
 #include "j1Module.h"
 #include <map>
+#include <climits>
 
 struct BlitEvent
 {

@@ -6,7 +6,7 @@
 #include "j1Audio.h"
 #include "j1Render.h"
 #include "j1Window.h"
-#include "j1PathFinding.h"
+#include "j1Pathfinding.h"
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Map.h"

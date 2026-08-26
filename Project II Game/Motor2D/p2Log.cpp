@@ -1,4 +1,10 @@
 #include "p2Log.h"
+#include "p2Defs.h"
+#include <cstdarg>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 void log(const char file[], int line, const char* format, ...)
 {
@@ -11,5 +17,9 @@ void log(const char file[], int line, const char* format, ...)
 	vsprintf_s(tmp_string, 4096, format, ap);
 	va_end(ap);
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
+#ifdef _WIN32
 	OutputDebugString(tmp_string2);
+#else
+	fputs(tmp_string2, stdout);
+#endif
 }

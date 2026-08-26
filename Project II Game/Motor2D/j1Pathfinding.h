@@ -8,6 +8,7 @@
 #include "p2Point.h"
 #include "j1Module.h"
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
