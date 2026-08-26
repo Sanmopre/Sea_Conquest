@@ -1,0 +1,17 @@
+[requires]
+sdl/2.32.10
+sdl_image/2.8.12
+sdl_mixer/2.8.1
+sdl_ttf/2.24.0
+physfs/3.2.0
+
+[options]
+*:shared=True
+sdl_mixer/*:vorbis=vorbisfile
+
+[generators]
+CMakeDeps
+CMakeToolchain
+
+[layout]
+cmake_layout
